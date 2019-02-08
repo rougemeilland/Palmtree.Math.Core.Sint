@@ -1,0 +1,5 @@
+LIBRARY Palmtree.Math.Core.Sint.dll
+
+EXPORTS
+	PMC_SINT_Initialize
+	DoDebug
