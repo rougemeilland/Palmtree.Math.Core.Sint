@@ -23,10 +23,10 @@ __07425A21_test_op_clone@c DB 01H
 msvcjmc	ENDS
 PUBLIC	TEST_Clone_X
 PUBLIC	__JustMyCode_Default
-PUBLIC	??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@ ; `string'
-PUBLIC	??_C@_1CI@HEENINPI@?$AAP?$AAM?$AAC?$AA_?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd@ ; `string'
-PUBLIC	??_C@_1DO@KAMAINPL@?$AAP?$AAM?$AAC?$AA_?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AAn?$PP?$KJ?$AA0?$PP?$LD@ ; `string'
-PUBLIC	??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@ ; `string'
+PUBLIC	??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@ ; `string'
+PUBLIC	??_C@_1CA@CLLGGBHI@?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd?$AA?4?$AA?$CF?$AAd?$AA?$CJ@ ; `string'
+PUBLIC	??_C@_1DG@CCIPFPD@?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AAn?$PP?$KJ?$AA0?$PP?$LD?$PP?$PM?$PP?I?$AAL?$AA?$BP@ ; `string'
+PUBLIC	??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@ ; `string'
 PUBLIC	??_C@_1BK@CBDJCOBM@?$PP?G?$PP?$PM?$PP?$LP?$AAn?$PP?$IF?$PP?$LJ?$AAL?$AA?$AA?$PP?t?$AAW?$AAj?$AAD@ ; `string'
 EXTRN	TEST_Assert:PROC
 EXTRN	FormatTestLabel:PROC
@@ -64,38 +64,37 @@ CONST	SEGMENT
 	DB	'0', 0fcH, '0', 0bfH, '0n0', 085H, 'Q', 0b9H, '[L0', 00H, 'N', 0f4H
 	DB	081H, 'W0j0D0', 00H, 00H			; `string'
 CONST	ENDS
-;	COMDAT ??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@
+;	COMDAT ??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@
 CONST	SEGMENT
-??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@ DB 'P'
-	DB	00H, 'M', 00H, 'C', 00H, '_', 00H, 'T', 00H, 'o', 00H, 'B', 00H
-	DB	'y', 00H, 't', 00H, 'e', 00H, 'A', 00H, 'r', 00H, 'r', 00H, 'a'
-	DB	00H, 'y', 00H, 'n0', 0a9H, '_0^', 0b3H, '0', 0fcH, '0', 0c9H, '0'
-	DB	'L0', 01fH, 'g', 085H, '_', 01aH, 090H, 08aH, '0g0o0j0D0(', 00H
-	DB	'%', 00H, 'd', 00H, ')', 00H, 00H, 00H	; `string'
-CONST	ENDS
-;	COMDAT ??_C@_1DO@KAMAINPL@?$AAP?$AAM?$AAC?$AA_?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AAn?$PP?$KJ?$AA0?$PP?$LD@
-CONST	SEGMENT
-??_C@_1DO@KAMAINPL@?$AAP?$AAM?$AAC?$AA_?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AAn?$PP?$KJ?$AA0?$PP?$LD@ DB 'P'
-	DB	00H, 'M', 00H, 'C', 00H, '_', 00H, 'C', 00H, 'l', 00H, 'o', 00H
-	DB	'n', 00H, 'e', 00H, '_', 00H, 'X', 00H, 'n0', 0a9H, '_0^', 0b3H
+??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@ DB 'T'
+	DB	00H, 'o', 00H, 'B', 00H, 'y', 00H, 't', 00H, 'e', 00H, 'A', 00H
+	DB	'r', 00H, 'r', 00H, 'a', 00H, 'y', 00H, 'n0', 0a9H, '_0^', 0b3H
 	DB	'0', 0fcH, '0', 0c9H, '0L0', 01fH, 'g', 085H, '_', 01aH, 090H, 08aH
 	DB	'0g0o0j0D0(', 00H, '%', 00H, 'd', 00H, ')', 00H, 00H, 00H ; `string'
 CONST	ENDS
-;	COMDAT ??_C@_1CI@HEENINPI@?$AAP?$AAM?$AAC?$AA_?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd@
+;	COMDAT ??_C@_1DG@CCIPFPD@?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AAn?$PP?$KJ?$AA0?$PP?$LD?$PP?$PM?$PP?I?$AAL?$AA?$BP@
 CONST	SEGMENT
-??_C@_1CI@HEENINPI@?$AAP?$AAM?$AAC?$AA_?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd@ DB 'P'
-	DB	00H, 'M', 00H, 'C', 00H, '_', 00H, 'C', 00H, 'l', 00H, 'o', 00H
-	DB	'n', 00H, 'e', 00H, '_', 00H, 'X', 00H, ' ', 00H, '(', 00H, '%'
-	DB	00H, 'd', 00H, '.', 00H, '%', 00H, 'd', 00H, ')', 00H, 00H, 00H ; `string'
+??_C@_1DG@CCIPFPD@?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AAn?$PP?$KJ?$AA0?$PP?$LD?$PP?$PM?$PP?I?$AAL?$AA?$BP@ DB 'C'
+	DB	00H, 'l', 00H, 'o', 00H, 'n', 00H, 'e', 00H, '_', 00H, 'X', 00H
+	DB	'n0', 0a9H, '_0^', 0b3H, '0', 0fcH, '0', 0c9H, '0L0', 01fH, 'g'
+	DB	085H, '_', 01aH, 090H, 08aH, '0g0o0j0D0(', 00H, '%', 00H, 'd', 00H
+	DB	')', 00H, 00H, 00H				; `string'
 CONST	ENDS
-;	COMDAT ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+;	COMDAT ??_C@_1CA@CLLGGBHI@?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd?$AA?4?$AA?$CF?$AAd?$AA?$CJ@
 CONST	SEGMENT
-??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@ DB 'P'
-	DB	00H, 'M', 00H, 'C', 00H, '_', 00H, 'F', 00H, 'r', 00H, 'o', 00H
-	DB	'm', 00H, 'B', 00H, 'y', 00H, 't', 00H, 'e', 00H, 'A', 00H, 'r'
-	DB	00H, 'r', 00H, 'a', 00H, 'y', 00H, 'n0', 0a9H, '_0^', 0b3H, '0'
-	DB	0fcH, '0', 0c9H, '0L0', 01fH, 'g', 085H, '_', 01aH, 090H, 08aH
-	DB	'0g0o0j0D0(', 00H, '%', 00H, 'd', 00H, ')', 00H, 00H, 00H ; `string'
+??_C@_1CA@CLLGGBHI@?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd?$AA?4?$AA?$CF?$AAd?$AA?$CJ@ DB 'C'
+	DB	00H, 'l', 00H, 'o', 00H, 'n', 00H, 'e', 00H, '_', 00H, 'X', 00H
+	DB	' ', 00H, '(', 00H, '%', 00H, 'd', 00H, '.', 00H, '%', 00H, 'd'
+	DB	00H, ')', 00H, 00H, 00H			; `string'
+CONST	ENDS
+;	COMDAT ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
+CONST	SEGMENT
+??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@ DB 'F'
+	DB	00H, 'r', 00H, 'o', 00H, 'm', 00H, 'B', 00H, 'y', 00H, 't', 00H
+	DB	'e', 00H, 'A', 00H, 'r', 00H, 'r', 00H, 'a', 00H, 'y', 00H, 'n'
+	DB	'0', 0a9H, '_0^', 0b3H, '0', 0fcH, '0', 0c9H, '0L0', 01fH, 'g', 085H
+	DB	'_', 01aH, 090H, 08aH, '0g0o0j0D0(', 00H, '%', 00H, 'd', 00H, ')'
+	DB	00H, 00H, 00H				; `string'
 CONST	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
@@ -188,7 +187,7 @@ buffer2$ = 240
 count2$ = 248
 _EQUALS_MEMORY PROC					; COMDAT
 
-; 87   : {
+; 95   : {
 
 	mov	QWORD PTR [rsp+32], r9
 	mov	QWORD PTR [rsp+24], r8
@@ -206,26 +205,26 @@ _EQUALS_MEMORY PROC					; COMDAT
 	lea	rcx, OFFSET FLAT:__059414E1_pmc_sint_debug@h
 	call	__CheckForDebuggerJustMyCode
 
-; 88   :     if (count1 != count2)
+; 96   :     if (count1 != count2)
 
 	mov	rax, QWORD PTR count2$[rbp]
 	cmp	QWORD PTR count1$[rbp], rax
 	je	SHORT $LN4@EQUALS_MEM
 
-; 89   :         return (-1);
+; 97   :         return (-1);
 
 	mov	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN4@EQUALS_MEM:
 $LN2@EQUALS_MEM:
 
-; 90   :     while (count1 > 0)
+; 98   :     while (count1 > 0)
 
 	cmp	QWORD PTR count1$[rbp], 0
 	jbe	SHORT $LN3@EQUALS_MEM
 
-; 91   :     {
-; 92   :         if (*buffer1 != *buffer2)
+; 99   :     {
+; 100  :         if (*buffer1 != *buffer2)
 
 	mov	rax, QWORD PTR buffer1$[rbp]
 	movzx	eax, BYTE PTR [rax]
@@ -234,41 +233,41 @@ $LN2@EQUALS_MEM:
 	cmp	eax, ecx
 	je	SHORT $LN5@EQUALS_MEM
 
-; 93   :             return (-1);
+; 101  :             return (-1);
 
 	mov	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN5@EQUALS_MEM:
 
-; 94   :         ++buffer1;
+; 102  :         ++buffer1;
 
 	mov	rax, QWORD PTR buffer1$[rbp]
 	inc	rax
 	mov	QWORD PTR buffer1$[rbp], rax
 
-; 95   :         ++buffer2;
+; 103  :         ++buffer2;
 
 	mov	rax, QWORD PTR buffer2$[rbp]
 	inc	rax
 	mov	QWORD PTR buffer2$[rbp], rax
 
-; 96   :         --count1;
+; 104  :         --count1;
 
 	mov	rax, QWORD PTR count1$[rbp]
 	dec	rax
 	mov	QWORD PTR count1$[rbp], rax
 
-; 97   :     }
+; 105  :     }
 
 	jmp	SHORT $LN2@EQUALS_MEM
 $LN3@EQUALS_MEM:
 
-; 98   :     return (0);
+; 106  :     return (0);
 
 	xor	eax, eax
 $LN1@EQUALS_MEM:
 
-; 99   : }
+; 107  : }
 
 	lea	rsp, QWORD PTR [rbp+200]
 	pop	rdi
@@ -333,7 +332,7 @@ $LN13:
 ; 38   :     PMC_STATUS_CODE result;
 ; 39   :     PMC_STATUS_CODE x_result;
 ; 40   :     PMC_STATUS_CODE o_result;
-; 41   :     TEST_Assert(env, FormatTestLabel(L"PMC_Clone_X (%d.%d)", no, 1), (x_result = ep->FromByteArray(x_buf, x_buf_size, &x)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", x_result));
+; 41   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 1), (x_result = ep->FromByteArray(x_buf, x_buf_size, &x)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", x_result));
 
 	lea	r8, QWORD PTR x$[rbp]
 	mov	rdx, QWORD PTR x_buf_size$[rbp]
@@ -349,12 +348,12 @@ $LN5@TEST_Clone:
 	mov	DWORD PTR tv74[rbp], 0
 $LN6@TEST_Clone:
 	mov	edx, DWORD PTR x_result$[rbp]
-	lea	rcx, OFFSET FLAT:??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+	lea	rcx, OFFSET FLAT:??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 	call	FormatTestMesssage
 	mov	QWORD PTR tv64[rbp], rax
 	mov	r8d, 1
 	mov	edx, DWORD PTR no$[rbp]
-	lea	rcx, OFFSET FLAT:??_C@_1CI@HEENINPI@?$AAP?$AAM?$AAC?$AA_?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd@
+	lea	rcx, OFFSET FLAT:??_C@_1CA@CLLGGBHI@?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd?$AA?4?$AA?$CF?$AAd?$AA?$CJ@
 	call	FormatTestLabel
 	mov	rcx, QWORD PTR tv64[rbp]
 	mov	r9, rcx
@@ -363,7 +362,7 @@ $LN6@TEST_Clone:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 42   :     TEST_Assert(env, FormatTestLabel(L"PMC_Clone_X (%d.%d)", no, 2), (o_result = ep->Clone_X(x, &o)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_Clone_Xの復帰コードが期待通りではない(%d)", o_result));
+; 42   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 2), (o_result = ep->Clone_X(x, &o)) == PMC_STATUS_OK, FormatTestMesssage(L"Clone_Xの復帰コードが期待通りではない(%d)", o_result));
 
 	lea	rdx, QWORD PTR o$[rbp]
 	mov	rcx, QWORD PTR x$[rbp]
@@ -378,12 +377,12 @@ $LN7@TEST_Clone:
 	mov	DWORD PTR tv91[rbp], 0
 $LN8@TEST_Clone:
 	mov	edx, DWORD PTR o_result$[rbp]
-	lea	rcx, OFFSET FLAT:??_C@_1DO@KAMAINPL@?$AAP?$AAM?$AAC?$AA_?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AAn?$PP?$KJ?$AA0?$PP?$LD@
+	lea	rcx, OFFSET FLAT:??_C@_1DG@CCIPFPD@?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AAn?$PP?$KJ?$AA0?$PP?$LD?$PP?$PM?$PP?I?$AAL?$AA?$BP@
 	call	FormatTestMesssage
 	mov	QWORD PTR tv82[rbp], rax
 	mov	r8d, 2
 	mov	edx, DWORD PTR no$[rbp]
-	lea	rcx, OFFSET FLAT:??_C@_1CI@HEENINPI@?$AAP?$AAM?$AAC?$AA_?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd@
+	lea	rcx, OFFSET FLAT:??_C@_1CA@CLLGGBHI@?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd?$AA?4?$AA?$CF?$AAd?$AA?$CJ@
 	call	FormatTestLabel
 	mov	rcx, QWORD PTR tv82[rbp]
 	mov	r9, rcx
@@ -392,7 +391,7 @@ $LN8@TEST_Clone:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 43   :     TEST_Assert(env, FormatTestLabel(L"PMC_Clone_X (%d.%d)", no, 3), (result = ep->ToByteArray(o, actual_o_buf, sizeof(actual_o_buf), &actual_o_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+; 43   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 3), (result = ep->ToByteArray(o, actual_o_buf, sizeof(actual_o_buf), &actual_o_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
 
 	lea	r9, QWORD PTR actual_o_buf_size$[rbp]
 	mov	r8d, 256				; 00000100H
@@ -409,12 +408,12 @@ $LN9@TEST_Clone:
 	mov	DWORD PTR tv142[rbp], 0
 $LN10@TEST_Clone:
 	mov	edx, DWORD PTR result$[rbp]
-	lea	rcx, OFFSET FLAT:??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@
+	lea	rcx, OFFSET FLAT:??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@
 	call	FormatTestMesssage
 	mov	QWORD PTR tv131[rbp], rax
 	mov	r8d, 3
 	mov	edx, DWORD PTR no$[rbp]
-	lea	rcx, OFFSET FLAT:??_C@_1CI@HEENINPI@?$AAP?$AAM?$AAC?$AA_?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd@
+	lea	rcx, OFFSET FLAT:??_C@_1CA@CLLGGBHI@?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd?$AA?4?$AA?$CF?$AAd?$AA?$CJ@
 	call	FormatTestLabel
 	mov	rcx, QWORD PTR tv131[rbp]
 	mov	r9, rcx
@@ -423,7 +422,7 @@ $LN10@TEST_Clone:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 44   :     TEST_Assert(env, FormatTestLabel(L"PMC_Clone_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_o_buf, actual_o_buf_size, desired_o_buf, desired_o_buf_size) == 0, L"データの内容が一致しない");
+; 44   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_o_buf, actual_o_buf_size, desired_o_buf, desired_o_buf_size) == 0, L"データの内容が一致しない");
 
 	mov	r9, QWORD PTR desired_o_buf_size$[rbp]
 	mov	r8, QWORD PTR desired_o_buf$[rbp]
@@ -439,7 +438,7 @@ $LN11@TEST_Clone:
 $LN12@TEST_Clone:
 	mov	r8d, 4
 	mov	edx, DWORD PTR no$[rbp]
-	lea	rcx, OFFSET FLAT:??_C@_1CI@HEENINPI@?$AAP?$AAM?$AAC?$AA_?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd@
+	lea	rcx, OFFSET FLAT:??_C@_1CA@CLLGGBHI@?$AAC?$AAl?$AAo?$AAn?$AAe?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd?$AA?4?$AA?$CF?$AAd?$AA?$CJ@
 	call	FormatTestLabel
 	lea	r9, OFFSET FLAT:??_C@_1BK@CBDJCOBM@?$PP?G?$PP?$PM?$PP?$LP?$AAn?$PP?$IF?$PP?$LJ?$AAL?$AA?$AA?$PP?t?$AAW?$AAj?$AAD@
 	mov	r8d, DWORD PTR tv157[rbp]

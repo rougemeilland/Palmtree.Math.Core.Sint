@@ -2,13 +2,67 @@
 	.text
 .Ltext0:
 	.cfi_sections	.debug_frame
+	.globl	IsZero_UINT
+	.def	IsZero_UINT;	.scl	2;	.type	32;	.endef
+	.seh_proc	IsZero_UINT
+IsZero_UINT:
+.LFB4273:
+	.file 1 "../pmc_getnumbertype.c"
+	.loc 1 31 1
+	.cfi_startproc
+	pushq	%rbp
+	.seh_pushreg	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.seh_setframe	%rbp, 0
+	.cfi_def_cfa_register 6
+	subq	$48, %rsp
+	.seh_stackalloc	48
+	.seh_endprologue
+	movq	%rcx, 16(%rbp)
+	movq	%rdx, 24(%rbp)
+	.loc 1 34 26
+	movq	.refptr.ep_uint(%rip), %rax
+	movq	40(%rax), %r8
+	.loc 1 34 19
+	leaq	-8(%rbp), %rax
+	movq	%rax, %rdx
+	movq	16(%rbp), %rcx
+	call	*%r8
+.LVL0:
+	movl	%eax, -4(%rbp)
+	.loc 1 34 8
+	cmpl	$0, -4(%rbp)
+	je	.L2
+	.loc 1 35 16
+	movl	-4(%rbp), %eax
+	jmp	.L4
+.L2:
+	.loc 1 36 38
+	movl	-8(%rbp), %eax
+	andl	$1, %eax
+	.loc 1 36 14
+	movq	24(%rbp), %rdx
+	movb	%al, (%rdx)
+	.loc 1 37 12
+	movl	$0, %eax
+.L4:
+	.loc 1 38 1 discriminator 1
+	addq	$48, %rsp
+	popq	%rbp
+	.cfi_restore 6
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE4273:
+	.seh_endproc
 	.globl	PMC_GetNumberType_X
 	.def	PMC_GetNumberType_X;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_GetNumberType_X
 PMC_GetNumberType_X:
-.LFB4273:
-	.file 1 "../pmc_getnumbertype.c"
-	.loc 1 31 1
+.LFB4274:
+	.loc 1 41 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -22,109 +76,109 @@ PMC_GetNumberType_X:
 	.seh_endprologue
 	movq	%rcx, 16(%rbp)
 	movq	%rdx, 24(%rbp)
-	.loc 1 32 8
+	.loc 1 42 8
 	cmpq	$0, 16(%rbp)
-	jne	.L2
-	.loc 1 33 16
+	jne	.L6
+	.loc 1 43 16
 	movl	$-1, %eax
-	jmp	.L3
-.L2:
-	.loc 1 34 8
+	jmp	.L7
+.L6:
+	.loc 1 44 8
 	cmpq	$0, 24(%rbp)
-	jne	.L4
-	.loc 1 35 16
+	jne	.L8
+	.loc 1 45 16
 	movl	$-1, %eax
-	jmp	.L3
-.L4:
-	.loc 1 37 20
+	jmp	.L7
+.L8:
+	.loc 1 47 20
 	movq	16(%rbp), %rax
 	movq	%rax, -16(%rbp)
-	.loc 1 38 19
+	.loc 1 48 19
 	movq	-16(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -20(%rbp)
-	.loc 1 38 8
+	.loc 1 48 8
 	cmpl	$0, -20(%rbp)
-	je	.L5
-	.loc 1 39 16
+	je	.L9
+	.loc 1 49 16
 	movl	-20(%rbp), %eax
-	jmp	.L3
-.L5:
-	.loc 1 40 26
+	jmp	.L7
+.L9:
+	.loc 1 50 26
 	movl	$0, -4(%rbp)
-	.loc 1 41 9
+	.loc 1 51 9
 	movq	-16(%rbp), %rax
 	movzbl	20(%rax), %eax
 	andl	$2, %eax
-	.loc 1 41 8
+	.loc 1 51 8
 	testb	%al, %al
-	je	.L6
-	.loc 1 42 15
+	je	.L10
+	.loc 1 52 15
 	orl	$1, -4(%rbp)
-.L6:
-	.loc 1 43 9
+.L10:
+	.loc 1 53 9
 	movq	-16(%rbp), %rax
 	movzbl	20(%rax), %eax
 	andl	$4, %eax
-	.loc 1 43 8
+	.loc 1 53 8
 	testb	%al, %al
-	je	.L7
-	.loc 1 44 15
+	je	.L11
+	.loc 1 54 15
 	orl	$2, -4(%rbp)
-.L7:
-	.loc 1 45 9
+.L11:
+	.loc 1 55 9
 	movq	-16(%rbp), %rax
 	movzbl	20(%rax), %eax
 	andl	$8, %eax
-	.loc 1 45 8
+	.loc 1 55 8
 	testb	%al, %al
-	je	.L8
-	.loc 1 46 15
+	je	.L12
+	.loc 1 56 15
 	orl	$4, -4(%rbp)
-.L8:
-	.loc 1 47 9
+.L12:
+	.loc 1 57 9
 	movq	-16(%rbp), %rax
 	movzbl	20(%rax), %eax
 	andl	$16, %eax
-	.loc 1 47 8
+	.loc 1 57 8
 	testb	%al, %al
-	je	.L9
-	.loc 1 48 15
+	je	.L13
+	.loc 1 58 15
 	orl	$8, -4(%rbp)
-.L9:
-	.loc 1 49 9
+.L13:
+	.loc 1 59 9
 	movq	-16(%rbp), %rax
 	movzbl	20(%rax), %eax
 	andl	$32, %eax
-	.loc 1 49 8
+	.loc 1 59 8
 	testb	%al, %al
-	je	.L10
-	.loc 1 50 15
+	je	.L14
+	.loc 1 60 15
 	orl	$16, -4(%rbp)
-.L10:
-	.loc 1 51 8
+.L14:
+	.loc 1 61 8
 	movq	24(%rbp), %rax
 	movl	-4(%rbp), %edx
 	movl	%edx, (%rax)
-	.loc 1 52 12
+	.loc 1 62 12
 	movl	$0, %eax
-.L3:
-	.loc 1 53 1
+.L7:
+	.loc 1 63 1
 	addq	$64, %rsp
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE4273:
+.LFE4274:
 	.seh_endproc
 	.globl	Initialize_GetPropertyValue
 	.def	Initialize_GetPropertyValue;	.scl	2;	.type	32;	.endef
 	.seh_proc	Initialize_GetPropertyValue
 Initialize_GetPropertyValue:
-.LFB4274:
-	.loc 1 56 1
+.LFB4275:
+	.loc 1 66 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -135,15 +189,15 @@ Initialize_GetPropertyValue:
 	.cfi_def_cfa_register 6
 	.seh_endprologue
 	movq	%rcx, 16(%rbp)
-	.loc 1 57 12
+	.loc 1 67 12
 	movl	$0, %eax
-	.loc 1 58 1
+	.loc 1 68 1
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE4274:
+.LFE4275:
 	.seh_endproc
 .Letext0:
 	.file 2 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/crtdefs.h"
@@ -178,7 +232,7 @@ Initialize_GetPropertyValue:
 	.file 31 "../pmc_sint_internal.h"
 	.section	.debug_info,"dr"
 .Ldebug_info0:
-	.long	0x5a7d
+	.long	0x5ae6
 	.word	0x4
 	.secrel32	.Ldebug_abbrev0
 	.byte	0x8
@@ -5388,18 +5442,18 @@ Initialize_GetPropertyValue:
 	.uleb128 0x1d
 	.ascii "Initialize_GetPropertyValue\0"
 	.byte	0x1
-	.byte	0x37
+	.byte	0x41
 	.byte	0x11
 	.long	0x49d2
-	.quad	.LFB4274
-	.quad	.LFE4274-.LFB4274
+	.quad	.LFB4275
+	.quad	.LFE4275-.LFB4275
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x59f6
 	.uleb128 0x1e
 	.ascii "feature\0"
 	.byte	0x1
-	.byte	0x37
+	.byte	0x41
 	.byte	0x41
 	.long	0x59f6
 	.uleb128 0x2
@@ -5412,18 +5466,18 @@ Initialize_GetPropertyValue:
 	.uleb128 0x1f
 	.ascii "PMC_GetNumberType_X\0"
 	.byte	0x1
-	.byte	0x1e
+	.byte	0x28
 	.byte	0x11
 	.long	0x49d2
-	.quad	.LFB4273
-	.quad	.LFE4273-.LFB4273
+	.quad	.LFB4274
+	.quad	.LFE4274-.LFB4274
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x5a7a
 	.uleb128 0x1e
 	.ascii "x\0"
 	.byte	0x1
-	.byte	0x1e
+	.byte	0x28
 	.byte	0x35
 	.long	0x4ac1
 	.uleb128 0x2
@@ -5432,7 +5486,7 @@ Initialize_GetPropertyValue:
 	.uleb128 0x1e
 	.ascii "o\0"
 	.byte	0x1
-	.byte	0x1e
+	.byte	0x28
 	.byte	0x4e
 	.long	0x5399
 	.uleb128 0x2
@@ -5441,7 +5495,7 @@ Initialize_GetPropertyValue:
 	.uleb128 0x20
 	.ascii "result\0"
 	.byte	0x1
-	.byte	0x24
+	.byte	0x2e
 	.byte	0x15
 	.long	0x49d2
 	.uleb128 0x2
@@ -5450,7 +5504,7 @@ Initialize_GetPropertyValue:
 	.uleb128 0x20
 	.ascii "nx\0"
 	.byte	0x1
-	.byte	0x25
+	.byte	0x2f
 	.byte	0x14
 	.long	0x5a7a
 	.uleb128 0x2
@@ -5459,7 +5513,7 @@ Initialize_GetPropertyValue:
 	.uleb128 0x20
 	.ascii "value\0"
 	.byte	0x1
-	.byte	0x28
+	.byte	0x32
 	.byte	0x1a
 	.long	0x49ea
 	.uleb128 0x2
@@ -5469,6 +5523,53 @@ Initialize_GetPropertyValue:
 	.uleb128 0x6
 	.byte	0x8
 	.long	0x592a
+	.uleb128 0x21
+	.ascii "IsZero_UINT\0"
+	.byte	0x1
+	.byte	0x1e
+	.byte	0x11
+	.long	0x49d2
+	.quad	.LFB4273
+	.quad	.LFE4273-.LFB4273
+	.uleb128 0x1
+	.byte	0x9c
+	.uleb128 0x1e
+	.ascii "x\0"
+	.byte	0x1
+	.byte	0x1e
+	.byte	0x2d
+	.long	0x4a74
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 0
+	.uleb128 0x1e
+	.ascii "is_zero\0"
+	.byte	0x1
+	.byte	0x1e
+	.byte	0x36
+	.long	0x44d
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 8
+	.uleb128 0x20
+	.ascii "result\0"
+	.byte	0x1
+	.byte	0x20
+	.byte	0x15
+	.long	0x49d2
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -20
+	.uleb128 0x20
+	.ascii "type\0"
+	.byte	0x1
+	.byte	0x21
+	.byte	0x1a
+	.long	0x49ea
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -24
+	.byte	0
 	.byte	0
 	.section	.debug_abbrev,"dr"
 .Ldebug_abbrev0:
@@ -5958,6 +6059,33 @@ Initialize_GetPropertyValue:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
+	.uleb128 0x21
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2116
+	.uleb128 0x19
+	.byte	0
+	.byte	0
 	.byte	0
 	.section	.debug_aranges,"dr"
 	.long	0x2c
@@ -5988,3 +6116,8 @@ Initialize_GetPropertyValue:
 	.ascii "refcount\0"
 	.ident	"GCC: (x86_64-win32-seh-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	CheckNumber;	.scl	2;	.type	32;	.endef
+	.section	.rdata$.refptr.ep_uint, "dr"
+	.globl	.refptr.ep_uint
+	.linkonce	discard
+.refptr.ep_uint:
+	.quad	ep_uint

@@ -28,16 +28,6 @@
 #include "pmc_inline_func.h"
 
 
-static PMC_STATUS_CODE IS_ZERO_UINT(PMC_HANDLE_UINT x, char* is_zero)
-{
-    PMC_STATUS_CODE result;
-    PMC_NUMBER_TYPE_CODE type;
-    if ((result = ep_uint.GetNumberType_X(x, &type)) != PMC_STATUS_OK)
-        return (result);
-    *is_zero = (type & PMC_NUMBER_TYPE_IS_ZERO) ? 1 : 0;
-    return (PMC_STATUS_OK);
-}
-
 static PMC_STATUS_CODE AddU_X_I_Imp(char sign, PMC_HANDLE_UINT u, _UINT32_T v, NUMBER_HEADER** w)
 {
     PMC_STATUS_CODE result;
@@ -239,6 +229,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Add_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE
         {
             // v == 0 ÇÃèÍçá
 
+            // 0 Çï‘Ç∑
             nw = &number_zero;
         }
         else
@@ -333,6 +324,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Add_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE
         {
             // v == 0 ÇÃèÍçá
 
+            // 0 Çï‘Ç∑
             nw = &number_zero;
         }
         else
@@ -418,7 +410,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Add_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PM
     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
         return (result);
     char u_is_zero;
-    if ((result = IS_ZERO_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
+    if ((result = IsZero_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
         return (result);
     if (u_is_zero)
     {
@@ -500,19 +492,12 @@ PMC_STATUS_CODE __PMC_CALL PMC_Add_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE
         {
             // v == 0 ÇÃèÍçá
 
+            // 0 Çï‘Ç∑
             nw = &number_zero;
-        }
-        else if (v_sign > 0)
-        {
-            // v > 0 ÇÃèÍçá
-
-            // v Çï‘Ç∑
-            if ((result = From_I_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
-                return (result);
         }
         else
         {
-            // v < 0 ÇÃèÍçá
+            // v != 0 ÇÃèÍçá
 
             // v Çï‘Ç∑
             if ((result = From_I_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
@@ -602,19 +587,12 @@ PMC_STATUS_CODE __PMC_CALL PMC_Add_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE
         {
             // v == 0 ÇÃèÍçá
 
+            // 0 Çï‘Ç∑
             nw = &number_zero;
-        }
-        else if (v_sign > 0)
-        {
-            // v > 0 ÇÃèÍçá
-
-            // v Çï‘Ç∑
-            if ((result = From_L_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
-                return (result);
         }
         else
         {
-            // v < 0 ÇÃèÍçá
+            // v != 0 ÇÃèÍçá
 
             // v Çï‘Ç∑
             if ((result = From_L_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
@@ -697,7 +675,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PM
     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
         return (result);
     char v_is_zero;
-    if ((result = IS_ZERO_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
+    if ((result = IsZero_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
         return (result);
     if (nu->SIGN == 0)
     {
@@ -799,6 +777,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Add_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC
         {
             // v == 0 ÇÃèÍçá
 
+            // 0 Çï‘Ç∑
             nw = &number_zero;
         }
         else
@@ -893,6 +872,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Subtruct_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_H
         {
             // v == 0 ÇÃèÍçá
 
+            // 0 Çï‘Ç∑
             nw = &number_zero;
         }
         else
@@ -987,6 +967,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Subtruct_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_H
         {
             // v == 0 ÇÃèÍçá
 
+            // 0 Çï‘Ç∑
             nw = &number_zero;
         }
         else
@@ -1074,7 +1055,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Subtruct_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT 
     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
         return (result);
     char u_is_zero;
-    if ((result = IS_ZERO_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
+    if ((result = IsZero_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
         return (result);
     if (u_is_zero)
     {
@@ -1087,17 +1068,9 @@ PMC_STATUS_CODE __PMC_CALL PMC_Subtruct_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT 
             // 0 Çï‘Ç∑
             nw = &number_zero;
         }
-        else if (nv->SIGN > 0)
-        {
-            // v > 0 ÇÃèÍçá
-
-            // -v Çï‘Ç∑
-            if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
-                return (result);
-        }
         else
         {
-            // v < 0 ÇÃèÍçá
+            // v != 0 ÇÃèÍçá
 
             // -v Çï‘Ç∑
             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
@@ -1164,19 +1137,12 @@ PMC_STATUS_CODE __PMC_CALL PMC_Subtruct_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_H
         {
             // v == 0 ÇÃèÍçá
 
+            // 0 Çï‘Ç∑
             nw = &number_zero;
-        }
-        else if (v_sign > 0)
-        {
-            // v > 0 ÇÃèÍçá
-
-            // -v Çï‘Ç∑
-            if ((result = From_I_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
-                return (result);
         }
         else
         {
-            // v < 0 ÇÃèÍçá
+            // v != 0 ÇÃèÍçá
 
             // -v Çï‘Ç∑
             if ((result = From_I_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
@@ -1266,21 +1232,14 @@ PMC_STATUS_CODE __PMC_CALL PMC_Subtruct_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_H
         {
             // v == 0 ÇÃèÍçá
 
+            // 0 Çï‘Ç∑
             nw = &number_zero;
-        }
-        else if (v_sign > 0)
-        {
-            // v > 0 ÇÃèÍçá
-
-            // -v Çï‘Ç∑
-            if ((result = From_L_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
-                return (result);
         }
         else
         {
-            // v < 0 ÇÃèÍçá
+            // v != 0 ÇÃèÍçá
 
-            // - v Çï‘Ç∑
+            // -v Çï‘Ç∑
             if ((result = From_L_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
                 return (result);
         }
@@ -1361,7 +1320,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT 
     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
         return (result);
     char v_is_zero;
-    if ((result = IS_ZERO_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
+    if ((result = IsZero_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
         return (result);
     if (nu->SIGN == 0)
     {
@@ -1461,6 +1420,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Subtruct_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v
         {
             // v == 0 ÇÃèÍçá
 
+            // 0 Çï‘Ç∑
             nw = &number_zero;
         }
         else

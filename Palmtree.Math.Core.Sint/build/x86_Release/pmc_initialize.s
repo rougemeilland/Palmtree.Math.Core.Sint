@@ -104,6 +104,13 @@ L14:
 	movl	$_PMC_Subtruct_X_L@16, _entry_points+372
 	movl	$_PMC_Subtruct_X_UX@12, _entry_points+376
 	movl	$_PMC_Subtruct_X_X@12, _entry_points+380
+	movl	$_PMC_Multiply_I_X@12, _entry_points+384
+	movl	$_PMC_Multiply_L_X@16, _entry_points+388
+	movl	$_PMC_Multiply_UX_X@12, _entry_points+392
+	movl	$_PMC_Multiply_X_I@12, _entry_points+396
+	movl	$_PMC_Multiply_X_L@16, _entry_points+400
+	movl	$_PMC_Multiply_X_UX@12, _entry_points+404
+	movl	$_PMC_Multiply_X_X@12, _entry_points+408
 	movl	$_PMC_GetNumberType_X@8, _entry_points+296
 	movl	$_PMC_GetConstantValue_I@8, _entry_points+300
 	movl	$_PMC_Clone_X@8, _entry_points+312
@@ -178,7 +185,7 @@ LFE5483:
 .lcomm _initialized,4,4
 .lcomm _fp_PMC_UINT_Initialize,4,4
 .lcomm _hLib_UINT,4,4
-.lcomm _entry_points,384,32
+.lcomm _entry_points,412,32
 	.comm	_ep_uint, 280, 5
 	.ident	"GCC: (i686-win32-dwarf-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	_Initialize_Memory;	.scl	2;	.type	32;	.endef
@@ -204,6 +211,13 @@ LFE5483:
 	.def	_PMC_Subtruct_X_L@16;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Subtruct_X_UX@12;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Subtruct_X_X@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Multiply_I_X@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Multiply_L_X@16;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Multiply_UX_X@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Multiply_X_I@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Multiply_X_L@16;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Multiply_X_UX@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Multiply_X_X@12;	.scl	2;	.type	32;	.endef
 	.def	_PMC_GetNumberType_X@8;	.scl	2;	.type	32;	.endef
 	.def	_PMC_GetConstantValue_I@8;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Clone_X@8;	.scl	2;	.type	32;	.endef

@@ -37,7 +37,7 @@ PUBLIC	DumpBinary_UNIT
 PUBLIC	__JustMyCode_Default
 PUBLIC	??_C@_1O@FHBPNOC@?$PP?F?$PP?$LJ?$PP?H?$PP?$IL?$PP?K?$AA?6@ ; `string'
 PUBLIC	??_C@_1GM@EPACJBNM@?$PP?F?$PP?$LJ?$PP?H?$PP?$IM?$PP?$IG?$AA?$AC?$AA?$AF?$PP?n?$AAp?$AA?$DN?$AA?$CF?$AAd?$AA?0?$AA?5?$AAO@ ; `string'
-PUBLIC	??_C@_1DI@HIGJHGGN@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAI?$AAN?$AAT?$AA_?$AAI?$AAn?$AAi?$AAt?$AAi?$AAa@ ; `string'
+PUBLIC	??_C@_1DA@GFAGACCL@?$AAS?$AAI?$AAN?$AAT?$AA_?$AAI?$AAn?$AAi?$AAt?$AAi?$AAa?$AAl?$AAi?$AAz?$AAe@ ; `string'
 PUBLIC	??_C@_17EIACCBPF@?$AAx?$AA6?$AA4@		; `string'
 PUBLIC	??_C@_17CLPOHKCA@?$AAM?$AAS?$AAC@		; `string'
 PUBLIC	??_C@_1BM@IMGEAKDJ@?$AAP?$AAL?$AAA?$AAT?$AAF?$AAO?$AAR?$AAM?$AA?3?$AA?5?$AA?$CF?$AAs?$AA?6@ ; `string'
@@ -175,14 +175,13 @@ CONST	ENDS
 CONST	SEGMENT
 ??_C@_17EIACCBPF@?$AAx?$AA6?$AA4@ DB 'x', 00H, '6', 00H, '4', 00H, 00H, 00H ; `string'
 CONST	ENDS
-;	COMDAT ??_C@_1DI@HIGJHGGN@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAI?$AAN?$AAT?$AA_?$AAI?$AAn?$AAi?$AAt?$AAi?$AAa@
+;	COMDAT ??_C@_1DA@GFAGACCL@?$AAS?$AAI?$AAN?$AAT?$AA_?$AAI?$AAn?$AAi?$AAt?$AAi?$AAa?$AAl?$AAi?$AAz?$AAe@
 CONST	SEGMENT
-??_C@_1DI@HIGJHGGN@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAI?$AAN?$AAT?$AA_?$AAI?$AAn?$AAi?$AAt?$AAi?$AAa@ DB 'P'
-	DB	00H, 'M', 00H, 'C', 00H, '_', 00H, 'S', 00H, 'I', 00H, 'N', 00H
-	DB	'T', 00H, '_', 00H, 'I', 00H, 'n', 00H, 'i', 00H, 't', 00H, 'i'
-	DB	00H, 'a', 00H, 'l', 00H, 'i', 00H, 'z', 00H, 'e', 00H, ' ', 00H
-	DB	'f', 00H, 'a', 00H, 'i', 00H, 'l', 00H, 'e', 00H, 'd', 00H, 0aH
-	DB	00H, 00H, 00H				; `string'
+??_C@_1DA@GFAGACCL@?$AAS?$AAI?$AAN?$AAT?$AA_?$AAI?$AAn?$AAi?$AAt?$AAi?$AAa?$AAl?$AAi?$AAz?$AAe@ DB 'S'
+	DB	00H, 'I', 00H, 'N', 00H, 'T', 00H, '_', 00H, 'I', 00H, 'n', 00H
+	DB	'i', 00H, 't', 00H, 'i', 00H, 'a', 00H, 'l', 00H, 'i', 00H, 'z'
+	DB	00H, 'e', 00H, ' ', 00H, 'f', 00H, 'a', 00H, 'i', 00H, 'l', 00H
+	DB	'e', 00H, 'd', 00H, 0aH, 00H, 00H, 00H	; `string'
 CONST	ENDS
 ;	COMDAT ??_C@_1GM@EPACJBNM@?$PP?F?$PP?$LJ?$PP?H?$PP?$IM?$PP?$IG?$AA?$AC?$AA?$AF?$PP?n?$AAp?$AA?$DN?$AA?$CF?$AAd?$AA?0?$AA?5?$AAO@
 CONST	SEGMENT
@@ -470,9 +469,9 @@ $LN4:
 	jne	SHORT $LN2@DoDebug
 
 ; 72   :     {
-; 73   :          env->log(L"PMC_SINT_Initialize failed\n");
+; 73   :          env->log(L"SINT_Initialize failed\n");
 
-	lea	rcx, OFFSET FLAT:??_C@_1DI@HIGJHGGN@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAI?$AAN?$AAT?$AA_?$AAI?$AAn?$AAi?$AAt?$AAi?$AAa@
+	lea	rcx, OFFSET FLAT:??_C@_1DA@GFAGACCL@?$AAS?$AAI?$AAN?$AAT?$AA_?$AAI?$AAn?$AAi?$AAt?$AAi?$AAa?$AAl?$AAi?$AAz?$AAe@
 	mov	rax, QWORD PTR env$[rbp]
 	call	QWORD PTR [rax]
 

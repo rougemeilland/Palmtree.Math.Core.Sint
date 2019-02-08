@@ -87798,7 +87798,16 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
     PMC_STATUS_CODE ( * Subtruct_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE ( * Subtruct_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE ( * Subtruct_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-# 416 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+
+
+    PMC_STATUS_CODE ( * Multiply_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE ( * Multiply_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE ( * Multiply_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE ( * Multiply_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE ( * Multiply_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE ( * Multiply_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE ( * Multiply_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+# 418 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 } PMC_SINT_ENTRY_POINTS;
 #pragma endregion
 
@@ -87903,6 +87912,7 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern void DeallocateNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE CheckNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE DuplicateNumber(NUMBER_HEADER* x, NUMBER_HEADER** op);
+    extern PMC_STATUS_CODE IsZero_UINT(PMC_HANDLE_UINT x, char* is_zero);
     extern PMC_STATUS_CODE Negate_Imp(NUMBER_HEADER* x, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_I_Imp(char x_sign, _UINT32_T x_abs, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_L_Imp(char x_sign, _UINT64_T x_abs, NUMBER_HEADER** o);
@@ -87956,7 +87966,15 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern PMC_STATUS_CODE PMC_Subtruct_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE PMC_Subtruct_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-# 191 "../pmc_sint_internal.h"
+
+    extern PMC_STATUS_CODE PMC_Multiply_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+# 195 "../pmc_sint_internal.h"
 #pragma endregion
 
 
@@ -89589,16 +89607,6 @@ void __writemsr(unsigned long msr, unsigned long long Value)
 # 29 "../pmc_add_sub.c" 2
 
 
-static PMC_STATUS_CODE IS_ZERO_UINT(PMC_HANDLE_UINT x, char* is_zero)
-{
-    PMC_STATUS_CODE result;
-    PMC_NUMBER_TYPE_CODE type;
-    if ((result = ep_uint.GetNumberType_X(x, &type)) != (0))
-        return (result);
-    *is_zero = (type & (0x0001)) ? 1 : 0;
-    return ((0));
-}
-
 static PMC_STATUS_CODE AddU_X_I_Imp(char sign, PMC_HANDLE_UINT u, _UINT32_T v, NUMBER_HEADER** w)
 {
     PMC_STATUS_CODE result;
@@ -89782,15 +89790,15 @@ static PMC_STATUS_CODE SubtructU_X_X_Imp(char sign, PMC_HANDLE_UINT u, PMC_HANDL
 PMC_STATUS_CODE PMC_Add_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (v == 
-# 223 "../pmc_add_sub.c" 3 4
+# 213 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 223 "../pmc_add_sub.c"
+# 213 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 225 "../pmc_add_sub.c" 3 4
+# 215 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 225 "../pmc_add_sub.c"
+# 215 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -89806,6 +89814,7 @@ PMC_STATUS_CODE PMC_Add_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 
         if (nv->SIGN == 0)
         {
+
 
 
             nw = &number_zero;
@@ -89884,15 +89893,15 @@ PMC_STATUS_CODE PMC_Add_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 PMC_STATUS_CODE PMC_Add_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (v == 
-# 317 "../pmc_add_sub.c" 3 4
+# 308 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 317 "../pmc_add_sub.c"
+# 308 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 319 "../pmc_add_sub.c" 3 4
+# 310 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 319 "../pmc_add_sub.c"
+# 310 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -89908,6 +89917,7 @@ PMC_STATUS_CODE PMC_Add_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 
         if (nv->SIGN == 0)
         {
+
 
 
             nw = &number_zero;
@@ -89986,15 +89996,15 @@ PMC_STATUS_CODE PMC_Add_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 PMC_STATUS_CODE PMC_Add_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (v == 
-# 411 "../pmc_add_sub.c" 3 4
+# 403 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 411 "../pmc_add_sub.c"
+# 403 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 413 "../pmc_add_sub.c" 3 4
+# 405 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 413 "../pmc_add_sub.c"
+# 405 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -90003,7 +90013,7 @@ PMC_STATUS_CODE PMC_Add_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SI
     if ((result = CheckNumber(nv)) != (0))
         return (result);
     char u_is_zero;
-    if ((result = IS_ZERO_UINT(u, &u_is_zero)) != (0))
+    if ((result = IsZero_UINT(u, &u_is_zero)) != (0))
         return (result);
     if (u_is_zero)
     {
@@ -90067,15 +90077,15 @@ PMC_STATUS_CODE PMC_Add_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SI
 PMC_STATUS_CODE PMC_Add_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 484 "../pmc_add_sub.c" 3 4
+# 476 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 484 "../pmc_add_sub.c"
+# 476 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 486 "../pmc_add_sub.c" 3 4
+# 478 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 486 "../pmc_add_sub.c"
+# 478 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -90093,15 +90103,8 @@ PMC_STATUS_CODE PMC_Add_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w)
         {
 
 
+
             nw = &number_zero;
-        }
-        else if (v_sign > 0)
-        {
-
-
-
-            if ((result = From_I_Imp(v_sign, v_abs, &nw)) != (0))
-                return (result);
         }
         else
         {
@@ -90177,15 +90180,15 @@ PMC_STATUS_CODE PMC_Add_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w)
 PMC_STATUS_CODE PMC_Add_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 586 "../pmc_add_sub.c" 3 4
+# 571 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 586 "../pmc_add_sub.c"
+# 571 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 588 "../pmc_add_sub.c" 3 4
+# 573 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 588 "../pmc_add_sub.c"
+# 573 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -90203,15 +90206,8 @@ PMC_STATUS_CODE PMC_Add_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w)
         {
 
 
+
             nw = &number_zero;
-        }
-        else if (v_sign > 0)
-        {
-
-
-
-            if ((result = From_L_Imp(v_sign, v_abs, &nw)) != (0))
-                return (result);
         }
         else
         {
@@ -90287,21 +90283,21 @@ PMC_STATUS_CODE PMC_Add_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w)
 PMC_STATUS_CODE PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 688 "../pmc_add_sub.c" 3 4
+# 666 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 688 "../pmc_add_sub.c"
+# 666 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (v == 
-# 690 "../pmc_add_sub.c" 3 4
+# 668 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 690 "../pmc_add_sub.c"
+# 668 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 692 "../pmc_add_sub.c" 3 4
+# 670 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 692 "../pmc_add_sub.c"
+# 670 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -90310,7 +90306,7 @@ PMC_STATUS_CODE PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SI
     if ((result = CheckNumber(nu)) != (0))
         return (result);
     char v_is_zero;
-    if ((result = IS_ZERO_UINT(v, &v_is_zero)) != (0))
+    if ((result = IsZero_UINT(v, &v_is_zero)) != (0))
         return (result);
     if (nu->SIGN == 0)
     {
@@ -90391,21 +90387,21 @@ PMC_STATUS_CODE PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SI
 PMC_STATUS_CODE PMC_Add_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 780 "../pmc_add_sub.c" 3 4
+# 758 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 780 "../pmc_add_sub.c"
+# 758 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (v == 
-# 782 "../pmc_add_sub.c" 3 4
+# 760 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 782 "../pmc_add_sub.c"
+# 760 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 784 "../pmc_add_sub.c" 3 4
+# 762 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 784 "../pmc_add_sub.c"
+# 762 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -90422,6 +90418,7 @@ PMC_STATUS_CODE PMC_Add_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SIN
 
         if (nv->SIGN == 0)
         {
+
 
 
             nw = &number_zero;
@@ -90500,15 +90497,15 @@ PMC_STATUS_CODE PMC_Add_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SIN
 PMC_STATUS_CODE PMC_Subtruct_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (v == 
-# 877 "../pmc_add_sub.c" 3 4
+# 856 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 877 "../pmc_add_sub.c"
+# 856 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 879 "../pmc_add_sub.c" 3 4
+# 858 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 879 "../pmc_add_sub.c"
+# 858 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -90524,6 +90521,7 @@ PMC_STATUS_CODE PMC_Subtruct_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT*
 
         if (nv->SIGN == 0)
         {
+
 
 
             nw = &number_zero;
@@ -90602,15 +90600,15 @@ PMC_STATUS_CODE PMC_Subtruct_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT*
 PMC_STATUS_CODE PMC_Subtruct_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (v == 
-# 971 "../pmc_add_sub.c" 3 4
+# 951 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 971 "../pmc_add_sub.c"
+# 951 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 973 "../pmc_add_sub.c" 3 4
+# 953 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 973 "../pmc_add_sub.c"
+# 953 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -90626,6 +90624,7 @@ PMC_STATUS_CODE PMC_Subtruct_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT*
 
         if (nv->SIGN == 0)
         {
+
 
 
             nw = &number_zero;
@@ -90704,21 +90703,21 @@ PMC_STATUS_CODE PMC_Subtruct_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT*
 PMC_STATUS_CODE PMC_Subtruct_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 1065 "../pmc_add_sub.c" 3 4
+# 1046 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1065 "../pmc_add_sub.c"
+# 1046 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (v == 
-# 1067 "../pmc_add_sub.c" 3 4
+# 1048 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1067 "../pmc_add_sub.c"
+# 1048 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 1069 "../pmc_add_sub.c" 3 4
+# 1050 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1069 "../pmc_add_sub.c"
+# 1050 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -90727,7 +90726,7 @@ PMC_STATUS_CODE PMC_Subtruct_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HAND
     if ((result = CheckNumber(nv)) != (0))
         return (result);
     char u_is_zero;
-    if ((result = IS_ZERO_UINT(u, &u_is_zero)) != (0))
+    if ((result = IsZero_UINT(u, &u_is_zero)) != (0))
         return (result);
     if (u_is_zero)
     {
@@ -90739,14 +90738,6 @@ PMC_STATUS_CODE PMC_Subtruct_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HAND
 
 
             nw = &number_zero;
-        }
-        else if (nv->SIGN > 0)
-        {
-
-
-
-            if ((result = Negate_Imp(nv, &nw)) != (0))
-                return (result);
         }
         else
         {
@@ -90799,15 +90790,15 @@ PMC_STATUS_CODE PMC_Subtruct_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HAND
 PMC_STATUS_CODE PMC_Subtruct_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 1148 "../pmc_add_sub.c" 3 4
+# 1121 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1148 "../pmc_add_sub.c"
+# 1121 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 1150 "../pmc_add_sub.c" 3 4
+# 1123 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1150 "../pmc_add_sub.c"
+# 1123 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -90825,15 +90816,8 @@ PMC_STATUS_CODE PMC_Subtruct_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT*
         {
 
 
+
             nw = &number_zero;
-        }
-        else if (v_sign > 0)
-        {
-
-
-
-            if ((result = From_I_Imp(-v_sign, v_abs, &nw)) != (0))
-                return (result);
         }
         else
         {
@@ -90909,15 +90893,15 @@ PMC_STATUS_CODE PMC_Subtruct_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT*
 PMC_STATUS_CODE PMC_Subtruct_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 1250 "../pmc_add_sub.c" 3 4
+# 1216 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1250 "../pmc_add_sub.c"
+# 1216 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 1252 "../pmc_add_sub.c" 3 4
+# 1218 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1252 "../pmc_add_sub.c"
+# 1218 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -90935,15 +90919,8 @@ PMC_STATUS_CODE PMC_Subtruct_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT*
         {
 
 
+
             nw = &number_zero;
-        }
-        else if (v_sign > 0)
-        {
-
-
-
-            if ((result = From_L_Imp(-v_sign, v_abs, &nw)) != (0))
-                return (result);
         }
         else
         {
@@ -91019,21 +90996,21 @@ PMC_STATUS_CODE PMC_Subtruct_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT*
 PMC_STATUS_CODE PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 1352 "../pmc_add_sub.c" 3 4
+# 1311 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1352 "../pmc_add_sub.c"
+# 1311 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (v == 
-# 1354 "../pmc_add_sub.c" 3 4
+# 1313 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1354 "../pmc_add_sub.c"
+# 1313 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 1356 "../pmc_add_sub.c" 3 4
+# 1315 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1356 "../pmc_add_sub.c"
+# 1315 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -91042,7 +91019,7 @@ PMC_STATUS_CODE PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HAND
     if ((result = CheckNumber(nu)) != (0))
         return (result);
     char v_is_zero;
-    if ((result = IS_ZERO_UINT(v, &v_is_zero)) != (0))
+    if ((result = IsZero_UINT(v, &v_is_zero)) != (0))
         return (result);
     if (nu->SIGN == 0)
     {
@@ -91121,21 +91098,21 @@ PMC_STATUS_CODE PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HAND
 PMC_STATUS_CODE PMC_Subtruct_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 1442 "../pmc_add_sub.c" 3 4
+# 1401 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1442 "../pmc_add_sub.c"
+# 1401 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (v == 
-# 1444 "../pmc_add_sub.c" 3 4
+# 1403 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1444 "../pmc_add_sub.c"
+# 1403 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 1446 "../pmc_add_sub.c" 3 4
+# 1405 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1446 "../pmc_add_sub.c"
+# 1405 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -91152,6 +91129,7 @@ PMC_STATUS_CODE PMC_Subtruct_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDL
 
         if (nv->SIGN == 0)
         {
+
 
 
             nw = &number_zero;

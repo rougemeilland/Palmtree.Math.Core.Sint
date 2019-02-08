@@ -666,10 +666,6 @@ PMC_Add_L_X:
 	.def	PMC_Add_UX_X;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Add_UX_X
 PMC_Add_UX_X:
-	pushq	%r13
-	.seh_pushreg	%r13
-	pushq	%r12
-	.seh_pushreg	%r12
 	pushq	%rbp
 	.seh_pushreg	%rbp
 	pushq	%rdi
@@ -678,112 +674,108 @@ PMC_Add_UX_X:
 	.seh_pushreg	%rsi
 	pushq	%rbx
 	.seh_pushreg	%rbx
-	subq	$72, %rsp
-	.seh_stackalloc	72
+	subq	$88, %rsp
+	.seh_stackalloc	88
 	.seh_endprologue
 	testq	%r8, %r8
 	movq	%rcx, %rbp
 	movq	%rdx, %rsi
 	movq	%r8, %rdi
-	je	.L158
+	je	.L156
 	testq	%rdx, %rdx
-	je	.L158
+	je	.L156
 	movq	%rdx, %rcx
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %ebx
-	jne	.L148
-	movq	.refptr.ep_uint(%rip), %r12
-	leaq	56(%rsp), %r13
-	movq	%rbp, %rcx
-	movq	%r13, %rdx
-	call	*40(%r12)
-	testl	%eax, %eax
-	movl	%eax, %ebx
-	jne	.L148
-	testb	$1, 56(%rsp)
-	movzbl	16(%rsi), %eax
-	je	.L164
-	testb	%al, %al
-	movq	.refptr.number_zero(%rip), %rdx
-	jne	.L166
-	movq	%rdx, (%rdi)
+	je	.L163
 .L148:
 	movl	%ebx, %eax
-	addq	$72, %rsp
+	addq	$88, %rsp
 	popq	%rbx
 	popq	%rsi
 	popq	%rdi
 	popq	%rbp
-	popq	%r12
-	popq	%r13
 	ret
 	.p2align 4,,10
-.L164:
-	testb	%al, %al
-	jne	.L154
-	movq	%r13, %rdx
+.L163:
+	leaq	63(%rsp), %rdx
 	movq	%rbp, %rcx
-	call	*88(%r12)
+	call	IsZero_UINT
 	testl	%eax, %eax
-	jne	.L162
-	movq	56(%rsp), %r8
-	leaq	48(%rsp), %rcx
-	movl	$1, %edx
-	call	AllocateNumber
-	testl	%eax, %eax
-	jne	.L167
-.L165:
-	movq	48(%rsp), %rdx
+	movl	%eax, %ebx
+	jne	.L148
+	cmpb	$0, 63(%rsp)
+	movzbl	16(%rsi), %eax
+	je	.L150
+	testb	%al, %al
+	movq	.refptr.number_zero(%rip), %rdx
+	jne	.L164
+.L151:
+	movl	%ebx, %eax
 	movq	%rdx, (%rdi)
-	jmp	.L148
+	addq	$88, %rsp
+	popq	%rbx
+	popq	%rsi
+	popq	%rdi
+	popq	%rbp
+	ret
 	.p2align 4,,10
-.L154:
-	movq	8(%rsi), %r8
-	leaq	48(%rsp), %r9
-	movq	%rbp, %rdx
-	movl	$1, %ecx
-	jle	.L157
-	call	AddU_X_X_Imp
+.L150:
+	testb	%al, %al
+	jne	.L152
+	movq	.refptr.ep_uint(%rip), %rsi
+	leaq	72(%rsp), %rdx
+	movq	%rbp, %rcx
+	call	*88(%rsi)
 	testl	%eax, %eax
 	je	.L165
-	.p2align 4,,10
-.L162:
+.L160:
 	movl	%eax, %ebx
-.L168:
-	movl	%ebx, %eax
-	addq	$72, %rsp
-	popq	%rbx
-	popq	%rsi
-	popq	%rdi
-	popq	%rbp
-	popq	%r12
-	popq	%r13
-	ret
+	jmp	.L148
 	.p2align 4,,10
-.L166:
-	leaq	48(%rsp), %rdx
+.L152:
+	movq	8(%rsi), %r8
+	leaq	64(%rsp), %r9
+	movq	%rbp, %rdx
+	movl	$1, %ecx
+	jle	.L155
+	call	AddU_X_X_Imp
+	testl	%eax, %eax
+	jne	.L160
+.L162:
+	movq	64(%rsp), %rdx
+	jmp	.L151
+	.p2align 4,,10
+.L164:
+	leaq	64(%rsp), %rdx
 	movq	%rsi, %rcx
 	call	DuplicateNumber
 	testl	%eax, %eax
-	je	.L165
-	jmp	.L162
+	je	.L162
+	jmp	.L160
 	.p2align 4,,10
-.L167:
+.L165:
+	movq	72(%rsp), %r8
+	leaq	64(%rsp), %rcx
+	movl	$1, %edx
+	call	AllocateNumber
+	testl	%eax, %eax
+	je	.L162
 	movl	%eax, 44(%rsp)
-	movq	56(%rsp), %rcx
-	call	*32(%r12)
+	movq	72(%rsp), %rcx
+	call	*32(%rsi)
 	movl	44(%rsp), %eax
 	movl	%eax, %ebx
-	jmp	.L168
+	jmp	.L148
 	.p2align 4,,10
-.L157:
+.L155:
 	call	SubtructU_X_X_Imp
 	testl	%eax, %eax
-	je	.L165
-	jmp	.L162
+	je	.L162
+	jmp	.L160
 	.p2align 4,,10
-.L158:
+.L156:
 	movl	$-1, %ebx
 	jmp	.L148
 	.seh_endproc
@@ -803,36 +795,27 @@ PMC_Add_X_I:
 	subq	$56, %rsp
 	.seh_stackalloc	56
 	.seh_endprologue
-	testq	%rcx, %rcx
-	movq	%rcx, %rbx
-	movl	%edx, %edi
-	movq	%r8, %rbp
-	je	.L184
 	testq	%r8, %r8
-	je	.L184
+	movq	%rcx, %rbx
+	movl	%edx, %ebp
+	movq	%r8, %rdi
+	je	.L180
+	testq	%rcx, %rcx
+	je	.L180
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %esi
-	jne	.L169
-	testl	%edi, %edi
+	jne	.L166
+	testl	%ebp, %ebp
 	movzbl	16(%rbx), %eax
-	jg	.L212
-	je	.L213
-	cmpl	$-2147483648, %edi
-	je	.L205
-	negl	%edi
-.L205:
+	jg	.L203
+	jne	.L171
 	testb	%al, %al
-	jne	.L214
-	leaq	40(%rsp), %r8
-	movl	%edi, %edx
-	movl	$-1, %ecx
-	call	From_I_Imp
-	testl	%eax, %eax
-	je	.L204
-.L195:
-	movl	%eax, %esi
-.L169:
+	jne	.L204
+	movq	.refptr.number_zero(%rip), %rax
+.L172:
+	movq	%rax, (%rdi)
+.L166:
 	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -841,28 +824,42 @@ PMC_Add_X_I:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L212:
+.L203:
 	testb	%al, %al
-	je	.L172
+	movl	%ebp, %r10d
+	je	.L181
 	movq	8(%rbx), %rdx
-	jle	.L215
+	jle	.L205
 	leaq	40(%rsp), %r9
-	movl	%edi, %r8d
+	movl	%ebp, %r8d
 	movl	$1, %ecx
 	call	AddU_X_I_Imp
 	testl	%eax, %eax
-	jne	.L195
+	jne	.L192
 	.p2align 4,,10
-.L204:
+.L197:
 	movq	40(%rsp), %rax
-	jmp	.L175
+	jmp	.L172
 	.p2align 4,,10
-.L213:
+.L171:
+	cmpl	$-2147483648, %ebp
+	je	.L206
+	movl	%ebp, %r10d
+	negl	%r10d
 	testb	%al, %al
-	jne	.L216
-	movq	.refptr.number_zero(%rip), %rax
-.L175:
-	movq	%rax, 0(%rbp)
+	je	.L185
+	jle	.L177
+.L176:
+	movq	8(%rbx), %rdx
+	leaq	40(%rsp), %r9
+	movl	%r10d, %r8d
+	movl	$1, %ecx
+	call	SubtructU_X_I_Imp
+	testl	%eax, %eax
+	je	.L197
+.L192:
+	movl	%eax, %esi
+.L207:
 	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -871,61 +868,64 @@ PMC_Add_X_I:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L172:
-	leaq	40(%rsp), %r8
-	movl	%edi, %edx
+.L181:
 	movl	$1, %ecx
+.L169:
+	leaq	40(%rsp), %r8
+	movl	%r10d, %edx
 	call	From_I_Imp
 	testl	%eax, %eax
-	je	.L204
+	je	.L197
 	movl	%eax, %esi
-	jmp	.L169
+	jmp	.L207
 	.p2align 4,,10
-.L216:
+.L204:
 	leaq	40(%rsp), %rdx
 	movq	%rbx, %rcx
 	call	DuplicateNumber
 	testl	%eax, %eax
-	je	.L204
+	je	.L197
 	movl	%eax, %esi
-	jmp	.L169
+	jmp	.L207
 	.p2align 4,,10
-.L214:
-	jle	.L217
+.L206:
+	testb	%al, %al
+	je	.L183
+	movl	%ebp, %r10d
+	jg	.L176
+.L177:
 	movq	8(%rbx), %rdx
 	leaq	40(%rsp), %r9
-	movl	%edi, %r8d
-	movl	$1, %ecx
-	call	SubtructU_X_I_Imp
-	testl	%eax, %eax
-	je	.L204
-	movl	%eax, %esi
-	jmp	.L169
-	.p2align 4,,10
-.L215:
-	leaq	40(%rsp), %r9
-	movl	%edi, %r8d
-	movl	$-1, %ecx
-	call	SubtructU_X_I_Imp
-	testl	%eax, %eax
-	je	.L204
-	movl	%eax, %esi
-	jmp	.L169
-	.p2align 4,,10
-.L217:
-	movq	8(%rbx), %rdx
-	leaq	40(%rsp), %r9
-	movl	%edi, %r8d
+	movl	%r10d, %r8d
 	movl	$-1, %ecx
 	call	AddU_X_I_Imp
 	testl	%eax, %eax
-	je	.L204
+	je	.L197
 	movl	%eax, %esi
+	jmp	.L207
+	.p2align 4,,10
+.L185:
+	movl	$-1, %ecx
 	jmp	.L169
 	.p2align 4,,10
-.L184:
-	movl	$-1, %esi
+.L205:
+	leaq	40(%rsp), %r9
+	movl	%ebp, %r8d
+	movl	$-1, %ecx
+	call	SubtructU_X_I_Imp
+	testl	%eax, %eax
+	je	.L197
+	movl	%eax, %esi
+	jmp	.L207
+	.p2align 4,,10
+.L183:
+	movl	$-1, %ecx
+	movl	%ebp, %r10d
 	jmp	.L169
+	.p2align 4,,10
+.L180:
+	movl	$-1, %esi
+	jmp	.L166
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Add_X_L
@@ -943,37 +943,27 @@ PMC_Add_X_L:
 	subq	$56, %rsp
 	.seh_stackalloc	56
 	.seh_endprologue
-	testq	%rcx, %rcx
-	movq	%rcx, %rbx
-	movq	%rdx, %rdi
-	movq	%r8, %rbp
-	je	.L233
 	testq	%r8, %r8
-	je	.L233
+	movq	%rcx, %rbx
+	movq	%rdx, %rbp
+	movq	%r8, %rdi
+	je	.L222
+	testq	%rcx, %rcx
+	je	.L222
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %esi
-	jne	.L218
-	testq	%rdi, %rdi
+	jne	.L208
+	testq	%rbp, %rbp
 	movzbl	16(%rbx), %eax
-	jg	.L261
-	je	.L262
-	movabsq	$-9223372036854775808, %rdx
-	cmpq	%rdx, %rdi
-	je	.L254
-	negq	%rdi
-.L254:
+	jg	.L245
+	jne	.L213
 	testb	%al, %al
-	jne	.L263
-	leaq	40(%rsp), %r8
-	movq	%rdi, %rdx
-	movl	$-1, %ecx
-	call	From_L_Imp
-	testl	%eax, %eax
-	je	.L253
-.L244:
-	movl	%eax, %esi
-.L218:
+	jne	.L246
+	movq	.refptr.number_zero(%rip), %rax
+.L214:
+	movq	%rax, (%rdi)
+.L208:
 	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -982,28 +972,43 @@ PMC_Add_X_L:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L261:
+.L245:
 	testb	%al, %al
-	je	.L221
+	movq	%rbp, %r10
+	je	.L223
 	movq	8(%rbx), %rdx
-	jle	.L264
+	jle	.L247
 	leaq	40(%rsp), %r9
-	movq	%rdi, %r8
+	movq	%rbp, %r8
 	movl	$1, %ecx
 	call	AddU_X_L_Imp
 	testl	%eax, %eax
-	jne	.L244
+	jne	.L234
 	.p2align 4,,10
-.L253:
+.L239:
 	movq	40(%rsp), %rax
-	jmp	.L224
+	jmp	.L214
 	.p2align 4,,10
-.L262:
+.L213:
+	movabsq	$-9223372036854775808, %rdx
+	cmpq	%rdx, %rbp
+	je	.L248
+	movq	%rbp, %r10
+	negq	%r10
 	testb	%al, %al
-	jne	.L265
-	movq	.refptr.number_zero(%rip), %rax
-.L224:
-	movq	%rax, 0(%rbp)
+	je	.L227
+	jle	.L219
+.L218:
+	movq	8(%rbx), %rdx
+	leaq	40(%rsp), %r9
+	movq	%r10, %r8
+	movl	$1, %ecx
+	call	SubtructU_X_L_Imp
+	testl	%eax, %eax
+	je	.L239
+.L234:
+	movl	%eax, %esi
+.L249:
 	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -1012,71 +1017,70 @@ PMC_Add_X_L:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L221:
-	leaq	40(%rsp), %r8
-	movq	%rdi, %rdx
+.L223:
 	movl	$1, %ecx
+.L211:
+	leaq	40(%rsp), %r8
+	movq	%r10, %rdx
 	call	From_L_Imp
 	testl	%eax, %eax
-	je	.L253
+	je	.L239
 	movl	%eax, %esi
-	jmp	.L218
+	jmp	.L249
 	.p2align 4,,10
-.L265:
+.L246:
 	leaq	40(%rsp), %rdx
 	movq	%rbx, %rcx
 	call	DuplicateNumber
 	testl	%eax, %eax
-	je	.L253
+	je	.L239
 	movl	%eax, %esi
-	jmp	.L218
+	jmp	.L249
 	.p2align 4,,10
-.L263:
-	jle	.L266
+.L248:
+	testb	%al, %al
+	je	.L225
+	movq	%rbp, %r10
+	jg	.L218
+.L219:
 	movq	8(%rbx), %rdx
 	leaq	40(%rsp), %r9
-	movq	%rdi, %r8
-	movl	$1, %ecx
-	call	SubtructU_X_L_Imp
-	testl	%eax, %eax
-	je	.L253
-	movl	%eax, %esi
-	jmp	.L218
-	.p2align 4,,10
-.L264:
-	leaq	40(%rsp), %r9
-	movq	%rdi, %r8
-	movl	$-1, %ecx
-	call	SubtructU_X_L_Imp
-	testl	%eax, %eax
-	je	.L253
-	movl	%eax, %esi
-	jmp	.L218
-	.p2align 4,,10
-.L266:
-	movq	8(%rbx), %rdx
-	leaq	40(%rsp), %r9
-	movq	%rdi, %r8
+	movq	%r10, %r8
 	movl	$-1, %ecx
 	call	AddU_X_L_Imp
 	testl	%eax, %eax
-	je	.L253
+	je	.L239
 	movl	%eax, %esi
-	jmp	.L218
+	jmp	.L249
 	.p2align 4,,10
-.L233:
+.L227:
+	movl	$-1, %ecx
+	jmp	.L211
+	.p2align 4,,10
+.L247:
+	leaq	40(%rsp), %r9
+	movq	%rbp, %r8
+	movl	$-1, %ecx
+	call	SubtructU_X_L_Imp
+	testl	%eax, %eax
+	je	.L239
+	movl	%eax, %esi
+	jmp	.L249
+	.p2align 4,,10
+.L225:
+	movl	$-1, %ecx
+	movq	%rbp, %r10
+	jmp	.L211
+	.p2align 4,,10
+.L222:
 	movl	$-1, %esi
-	jmp	.L218
+	jmp	.L208
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Add_X_UX
 	.def	PMC_Add_X_UX;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Add_X_UX
 PMC_Add_X_UX:
-	pushq	%r13
-	.seh_pushreg	%r13
-	pushq	%r12
-	.seh_pushreg	%r12
 	pushq	%rbp
 	.seh_pushreg	%rbp
 	pushq	%rdi
@@ -1096,116 +1100,122 @@ PMC_Add_X_UX:
 	movq	%r8, %rbp
 	sete	%al
 	orb	%al, %dl
-	jne	.L278
+	jne	.L259
 	testq	%rcx, %rcx
-	je	.L278
+	je	.L259
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %ebx
-	jne	.L267
-	movq	.refptr.ep_uint(%rip), %r12
-	leaq	56(%rsp), %r13
-	movq	%rdi, %rcx
-	movq	%r13, %rdx
-	call	*40(%r12)
-	testl	%eax, %eax
-	movl	%eax, %ebx
-	jne	.L267
-	movl	56(%rsp), %eax
-	andl	$1, %eax
-	cmpb	$0, 16(%rsi)
-	jne	.L286
-	testb	%al, %al
-	je	.L291
-	movq	.refptr.number_zero(%rip), %rax
+	je	.L272
+.L250:
+	movl	%ebx, %eax
+	addq	$72, %rsp
+	popq	%rbx
+	popq	%rsi
+	popq	%rdi
+	popq	%rbp
+	ret
+	.p2align 4,,10
 .L272:
-	movq	%rax, 0(%rbp)
-.L267:
-	movl	%ebx, %eax
-	addq	$72, %rsp
-	popq	%rbx
-	popq	%rsi
-	popq	%rdi
-	popq	%rbp
-	popq	%r12
-	popq	%r13
-	ret
-	.p2align 4,,10
-.L286:
-	jle	.L275
-	testb	%al, %al
-	jne	.L289
-	movq	8(%rsi), %rdx
-	leaq	48(%rsp), %r9
-	movq	%rdi, %r8
-	movl	$1, %ecx
-	call	AddU_X_X_Imp
-	testl	%eax, %eax
-	je	.L287
-	.p2align 4,,10
-.L285:
-	movl	%eax, %ebx
-.L292:
-	movl	%ebx, %eax
-	addq	$72, %rsp
-	popq	%rbx
-	popq	%rsi
-	popq	%rdi
-	popq	%rbp
-	popq	%r12
-	popq	%r13
-	ret
-	.p2align 4,,10
-.L291:
-	movq	%r13, %rdx
+	leaq	43(%rsp), %rdx
 	movq	%rdi, %rcx
-	call	*88(%r12)
+	call	IsZero_UINT
 	testl	%eax, %eax
-	jne	.L285
+	movl	%eax, %ebx
+	jne	.L250
+	cmpb	$0, 16(%rsi)
+	movzbl	43(%rsp), %eax
+	jne	.L252
+	testb	%al, %al
+	jne	.L260
+	movq	.refptr.ep_uint(%rip), %rsi
+	leaq	56(%rsp), %rdx
+	movq	%rdi, %rcx
+	call	*88(%rsi)
+	testl	%eax, %eax
+	jne	.L266
 	leaq	44(%rsp), %rdx
 	movq	56(%rsp), %rcx
-	call	*40(%r12)
+	call	*40(%rsi)
 	testl	%eax, %eax
-	jne	.L285
-	movq	56(%rsp), %r8
-	leaq	48(%rsp), %rcx
-	movl	$1, %edx
-	call	AllocateNumber
-	testl	%eax, %eax
-	movl	%eax, %esi
-	je	.L287
-	movq	56(%rsp), %rcx
-	movl	%esi, %ebx
-	call	*32(%r12)
-	jmp	.L267
+	je	.L273
+.L266:
+	movl	%eax, %ebx
+.L274:
+	movl	%ebx, %eax
+	addq	$72, %rsp
+	popq	%rbx
+	popq	%rsi
+	popq	%rdi
+	popq	%rbp
+	ret
 	.p2align 4,,10
-.L275:
+.L252:
+	jle	.L256
 	testb	%al, %al
-	je	.L277
-.L289:
+	je	.L257
+.L269:
 	leaq	48(%rsp), %rdx
 	movq	%rsi, %rcx
 	call	DuplicateNumber
 	testl	%eax, %eax
-	jne	.L285
-.L287:
+	jne	.L266
+.L267:
 	movq	48(%rsp), %rax
-	jmp	.L272
+.L253:
+	movq	%rax, 0(%rbp)
+	movl	%ebx, %eax
+	addq	$72, %rsp
+	popq	%rbx
+	popq	%rsi
+	popq	%rdi
+	popq	%rbp
+	ret
 	.p2align 4,,10
-.L277:
+.L260:
+	movq	.refptr.number_zero(%rip), %rax
+	jmp	.L253
+	.p2align 4,,10
+.L256:
+	testb	%al, %al
+	jne	.L269
 	movq	8(%rsi), %rdx
 	leaq	48(%rsp), %r9
 	movq	%rdi, %r8
 	movl	$-1, %ecx
 	call	SubtructU_X_X_Imp
 	testl	%eax, %eax
-	je	.L287
+	je	.L267
 	movl	%eax, %ebx
-	jmp	.L292
+	jmp	.L274
 	.p2align 4,,10
-.L278:
+.L257:
+	movq	8(%rsi), %rdx
+	leaq	48(%rsp), %r9
+	movq	%rdi, %r8
+	movl	$1, %ecx
+	call	AddU_X_X_Imp
+	testl	%eax, %eax
+	je	.L267
+	movl	%eax, %ebx
+	jmp	.L274
+	.p2align 4,,10
+.L273:
+	movq	56(%rsp), %r8
+	leaq	48(%rsp), %rcx
+	movl	$1, %edx
+	call	AllocateNumber
+	testl	%eax, %eax
+	movl	%eax, %edi
+	je	.L267
+	movq	56(%rsp), %rcx
+	movl	%edi, %ebx
+	call	*32(%rsi)
+	jmp	.L250
+	.p2align 4,,10
+.L259:
 	movl	$-1, %ebx
-	jmp	.L267
+	jmp	.L250
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Add_X_X
@@ -1231,14 +1241,14 @@ PMC_Add_X_X:
 	movq	%r8, %rbp
 	sete	%al
 	orb	%al, %dl
-	jne	.L302
+	jne	.L284
 	testq	%rcx, %rcx
-	je	.L302
+	je	.L284
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %ebx
-	je	.L318
-.L293:
+	je	.L300
+.L275:
 	movl	%ebx, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -1247,36 +1257,36 @@ PMC_Add_X_X:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L318:
+.L300:
 	movq	%rdi, %rcx
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %ebx
-	jne	.L293
+	jne	.L275
 	cmpb	$0, 16(%rsi)
 	movzbl	16(%rdi), %eax
-	je	.L319
-	jle	.L297
+	je	.L301
+	jle	.L279
 	testb	%al, %al
-	je	.L314
+	je	.L296
 	movq	8(%rdi), %r8
 	leaq	40(%rsp), %r9
 	movl	$1, %ecx
 	movq	8(%rsi), %rdx
-	jle	.L316
-.L301:
+	jle	.L298
+.L283:
 	call	AddU_X_X_Imp
 	testl	%eax, %eax
-	jne	.L310
-.L312:
+	jne	.L292
+.L294:
 	movq	40(%rsp), %rdx
-	jmp	.L296
+	jmp	.L278
 	.p2align 4,,10
-.L319:
+.L301:
 	testb	%al, %al
 	movq	.refptr.number_zero(%rip), %rdx
-	jne	.L320
-.L296:
+	jne	.L302
+.L278:
 	movl	%ebx, %eax
 	movq	%rdx, 0(%rbp)
 	addq	$56, %rsp
@@ -1286,41 +1296,41 @@ PMC_Add_X_X:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L297:
+.L279:
 	testb	%al, %al
-	je	.L314
+	je	.L296
 	movq	8(%rdi), %r8
 	leaq	40(%rsp), %r9
 	movl	$-1, %ecx
 	movq	8(%rsi), %rdx
-	jle	.L301
-.L316:
+	jle	.L283
+.L298:
 	call	SubtructU_X_X_Imp
 	testl	%eax, %eax
-	je	.L312
-.L310:
+	je	.L294
+.L292:
 	movl	%eax, %ebx
-	jmp	.L293
+	jmp	.L275
 	.p2align 4,,10
-.L314:
+.L296:
 	leaq	40(%rsp), %rdx
 	movq	%rsi, %rcx
 	call	DuplicateNumber
 	testl	%eax, %eax
-	je	.L312
-	jmp	.L310
+	je	.L294
+	jmp	.L292
 	.p2align 4,,10
-.L320:
+.L302:
 	leaq	40(%rsp), %rdx
 	movq	%rdi, %rcx
 	call	DuplicateNumber
 	testl	%eax, %eax
-	je	.L312
-	jmp	.L310
+	je	.L294
+	jmp	.L292
 	.p2align 4,,10
-.L302:
+.L284:
 	movl	$-1, %ebx
-	jmp	.L293
+	jmp	.L275
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Subtruct_I_X
@@ -1342,36 +1352,36 @@ PMC_Subtruct_I_X:
 	movl	%ecx, %ebp
 	movq	%rdx, %rbx
 	movq	%r8, %rdi
-	je	.L333
+	je	.L315
 	testq	%rdx, %rdx
-	je	.L333
+	je	.L315
 	movq	%rdx, %rcx
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %esi
-	jne	.L321
+	jne	.L303
 	testl	%ebp, %ebp
 	movzbl	16(%rbx), %eax
-	jg	.L353
-	je	.L354
+	jg	.L335
+	je	.L336
 	movl	%ebp, %edx
 	movl	$-2147483648, %ecx
 	negl	%edx
 	cmpl	$-2147483648, %ebp
 	cmovne	%edx, %ecx
 	testb	%al, %al
-	je	.L355
+	je	.L337
 	movq	8(%rbx), %rdx
 	leaq	40(%rsp), %r9
 	movl	%ecx, %r8d
-	jle	.L332
+	jle	.L314
 	movl	$-1, %ecx
 	call	AddU_X_I_Imp
 	testl	%eax, %eax
-	je	.L347
-.L342:
+	je	.L329
+.L324:
 	movl	%eax, %esi
-.L321:
+.L303:
 	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -1380,27 +1390,27 @@ PMC_Subtruct_I_X:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L353:
+.L335:
 	testb	%al, %al
-	je	.L356
+	je	.L338
 	movq	8(%rbx), %rdx
 	leaq	40(%rsp), %r9
 	movl	%ebp, %r8d
-	jle	.L330
+	jle	.L312
 	movl	$-1, %ecx
 	call	SubtructU_X_I_Imp
 	testl	%eax, %eax
-	jne	.L342
+	jne	.L324
 	.p2align 4,,10
-.L347:
+.L329:
 	movq	40(%rsp), %rdx
-	jmp	.L327
+	jmp	.L309
 	.p2align 4,,10
-.L354:
+.L336:
 	testb	%al, %al
 	movq	.refptr.number_zero(%rip), %rdx
-	jne	.L357
-.L327:
+	jne	.L339
+.L309:
 	movl	%esi, %eax
 	movq	%rdx, (%rdi)
 	addq	$56, %rsp
@@ -1410,54 +1420,54 @@ PMC_Subtruct_I_X:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L356:
+.L338:
 	leaq	40(%rsp), %r8
 	movl	%ebp, %edx
 	movl	$1, %ecx
 	call	From_I_Imp
 	testl	%eax, %eax
-	je	.L347
+	je	.L329
 	movl	%eax, %esi
-	jmp	.L321
+	jmp	.L303
 	.p2align 4,,10
-.L357:
+.L339:
 	leaq	40(%rsp), %rdx
 	movq	%rbx, %rcx
 	call	Negate_Imp
 	testl	%eax, %eax
-	je	.L347
+	je	.L329
 	movl	%eax, %esi
-	jmp	.L321
+	jmp	.L303
 	.p2align 4,,10
-.L330:
+.L312:
 	movl	$1, %ecx
 	call	AddU_X_I_Imp
 	testl	%eax, %eax
-	je	.L347
+	je	.L329
 	movl	%eax, %esi
-	jmp	.L321
+	jmp	.L303
 	.p2align 4,,10
-.L355:
+.L337:
 	leaq	40(%rsp), %r8
 	movl	%ecx, %edx
 	movl	$-1, %ecx
 	call	From_I_Imp
 	testl	%eax, %eax
-	je	.L347
+	je	.L329
 	movl	%eax, %esi
-	jmp	.L321
+	jmp	.L303
 	.p2align 4,,10
-.L332:
+.L314:
 	movl	$1, %ecx
 	call	SubtructU_X_I_Imp
 	testl	%eax, %eax
-	je	.L347
+	je	.L329
 	movl	%eax, %esi
-	jmp	.L321
+	jmp	.L303
 	.p2align 4,,10
-.L333:
+.L315:
 	movl	$-1, %esi
-	jmp	.L321
+	jmp	.L303
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Subtruct_L_X
@@ -1479,36 +1489,36 @@ PMC_Subtruct_L_X:
 	movq	%rcx, %rbp
 	movq	%rdx, %rbx
 	movq	%r8, %rdi
-	je	.L370
+	je	.L352
 	testq	%rdx, %rdx
-	je	.L370
+	je	.L352
 	movq	%rdx, %rcx
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %esi
-	jne	.L358
+	jne	.L340
 	testq	%rbp, %rbp
 	movzbl	16(%rbx), %eax
-	jg	.L390
-	je	.L391
+	jg	.L372
+	je	.L373
 	movabsq	$-9223372036854775808, %rcx
 	movq	%rbp, %rdx
 	negq	%rdx
 	cmpq	%rcx, %rbp
 	cmovne	%rdx, %rbp
 	testb	%al, %al
-	je	.L392
+	je	.L374
 	movq	8(%rbx), %rdx
 	leaq	40(%rsp), %r9
 	movq	%rbp, %r8
-	jle	.L369
+	jle	.L351
 	movl	$-1, %ecx
 	call	AddU_X_L_Imp
 	testl	%eax, %eax
-	je	.L384
-.L379:
+	je	.L366
+.L361:
 	movl	%eax, %esi
-.L358:
+.L340:
 	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -1517,27 +1527,27 @@ PMC_Subtruct_L_X:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L390:
+.L372:
 	testb	%al, %al
-	je	.L393
+	je	.L375
 	movq	8(%rbx), %rdx
 	leaq	40(%rsp), %r9
 	movq	%rbp, %r8
-	jle	.L367
+	jle	.L349
 	movl	$-1, %ecx
 	call	SubtructU_X_L_Imp
 	testl	%eax, %eax
-	jne	.L379
+	jne	.L361
 	.p2align 4,,10
-.L384:
+.L366:
 	movq	40(%rsp), %rdx
-	jmp	.L364
+	jmp	.L346
 	.p2align 4,,10
-.L391:
+.L373:
 	testb	%al, %al
 	movq	.refptr.number_zero(%rip), %rdx
-	jne	.L394
-.L364:
+	jne	.L376
+.L346:
 	movl	%esi, %eax
 	movq	%rdx, (%rdi)
 	addq	$56, %rsp
@@ -1547,64 +1557,60 @@ PMC_Subtruct_L_X:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L393:
+.L375:
 	leaq	40(%rsp), %r8
 	movq	%rbp, %rdx
 	movl	$1, %ecx
 	call	From_L_Imp
 	testl	%eax, %eax
-	je	.L384
+	je	.L366
 	movl	%eax, %esi
-	jmp	.L358
+	jmp	.L340
 	.p2align 4,,10
-.L394:
+.L376:
 	leaq	40(%rsp), %rdx
 	movq	%rbx, %rcx
 	call	Negate_Imp
 	testl	%eax, %eax
-	je	.L384
+	je	.L366
 	movl	%eax, %esi
-	jmp	.L358
+	jmp	.L340
 	.p2align 4,,10
-.L367:
+.L349:
 	movl	$1, %ecx
 	call	AddU_X_L_Imp
 	testl	%eax, %eax
-	je	.L384
+	je	.L366
 	movl	%eax, %esi
-	jmp	.L358
+	jmp	.L340
 	.p2align 4,,10
-.L392:
+.L374:
 	leaq	40(%rsp), %r8
 	movq	%rbp, %rdx
 	movl	$-1, %ecx
 	call	From_L_Imp
 	testl	%eax, %eax
-	je	.L384
+	je	.L366
 	movl	%eax, %esi
-	jmp	.L358
+	jmp	.L340
 	.p2align 4,,10
-.L369:
+.L351:
 	movl	$1, %ecx
 	call	SubtructU_X_L_Imp
 	testl	%eax, %eax
-	je	.L384
+	je	.L366
 	movl	%eax, %esi
-	jmp	.L358
+	jmp	.L340
 	.p2align 4,,10
-.L370:
+.L352:
 	movl	$-1, %esi
-	jmp	.L358
+	jmp	.L340
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Subtruct_UX_X
 	.def	PMC_Subtruct_UX_X;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Subtruct_UX_X
 PMC_Subtruct_UX_X:
-	pushq	%r13
-	.seh_pushreg	%r13
-	pushq	%r12
-	.seh_pushreg	%r12
 	pushq	%rbp
 	.seh_pushreg	%rbp
 	pushq	%rdi
@@ -1613,8 +1619,8 @@ PMC_Subtruct_UX_X:
 	.seh_pushreg	%rsi
 	pushq	%rbx
 	.seh_pushreg	%rbx
-	subq	$72, %rsp
-	.seh_stackalloc	72
+	subq	$88, %rsp
+	.seh_stackalloc	88
 	.seh_endprologue
 	movq	%rdx, %rsi
 	testq	%r8, %r8
@@ -1624,105 +1630,103 @@ PMC_Subtruct_UX_X:
 	movq	%r8, %rbp
 	sete	%al
 	orb	%al, %dl
-	jne	.L406
+	jne	.L385
 	testq	%rcx, %rcx
-	je	.L406
+	je	.L385
 	movq	%rsi, %rcx
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %ebx
-	jne	.L395
-	movq	.refptr.ep_uint(%rip), %r12
-	leaq	56(%rsp), %r13
+	je	.L392
+.L377:
+	movl	%ebx, %eax
+	addq	$88, %rsp
+	popq	%rbx
+	popq	%rsi
+	popq	%rdi
+	popq	%rbp
+	ret
+	.p2align 4,,10
+.L392:
+	leaq	63(%rsp), %rdx
 	movq	%rdi, %rcx
-	movq	%r13, %rdx
-	call	*40(%r12)
+	call	IsZero_UINT
 	testl	%eax, %eax
 	movl	%eax, %ebx
-	jne	.L395
-	testb	$1, 56(%rsp)
+	jne	.L377
+	cmpb	$0, 63(%rsp)
 	movzbl	16(%rsi), %eax
-	je	.L412
+	je	.L379
 	testb	%al, %al
-	je	.L407
-	leaq	48(%rsp), %rdx
+	movq	.refptr.number_zero(%rip), %rdx
+	jne	.L393
+.L380:
+	movl	%ebx, %eax
+	movq	%rdx, 0(%rbp)
+	addq	$88, %rsp
+	popq	%rbx
+	popq	%rsi
+	popq	%rdi
+	popq	%rbp
+	ret
+	.p2align 4,,10
+.L379:
+	testb	%al, %al
+	jne	.L381
+	movq	.refptr.ep_uint(%rip), %rsi
+	leaq	72(%rsp), %rdx
+	movq	%rdi, %rcx
+	call	*88(%rsi)
+	testl	%eax, %eax
+	je	.L394
+.L389:
+	movl	%eax, %ebx
+	jmp	.L377
+	.p2align 4,,10
+.L381:
+	movq	8(%rsi), %r8
+	leaq	64(%rsp), %r9
+	movq	%rdi, %rdx
+	movl	$1, %ecx
+	jle	.L384
+	call	SubtructU_X_X_Imp
+	testl	%eax, %eax
+	jne	.L389
+.L391:
+	movq	64(%rsp), %rdx
+	jmp	.L380
+	.p2align 4,,10
+.L393:
+	leaq	64(%rsp), %rdx
 	movq	%rsi, %rcx
 	call	Negate_Imp
 	testl	%eax, %eax
-	jne	.L411
-.L414:
-	movq	48(%rsp), %rax
-.L400:
-	movq	%rax, 0(%rbp)
-.L395:
-	movl	%ebx, %eax
-	addq	$72, %rsp
-	popq	%rbx
-	popq	%rsi
-	popq	%rdi
-	popq	%rbp
-	popq	%r12
-	popq	%r13
-	ret
+	je	.L391
+	jmp	.L389
 	.p2align 4,,10
-.L412:
-	testb	%al, %al
-	jne	.L402
-	movq	%r13, %rdx
-	movq	%rdi, %rcx
-	call	*88(%r12)
-	testl	%eax, %eax
-	jne	.L411
-	movq	56(%rsp), %r8
-	leaq	48(%rsp), %rcx
+.L394:
+	movq	72(%rsp), %r8
+	leaq	64(%rsp), %rcx
 	movl	$1, %edx
 	call	AllocateNumber
 	testl	%eax, %eax
-	je	.L414
+	je	.L391
 	movl	%eax, 44(%rsp)
-	movq	56(%rsp), %rcx
-	call	*32(%r12)
+	movq	72(%rsp), %rcx
+	call	*32(%rsi)
 	movl	44(%rsp), %eax
-	.p2align 4,,10
-.L411:
 	movl	%eax, %ebx
-.L418:
-	movl	%ebx, %eax
-	addq	$72, %rsp
-	popq	%rbx
-	popq	%rsi
-	popq	%rdi
-	popq	%rbp
-	popq	%r12
-	popq	%r13
-	ret
+	jmp	.L377
 	.p2align 4,,10
-.L402:
-	movq	8(%rsi), %r8
-	leaq	48(%rsp), %r9
-	movq	%rdi, %rdx
-	movl	$1, %ecx
-	jle	.L405
-	call	SubtructU_X_X_Imp
-	testl	%eax, %eax
-	je	.L414
-	movl	%eax, %ebx
-	jmp	.L418
-	.p2align 4,,10
-.L407:
-	movq	.refptr.number_zero(%rip), %rax
-	jmp	.L400
-	.p2align 4,,10
-.L405:
+.L384:
 	call	AddU_X_X_Imp
 	testl	%eax, %eax
-	je	.L414
-	movl	%eax, %ebx
-	jmp	.L418
+	je	.L391
+	jmp	.L389
 	.p2align 4,,10
-.L406:
+.L385:
 	movl	$-1, %ebx
-	jmp	.L395
+	jmp	.L377
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Subtruct_X_I
@@ -1740,36 +1744,27 @@ PMC_Subtruct_X_I:
 	subq	$56, %rsp
 	.seh_stackalloc	56
 	.seh_endprologue
-	testq	%rcx, %rcx
-	movq	%rcx, %rbx
-	movl	%edx, %edi
-	movq	%r8, %rbp
-	je	.L434
 	testq	%r8, %r8
-	je	.L434
+	movq	%rcx, %rbx
+	movl	%edx, %ebp
+	movq	%r8, %rdi
+	je	.L409
+	testq	%rcx, %rcx
+	je	.L409
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %esi
-	jne	.L419
-	testl	%edi, %edi
+	jne	.L395
+	testl	%ebp, %ebp
 	movzbl	16(%rbx), %eax
-	jg	.L462
-	je	.L463
-	cmpl	$-2147483648, %edi
-	je	.L455
-	negl	%edi
-.L455:
+	jg	.L432
+	jne	.L400
 	testb	%al, %al
-	jne	.L464
-	leaq	40(%rsp), %r8
-	movl	%edi, %edx
-	movl	$1, %ecx
-	call	From_I_Imp
-	testl	%eax, %eax
-	je	.L454
-.L445:
-	movl	%eax, %esi
-.L419:
+	jne	.L433
+	movq	.refptr.number_zero(%rip), %rax
+.L401:
+	movq	%rax, (%rdi)
+.L395:
 	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -1778,28 +1773,42 @@ PMC_Subtruct_X_I:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L462:
+.L432:
 	testb	%al, %al
-	je	.L422
+	movl	%ebp, %r10d
+	je	.L410
 	movq	8(%rbx), %rdx
-	jle	.L465
+	jle	.L434
 	leaq	40(%rsp), %r9
-	movl	%edi, %r8d
+	movl	%ebp, %r8d
 	movl	$1, %ecx
 	call	SubtructU_X_I_Imp
 	testl	%eax, %eax
-	jne	.L445
+	jne	.L421
 	.p2align 4,,10
-.L454:
+.L426:
 	movq	40(%rsp), %rax
-	jmp	.L425
+	jmp	.L401
 	.p2align 4,,10
-.L463:
+.L400:
+	cmpl	$-2147483648, %ebp
+	je	.L435
+	movl	%ebp, %r10d
+	negl	%r10d
 	testb	%al, %al
-	jne	.L466
-	movq	.refptr.number_zero(%rip), %rax
-.L425:
-	movq	%rax, 0(%rbp)
+	je	.L414
+	jle	.L406
+.L405:
+	movq	8(%rbx), %rdx
+	leaq	40(%rsp), %r9
+	movl	%r10d, %r8d
+	movl	$1, %ecx
+	call	AddU_X_I_Imp
+	testl	%eax, %eax
+	je	.L426
+.L421:
+	movl	%eax, %esi
+.L436:
 	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -1808,61 +1817,64 @@ PMC_Subtruct_X_I:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L422:
-	leaq	40(%rsp), %r8
-	movl	%edi, %edx
+.L410:
 	movl	$-1, %ecx
+.L398:
+	leaq	40(%rsp), %r8
+	movl	%r10d, %edx
 	call	From_I_Imp
 	testl	%eax, %eax
-	je	.L454
+	je	.L426
 	movl	%eax, %esi
-	jmp	.L419
+	jmp	.L436
 	.p2align 4,,10
-.L466:
+.L433:
 	leaq	40(%rsp), %rdx
 	movq	%rbx, %rcx
 	call	DuplicateNumber
 	testl	%eax, %eax
-	je	.L454
+	je	.L426
 	movl	%eax, %esi
-	jmp	.L419
+	jmp	.L436
 	.p2align 4,,10
-.L464:
-	jle	.L467
+.L435:
+	testb	%al, %al
+	je	.L412
+	movl	%ebp, %r10d
+	jg	.L405
+.L406:
 	movq	8(%rbx), %rdx
 	leaq	40(%rsp), %r9
-	movl	%edi, %r8d
-	movl	$1, %ecx
-	call	AddU_X_I_Imp
-	testl	%eax, %eax
-	je	.L454
-	movl	%eax, %esi
-	jmp	.L419
-	.p2align 4,,10
-.L465:
-	leaq	40(%rsp), %r9
-	movl	%edi, %r8d
-	movl	$-1, %ecx
-	call	AddU_X_I_Imp
-	testl	%eax, %eax
-	je	.L454
-	movl	%eax, %esi
-	jmp	.L419
-	.p2align 4,,10
-.L467:
-	movq	8(%rbx), %rdx
-	leaq	40(%rsp), %r9
-	movl	%edi, %r8d
+	movl	%r10d, %r8d
 	movl	$-1, %ecx
 	call	SubtructU_X_I_Imp
 	testl	%eax, %eax
-	je	.L454
+	je	.L426
 	movl	%eax, %esi
-	jmp	.L419
+	jmp	.L436
+	.p2align 4,,10
+.L414:
+	movl	$1, %ecx
+	jmp	.L398
 	.p2align 4,,10
 .L434:
+	leaq	40(%rsp), %r9
+	movl	%ebp, %r8d
+	movl	$-1, %ecx
+	call	AddU_X_I_Imp
+	testl	%eax, %eax
+	je	.L426
+	movl	%eax, %esi
+	jmp	.L436
+	.p2align 4,,10
+.L412:
+	movl	$1, %ecx
+	movl	%ebp, %r10d
+	jmp	.L398
+	.p2align 4,,10
+.L409:
 	movl	$-1, %esi
-	jmp	.L419
+	jmp	.L395
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Subtruct_X_L
@@ -1880,37 +1892,27 @@ PMC_Subtruct_X_L:
 	subq	$56, %rsp
 	.seh_stackalloc	56
 	.seh_endprologue
-	testq	%rcx, %rcx
-	movq	%rcx, %rbx
-	movq	%rdx, %rdi
-	movq	%r8, %rbp
-	je	.L483
 	testq	%r8, %r8
-	je	.L483
+	movq	%rcx, %rbx
+	movq	%rdx, %rbp
+	movq	%r8, %rdi
+	je	.L451
+	testq	%rcx, %rcx
+	je	.L451
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %esi
-	jne	.L468
-	testq	%rdi, %rdi
+	jne	.L437
+	testq	%rbp, %rbp
 	movzbl	16(%rbx), %eax
-	jg	.L511
-	je	.L512
-	movabsq	$-9223372036854775808, %rdx
-	cmpq	%rdx, %rdi
-	je	.L504
-	negq	%rdi
-.L504:
+	jg	.L474
+	jne	.L442
 	testb	%al, %al
-	jne	.L513
-	leaq	40(%rsp), %r8
-	movq	%rdi, %rdx
-	movl	$1, %ecx
-	call	From_L_Imp
-	testl	%eax, %eax
-	je	.L503
-.L494:
-	movl	%eax, %esi
-.L468:
+	jne	.L475
+	movq	.refptr.number_zero(%rip), %rax
+.L443:
+	movq	%rax, (%rdi)
+.L437:
 	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -1919,28 +1921,43 @@ PMC_Subtruct_X_L:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L511:
+.L474:
 	testb	%al, %al
-	je	.L471
+	movq	%rbp, %r10
+	je	.L452
 	movq	8(%rbx), %rdx
-	jle	.L514
+	jle	.L476
 	leaq	40(%rsp), %r9
-	movq	%rdi, %r8
+	movq	%rbp, %r8
 	movl	$1, %ecx
 	call	SubtructU_X_L_Imp
 	testl	%eax, %eax
-	jne	.L494
+	jne	.L463
 	.p2align 4,,10
-.L503:
+.L468:
 	movq	40(%rsp), %rax
-	jmp	.L474
+	jmp	.L443
 	.p2align 4,,10
-.L512:
+.L442:
+	movabsq	$-9223372036854775808, %rdx
+	cmpq	%rdx, %rbp
+	je	.L477
+	movq	%rbp, %r10
+	negq	%r10
 	testb	%al, %al
-	jne	.L515
-	movq	.refptr.number_zero(%rip), %rax
-.L474:
-	movq	%rax, 0(%rbp)
+	je	.L456
+	jle	.L448
+.L447:
+	movq	8(%rbx), %rdx
+	leaq	40(%rsp), %r9
+	movq	%r10, %r8
+	movl	$1, %ecx
+	call	AddU_X_L_Imp
+	testl	%eax, %eax
+	je	.L468
+.L463:
+	movl	%eax, %esi
+.L478:
 	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -1949,71 +1966,70 @@ PMC_Subtruct_X_L:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L471:
-	leaq	40(%rsp), %r8
-	movq	%rdi, %rdx
+.L452:
 	movl	$-1, %ecx
+.L440:
+	leaq	40(%rsp), %r8
+	movq	%r10, %rdx
 	call	From_L_Imp
 	testl	%eax, %eax
-	je	.L503
+	je	.L468
 	movl	%eax, %esi
-	jmp	.L468
+	jmp	.L478
 	.p2align 4,,10
-.L515:
+.L475:
 	leaq	40(%rsp), %rdx
 	movq	%rbx, %rcx
 	call	DuplicateNumber
 	testl	%eax, %eax
-	je	.L503
+	je	.L468
 	movl	%eax, %esi
-	jmp	.L468
+	jmp	.L478
 	.p2align 4,,10
-.L513:
-	jle	.L516
+.L477:
+	testb	%al, %al
+	je	.L454
+	movq	%rbp, %r10
+	jg	.L447
+.L448:
 	movq	8(%rbx), %rdx
 	leaq	40(%rsp), %r9
-	movq	%rdi, %r8
-	movl	$1, %ecx
-	call	AddU_X_L_Imp
-	testl	%eax, %eax
-	je	.L503
-	movl	%eax, %esi
-	jmp	.L468
-	.p2align 4,,10
-.L514:
-	leaq	40(%rsp), %r9
-	movq	%rdi, %r8
-	movl	$-1, %ecx
-	call	AddU_X_L_Imp
-	testl	%eax, %eax
-	je	.L503
-	movl	%eax, %esi
-	jmp	.L468
-	.p2align 4,,10
-.L516:
-	movq	8(%rbx), %rdx
-	leaq	40(%rsp), %r9
-	movq	%rdi, %r8
+	movq	%r10, %r8
 	movl	$-1, %ecx
 	call	SubtructU_X_L_Imp
 	testl	%eax, %eax
-	je	.L503
+	je	.L468
 	movl	%eax, %esi
-	jmp	.L468
+	jmp	.L478
 	.p2align 4,,10
-.L483:
+.L456:
+	movl	$1, %ecx
+	jmp	.L440
+	.p2align 4,,10
+.L476:
+	leaq	40(%rsp), %r9
+	movq	%rbp, %r8
+	movl	$-1, %ecx
+	call	AddU_X_L_Imp
+	testl	%eax, %eax
+	je	.L468
+	movl	%eax, %esi
+	jmp	.L478
+	.p2align 4,,10
+.L454:
+	movl	$1, %ecx
+	movq	%rbp, %r10
+	jmp	.L440
+	.p2align 4,,10
+.L451:
 	movl	$-1, %esi
-	jmp	.L468
+	jmp	.L437
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Subtruct_X_UX
 	.def	PMC_Subtruct_X_UX;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Subtruct_X_UX
 PMC_Subtruct_X_UX:
-	pushq	%r13
-	.seh_pushreg	%r13
-	pushq	%r12
-	.seh_pushreg	%r12
 	pushq	%rbp
 	.seh_pushreg	%rbp
 	pushq	%rdi
@@ -2022,8 +2038,8 @@ PMC_Subtruct_X_UX:
 	.seh_pushreg	%rsi
 	pushq	%rbx
 	.seh_pushreg	%rbx
-	subq	$72, %rsp
-	.seh_stackalloc	72
+	subq	$88, %rsp
+	.seh_stackalloc	88
 	.seh_endprologue
 	movq	%rdx, %rdi
 	testq	%r8, %r8
@@ -2033,112 +2049,118 @@ PMC_Subtruct_X_UX:
 	movq	%r8, %rbp
 	sete	%al
 	orb	%al, %dl
-	jne	.L528
+	jne	.L488
 	testq	%rcx, %rcx
-	je	.L528
+	je	.L488
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %ebx
-	jne	.L517
-	movq	.refptr.ep_uint(%rip), %r12
-	leaq	56(%rsp), %r13
+	je	.L499
+.L479:
+	movl	%ebx, %eax
+	addq	$88, %rsp
+	popq	%rbx
+	popq	%rsi
+	popq	%rdi
+	popq	%rbp
+	ret
+	.p2align 4,,10
+.L499:
+	leaq	63(%rsp), %rdx
 	movq	%rdi, %rcx
-	movq	%r13, %rdx
-	call	*40(%r12)
+	call	IsZero_UINT
 	testl	%eax, %eax
 	movl	%eax, %ebx
-	jne	.L517
-	movl	56(%rsp), %eax
-	andl	$1, %eax
+	jne	.L479
 	cmpb	$0, 16(%rsi)
-	jne	.L534
+	movzbl	63(%rsp), %eax
+	jne	.L481
 	testb	%al, %al
-	je	.L539
-	movq	.refptr.number_zero(%rip), %rax
-.L522:
-	movq	%rax, 0(%rbp)
-.L517:
-	movl	%ebx, %eax
-	addq	$72, %rsp
-	popq	%rbx
-	popq	%rsi
-	popq	%rdi
-	popq	%rbp
-	popq	%r12
-	popq	%r13
-	ret
-	.p2align 4,,10
-.L534:
-	jle	.L525
-	testb	%al, %al
-	jne	.L537
-	movq	8(%rsi), %rdx
-	leaq	48(%rsp), %r9
-	movq	%rdi, %r8
-	movl	$1, %ecx
-	call	SubtructU_X_X_Imp
-	testl	%eax, %eax
-	je	.L535
-	.p2align 4,,10
-.L533:
-	movl	%eax, %ebx
-.L540:
-	movl	%ebx, %eax
-	addq	$72, %rsp
-	popq	%rbx
-	popq	%rsi
-	popq	%rdi
-	popq	%rbp
-	popq	%r12
-	popq	%r13
-	ret
-	.p2align 4,,10
-.L539:
-	movq	%r13, %rdx
+	jne	.L489
+	movq	.refptr.ep_uint(%rip), %rsi
+	leaq	72(%rsp), %rdx
 	movq	%rdi, %rcx
-	call	*88(%r12)
+	call	*88(%rsi)
 	testl	%eax, %eax
-	jne	.L533
-	movq	56(%rsp), %r8
-	leaq	48(%rsp), %rcx
-	movl	$-1, %edx
-	call	AllocateNumber
-	testl	%eax, %eax
-	je	.L535
-	movl	%eax, 44(%rsp)
-	movq	56(%rsp), %rcx
-	call	*32(%r12)
-	movl	44(%rsp), %eax
+	je	.L500
+.L493:
 	movl	%eax, %ebx
-	jmp	.L540
+.L501:
+	movl	%ebx, %eax
+	addq	$88, %rsp
+	popq	%rbx
+	popq	%rsi
+	popq	%rdi
+	popq	%rbp
+	ret
 	.p2align 4,,10
-.L525:
+.L481:
+	jle	.L485
 	testb	%al, %al
-	je	.L527
-.L537:
-	leaq	48(%rsp), %rdx
+	je	.L486
+.L496:
+	leaq	64(%rsp), %rdx
 	movq	%rsi, %rcx
 	call	DuplicateNumber
 	testl	%eax, %eax
-	jne	.L533
-.L535:
-	movq	48(%rsp), %rax
-	jmp	.L522
+	jne	.L493
+.L494:
+	movq	64(%rsp), %rax
+.L482:
+	movq	%rax, 0(%rbp)
+	movl	%ebx, %eax
+	addq	$88, %rsp
+	popq	%rbx
+	popq	%rsi
+	popq	%rdi
+	popq	%rbp
+	ret
 	.p2align 4,,10
-.L527:
+.L489:
+	movq	.refptr.number_zero(%rip), %rax
+	jmp	.L482
+	.p2align 4,,10
+.L485:
+	testb	%al, %al
+	jne	.L496
 	movq	8(%rsi), %rdx
-	leaq	48(%rsp), %r9
+	leaq	64(%rsp), %r9
 	movq	%rdi, %r8
 	movl	$-1, %ecx
 	call	AddU_X_X_Imp
 	testl	%eax, %eax
-	je	.L535
+	je	.L494
 	movl	%eax, %ebx
-	jmp	.L540
+	jmp	.L501
 	.p2align 4,,10
-.L528:
+.L486:
+	movq	8(%rsi), %rdx
+	leaq	64(%rsp), %r9
+	movq	%rdi, %r8
+	movl	$1, %ecx
+	call	SubtructU_X_X_Imp
+	testl	%eax, %eax
+	je	.L494
+	movl	%eax, %ebx
+	jmp	.L501
+	.p2align 4,,10
+.L500:
+	movq	72(%rsp), %r8
+	leaq	64(%rsp), %rcx
+	movl	$-1, %edx
+	call	AllocateNumber
+	testl	%eax, %eax
+	je	.L494
+	movl	%eax, 44(%rsp)
+	movq	72(%rsp), %rcx
+	call	*32(%rsi)
+	movl	44(%rsp), %eax
+	movl	%eax, %ebx
+	jmp	.L501
+	.p2align 4,,10
+.L488:
 	movl	$-1, %ebx
-	jmp	.L517
+	jmp	.L479
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Subtruct_X_X
@@ -2164,14 +2186,14 @@ PMC_Subtruct_X_X:
 	movq	%r8, %rbp
 	sete	%al
 	orb	%al, %dl
-	jne	.L550
+	jne	.L511
 	testq	%rcx, %rcx
-	je	.L550
+	je	.L511
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %ebx
-	je	.L566
-.L541:
+	je	.L527
+.L502:
 	movl	%ebx, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -2180,36 +2202,36 @@ PMC_Subtruct_X_X:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L566:
+.L527:
 	movq	%rdi, %rcx
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %ebx
-	jne	.L541
+	jne	.L502
 	cmpb	$0, 16(%rsi)
 	movzbl	16(%rdi), %eax
-	je	.L567
-	jle	.L545
+	je	.L528
+	jle	.L506
 	testb	%al, %al
-	je	.L562
+	je	.L523
 	movq	8(%rdi), %r8
 	leaq	40(%rsp), %r9
 	movl	$1, %ecx
 	movq	8(%rsi), %rdx
-	jle	.L564
-.L549:
+	jle	.L525
+.L510:
 	call	SubtructU_X_X_Imp
 	testl	%eax, %eax
-	jne	.L558
-.L560:
+	jne	.L519
+.L521:
 	movq	40(%rsp), %rdx
-	jmp	.L544
+	jmp	.L505
 	.p2align 4,,10
-.L567:
+.L528:
 	testb	%al, %al
 	movq	.refptr.number_zero(%rip), %rdx
-	jne	.L568
-.L544:
+	jne	.L529
+.L505:
 	movl	%ebx, %eax
 	movq	%rdx, 0(%rbp)
 	addq	$56, %rsp
@@ -2219,41 +2241,41 @@ PMC_Subtruct_X_X:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L545:
+.L506:
 	testb	%al, %al
-	je	.L562
+	je	.L523
 	movq	8(%rdi), %r8
 	leaq	40(%rsp), %r9
 	movl	$-1, %ecx
 	movq	8(%rsi), %rdx
-	jle	.L549
-.L564:
+	jle	.L510
+.L525:
 	call	AddU_X_X_Imp
 	testl	%eax, %eax
-	je	.L560
-.L558:
+	je	.L521
+.L519:
 	movl	%eax, %ebx
-	jmp	.L541
+	jmp	.L502
 	.p2align 4,,10
-.L562:
+.L523:
 	leaq	40(%rsp), %rdx
 	movq	%rsi, %rcx
 	call	DuplicateNumber
 	testl	%eax, %eax
-	je	.L560
-	jmp	.L558
+	je	.L521
+	jmp	.L519
 	.p2align 4,,10
-.L568:
+.L529:
 	leaq	40(%rsp), %rdx
 	movq	%rdi, %rcx
 	call	Negate_Imp
 	testl	%eax, %eax
-	je	.L560
-	jmp	.L558
+	je	.L521
+	jmp	.L519
 	.p2align 4,,10
-.L550:
+.L511:
 	movl	$-1, %ebx
-	jmp	.L541
+	jmp	.L502
 	.seh_endproc
 	.ident	"GCC: (x86_64-win32-seh-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	AllocateNumber;	.scl	2;	.type	32;	.endef
@@ -2261,6 +2283,7 @@ PMC_Subtruct_X_X:
 	.def	From_I_Imp;	.scl	2;	.type	32;	.endef
 	.def	DuplicateNumber;	.scl	2;	.type	32;	.endef
 	.def	From_L_Imp;	.scl	2;	.type	32;	.endef
+	.def	IsZero_UINT;	.scl	2;	.type	32;	.endef
 	.def	Negate_Imp;	.scl	2;	.type	32;	.endef
 	.section	.rdata$.refptr.number_zero, "dr"
 	.globl	.refptr.number_zero

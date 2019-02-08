@@ -5,4 +5,14 @@ include listing.inc
 INCLUDELIB OLDNAMES
 
 PUBLIC	PMC_GetNumberType_X
+PUBLIC	IsZero_UINT
+;	COMDAT pdata
+pdata	SEGMENT
+$pdata$IsZero_UINT DD imagerel $LN5@IsZero_UIN
+	DD	imagerel $LN5@IsZero_UIN+41
+	DD	imagerel $unwind$IsZero_UINT
+;	COMDAT xdata
+xdata	SEGMENT
+$unwind$IsZero_UINT DD 020601H
+	DD	030023206H
 END

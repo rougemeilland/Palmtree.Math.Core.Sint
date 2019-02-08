@@ -24,14 +24,19 @@ __B4B40122_winioctl@h DB 01H
 __86261D59_stralign@h DB 01H
 __C5291EA6_pmc_getnumbertype@c DB 01H
 msvcjmc	ENDS
+PUBLIC	_IsZero_UINT
 PUBLIC	_PMC_GetNumberType_X@8
 PUBLIC	_Initialize_GetPropertyValue
 PUBLIC	__JustMyCode_Default
 EXTRN	_CheckNumber:PROC
+EXTRN	@_RTC_CheckStackVars@8:PROC
 EXTRN	@__CheckForDebuggerJustMyCode@4:PROC
+EXTRN	@__security_check_cookie@4:PROC
 EXTRN	__RTC_CheckEsp:PROC
 EXTRN	__RTC_InitBase:PROC
 EXTRN	__RTC_Shutdown:PROC
+EXTRN	_ep_uint:BYTE
+EXTRN	___security_cookie:DWORD
 ;	COMDAT rtc$TMZ
 rtc$TMZ	SEGMENT
 __RTC_Shutdown.rtc$TMZ DD FLAT:__RTC_Shutdown
@@ -57,7 +62,7 @@ _TEXT	SEGMENT
 _feature$ = 8						; size = 4
 _Initialize_GetPropertyValue PROC			; COMDAT
 
-; 56   : {
+; 66   : {
 
 	push	ebp
 	mov	ebp, esp
@@ -72,11 +77,11 @@ _Initialize_GetPropertyValue PROC			; COMDAT
 	mov	ecx, OFFSET __C5291EA6_pmc_getnumbertype@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 57   :     return (PMC_STATUS_OK);
+; 67   :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 
-; 58   : }
+; 68   : }
 
 	pop	edi
 	pop	esi
@@ -100,7 +105,7 @@ _x$ = 8							; size = 4
 _o$ = 12						; size = 4
 _PMC_GetNumberType_X@8 PROC				; COMDAT
 
-; 31   : {
+; 41   : {
 
 	push	ebp
 	mov	ebp, esp
@@ -115,35 +120,35 @@ _PMC_GetNumberType_X@8 PROC				; COMDAT
 	mov	ecx, OFFSET __C5291EA6_pmc_getnumbertype@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 32   :     if (x == NULL)
+; 42   :     if (x == NULL)
 
 	cmp	DWORD PTR _x$[ebp], 0
 	jne	SHORT $LN2@PMC_GetNum
 
-; 33   :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 43   :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_GetNum
 $LN2@PMC_GetNum:
 
-; 34   :     if (o == NULL)
+; 44   :     if (o == NULL)
 
 	cmp	DWORD PTR _o$[ebp], 0
 	jne	SHORT $LN3@PMC_GetNum
 
-; 35   :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 45   :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_GetNum
 $LN3@PMC_GetNum:
 
-; 36   :     PMC_STATUS_CODE result;
-; 37   :     NUMBER_HEADER* nx = (NUMBER_HEADER*)x;
+; 46   :     PMC_STATUS_CODE result;
+; 47   :     NUMBER_HEADER* nx = (NUMBER_HEADER*)x;
 
 	mov	eax, DWORD PTR _x$[ebp]
 	mov	DWORD PTR _nx$[ebp], eax
 
-; 38   :     if ((result = CheckNumber(nx)) != PMC_STATUS_OK)
+; 48   :     if ((result = CheckNumber(nx)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nx$[ebp]
 	push	eax
@@ -153,17 +158,17 @@ $LN3@PMC_GetNum:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_GetNum
 
-; 39   :         return (result);
+; 49   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_GetNum
 $LN4@PMC_GetNum:
 
-; 40   :     PMC_NUMBER_TYPE_CODE value = 0;
+; 50   :     PMC_NUMBER_TYPE_CODE value = 0;
 
 	mov	DWORD PTR _value$[ebp], 0
 
-; 41   :     if (nx->IS_ZERO)
+; 51   :     if (nx->IS_ZERO)
 
 	mov	eax, DWORD PTR _nx$[ebp]
 	mov	ecx, DWORD PTR [eax+16]
@@ -171,14 +176,14 @@ $LN4@PMC_GetNum:
 	and	ecx, 1
 	je	SHORT $LN5@PMC_GetNum
 
-; 42   :         value |= 0x01;
+; 52   :         value |= 0x01;
 
 	mov	eax, DWORD PTR _value$[ebp]
 	or	eax, 1
 	mov	DWORD PTR _value$[ebp], eax
 $LN5@PMC_GetNum:
 
-; 43   :     if (nx->IS_ONE)
+; 53   :     if (nx->IS_ONE)
 
 	mov	eax, DWORD PTR _nx$[ebp]
 	mov	ecx, DWORD PTR [eax+16]
@@ -186,14 +191,14 @@ $LN5@PMC_GetNum:
 	and	ecx, 1
 	je	SHORT $LN6@PMC_GetNum
 
-; 44   :         value |= 0x02;
+; 54   :         value |= 0x02;
 
 	mov	eax, DWORD PTR _value$[ebp]
 	or	eax, 2
 	mov	DWORD PTR _value$[ebp], eax
 $LN6@PMC_GetNum:
 
-; 45   :     if (nx->IS_MINUS_ONE)
+; 55   :     if (nx->IS_MINUS_ONE)
 
 	mov	eax, DWORD PTR _nx$[ebp]
 	mov	ecx, DWORD PTR [eax+16]
@@ -201,14 +206,14 @@ $LN6@PMC_GetNum:
 	and	ecx, 1
 	je	SHORT $LN7@PMC_GetNum
 
-; 46   :         value |= 0x04;
+; 56   :         value |= 0x04;
 
 	mov	eax, DWORD PTR _value$[ebp]
 	or	eax, 4
 	mov	DWORD PTR _value$[ebp], eax
 $LN7@PMC_GetNum:
 
-; 47   :     if (nx->IS_EVEN)
+; 57   :     if (nx->IS_EVEN)
 
 	mov	eax, DWORD PTR _nx$[ebp]
 	mov	ecx, DWORD PTR [eax+16]
@@ -216,14 +221,14 @@ $LN7@PMC_GetNum:
 	and	ecx, 1
 	je	SHORT $LN8@PMC_GetNum
 
-; 48   :         value |= 0x08;
+; 58   :         value |= 0x08;
 
 	mov	eax, DWORD PTR _value$[ebp]
 	or	eax, 8
 	mov	DWORD PTR _value$[ebp], eax
 $LN8@PMC_GetNum:
 
-; 49   :     if (nx->IS_POWER_OF_TWO)
+; 59   :     if (nx->IS_POWER_OF_TWO)
 
 	mov	eax, DWORD PTR _nx$[ebp]
 	mov	ecx, DWORD PTR [eax+16]
@@ -231,25 +236,25 @@ $LN8@PMC_GetNum:
 	and	ecx, 1
 	je	SHORT $LN9@PMC_GetNum
 
-; 50   :         value |= 0x10;
+; 60   :         value |= 0x10;
 
 	mov	eax, DWORD PTR _value$[ebp]
 	or	eax, 16					; 00000010H
 	mov	DWORD PTR _value$[ebp], eax
 $LN9@PMC_GetNum:
 
-; 51   :     *o = value;
+; 61   :     *o = value;
 
 	mov	eax, DWORD PTR _o$[ebp]
 	mov	ecx, DWORD PTR _value$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 52   :     return (PMC_STATUS_OK);
+; 62   :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_GetNum:
 
-; 53   : }
+; 63   : }
 
 	pop	edi
 	pop	esi
@@ -261,5 +266,113 @@ $LN1@PMC_GetNum:
 	pop	ebp
 	ret	8
 _PMC_GetNumberType_X@8 ENDP
+_TEXT	ENDS
+; Function compile flags: /Odtp /RTCsu /ZI
+; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_getnumbertype.c
+;	COMDAT _IsZero_UINT
+_TEXT	SEGMENT
+tv70 = -224						; size = 4
+_type$ = -24						; size = 4
+_result$ = -12						; size = 4
+__$ArrayPad$ = -4					; size = 4
+_x$ = 8							; size = 4
+_is_zero$ = 12						; size = 4
+_IsZero_UINT PROC					; COMDAT
+
+; 31   : {
+
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 224				; 000000e0H
+	push	ebx
+	push	esi
+	push	edi
+	lea	edi, DWORD PTR [ebp-224]
+	mov	ecx, 56					; 00000038H
+	mov	eax, -858993460				; ccccccccH
+	rep stosd
+	mov	eax, DWORD PTR ___security_cookie
+	xor	eax, ebp
+	mov	DWORD PTR __$ArrayPad$[ebp], eax
+	mov	ecx, OFFSET __C5291EA6_pmc_getnumbertype@c
+	call	@__CheckForDebuggerJustMyCode@4
+
+; 32   :     PMC_STATUS_CODE result;
+; 33   :     PMC_NUMBER_TYPE_CODE type;
+; 34   :     if ((result = ep_uint.GetNumberType_X(x, &type)) != PMC_STATUS_OK)
+
+	mov	esi, esp
+	lea	eax, DWORD PTR _type$[ebp]
+	push	eax
+	mov	ecx, DWORD PTR _x$[ebp]
+	push	ecx
+	call	DWORD PTR _ep_uint+20
+	cmp	esi, esp
+	call	__RTC_CheckEsp
+	mov	DWORD PTR _result$[ebp], eax
+	cmp	DWORD PTR _result$[ebp], 0
+	je	SHORT $LN2@IsZero_UIN
+
+; 35   :         return (result);
+
+	mov	eax, DWORD PTR _result$[ebp]
+	jmp	SHORT $LN1@IsZero_UIN
+$LN2@IsZero_UIN:
+
+; 36   :     *is_zero = (type & PMC_NUMBER_TYPE_IS_ZERO) ? 1 : 0;
+
+	mov	eax, DWORD PTR _type$[ebp]
+	and	eax, 1
+	je	SHORT $LN4@IsZero_UIN
+	mov	DWORD PTR tv70[ebp], 1
+	jmp	SHORT $LN5@IsZero_UIN
+$LN4@IsZero_UIN:
+	mov	DWORD PTR tv70[ebp], 0
+$LN5@IsZero_UIN:
+	mov	ecx, DWORD PTR _is_zero$[ebp]
+	mov	dl, BYTE PTR tv70[ebp]
+	mov	BYTE PTR [ecx], dl
+
+; 37   :     return (PMC_STATUS_OK);
+
+	xor	eax, eax
+$LN1@IsZero_UIN:
+
+; 38   : }
+
+	push	edx
+	mov	ecx, ebp
+	push	eax
+	lea	edx, DWORD PTR $LN8@IsZero_UIN
+	call	@_RTC_CheckStackVars@8
+	pop	eax
+	pop	edx
+	pop	edi
+	pop	esi
+	pop	ebx
+	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
+	xor	ecx, ebp
+	call	@__security_check_cookie@4
+	add	esp, 224				; 000000e0H
+	cmp	ebp, esp
+	call	__RTC_CheckEsp
+	mov	esp, ebp
+	pop	ebp
+	ret	0
+	npad	3
+$LN8@IsZero_UIN:
+	DD	1
+	DD	$LN7@IsZero_UIN
+$LN7@IsZero_UIN:
+	DD	-24					; ffffffe8H
+	DD	4
+	DD	$LN6@IsZero_UIN
+$LN6@IsZero_UIN:
+	DB	116					; 00000074H
+	DB	121					; 00000079H
+	DB	112					; 00000070H
+	DB	101					; 00000065H
+	DB	0
+_IsZero_UINT ENDP
 _TEXT	ENDS
 END

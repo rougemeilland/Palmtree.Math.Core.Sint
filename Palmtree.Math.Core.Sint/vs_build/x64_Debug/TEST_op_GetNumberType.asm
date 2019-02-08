@@ -23,9 +23,9 @@ __843F7E1A_test_op_getnumbertype@c DB 01H
 msvcjmc	ENDS
 PUBLIC	TEST_GetNumberType_X
 PUBLIC	__JustMyCode_Default
-PUBLIC	??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@ ; `string'
+PUBLIC	??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@ ; `string'
 PUBLIC	??_C@_1DK@LCFBHAOB@?$AAT?$AAE?$AAS?$AAT?$AA_?$AAG?$AAe?$AAt?$AAN?$AAu?$AAm?$AAb?$AAe?$AAr?$AAT@ ; `string'
-PUBLIC	??_C@_1FI@HMOCLLMA@?$AAP?$AAM?$AAC?$AA_?$AAG?$AAe?$AAt?$AAP?$AAr?$AAo?$AAp?$AAe?$AAr?$AAt?$AAy@ ; `string'
+PUBLIC	??_C@_1FA@PFINNHIK@?$AAG?$AAe?$AAt?$AAP?$AAr?$AAo?$AAp?$AAe?$AAr?$AAt?$AAy?$AAV?$AAa?$AAl?$AAu@ ; `string'
 PUBLIC	??_C@_1BK@CBDJCOBM@?$PP?G?$PP?$PM?$PP?$LP?$AAn?$PP?$IF?$PP?$LJ?$AAL?$AA?$AA?$PP?t?$AAW?$AAj?$AAD@ ; `string'
 EXTRN	TEST_Assert:PROC
 EXTRN	FormatTestLabel:PROC
@@ -57,15 +57,15 @@ CONST	SEGMENT
 	DB	'0', 0fcH, '0', 0bfH, '0n0', 085H, 'Q', 0b9H, '[L0', 00H, 'N', 0f4H
 	DB	081H, 'W0j0D0', 00H, 00H			; `string'
 CONST	ENDS
-;	COMDAT ??_C@_1FI@HMOCLLMA@?$AAP?$AAM?$AAC?$AA_?$AAG?$AAe?$AAt?$AAP?$AAr?$AAo?$AAp?$AAe?$AAr?$AAt?$AAy@
+;	COMDAT ??_C@_1FA@PFINNHIK@?$AAG?$AAe?$AAt?$AAP?$AAr?$AAo?$AAp?$AAe?$AAr?$AAt?$AAy?$AAV?$AAa?$AAl?$AAu@
 CONST	SEGMENT
-??_C@_1FI@HMOCLLMA@?$AAP?$AAM?$AAC?$AA_?$AAG?$AAe?$AAt?$AAP?$AAr?$AAo?$AAp?$AAe?$AAr?$AAt?$AAy@ DB 'P'
-	DB	00H, 'M', 00H, 'C', 00H, '_', 00H, 'G', 00H, 'e', 00H, 't', 00H
-	DB	'P', 00H, 'r', 00H, 'o', 00H, 'p', 00H, 'e', 00H, 'r', 00H, 't'
-	DB	00H, 'y', 00H, 'V', 00H, 'a', 00H, 'l', 00H, 'u', 00H, 'e', 00H
-	DB	'_', 00H, 'X', 00H, '_', 00H, 'I', 00H, 'n0', 0a9H, '_0^', 0b3H
-	DB	'0', 0fcH, '0', 0c9H, '0L0', 01fH, 'g', 085H, '_', 01aH, 090H, 08aH
-	DB	'0g0o0j0D0(', 00H, '%', 00H, 'd', 00H, ')', 00H, 00H, 00H ; `string'
+??_C@_1FA@PFINNHIK@?$AAG?$AAe?$AAt?$AAP?$AAr?$AAo?$AAp?$AAe?$AAr?$AAt?$AAy?$AAV?$AAa?$AAl?$AAu@ DB 'G'
+	DB	00H, 'e', 00H, 't', 00H, 'P', 00H, 'r', 00H, 'o', 00H, 'p', 00H
+	DB	'e', 00H, 'r', 00H, 't', 00H, 'y', 00H, 'V', 00H, 'a', 00H, 'l'
+	DB	00H, 'u', 00H, 'e', 00H, '_', 00H, 'X', 00H, '_', 00H, 'I', 00H
+	DB	'n0', 0a9H, '_0^', 0b3H, '0', 0fcH, '0', 0c9H, '0L0', 01fH, 'g'
+	DB	085H, '_', 01aH, 090H, 08aH, '0g0o0j0D0(', 00H, '%', 00H, 'd', 00H
+	DB	')', 00H, 00H, 00H				; `string'
 CONST	ENDS
 ;	COMDAT ??_C@_1DK@LCFBHAOB@?$AAT?$AAE?$AAS?$AAT?$AA_?$AAG?$AAe?$AAt?$AAN?$AAu?$AAm?$AAb?$AAe?$AAr?$AAT@
 CONST	SEGMENT
@@ -76,14 +76,14 @@ CONST	SEGMENT
 	DB	' ', 00H, '(', 00H, '%', 00H, 'd', 00H, '.', 00H, '%', 00H, 'd'
 	DB	00H, ')', 00H, 00H, 00H			; `string'
 CONST	ENDS
-;	COMDAT ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+;	COMDAT ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 CONST	SEGMENT
-??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@ DB 'P'
-	DB	00H, 'M', 00H, 'C', 00H, '_', 00H, 'F', 00H, 'r', 00H, 'o', 00H
-	DB	'm', 00H, 'B', 00H, 'y', 00H, 't', 00H, 'e', 00H, 'A', 00H, 'r'
-	DB	00H, 'r', 00H, 'a', 00H, 'y', 00H, 'n0', 0a9H, '_0^', 0b3H, '0'
-	DB	0fcH, '0', 0c9H, '0L0', 01fH, 'g', 085H, '_', 01aH, 090H, 08aH
-	DB	'0g0o0j0D0(', 00H, '%', 00H, 'd', 00H, ')', 00H, 00H, 00H ; `string'
+??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@ DB 'F'
+	DB	00H, 'r', 00H, 'o', 00H, 'm', 00H, 'B', 00H, 'y', 00H, 't', 00H
+	DB	'e', 00H, 'A', 00H, 'r', 00H, 'r', 00H, 'a', 00H, 'y', 00H, 'n'
+	DB	'0', 0a9H, '_0^', 0b3H, '0', 0fcH, '0', 0c9H, '0L0', 01fH, 'g', 085H
+	DB	'_', 01aH, 090H, 08aH, '0g0o0j0D0(', 00H, '%', 00H, 'd', 00H, ')'
+	DB	00H, 00H, 00H				; `string'
 CONST	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
@@ -179,7 +179,7 @@ $LN10:
 ; 35   :     PMC_NUMBER_TYPE_CODE actual_value;
 ; 36   :     PMC_STATUS_CODE result;
 ; 37   :     PMC_STATUS_CODE x_result;
-; 38   :     TEST_Assert(env, FormatTestLabel(L"TEST_GetNumberType_X (%d.%d)", no, 1), (x_result = ep->FromByteArray(x_buf, x_buf_size, &x)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", x_result));
+; 38   :     TEST_Assert(env, FormatTestLabel(L"TEST_GetNumberType_X (%d.%d)", no, 1), (x_result = ep->FromByteArray(x_buf, x_buf_size, &x)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", x_result));
 
 	lea	r8, QWORD PTR x$[rbp]
 	mov	rdx, QWORD PTR x_buf_size$[rbp]
@@ -195,7 +195,7 @@ $LN4@TEST_GetNu:
 	mov	DWORD PTR tv74[rbp], 0
 $LN5@TEST_GetNu:
 	mov	edx, DWORD PTR x_result$[rbp]
-	lea	rcx, OFFSET FLAT:??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+	lea	rcx, OFFSET FLAT:??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 	call	FormatTestMesssage
 	mov	QWORD PTR tv64[rbp], rax
 	mov	r8d, 1
@@ -209,7 +209,7 @@ $LN5@TEST_GetNu:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 39   :     TEST_Assert(env, FormatTestLabel(L"TEST_GetNumberType_X (%d.%d)", no, 2), (result = ep->GetNumberType_X(x, &actual_value)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_GetPropertyValue_X_Iの復帰コードが期待通りではない(%d)", result));
+; 39   :     TEST_Assert(env, FormatTestLabel(L"TEST_GetNumberType_X (%d.%d)", no, 2), (result = ep->GetNumberType_X(x, &actual_value)) == PMC_STATUS_OK, FormatTestMesssage(L"GetPropertyValue_X_Iの復帰コードが期待通りではない(%d)", result));
 
 	lea	rdx, QWORD PTR actual_value$[rbp]
 	mov	rcx, QWORD PTR x$[rbp]
@@ -224,7 +224,7 @@ $LN6@TEST_GetNu:
 	mov	DWORD PTR tv91[rbp], 0
 $LN7@TEST_GetNu:
 	mov	edx, DWORD PTR result$[rbp]
-	lea	rcx, OFFSET FLAT:??_C@_1FI@HMOCLLMA@?$AAP?$AAM?$AAC?$AA_?$AAG?$AAe?$AAt?$AAP?$AAr?$AAo?$AAp?$AAe?$AAr?$AAt?$AAy@
+	lea	rcx, OFFSET FLAT:??_C@_1FA@PFINNHIK@?$AAG?$AAe?$AAt?$AAP?$AAr?$AAo?$AAp?$AAe?$AAr?$AAt?$AAy?$AAV?$AAa?$AAl?$AAu@
 	call	FormatTestMesssage
 	mov	QWORD PTR tv82[rbp], rax
 	mov	r8d, 2

@@ -87794,7 +87794,16 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
     PMC_STATUS_CODE ( * Subtruct_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE ( * Subtruct_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE ( * Subtruct_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-# 416 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+
+
+    PMC_STATUS_CODE ( * Multiply_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE ( * Multiply_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE ( * Multiply_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE ( * Multiply_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE ( * Multiply_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE ( * Multiply_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE ( * Multiply_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+# 418 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 } PMC_SINT_ENTRY_POINTS;
 #pragma endregion
 
@@ -87907,6 +87916,7 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern void DeallocateNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE CheckNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE DuplicateNumber(NUMBER_HEADER* x, NUMBER_HEADER** op);
+    extern PMC_STATUS_CODE IsZero_UINT(PMC_HANDLE_UINT x, char* is_zero);
     extern PMC_STATUS_CODE Negate_Imp(NUMBER_HEADER* x, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_I_Imp(char x_sign, _UINT32_T x_abs, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_L_Imp(char x_sign, _UINT64_T x_abs, NUMBER_HEADER** o);
@@ -87960,7 +87970,15 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern PMC_STATUS_CODE PMC_Subtruct_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE PMC_Subtruct_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-# 191 "../pmc_sint_internal.h"
+
+    extern PMC_STATUS_CODE PMC_Multiply_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+# 195 "../pmc_sint_internal.h"
 #pragma endregion
 
 
@@ -88023,41 +88041,65 @@ extern void TEST_From_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, i
 
 extern void TEST_GetNumberType_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*x_buf, size_t x_buf_size, PMC_NUMBER_TYPE_CODE desired_value);
 
+extern void TEST_Multiply_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 68 "../pmc_sint_debug.h" 3
+                                                                                            int 
+# 68 "../pmc_sint_debug.h"
+                                                                                                    u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 69 "../pmc_sint_debug.h" 3
+                                                                                            long long 
+# 69 "../pmc_sint_debug.h"
+                                                                                                    u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 71 "../pmc_sint_debug.h" 3
+                                                                                                                                     int 
+# 71 "../pmc_sint_debug.h"
+                                                                                                                                             v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 72 "../pmc_sint_debug.h" 3
+                                                                                                                                     long long 
+# 72 "../pmc_sint_debug.h"
+                                                                                                                                             v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+
 extern void TEST_Negate_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*x_buf, size_t x_buf_size, unsigned char*desired_o_buf, size_t desired_o_buf_size);
 
 extern void TEST_Subtruct_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
-# 70 "../pmc_sint_debug.h" 3
+# 78 "../pmc_sint_debug.h" 3
                                                                                             int 
-# 70 "../pmc_sint_debug.h"
+# 78 "../pmc_sint_debug.h"
                                                                                                     u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 extern void TEST_Subtruct_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
-# 71 "../pmc_sint_debug.h" 3
+# 79 "../pmc_sint_debug.h" 3
                                                                                             long long 
-# 71 "../pmc_sint_debug.h"
+# 79 "../pmc_sint_debug.h"
                                                                                                     u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 extern void TEST_Subtruct_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 extern void TEST_Subtruct_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
-# 73 "../pmc_sint_debug.h" 3
+# 81 "../pmc_sint_debug.h" 3
                                                                                                                                      int 
-# 73 "../pmc_sint_debug.h"
+# 81 "../pmc_sint_debug.h"
                                                                                                                                              v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 extern void TEST_Subtruct_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
-# 74 "../pmc_sint_debug.h" 3
+# 82 "../pmc_sint_debug.h" 3
                                                                                                                                      long long 
-# 74 "../pmc_sint_debug.h"
+# 82 "../pmc_sint_debug.h"
                                                                                                                                              v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 extern void TEST_Subtruct_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 extern void TEST_Subtruct_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 
 extern void TEST_To_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* buf, size_t buf_size, PMC_STATUS_CODE desired_result_code, 
-# 78 "../pmc_sint_debug.h" 3
+# 86 "../pmc_sint_debug.h" 3
                                                                                                                                                                 int 
-# 78 "../pmc_sint_debug.h"
+# 86 "../pmc_sint_debug.h"
                                                                                                                                                                         desired_rvalue);
 extern void TEST_To_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* buf, size_t buf_size, PMC_STATUS_CODE desired_result_code, 
-# 79 "../pmc_sint_debug.h" 3
+# 87 "../pmc_sint_debug.h" 3
                                                                                                                                                                 long long 
-# 79 "../pmc_sint_debug.h"
+# 87 "../pmc_sint_debug.h"
                                                                                                                                                                         desired_rvalue);
 
 #pragma endregion
@@ -88098,9 +88140,9 @@ void TEST_Subtruct_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, in
     PMC_STATUS_CODE result;
     PMC_STATUS_CODE v_result;
     PMC_STATUS_CODE w_result;
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_I_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_I_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_I_X (%d.%d)", no, 2), (w_result = ep->Subtruct_I_X(u, v, &w)) == (0), FormatTestMesssage(L"Subtruct_I_Xの復帰コードが期待通りではない(%d)", w_result));
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_I_X (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == (0), FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_I_X (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == (0), FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_I_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_w_buf, actual_w_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
     if (w_result == (0))
         ep->Dispose(w);
@@ -88121,10 +88163,10 @@ void TEST_Subtruct_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, in
     PMC_STATUS_CODE result;
     PMC_STATUS_CODE v_result;
     PMC_STATUS_CODE w_result;
-    TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_L_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
-    TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_L_X (%d.%d)", no, 2), (w_result = ep->Subtruct_L_X(u, v, &w)) == (0), FormatTestMesssage(L"Subtruct_L_Xの復帰コードが期待通りではない(%d)", w_result));
-    TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_L_X (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == (0), FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
-    TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_L_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_w_buf, actual_w_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_L_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_L_X (%d.%d)", no, 2), (w_result = ep->Subtruct_L_X(u, v, &w)) == (0), FormatTestMesssage(L"Subtruct_L_Xの復帰コードが期待通りではない(%d)", w_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_L_X (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == (0), FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_L_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_w_buf, actual_w_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
     if (w_result == (0))
         ep->Dispose(w);
     if (v_result == (0))
@@ -88142,10 +88184,10 @@ void TEST_Subtruct_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, i
     PMC_STATUS_CODE u_result;
     PMC_STATUS_CODE v_result;
     PMC_STATUS_CODE w_result;
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 1), (u_result = ep->uint.FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 1), (u_result = ep->uint.FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 3), (w_result = ep->Subtruct_UX_X(u, v, &w)) == (0), FormatTestMesssage(L"Subtruct_UX_Xの復帰コードが期待通りではない(%d)", w_result));
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == (0), FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == (0), FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 5), _EQUALS_MEMORY(actual_w_buf, actual_w_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
     if (w_result == (0))
         ep->Dispose(w);
@@ -88168,9 +88210,9 @@ void TEST_Subtruct_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, in
     PMC_STATUS_CODE result;
     PMC_STATUS_CODE u_result;
     PMC_STATUS_CODE w_result;
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_I (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_I (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_I (%d.%d)", no, 2), (w_result = ep->Subtruct_X_I(u, v, &w)) == (0), FormatTestMesssage(L"Subtruct_X_Iの復帰コードが期待通りではない(%d)", w_result));
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_I (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == (0), FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_I (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == (0), FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_I (%d.%d)", no, 4), _EQUALS_MEMORY(actual_w_buf, actual_w_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
     if (w_result == (0))
         ep->Dispose(w);
@@ -88191,9 +88233,9 @@ void TEST_Subtruct_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, in
     PMC_STATUS_CODE result;
     PMC_STATUS_CODE u_result;
     PMC_STATUS_CODE w_result;
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_L (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_L (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_L (%d.%d)", no, 2), (w_result = ep->Subtruct_X_L(u, v, &w)) == (0), FormatTestMesssage(L"Subtruct_X_Lの復帰コードが期待通りではない(%d)", w_result));
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_L (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == (0), FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_L (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == (0), FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_L (%d.%d)", no, 4), _EQUALS_MEMORY(actual_w_buf, actual_w_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
     if (w_result == (0))
         ep->Dispose(w);
@@ -88212,10 +88254,10 @@ void TEST_Subtruct_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, i
     PMC_STATUS_CODE u_result;
     PMC_STATUS_CODE v_result;
     PMC_STATUS_CODE w_result;
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 2), (v_result = ep->uint.FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 2), (v_result = ep->uint.FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 3), (w_result = ep->Subtruct_X_UX(u, v, &w)) == (0), FormatTestMesssage(L"Subtruct_X_UXの復帰コードが期待通りではない(%d)", w_result));
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_z_buf, sizeof(actual_z_buf), &actual_z_buf_size)) == (0), FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_z_buf, sizeof(actual_z_buf), &actual_z_buf_size)) == (0), FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 5), _EQUALS_MEMORY(actual_z_buf, actual_z_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
     if (w_result == (0))
         ep->Dispose(w);
@@ -88235,11 +88277,11 @@ void TEST_Subtruct_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, in
     PMC_STATUS_CODE u_result;
     PMC_STATUS_CODE v_result;
     PMC_STATUS_CODE w_result;
-    TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_X_X (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
-    TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_X_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
-    TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_X_X (%d.%d)", no, 3), (w_result = ep->Subtruct_X_X(u, v, &w)) == (0), FormatTestMesssage(L"PMC_Subtruct_X_Xの復帰コードが期待通りではない(%d)", w_result));
-    TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_X_X (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_z_buf, sizeof(actual_z_buf), &actual_z_buf_size)) == (0), FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
-    TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_X_X (%d.%d)", no, 5), _EQUALS_MEMORY(actual_z_buf, actual_z_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_X (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_X (%d.%d)", no, 3), (w_result = ep->Subtruct_X_X(u, v, &w)) == (0), FormatTestMesssage(L"Subtruct_X_Xの復帰コードが期待通りではない(%d)", w_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_X (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_z_buf, sizeof(actual_z_buf), &actual_z_buf_size)) == (0), FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_X (%d.%d)", no, 5), _EQUALS_MEMORY(actual_z_buf, actual_z_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
     if (w_result == (0))
         ep->Dispose(w);
     if (v_result == (0))

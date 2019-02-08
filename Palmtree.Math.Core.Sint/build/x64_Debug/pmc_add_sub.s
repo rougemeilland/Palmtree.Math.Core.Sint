@@ -122,9 +122,9 @@ GET_ABS_64:
 	.cfi_endproc
 .LFE4363:
 	.seh_endproc
-	.def	IS_ZERO_UINT;	.scl	3;	.type	32;	.endef
-	.seh_proc	IS_ZERO_UINT
-IS_ZERO_UINT:
+	.def	AddU_X_I_Imp;	.scl	3;	.type	32;	.endef
+	.seh_proc	AddU_X_I_Imp
+AddU_X_I_Imp:
 .LFB4364:
 	.file 2 "../pmc_add_sub.c"
 	.loc 2 32 1
@@ -139,16 +139,19 @@ IS_ZERO_UINT:
 	subq	$48, %rsp
 	.seh_stackalloc	48
 	.seh_endprologue
-	movq	%rcx, 16(%rbp)
+	movl	%ecx, %eax
 	movq	%rdx, 24(%rbp)
+	movl	%r8d, 32(%rbp)
+	movq	%r9, 40(%rbp)
+	movb	%al, 16(%rbp)
 	.loc 2 35 26
 	movq	.refptr.ep_uint(%rip), %rax
-	movq	40(%rax), %r8
+	movq	144(%rax), %rax
 	.loc 2 35 19
-	leaq	-8(%rbp), %rax
-	movq	%rax, %rdx
-	movq	16(%rbp), %rcx
-	call	*%r8
+	leaq	-16(%rbp), %r8
+	movl	32(%rbp), %edx
+	movq	24(%rbp), %rcx
+	call	*%rax
 .LVL0:
 	movl	%eax, -4(%rbp)
 	.loc 2 35 8
@@ -156,18 +159,35 @@ IS_ZERO_UINT:
 	je	.L14
 	.loc 2 36 16
 	movl	-4(%rbp), %eax
-	jmp	.L16
+	jmp	.L17
 .L14:
-	.loc 2 37 38
-	movl	-8(%rbp), %eax
-	andl	$1, %eax
-	.loc 2 37 14
-	movq	24(%rbp), %rdx
-	movb	%al, (%rdx)
-	.loc 2 38 12
-	movl	$0, %eax
+	.loc 2 37 19
+	movq	-16(%rbp), %rdx
+	movsbl	16(%rbp), %eax
+	movq	40(%rbp), %rcx
+	movq	%rdx, %r8
+	movl	%eax, %edx
+	call	AllocateNumber
+	movl	%eax, -4(%rbp)
+	.loc 2 37 8
+	cmpl	$0, -4(%rbp)
+	je	.L16
+	.loc 2 39 16
+	movq	.refptr.ep_uint(%rip), %rax
+	movq	32(%rax), %rax
+	.loc 2 39 9
+	movq	-16(%rbp), %rdx
+	movq	%rdx, %rcx
+	call	*%rax
+.LVL1:
+	.loc 2 40 16
+	movl	-4(%rbp), %eax
+	jmp	.L17
 .L16:
-	.loc 2 39 1 discriminator 1
+	.loc 2 42 12
+	movl	$0, %eax
+.L17:
+	.loc 2 43 1 discriminator 1
 	addq	$48, %rsp
 	popq	%rbp
 	.cfi_restore 6
@@ -176,11 +196,11 @@ IS_ZERO_UINT:
 	.cfi_endproc
 .LFE4364:
 	.seh_endproc
-	.def	AddU_X_I_Imp;	.scl	3;	.type	32;	.endef
-	.seh_proc	AddU_X_I_Imp
-AddU_X_I_Imp:
+	.def	AddU_X_L_Imp;	.scl	3;	.type	32;	.endef
+	.seh_proc	AddU_X_L_Imp
+AddU_X_L_Imp:
 .LFB4365:
-	.loc 2 42 1
+	.loc 2 46 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -194,27 +214,27 @@ AddU_X_I_Imp:
 	.seh_endprologue
 	movl	%ecx, %eax
 	movq	%rdx, 24(%rbp)
-	movl	%r8d, 32(%rbp)
+	movq	%r8, 32(%rbp)
 	movq	%r9, 40(%rbp)
 	movb	%al, 16(%rbp)
-	.loc 2 45 26
+	.loc 2 49 26
 	movq	.refptr.ep_uint(%rip), %rax
-	movq	144(%rax), %rax
-	.loc 2 45 19
+	movq	152(%rax), %rax
+	.loc 2 49 19
 	leaq	-16(%rbp), %r8
-	movl	32(%rbp), %edx
+	movq	32(%rbp), %rdx
 	movq	24(%rbp), %rcx
 	call	*%rax
-.LVL1:
+.LVL2:
 	movl	%eax, -4(%rbp)
-	.loc 2 45 8
+	.loc 2 49 8
 	cmpl	$0, -4(%rbp)
-	je	.L18
-	.loc 2 46 16
+	je	.L19
+	.loc 2 50 16
 	movl	-4(%rbp), %eax
-	jmp	.L21
-.L18:
-	.loc 2 47 19
+	jmp	.L22
+.L19:
+	.loc 2 51 19
 	movq	-16(%rbp), %rdx
 	movsbl	16(%rbp), %eax
 	movq	40(%rbp), %rcx
@@ -222,25 +242,25 @@ AddU_X_I_Imp:
 	movl	%eax, %edx
 	call	AllocateNumber
 	movl	%eax, -4(%rbp)
-	.loc 2 47 8
+	.loc 2 51 8
 	cmpl	$0, -4(%rbp)
-	je	.L20
-	.loc 2 49 16
+	je	.L21
+	.loc 2 53 16
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	32(%rax), %rax
-	.loc 2 49 9
+	.loc 2 53 9
 	movq	-16(%rbp), %rdx
 	movq	%rdx, %rcx
 	call	*%rax
-.LVL2:
-	.loc 2 50 16
+.LVL3:
+	.loc 2 54 16
 	movl	-4(%rbp), %eax
-	jmp	.L21
-.L20:
-	.loc 2 52 12
-	movl	$0, %eax
+	jmp	.L22
 .L21:
-	.loc 2 53 1 discriminator 1
+	.loc 2 56 12
+	movl	$0, %eax
+.L22:
+	.loc 2 57 1 discriminator 1
 	addq	$48, %rsp
 	popq	%rbp
 	.cfi_restore 6
@@ -249,11 +269,11 @@ AddU_X_I_Imp:
 	.cfi_endproc
 .LFE4365:
 	.seh_endproc
-	.def	AddU_X_L_Imp;	.scl	3;	.type	32;	.endef
-	.seh_proc	AddU_X_L_Imp
-AddU_X_L_Imp:
+	.def	AddU_X_X_Imp;	.scl	3;	.type	32;	.endef
+	.seh_proc	AddU_X_X_Imp
+AddU_X_X_Imp:
 .LFB4366:
-	.loc 2 56 1
+	.loc 2 60 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -270,24 +290,24 @@ AddU_X_L_Imp:
 	movq	%r8, 32(%rbp)
 	movq	%r9, 40(%rbp)
 	movb	%al, 16(%rbp)
-	.loc 2 59 26
+	.loc 2 63 26
 	movq	.refptr.ep_uint(%rip), %rax
-	movq	152(%rax), %rax
-	.loc 2 59 19
+	movq	160(%rax), %rax
+	.loc 2 63 19
 	leaq	-16(%rbp), %r8
 	movq	32(%rbp), %rdx
 	movq	24(%rbp), %rcx
 	call	*%rax
-.LVL3:
+.LVL4:
 	movl	%eax, -4(%rbp)
-	.loc 2 59 8
+	.loc 2 63 8
 	cmpl	$0, -4(%rbp)
-	je	.L23
-	.loc 2 60 16
+	je	.L24
+	.loc 2 64 16
 	movl	-4(%rbp), %eax
-	jmp	.L26
-.L23:
-	.loc 2 61 19
+	jmp	.L27
+.L24:
+	.loc 2 65 19
 	movq	-16(%rbp), %rdx
 	movsbl	16(%rbp), %eax
 	movq	40(%rbp), %rcx
@@ -295,25 +315,25 @@ AddU_X_L_Imp:
 	movl	%eax, %edx
 	call	AllocateNumber
 	movl	%eax, -4(%rbp)
-	.loc 2 61 8
+	.loc 2 65 8
 	cmpl	$0, -4(%rbp)
-	je	.L25
-	.loc 2 63 16
+	je	.L26
+	.loc 2 67 16
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	32(%rax), %rax
-	.loc 2 63 9
+	.loc 2 67 9
 	movq	-16(%rbp), %rdx
 	movq	%rdx, %rcx
 	call	*%rax
-.LVL4:
-	.loc 2 64 16
+.LVL5:
+	.loc 2 68 16
 	movl	-4(%rbp), %eax
-	jmp	.L26
-.L25:
-	.loc 2 66 12
-	movl	$0, %eax
+	jmp	.L27
 .L26:
-	.loc 2 67 1 discriminator 1
+	.loc 2 70 12
+	movl	$0, %eax
+.L27:
+	.loc 2 71 1 discriminator 1
 	addq	$48, %rsp
 	popq	%rbp
 	.cfi_restore 6
@@ -322,84 +342,11 @@ AddU_X_L_Imp:
 	.cfi_endproc
 .LFE4366:
 	.seh_endproc
-	.def	AddU_X_X_Imp;	.scl	3;	.type	32;	.endef
-	.seh_proc	AddU_X_X_Imp
-AddU_X_X_Imp:
-.LFB4367:
-	.loc 2 70 1
-	.cfi_startproc
-	pushq	%rbp
-	.seh_pushreg	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.seh_setframe	%rbp, 0
-	.cfi_def_cfa_register 6
-	subq	$48, %rsp
-	.seh_stackalloc	48
-	.seh_endprologue
-	movl	%ecx, %eax
-	movq	%rdx, 24(%rbp)
-	movq	%r8, 32(%rbp)
-	movq	%r9, 40(%rbp)
-	movb	%al, 16(%rbp)
-	.loc 2 73 26
-	movq	.refptr.ep_uint(%rip), %rax
-	movq	160(%rax), %rax
-	.loc 2 73 19
-	leaq	-16(%rbp), %r8
-	movq	32(%rbp), %rdx
-	movq	24(%rbp), %rcx
-	call	*%rax
-.LVL5:
-	movl	%eax, -4(%rbp)
-	.loc 2 73 8
-	cmpl	$0, -4(%rbp)
-	je	.L28
-	.loc 2 74 16
-	movl	-4(%rbp), %eax
-	jmp	.L31
-.L28:
-	.loc 2 75 19
-	movq	-16(%rbp), %rdx
-	movsbl	16(%rbp), %eax
-	movq	40(%rbp), %rcx
-	movq	%rdx, %r8
-	movl	%eax, %edx
-	call	AllocateNumber
-	movl	%eax, -4(%rbp)
-	.loc 2 75 8
-	cmpl	$0, -4(%rbp)
-	je	.L30
-	.loc 2 77 16
-	movq	.refptr.ep_uint(%rip), %rax
-	movq	32(%rax), %rax
-	.loc 2 77 9
-	movq	-16(%rbp), %rdx
-	movq	%rdx, %rcx
-	call	*%rax
-.LVL6:
-	.loc 2 78 16
-	movl	-4(%rbp), %eax
-	jmp	.L31
-.L30:
-	.loc 2 80 12
-	movl	$0, %eax
-.L31:
-	.loc 2 81 1 discriminator 1
-	addq	$48, %rsp
-	popq	%rbp
-	.cfi_restore 6
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE4367:
-	.seh_endproc
 	.def	SubtructU_X_I_Imp;	.scl	3;	.type	32;	.endef
 	.seh_proc	SubtructU_X_I_Imp
 SubtructU_X_I_Imp:
-.LFB4368:
-	.loc 2 84 1
+.LFB4367:
+	.loc 2 74 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -416,47 +363,47 @@ SubtructU_X_I_Imp:
 	movl	%r8d, 32(%rbp)
 	movq	%r9, 40(%rbp)
 	movb	%al, 16(%rbp)
-	.loc 2 87 26
+	.loc 2 77 26
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	440(%rax), %rax
-	.loc 2 87 19
+	.loc 2 77 19
 	leaq	-8(%rbp), %r8
+	movl	32(%rbp), %edx
+	movq	24(%rbp), %rcx
+	call	*%rax
+.LVL6:
+	movl	%eax, -4(%rbp)
+	.loc 2 77 8
+	cmpl	$0, -4(%rbp)
+	je	.L29
+	.loc 2 78 16
+	movl	-4(%rbp), %eax
+	jmp	.L41
+.L29:
+	.loc 2 79 11
+	movl	-8(%rbp), %eax
+	.loc 2 79 8
+	testl	%eax, %eax
+	jle	.L31
+.LBB2:
+	.loc 2 85 30
+	movq	.refptr.ep_uint(%rip), %rax
+	movq	184(%rax), %rax
+	.loc 2 85 23
+	leaq	-16(%rbp), %r8
 	movl	32(%rbp), %edx
 	movq	24(%rbp), %rcx
 	call	*%rax
 .LVL7:
 	movl	%eax, -4(%rbp)
-	.loc 2 87 8
+	.loc 2 85 12
 	cmpl	$0, -4(%rbp)
-	je	.L33
-	.loc 2 88 16
+	je	.L32
+	.loc 2 86 20
 	movl	-4(%rbp), %eax
-	jmp	.L45
-.L33:
-	.loc 2 89 11
-	movl	-8(%rbp), %eax
-	.loc 2 89 8
-	testl	%eax, %eax
-	jle	.L35
-.LBB2:
-	.loc 2 95 30
-	movq	.refptr.ep_uint(%rip), %rax
-	movq	184(%rax), %rax
-	.loc 2 95 23
-	leaq	-16(%rbp), %r8
-	movl	32(%rbp), %edx
-	movq	24(%rbp), %rcx
-	call	*%rax
-.LVL8:
-	movl	%eax, -4(%rbp)
-	.loc 2 95 12
-	cmpl	$0, -4(%rbp)
-	je	.L36
-	.loc 2 96 20
-	movl	-4(%rbp), %eax
-	jmp	.L45
-.L36:
-	.loc 2 97 23
+	jmp	.L41
+.L32:
+	.loc 2 87 23
 	movq	-16(%rbp), %rdx
 	movsbl	16(%rbp), %eax
 	movq	40(%rbp), %rcx
@@ -464,69 +411,69 @@ SubtructU_X_I_Imp:
 	movl	%eax, %edx
 	call	AllocateNumber
 	movl	%eax, -4(%rbp)
-	.loc 2 97 12
+	.loc 2 87 12
 	cmpl	$0, -4(%rbp)
-	je	.L39
-	.loc 2 99 20
+	je	.L35
+	.loc 2 89 20
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	32(%rax), %rax
-	.loc 2 99 13
+	.loc 2 89 13
 	movq	-16(%rbp), %rdx
 	movq	%rdx, %rcx
 	call	*%rax
-.LVL9:
-	.loc 2 100 20
+.LVL8:
+	.loc 2 90 20
 	movl	-4(%rbp), %eax
-	jmp	.L45
-.L35:
+	jmp	.L41
+.L31:
 .LBE2:
-	.loc 2 103 16
+	.loc 2 93 16
 	movl	-8(%rbp), %eax
-	.loc 2 103 13
+	.loc 2 93 13
 	testl	%eax, %eax
-	jne	.L40
-	.loc 2 108 12
+	jne	.L36
+	.loc 2 98 12
 	movq	40(%rbp), %rax
 	movq	.refptr.number_zero(%rip), %rdx
 	movq	%rdx, (%rax)
-	jmp	.L39
-.L40:
+	jmp	.L35
+.L36:
 .LBB3:
-	.loc 2 116 30
+	.loc 2 106 30
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	168(%rax), %rax
-	.loc 2 116 23
+	.loc 2 106 23
 	leaq	-20(%rbp), %r8
 	movq	24(%rbp), %rdx
 	movl	32(%rbp), %ecx
 	call	*%rax
-.LVL10:
+.LVL9:
 	movl	%eax, -4(%rbp)
-	.loc 2 116 12
+	.loc 2 106 12
 	cmpl	$0, -4(%rbp)
-	je	.L41
-	.loc 2 117 20
+	je	.L37
+	.loc 2 107 20
 	movl	-4(%rbp), %eax
-	jmp	.L45
-.L41:
-	.loc 2 119 30
+	jmp	.L41
+.L37:
+	.loc 2 109 30
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	16(%rax), %r8
-	.loc 2 119 23
+	.loc 2 109 23
 	movl	-20(%rbp), %ecx
 	leaq	-32(%rbp), %rax
 	movq	%rax, %rdx
 	call	*%r8
-.LVL11:
+.LVL10:
 	movl	%eax, -4(%rbp)
-	.loc 2 119 12
+	.loc 2 109 12
 	cmpl	$0, -4(%rbp)
-	je	.L43
-	.loc 2 120 20
+	je	.L39
+	.loc 2 110 20
 	movl	-4(%rbp), %eax
-	jmp	.L45
-.L43:
-	.loc 2 121 23
+	jmp	.L41
+.L39:
+	.loc 2 111 23
 	movq	-32(%rbp), %rdx
 	movzbl	16(%rbp), %eax
 	negl	%eax
@@ -536,26 +483,195 @@ SubtructU_X_I_Imp:
 	movl	%eax, %edx
 	call	AllocateNumber
 	movl	%eax, -4(%rbp)
-	.loc 2 121 12
+	.loc 2 111 12
 	cmpl	$0, -4(%rbp)
-	je	.L39
-	.loc 2 123 20
+	je	.L35
+	.loc 2 113 20
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	32(%rax), %rax
-	.loc 2 123 13
+	.loc 2 113 13
 	movq	-32(%rbp), %rdx
 	movq	%rdx, %rcx
 	call	*%rax
-.LVL12:
-	.loc 2 124 20
+.LVL11:
+	.loc 2 114 20
 	movl	-4(%rbp), %eax
-	jmp	.L45
-.L39:
+	jmp	.L41
+.L35:
 .LBE3:
-	.loc 2 127 12
+	.loc 2 117 12
 	movl	$0, %eax
+.L41:
+	.loc 2 118 1 discriminator 2
+	addq	$64, %rsp
+	popq	%rbp
+	.cfi_restore 6
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE4367:
+	.seh_endproc
+	.def	SubtructU_X_L_Imp;	.scl	3;	.type	32;	.endef
+	.seh_proc	SubtructU_X_L_Imp
+SubtructU_X_L_Imp:
+.LFB4368:
+	.loc 2 121 1
+	.cfi_startproc
+	pushq	%rbp
+	.seh_pushreg	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.seh_setframe	%rbp, 0
+	.cfi_def_cfa_register 6
+	subq	$64, %rsp
+	.seh_stackalloc	64
+	.seh_endprologue
+	movl	%ecx, %eax
+	movq	%rdx, 24(%rbp)
+	movq	%r8, 32(%rbp)
+	movq	%r9, 40(%rbp)
+	movb	%al, 16(%rbp)
+	.loc 2 124 26
+	movq	.refptr.ep_uint(%rip), %rax
+	movq	448(%rax), %rax
+	.loc 2 124 19
+	leaq	-8(%rbp), %r8
+	movq	32(%rbp), %rdx
+	movq	24(%rbp), %rcx
+	call	*%rax
+.LVL12:
+	movl	%eax, -4(%rbp)
+	.loc 2 124 8
+	cmpl	$0, -4(%rbp)
+	je	.L43
+	.loc 2 125 16
+	movl	-4(%rbp), %eax
+	jmp	.L55
+.L43:
+	.loc 2 126 11
+	movl	-8(%rbp), %eax
+	.loc 2 126 8
+	testl	%eax, %eax
+	jle	.L45
+.LBB4:
+	.loc 2 132 30
+	movq	.refptr.ep_uint(%rip), %rax
+	movq	192(%rax), %rax
+	.loc 2 132 23
+	leaq	-16(%rbp), %r8
+	movq	32(%rbp), %rdx
+	movq	24(%rbp), %rcx
+	call	*%rax
+.LVL13:
+	movl	%eax, -4(%rbp)
+	.loc 2 132 12
+	cmpl	$0, -4(%rbp)
+	je	.L46
+	.loc 2 133 20
+	movl	-4(%rbp), %eax
+	jmp	.L55
+.L46:
+	.loc 2 134 23
+	movq	-16(%rbp), %rdx
+	movsbl	16(%rbp), %eax
+	movq	40(%rbp), %rcx
+	movq	%rdx, %r8
+	movl	%eax, %edx
+	call	AllocateNumber
+	movl	%eax, -4(%rbp)
+	.loc 2 134 12
+	cmpl	$0, -4(%rbp)
+	je	.L49
+	.loc 2 136 20
+	movq	.refptr.ep_uint(%rip), %rax
+	movq	32(%rax), %rax
+	.loc 2 136 13
+	movq	-16(%rbp), %rdx
+	movq	%rdx, %rcx
+	call	*%rax
+.LVL14:
+	.loc 2 137 20
+	movl	-4(%rbp), %eax
+	jmp	.L55
 .L45:
-	.loc 2 128 1 discriminator 2
+.LBE4:
+	.loc 2 140 16
+	movl	-8(%rbp), %eax
+	.loc 2 140 13
+	testl	%eax, %eax
+	jne	.L50
+	.loc 2 145 12
+	movq	40(%rbp), %rax
+	movq	.refptr.number_zero(%rip), %rdx
+	movq	%rdx, (%rax)
+	jmp	.L49
+.L50:
+.LBB5:
+	.loc 2 153 30
+	movq	.refptr.ep_uint(%rip), %rax
+	movq	176(%rax), %rax
+	.loc 2 153 23
+	leaq	-24(%rbp), %r8
+	movq	24(%rbp), %rdx
+	movq	32(%rbp), %rcx
+	call	*%rax
+.LVL15:
+	movl	%eax, -4(%rbp)
+	.loc 2 153 12
+	cmpl	$0, -4(%rbp)
+	je	.L51
+	.loc 2 154 20
+	movl	-4(%rbp), %eax
+	jmp	.L55
+.L51:
+	.loc 2 156 30
+	movq	.refptr.ep_uint(%rip), %rax
+	movq	24(%rax), %r8
+	.loc 2 156 23
+	movq	-24(%rbp), %rcx
+	leaq	-32(%rbp), %rax
+	movq	%rax, %rdx
+	call	*%r8
+.LVL16:
+	movl	%eax, -4(%rbp)
+	.loc 2 156 12
+	cmpl	$0, -4(%rbp)
+	je	.L53
+	.loc 2 157 20
+	movl	-4(%rbp), %eax
+	jmp	.L55
+.L53:
+	.loc 2 158 23
+	movq	-32(%rbp), %rdx
+	movzbl	16(%rbp), %eax
+	negl	%eax
+	movsbl	%al, %eax
+	movq	40(%rbp), %rcx
+	movq	%rdx, %r8
+	movl	%eax, %edx
+	call	AllocateNumber
+	movl	%eax, -4(%rbp)
+	.loc 2 158 12
+	cmpl	$0, -4(%rbp)
+	je	.L49
+	.loc 2 160 20
+	movq	.refptr.ep_uint(%rip), %rax
+	movq	32(%rax), %rax
+	.loc 2 160 13
+	movq	-32(%rbp), %rdx
+	movq	%rdx, %rcx
+	call	*%rax
+.LVL17:
+	.loc 2 161 20
+	movl	-4(%rbp), %eax
+	jmp	.L55
+.L49:
+.LBE5:
+	.loc 2 164 12
+	movl	$0, %eax
+.L55:
+	.loc 2 165 1 discriminator 2
 	addq	$64, %rsp
 	popq	%rbp
 	.cfi_restore 6
@@ -564,11 +680,11 @@ SubtructU_X_I_Imp:
 	.cfi_endproc
 .LFE4368:
 	.seh_endproc
-	.def	SubtructU_X_L_Imp;	.scl	3;	.type	32;	.endef
-	.seh_proc	SubtructU_X_L_Imp
-SubtructU_X_L_Imp:
+	.def	SubtructU_X_X_Imp;	.scl	3;	.type	32;	.endef
+	.seh_proc	SubtructU_X_X_Imp
+SubtructU_X_X_Imp:
 .LFB4369:
-	.loc 2 131 1
+	.loc 2 168 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -585,47 +701,47 @@ SubtructU_X_L_Imp:
 	movq	%r8, 32(%rbp)
 	movq	%r9, 40(%rbp)
 	movb	%al, 16(%rbp)
-	.loc 2 134 26
+	.loc 2 171 26
 	movq	.refptr.ep_uint(%rip), %rax
-	movq	448(%rax), %rax
-	.loc 2 134 19
+	movq	456(%rax), %rax
+	.loc 2 171 19
 	leaq	-8(%rbp), %r8
 	movq	32(%rbp), %rdx
 	movq	24(%rbp), %rcx
 	call	*%rax
-.LVL13:
+.LVL18:
 	movl	%eax, -4(%rbp)
-	.loc 2 134 8
+	.loc 2 171 8
 	cmpl	$0, -4(%rbp)
-	je	.L47
-	.loc 2 135 16
+	je	.L57
+	.loc 2 172 16
 	movl	-4(%rbp), %eax
-	jmp	.L59
-.L47:
-	.loc 2 136 11
+	jmp	.L68
+.L57:
+	.loc 2 173 11
 	movl	-8(%rbp), %eax
-	.loc 2 136 8
+	.loc 2 173 8
 	testl	%eax, %eax
-	jle	.L49
-.LBB4:
-	.loc 2 142 30
+	jle	.L59
+.LBB6:
+	.loc 2 179 30
 	movq	.refptr.ep_uint(%rip), %rax
-	movq	192(%rax), %rax
-	.loc 2 142 23
+	movq	200(%rax), %rax
+	.loc 2 179 23
 	leaq	-16(%rbp), %r8
 	movq	32(%rbp), %rdx
 	movq	24(%rbp), %rcx
 	call	*%rax
-.LVL14:
+.LVL19:
 	movl	%eax, -4(%rbp)
-	.loc 2 142 12
+	.loc 2 179 12
 	cmpl	$0, -4(%rbp)
-	je	.L50
-	.loc 2 143 20
+	je	.L60
+	.loc 2 180 20
 	movl	-4(%rbp), %eax
-	jmp	.L59
-.L50:
-	.loc 2 144 23
+	jmp	.L68
+.L60:
+	.loc 2 181 23
 	movq	-16(%rbp), %rdx
 	movsbl	16(%rbp), %eax
 	movq	40(%rbp), %rcx
@@ -633,70 +749,53 @@ SubtructU_X_L_Imp:
 	movl	%eax, %edx
 	call	AllocateNumber
 	movl	%eax, -4(%rbp)
-	.loc 2 144 12
+	.loc 2 181 12
 	cmpl	$0, -4(%rbp)
-	je	.L53
-	.loc 2 146 20
+	je	.L63
+	.loc 2 183 20
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	32(%rax), %rax
-	.loc 2 146 13
+	.loc 2 183 13
 	movq	-16(%rbp), %rdx
 	movq	%rdx, %rcx
 	call	*%rax
-.LVL15:
-	.loc 2 147 20
+.LVL20:
+	.loc 2 184 20
 	movl	-4(%rbp), %eax
-	jmp	.L59
-.L49:
-.LBE4:
-	.loc 2 150 16
+	jmp	.L68
+.L59:
+.LBE6:
+	.loc 2 187 16
 	movl	-8(%rbp), %eax
-	.loc 2 150 13
+	.loc 2 187 13
 	testl	%eax, %eax
-	jne	.L54
-	.loc 2 155 12
+	jne	.L64
+	.loc 2 192 12
 	movq	40(%rbp), %rax
 	movq	.refptr.number_zero(%rip), %rdx
 	movq	%rdx, (%rax)
-	jmp	.L53
-.L54:
-.LBB5:
-	.loc 2 163 30
+	jmp	.L63
+.L64:
+.LBB7:
+	.loc 2 200 30
 	movq	.refptr.ep_uint(%rip), %rax
-	movq	176(%rax), %rax
-	.loc 2 163 23
+	movq	200(%rax), %rax
+	.loc 2 200 23
 	leaq	-24(%rbp), %r8
 	movq	24(%rbp), %rdx
 	movq	32(%rbp), %rcx
 	call	*%rax
-.LVL16:
+.LVL21:
 	movl	%eax, -4(%rbp)
-	.loc 2 163 12
+	.loc 2 200 12
 	cmpl	$0, -4(%rbp)
-	je	.L55
-	.loc 2 164 20
+	je	.L65
+	.loc 2 201 20
 	movl	-4(%rbp), %eax
-	jmp	.L59
-.L55:
-	.loc 2 166 30
-	movq	.refptr.ep_uint(%rip), %rax
-	movq	24(%rax), %r8
-	.loc 2 166 23
-	movq	-24(%rbp), %rcx
-	leaq	-32(%rbp), %rax
-	movq	%rax, %rdx
-	call	*%r8
-.LVL17:
-	movl	%eax, -4(%rbp)
-	.loc 2 166 12
-	cmpl	$0, -4(%rbp)
-	je	.L57
-	.loc 2 167 20
-	movl	-4(%rbp), %eax
-	jmp	.L59
-.L57:
-	.loc 2 168 23
-	movq	-32(%rbp), %rdx
+	jmp	.L68
+.L65:
+	.loc 2 202 23
+	movq	-24(%rbp), %rdx
 	movzbl	16(%rbp), %eax
 	negl	%eax
 	movsbl	%al, %eax
@@ -705,26 +804,26 @@ SubtructU_X_L_Imp:
 	movl	%eax, %edx
 	call	AllocateNumber
 	movl	%eax, -4(%rbp)
-	.loc 2 168 12
+	.loc 2 202 12
 	cmpl	$0, -4(%rbp)
-	je	.L53
-	.loc 2 170 20
+	je	.L63
+	.loc 2 204 20
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	32(%rax), %rax
-	.loc 2 170 13
-	movq	-32(%rbp), %rdx
+	.loc 2 204 13
+	movq	-24(%rbp), %rdx
 	movq	%rdx, %rcx
 	call	*%rax
-.LVL18:
-	.loc 2 171 20
+.LVL22:
+	.loc 2 205 20
 	movl	-4(%rbp), %eax
-	jmp	.L59
-.L53:
-.LBE5:
-	.loc 2 174 12
+	jmp	.L68
+.L63:
+.LBE7:
+	.loc 2 208 12
 	movl	$0, %eax
-.L59:
-	.loc 2 175 1 discriminator 2
+.L68:
+	.loc 2 209 1 discriminator 2
 	addq	$64, %rsp
 	popq	%rbp
 	.cfi_restore 6
@@ -733,164 +832,12 @@ SubtructU_X_L_Imp:
 	.cfi_endproc
 .LFE4369:
 	.seh_endproc
-	.def	SubtructU_X_X_Imp;	.scl	3;	.type	32;	.endef
-	.seh_proc	SubtructU_X_X_Imp
-SubtructU_X_X_Imp:
-.LFB4370:
-	.loc 2 178 1
-	.cfi_startproc
-	pushq	%rbp
-	.seh_pushreg	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.seh_setframe	%rbp, 0
-	.cfi_def_cfa_register 6
-	subq	$64, %rsp
-	.seh_stackalloc	64
-	.seh_endprologue
-	movl	%ecx, %eax
-	movq	%rdx, 24(%rbp)
-	movq	%r8, 32(%rbp)
-	movq	%r9, 40(%rbp)
-	movb	%al, 16(%rbp)
-	.loc 2 181 26
-	movq	.refptr.ep_uint(%rip), %rax
-	movq	456(%rax), %rax
-	.loc 2 181 19
-	leaq	-8(%rbp), %r8
-	movq	32(%rbp), %rdx
-	movq	24(%rbp), %rcx
-	call	*%rax
-.LVL19:
-	movl	%eax, -4(%rbp)
-	.loc 2 181 8
-	cmpl	$0, -4(%rbp)
-	je	.L61
-	.loc 2 182 16
-	movl	-4(%rbp), %eax
-	jmp	.L72
-.L61:
-	.loc 2 183 11
-	movl	-8(%rbp), %eax
-	.loc 2 183 8
-	testl	%eax, %eax
-	jle	.L63
-.LBB6:
-	.loc 2 189 30
-	movq	.refptr.ep_uint(%rip), %rax
-	movq	200(%rax), %rax
-	.loc 2 189 23
-	leaq	-16(%rbp), %r8
-	movq	32(%rbp), %rdx
-	movq	24(%rbp), %rcx
-	call	*%rax
-.LVL20:
-	movl	%eax, -4(%rbp)
-	.loc 2 189 12
-	cmpl	$0, -4(%rbp)
-	je	.L64
-	.loc 2 190 20
-	movl	-4(%rbp), %eax
-	jmp	.L72
-.L64:
-	.loc 2 191 23
-	movq	-16(%rbp), %rdx
-	movsbl	16(%rbp), %eax
-	movq	40(%rbp), %rcx
-	movq	%rdx, %r8
-	movl	%eax, %edx
-	call	AllocateNumber
-	movl	%eax, -4(%rbp)
-	.loc 2 191 12
-	cmpl	$0, -4(%rbp)
-	je	.L67
-	.loc 2 193 20
-	movq	.refptr.ep_uint(%rip), %rax
-	movq	32(%rax), %rax
-	.loc 2 193 13
-	movq	-16(%rbp), %rdx
-	movq	%rdx, %rcx
-	call	*%rax
-.LVL21:
-	.loc 2 194 20
-	movl	-4(%rbp), %eax
-	jmp	.L72
-.L63:
-.LBE6:
-	.loc 2 197 16
-	movl	-8(%rbp), %eax
-	.loc 2 197 13
-	testl	%eax, %eax
-	jne	.L68
-	.loc 2 202 12
-	movq	40(%rbp), %rax
-	movq	.refptr.number_zero(%rip), %rdx
-	movq	%rdx, (%rax)
-	jmp	.L67
-.L68:
-.LBB7:
-	.loc 2 210 30
-	movq	.refptr.ep_uint(%rip), %rax
-	movq	200(%rax), %rax
-	.loc 2 210 23
-	leaq	-24(%rbp), %r8
-	movq	24(%rbp), %rdx
-	movq	32(%rbp), %rcx
-	call	*%rax
-.LVL22:
-	movl	%eax, -4(%rbp)
-	.loc 2 210 12
-	cmpl	$0, -4(%rbp)
-	je	.L69
-	.loc 2 211 20
-	movl	-4(%rbp), %eax
-	jmp	.L72
-.L69:
-	.loc 2 212 23
-	movq	-24(%rbp), %rdx
-	movzbl	16(%rbp), %eax
-	negl	%eax
-	movsbl	%al, %eax
-	movq	40(%rbp), %rcx
-	movq	%rdx, %r8
-	movl	%eax, %edx
-	call	AllocateNumber
-	movl	%eax, -4(%rbp)
-	.loc 2 212 12
-	cmpl	$0, -4(%rbp)
-	je	.L67
-	.loc 2 214 20
-	movq	.refptr.ep_uint(%rip), %rax
-	movq	32(%rax), %rax
-	.loc 2 214 13
-	movq	-24(%rbp), %rdx
-	movq	%rdx, %rcx
-	call	*%rax
-.LVL23:
-	.loc 2 215 20
-	movl	-4(%rbp), %eax
-	jmp	.L72
-.L67:
-.LBE7:
-	.loc 2 218 12
-	movl	$0, %eax
-.L72:
-	.loc 2 219 1 discriminator 2
-	addq	$64, %rsp
-	popq	%rbp
-	.cfi_restore 6
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE4370:
-	.seh_endproc
 	.globl	PMC_Add_I_X
 	.def	PMC_Add_I_X;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Add_I_X
 PMC_Add_I_X:
-.LFB4371:
-	.loc 2 222 1
+.LFB4370:
+	.loc 2 212 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -905,104 +852,168 @@ PMC_Add_I_X:
 	movl	%ecx, 16(%rbp)
 	movq	%rdx, 24(%rbp)
 	movq	%r8, 32(%rbp)
-	.loc 2 223 8
+	.loc 2 213 8
 	cmpq	$0, 24(%rbp)
-	jne	.L74
-	.loc 2 224 16
+	jne	.L70
+	.loc 2 214 16
 	movl	$-1, %eax
-	jmp	.L86
-.L74:
-	.loc 2 225 8
+	jmp	.L82
+.L70:
+	.loc 2 215 8
 	cmpq	$0, 32(%rbp)
-	jne	.L76
-	.loc 2 226 16
+	jne	.L72
+	.loc 2 216 16
 	movl	$-1, %eax
-	jmp	.L86
-.L76:
-	.loc 2 228 20
+	jmp	.L82
+.L72:
+	.loc 2 218 20
 	movq	24(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	.loc 2 230 19
+	.loc 2 220 19
 	movq	-8(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 230 8
+	.loc 2 220 8
 	cmpl	$0, -12(%rbp)
-	je	.L77
-	.loc 2 231 16
+	je	.L73
+	.loc 2 221 16
 	movl	-12(%rbp), %eax
-	jmp	.L86
-.L77:
-	.loc 2 233 23
+	jmp	.L82
+.L73:
+	.loc 2 223 23
 	leaq	-25(%rbp), %rax
 	movq	%rax, %rdx
 	movl	16(%rbp), %ecx
 	call	GET_ABS_32
 	movl	%eax, -16(%rbp)
-	.loc 2 234 16
+	.loc 2 224 16
 	movzbl	-25(%rbp), %eax
-	.loc 2 234 8
+	.loc 2 224 8
 	testb	%al, %al
-	jne	.L78
-	.loc 2 238 15
+	jne	.L74
+	.loc 2 228 15
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 238 12
+	.loc 2 228 12
 	testb	%al, %al
-	jne	.L79
-	.loc 2 242 16
+	jne	.L75
+	.loc 2 233 16
 	movq	.refptr.number_zero(%rip), %rax
 	movq	%rax, -24(%rbp)
-	jmp	.L80
-.L79:
-	.loc 2 249 27
+	jmp	.L76
+.L75:
+	.loc 2 240 27
 	leaq	-24(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 249 16
+	.loc 2 240 16
 	cmpl	$0, -12(%rbp)
-	je	.L80
-	.loc 2 250 24
+	je	.L76
+	.loc 2 241 24
 	movl	-12(%rbp), %eax
-	jmp	.L86
-.L78:
-	.loc 2 253 21
+	jmp	.L82
+.L74:
+	.loc 2 244 21
 	movzbl	-25(%rbp), %eax
-	.loc 2 253 13
+	.loc 2 244 13
+	testb	%al, %al
+	jle	.L77
+	.loc 2 248 15
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 248 12
+	testb	%al, %al
+	jne	.L78
+	.loc 2 253 27
+	movzbl	-25(%rbp), %eax
+	movsbl	%al, %eax
+	leaq	-24(%rbp), %rcx
+	movl	-16(%rbp), %edx
+	movq	%rcx, %r8
+	movl	%eax, %ecx
+	call	From_I_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 253 16
+	cmpl	$0, -12(%rbp)
+	je	.L76
+	.loc 2 254 24
+	movl	-12(%rbp), %eax
+	jmp	.L82
+.L78:
+	.loc 2 256 20
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 256 17
+	testb	%al, %al
+	jle	.L79
+	.loc 2 261 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-24(%rbp), %rdx
+	movl	-16(%rbp), %ecx
+	movq	%rdx, %r9
+	movl	%ecx, %r8d
+	movq	%rax, %rdx
+	movl	$1, %ecx
+	call	AddU_X_I_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 261 16
+	cmpl	$0, -12(%rbp)
+	je	.L76
+	.loc 2 262 24
+	movl	-12(%rbp), %eax
+	jmp	.L82
+.L79:
+	.loc 2 269 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-24(%rbp), %rdx
+	movl	-16(%rbp), %ecx
+	movq	%rdx, %r9
+	movl	%ecx, %r8d
+	movq	%rax, %rdx
+	movl	$-1, %ecx
+	call	SubtructU_X_I_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 269 16
+	cmpl	$0, -12(%rbp)
+	je	.L76
+	.loc 2 270 24
+	movl	-12(%rbp), %eax
+	jmp	.L82
+.L77:
+	.loc 2 277 15
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 277 12
+	testb	%al, %al
+	jne	.L80
+	.loc 2 282 27
+	movzbl	-25(%rbp), %eax
+	movsbl	%al, %eax
+	leaq	-24(%rbp), %rcx
+	movl	-16(%rbp), %edx
+	movq	%rcx, %r8
+	movl	%eax, %ecx
+	call	From_I_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 282 16
+	cmpl	$0, -12(%rbp)
+	je	.L76
+	.loc 2 283 24
+	movl	-12(%rbp), %eax
+	jmp	.L82
+.L80:
+	.loc 2 285 20
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 285 17
 	testb	%al, %al
 	jle	.L81
-	.loc 2 257 15
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 257 12
-	testb	%al, %al
-	jne	.L82
-	.loc 2 262 27
-	movzbl	-25(%rbp), %eax
-	movsbl	%al, %eax
-	leaq	-24(%rbp), %rcx
-	movl	-16(%rbp), %edx
-	movq	%rcx, %r8
-	movl	%eax, %ecx
-	call	From_I_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 262 16
-	cmpl	$0, -12(%rbp)
-	je	.L80
-	.loc 2 263 24
-	movl	-12(%rbp), %eax
-	jmp	.L86
-.L82:
-	.loc 2 265 20
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 265 17
-	testb	%al, %al
-	jle	.L83
-	.loc 2 270 27
+	.loc 2 290 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -1011,80 +1022,16 @@ PMC_Add_I_X:
 	movl	%ecx, %r8d
 	movq	%rax, %rdx
 	movl	$1, %ecx
-	call	AddU_X_I_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 270 16
-	cmpl	$0, -12(%rbp)
-	je	.L80
-	.loc 2 271 24
-	movl	-12(%rbp), %eax
-	jmp	.L86
-.L83:
-	.loc 2 278 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-24(%rbp), %rdx
-	movl	-16(%rbp), %ecx
-	movq	%rdx, %r9
-	movl	%ecx, %r8d
-	movq	%rax, %rdx
-	movl	$-1, %ecx
 	call	SubtructU_X_I_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 278 16
+	.loc 2 290 16
 	cmpl	$0, -12(%rbp)
-	je	.L80
-	.loc 2 279 24
+	je	.L76
+	.loc 2 291 24
 	movl	-12(%rbp), %eax
-	jmp	.L86
+	jmp	.L82
 .L81:
-	.loc 2 286 15
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 286 12
-	testb	%al, %al
-	jne	.L84
-	.loc 2 291 27
-	movzbl	-25(%rbp), %eax
-	movsbl	%al, %eax
-	leaq	-24(%rbp), %rcx
-	movl	-16(%rbp), %edx
-	movq	%rcx, %r8
-	movl	%eax, %ecx
-	call	From_I_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 291 16
-	cmpl	$0, -12(%rbp)
-	je	.L80
-	.loc 2 292 24
-	movl	-12(%rbp), %eax
-	jmp	.L86
-.L84:
-	.loc 2 294 20
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 294 17
-	testb	%al, %al
-	jle	.L85
-	.loc 2 299 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-24(%rbp), %rdx
-	movl	-16(%rbp), %ecx
-	movq	%rdx, %r9
-	movl	%ecx, %r8d
-	movq	%rax, %rdx
-	movl	$1, %ecx
-	call	SubtructU_X_I_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 299 16
-	cmpl	$0, -12(%rbp)
-	je	.L80
-	.loc 2 300 24
-	movl	-12(%rbp), %eax
-	jmp	.L86
-.L85:
-	.loc 2 307 27
+	.loc 2 298 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -1095,35 +1042,35 @@ PMC_Add_I_X:
 	movl	$-1, %ecx
 	call	AddU_X_I_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 307 16
+	.loc 2 298 16
 	cmpl	$0, -12(%rbp)
-	je	.L80
-	.loc 2 308 24
+	je	.L76
+	.loc 2 299 24
 	movl	-12(%rbp), %eax
-	jmp	.L86
-.L80:
-	.loc 2 311 8
+	jmp	.L82
+.L76:
+	.loc 2 302 8
 	movq	-24(%rbp), %rdx
 	movq	32(%rbp), %rax
 	movq	%rdx, (%rax)
-	.loc 2 312 12
+	.loc 2 303 12
 	movl	$0, %eax
-.L86:
-	.loc 2 313 1 discriminator 3
+.L82:
+	.loc 2 304 1 discriminator 3
 	addq	$64, %rsp
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE4371:
+.LFE4370:
 	.seh_endproc
 	.globl	PMC_Add_L_X
 	.def	PMC_Add_L_X;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Add_L_X
 PMC_Add_L_X:
-.LFB4372:
-	.loc 2 316 1
+.LFB4371:
+	.loc 2 307 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -1138,82 +1085,82 @@ PMC_Add_L_X:
 	movq	%rcx, 16(%rbp)
 	movq	%rdx, 24(%rbp)
 	movq	%r8, 32(%rbp)
-	.loc 2 317 8
+	.loc 2 308 8
 	cmpq	$0, 24(%rbp)
-	jne	.L88
-	.loc 2 318 16
+	jne	.L84
+	.loc 2 309 16
 	movl	$-1, %eax
-	jmp	.L100
-.L88:
-	.loc 2 319 8
+	jmp	.L96
+.L84:
+	.loc 2 310 8
 	cmpq	$0, 32(%rbp)
-	jne	.L90
-	.loc 2 320 16
+	jne	.L86
+	.loc 2 311 16
 	movl	$-1, %eax
-	jmp	.L100
-.L90:
-	.loc 2 322 20
+	jmp	.L96
+.L86:
+	.loc 2 313 20
 	movq	24(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	.loc 2 324 19
+	.loc 2 315 19
 	movq	-8(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 324 8
+	.loc 2 315 8
 	cmpl	$0, -12(%rbp)
-	je	.L91
-	.loc 2 325 16
+	je	.L87
+	.loc 2 316 16
 	movl	-12(%rbp), %eax
-	jmp	.L100
-.L91:
-	.loc 2 327 23
+	jmp	.L96
+.L87:
+	.loc 2 318 23
 	leaq	-33(%rbp), %rax
 	movq	%rax, %rdx
 	movq	16(%rbp), %rcx
 	call	GET_ABS_64
 	movq	%rax, -24(%rbp)
-	.loc 2 328 16
+	.loc 2 319 16
 	movzbl	-33(%rbp), %eax
-	.loc 2 328 8
+	.loc 2 319 8
 	testb	%al, %al
-	jne	.L92
-	.loc 2 332 15
+	jne	.L88
+	.loc 2 323 15
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 332 12
+	.loc 2 323 12
 	testb	%al, %al
-	jne	.L93
-	.loc 2 336 16
+	jne	.L89
+	.loc 2 328 16
 	movq	.refptr.number_zero(%rip), %rax
 	movq	%rax, -32(%rbp)
-	jmp	.L94
-.L93:
-	.loc 2 343 27
+	jmp	.L90
+.L89:
+	.loc 2 335 27
 	leaq	-32(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 343 16
+	.loc 2 335 16
 	cmpl	$0, -12(%rbp)
-	je	.L94
-	.loc 2 344 24
+	je	.L90
+	.loc 2 336 24
 	movl	-12(%rbp), %eax
-	jmp	.L100
-.L92:
-	.loc 2 347 21
+	jmp	.L96
+.L88:
+	.loc 2 339 21
 	movzbl	-33(%rbp), %eax
-	.loc 2 347 13
+	.loc 2 339 13
 	testb	%al, %al
-	jle	.L95
-	.loc 2 351 15
+	jle	.L91
+	.loc 2 343 15
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 351 12
+	.loc 2 343 12
 	testb	%al, %al
-	jne	.L96
-	.loc 2 356 27
+	jne	.L92
+	.loc 2 348 27
 	movzbl	-33(%rbp), %eax
 	movsbl	%al, %eax
 	leaq	-32(%rbp), %rcx
@@ -1222,19 +1169,37 @@ PMC_Add_L_X:
 	movl	%eax, %ecx
 	call	From_L_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 356 16
+	.loc 2 348 16
 	cmpl	$0, -12(%rbp)
-	je	.L94
-	.loc 2 357 24
+	je	.L90
+	.loc 2 349 24
 	movl	-12(%rbp), %eax
-	jmp	.L100
-.L96:
-	.loc 2 359 20
+	jmp	.L96
+.L92:
+	.loc 2 351 20
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 359 17
+	.loc 2 351 17
 	testb	%al, %al
-	jle	.L97
+	jle	.L93
+	.loc 2 356 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$1, %ecx
+	call	AddU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 356 16
+	cmpl	$0, -12(%rbp)
+	je	.L90
+	.loc 2 357 24
+	movl	-12(%rbp), %eax
+	jmp	.L96
+.L93:
 	.loc 2 364 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
@@ -1243,41 +1208,23 @@ PMC_Add_L_X:
 	movq	%rdx, %r9
 	movq	%rcx, %r8
 	movq	%rax, %rdx
-	movl	$1, %ecx
-	call	AddU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 364 16
-	cmpl	$0, -12(%rbp)
-	je	.L94
-	.loc 2 365 24
-	movl	-12(%rbp), %eax
-	jmp	.L100
-.L97:
-	.loc 2 372 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
 	movl	$-1, %ecx
 	call	SubtructU_X_L_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 372 16
+	.loc 2 364 16
 	cmpl	$0, -12(%rbp)
-	je	.L94
-	.loc 2 373 24
+	je	.L90
+	.loc 2 365 24
 	movl	-12(%rbp), %eax
-	jmp	.L100
-.L95:
-	.loc 2 380 15
+	jmp	.L96
+.L91:
+	.loc 2 372 15
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 380 12
+	.loc 2 372 12
 	testb	%al, %al
-	jne	.L98
-	.loc 2 385 27
+	jne	.L94
+	.loc 2 377 27
 	movzbl	-33(%rbp), %eax
 	movsbl	%al, %eax
 	leaq	-32(%rbp), %rcx
@@ -1286,20 +1233,20 @@ PMC_Add_L_X:
 	movl	%eax, %ecx
 	call	From_L_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 385 16
+	.loc 2 377 16
 	cmpl	$0, -12(%rbp)
-	je	.L94
-	.loc 2 386 24
+	je	.L90
+	.loc 2 378 24
 	movl	-12(%rbp), %eax
-	jmp	.L100
-.L98:
-	.loc 2 388 20
+	jmp	.L96
+.L94:
+	.loc 2 380 20
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 388 17
+	.loc 2 380 17
 	testb	%al, %al
-	jle	.L99
-	.loc 2 393 27
+	jle	.L95
+	.loc 2 385 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-32(%rbp), %rdx
@@ -1310,14 +1257,14 @@ PMC_Add_L_X:
 	movl	$1, %ecx
 	call	SubtructU_X_L_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 393 16
+	.loc 2 385 16
 	cmpl	$0, -12(%rbp)
-	je	.L94
-	.loc 2 394 24
+	je	.L90
+	.loc 2 386 24
 	movl	-12(%rbp), %eax
-	jmp	.L100
-.L99:
-	.loc 2 401 27
+	jmp	.L96
+.L95:
+	.loc 2 393 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-32(%rbp), %rdx
@@ -1328,35 +1275,35 @@ PMC_Add_L_X:
 	movl	$-1, %ecx
 	call	AddU_X_L_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 401 16
+	.loc 2 393 16
 	cmpl	$0, -12(%rbp)
-	je	.L94
-	.loc 2 402 24
+	je	.L90
+	.loc 2 394 24
 	movl	-12(%rbp), %eax
-	jmp	.L100
-.L94:
-	.loc 2 405 8
+	jmp	.L96
+.L90:
+	.loc 2 397 8
 	movq	-32(%rbp), %rdx
 	movq	32(%rbp), %rax
 	movq	%rdx, (%rax)
-	.loc 2 406 12
+	.loc 2 398 12
 	movl	$0, %eax
-.L100:
-	.loc 2 407 1 discriminator 3
+.L96:
+	.loc 2 399 1 discriminator 3
 	addq	$80, %rsp
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE4372:
+.LFE4371:
 	.seh_endproc
 	.globl	PMC_Add_UX_X
 	.def	PMC_Add_UX_X;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Add_UX_X
 PMC_Add_UX_X:
-.LFB4373:
-	.loc 2 410 1
+.LFB4372:
+	.loc 2 402 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -1371,102 +1318,102 @@ PMC_Add_UX_X:
 	movq	%rcx, 16(%rbp)
 	movq	%rdx, 24(%rbp)
 	movq	%r8, 32(%rbp)
-	.loc 2 411 8
+	.loc 2 403 8
 	cmpq	$0, 24(%rbp)
-	jne	.L102
-	.loc 2 412 16
+	jne	.L98
+	.loc 2 404 16
 	movl	$-1, %eax
-	jmp	.L115
-.L102:
-	.loc 2 413 8
+	jmp	.L111
+.L98:
+	.loc 2 405 8
 	cmpq	$0, 32(%rbp)
-	jne	.L104
-	.loc 2 414 16
+	jne	.L100
+	.loc 2 406 16
 	movl	$-1, %eax
-	jmp	.L115
-.L104:
-	.loc 2 416 20
+	jmp	.L111
+.L100:
+	.loc 2 408 20
 	movq	24(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	.loc 2 418 19
+	.loc 2 410 19
 	movq	-8(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 418 8
+	.loc 2 410 8
 	cmpl	$0, -12(%rbp)
-	je	.L105
-	.loc 2 419 16
+	je	.L101
+	.loc 2 411 16
 	movl	-12(%rbp), %eax
-	jmp	.L115
-.L105:
-	.loc 2 421 19
+	jmp	.L111
+.L101:
+	.loc 2 413 19
 	leaq	-25(%rbp), %rax
 	movq	%rax, %rdx
 	movq	16(%rbp), %rcx
-	call	IS_ZERO_UINT
+	call	IsZero_UINT
 	movl	%eax, -12(%rbp)
-	.loc 2 421 8
+	.loc 2 413 8
 	cmpl	$0, -12(%rbp)
-	je	.L106
-	.loc 2 422 16
+	je	.L102
+	.loc 2 414 16
 	movl	-12(%rbp), %eax
-	jmp	.L115
-.L106:
-	.loc 2 423 9
+	jmp	.L111
+.L102:
+	.loc 2 415 9
 	movzbl	-25(%rbp), %eax
-	.loc 2 423 8
+	.loc 2 415 8
 	testb	%al, %al
-	je	.L107
-	.loc 2 427 15
+	je	.L103
+	.loc 2 419 15
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 427 12
+	.loc 2 419 12
 	testb	%al, %al
-	jne	.L108
-	.loc 2 432 16
+	jne	.L104
+	.loc 2 424 16
 	movq	.refptr.number_zero(%rip), %rax
 	movq	%rax, -24(%rbp)
-	jmp	.L109
-.L108:
-	.loc 2 439 27
+	jmp	.L105
+.L104:
+	.loc 2 431 27
 	leaq	-24(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 439 16
+	.loc 2 431 16
 	cmpl	$0, -12(%rbp)
-	je	.L109
-	.loc 2 440 24
+	je	.L105
+	.loc 2 432 24
 	movl	-12(%rbp), %eax
-	jmp	.L115
-.L107:
-	.loc 2 447 15
+	jmp	.L111
+.L103:
+	.loc 2 439 15
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 447 12
+	.loc 2 439 12
 	testb	%al, %al
-	jne	.L110
+	jne	.L106
 .LBB8:
-	.loc 2 453 34
+	.loc 2 445 34
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	88(%rax), %r8
-	.loc 2 453 27
+	.loc 2 445 27
 	leaq	-40(%rbp), %rax
 	movq	%rax, %rdx
 	movq	16(%rbp), %rcx
 	call	*%r8
-.LVL24:
+.LVL23:
 	movl	%eax, -12(%rbp)
-	.loc 2 453 16
+	.loc 2 445 16
 	cmpl	$0, -12(%rbp)
-	je	.L111
-	.loc 2 454 24
+	je	.L107
+	.loc 2 446 24
 	movl	-12(%rbp), %eax
-	jmp	.L115
-.L111:
-	.loc 2 455 27
+	jmp	.L111
+.L107:
+	.loc 2 447 27
 	movq	-40(%rbp), %rdx
 	leaq	-24(%rbp), %rax
 	movq	%rdx, %r8
@@ -1474,29 +1421,29 @@ PMC_Add_UX_X:
 	movq	%rax, %rcx
 	call	AllocateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 455 16
+	.loc 2 447 16
 	cmpl	$0, -12(%rbp)
-	je	.L109
-	.loc 2 457 24
+	je	.L105
+	.loc 2 449 24
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	32(%rax), %rax
-	.loc 2 457 17
+	.loc 2 449 17
 	movq	-40(%rbp), %rdx
 	movq	%rdx, %rcx
 	call	*%rax
-.LVL25:
-	.loc 2 458 24
+.LVL24:
+	.loc 2 450 24
 	movl	-12(%rbp), %eax
-	jmp	.L115
-.L110:
+	jmp	.L111
+.L106:
 .LBE8:
-	.loc 2 461 20
+	.loc 2 453 20
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 461 17
+	.loc 2 453 17
 	testb	%al, %al
-	jle	.L114
-	.loc 2 466 27
+	jle	.L110
+	.loc 2 458 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rdx
 	leaq	-24(%rbp), %rax
@@ -1506,14 +1453,14 @@ PMC_Add_UX_X:
 	movl	$1, %ecx
 	call	AddU_X_X_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 466 16
+	.loc 2 458 16
 	cmpl	$0, -12(%rbp)
-	je	.L109
-	.loc 2 467 24
+	je	.L105
+	.loc 2 459 24
 	movl	-12(%rbp), %eax
-	jmp	.L115
-.L114:
-	.loc 2 474 27
+	jmp	.L111
+.L110:
+	.loc 2 466 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rdx
 	leaq	-24(%rbp), %rax
@@ -1523,35 +1470,35 @@ PMC_Add_UX_X:
 	movl	$1, %ecx
 	call	SubtructU_X_X_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 474 16
+	.loc 2 466 16
 	cmpl	$0, -12(%rbp)
-	je	.L109
-	.loc 2 475 24
+	je	.L105
+	.loc 2 467 24
 	movl	-12(%rbp), %eax
-	jmp	.L115
-.L109:
-	.loc 2 478 8
+	jmp	.L111
+.L105:
+	.loc 2 470 8
 	movq	-24(%rbp), %rdx
 	movq	32(%rbp), %rax
 	movq	%rdx, (%rax)
-	.loc 2 479 12
+	.loc 2 471 12
 	movl	$0, %eax
-.L115:
-	.loc 2 480 1 discriminator 2
+.L111:
+	.loc 2 472 1 discriminator 2
 	addq	$80, %rsp
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE4373:
+.LFE4372:
 	.seh_endproc
 	.globl	PMC_Add_X_I
 	.def	PMC_Add_X_I;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Add_X_I
 PMC_Add_X_I:
-.LFB4374:
-	.loc 2 483 1
+.LFB4373:
+	.loc 2 475 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -1566,63 +1513,58 @@ PMC_Add_X_I:
 	movq	%rcx, 16(%rbp)
 	movl	%edx, 24(%rbp)
 	movq	%r8, 32(%rbp)
-	.loc 2 484 8
+	.loc 2 476 8
 	cmpq	$0, 16(%rbp)
-	jne	.L117
-	.loc 2 485 16
+	jne	.L113
+	.loc 2 477 16
 	movl	$-1, %eax
-	jmp	.L130
-.L117:
-	.loc 2 486 8
+	jmp	.L125
+.L113:
+	.loc 2 478 8
 	cmpq	$0, 32(%rbp)
-	jne	.L119
-	.loc 2 487 16
+	jne	.L115
+	.loc 2 479 16
 	movl	$-1, %eax
-	jmp	.L130
-.L119:
-	.loc 2 489 20
+	jmp	.L125
+.L115:
+	.loc 2 481 20
 	movq	16(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	.loc 2 491 19
+	.loc 2 483 19
 	movq	-8(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 491 8
+	.loc 2 483 8
 	cmpl	$0, -12(%rbp)
-	je	.L120
-	.loc 2 492 16
+	je	.L116
+	.loc 2 484 16
 	movl	-12(%rbp), %eax
-	jmp	.L130
-.L120:
-	.loc 2 494 23
+	jmp	.L125
+.L116:
+	.loc 2 486 23
 	leaq	-25(%rbp), %rax
 	movl	24(%rbp), %ecx
 	movq	%rax, %rdx
 	call	GET_ABS_32
 	movl	%eax, -16(%rbp)
-	.loc 2 495 11
+	.loc 2 487 11
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 495 8
+	.loc 2 487 8
 	testb	%al, %al
-	jne	.L121
-	.loc 2 499 20
+	jne	.L117
+	.loc 2 491 20
 	movzbl	-25(%rbp), %eax
-	.loc 2 499 12
+	.loc 2 491 12
 	testb	%al, %al
-	jne	.L122
-	.loc 2 503 16
+	jne	.L118
+	.loc 2 496 16
 	movq	.refptr.number_zero(%rip), %rax
 	movq	%rax, -24(%rbp)
-	jmp	.L123
-.L122:
-	.loc 2 505 25
-	movzbl	-25(%rbp), %eax
-	.loc 2 505 17
-	testb	%al, %al
-	jle	.L124
-	.loc 2 510 27
+	jmp	.L119
+.L118:
+	.loc 2 503 27
 	movzbl	-25(%rbp), %eax
 	movsbl	%al, %eax
 	leaq	-24(%rbp), %rcx
@@ -1631,59 +1573,43 @@ PMC_Add_X_I:
 	movl	%eax, %ecx
 	call	From_I_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 510 16
+	.loc 2 503 16
 	cmpl	$0, -12(%rbp)
-	je	.L123
-	.loc 2 511 24
+	je	.L119
+	.loc 2 504 24
 	movl	-12(%rbp), %eax
-	jmp	.L130
-.L124:
-	.loc 2 518 27
-	movzbl	-25(%rbp), %eax
-	movsbl	%al, %eax
-	leaq	-24(%rbp), %rcx
-	movl	-16(%rbp), %edx
-	movq	%rcx, %r8
-	movl	%eax, %ecx
-	call	From_I_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 518 16
-	cmpl	$0, -12(%rbp)
-	je	.L123
-	.loc 2 519 24
-	movl	-12(%rbp), %eax
-	jmp	.L130
-.L121:
-	.loc 2 522 16
+	jmp	.L125
+.L117:
+	.loc 2 507 16
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 522 13
+	.loc 2 507 13
 	testb	%al, %al
-	jle	.L125
-	.loc 2 526 20
+	jle	.L120
+	.loc 2 511 20
 	movzbl	-25(%rbp), %eax
-	.loc 2 526 12
+	.loc 2 511 12
 	testb	%al, %al
-	jne	.L126
-	.loc 2 531 27
+	jne	.L121
+	.loc 2 516 27
 	leaq	-24(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 531 16
+	.loc 2 516 16
 	cmpl	$0, -12(%rbp)
-	je	.L123
-	.loc 2 532 24
+	je	.L119
+	.loc 2 517 24
 	movl	-12(%rbp), %eax
-	jmp	.L130
-.L126:
-	.loc 2 534 25
+	jmp	.L125
+.L121:
+	.loc 2 519 25
 	movzbl	-25(%rbp), %eax
-	.loc 2 534 17
+	.loc 2 519 17
 	testb	%al, %al
-	jle	.L127
-	.loc 2 539 27
+	jle	.L122
+	.loc 2 524 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -1694,14 +1620,14 @@ PMC_Add_X_I:
 	movl	$1, %ecx
 	call	AddU_X_I_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 539 16
+	.loc 2 524 16
 	cmpl	$0, -12(%rbp)
-	je	.L123
-	.loc 2 540 24
+	je	.L119
+	.loc 2 525 24
 	movl	-12(%rbp), %eax
-	jmp	.L130
-.L127:
-	.loc 2 547 27
+	jmp	.L125
+.L122:
+	.loc 2 532 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -1712,81 +1638,308 @@ PMC_Add_X_I:
 	movl	$1, %ecx
 	call	SubtructU_X_I_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 547 16
+	.loc 2 532 16
 	cmpl	$0, -12(%rbp)
-	je	.L123
-	.loc 2 548 24
+	je	.L119
+	.loc 2 533 24
 	movl	-12(%rbp), %eax
-	jmp	.L130
-.L125:
-	.loc 2 555 20
+	jmp	.L125
+.L120:
+	.loc 2 540 20
 	movzbl	-25(%rbp), %eax
-	.loc 2 555 12
+	.loc 2 540 12
 	testb	%al, %al
-	jne	.L128
-	.loc 2 560 27
+	jne	.L123
+	.loc 2 545 27
 	leaq	-24(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 560 16
+	.loc 2 545 16
 	cmpl	$0, -12(%rbp)
-	je	.L123
-	.loc 2 561 24
+	je	.L119
+	.loc 2 546 24
 	movl	-12(%rbp), %eax
-	jmp	.L130
-.L128:
-	.loc 2 563 25
-	movzbl	-25(%rbp), %eax
-	.loc 2 563 17
-	testb	%al, %al
-	jle	.L129
-	.loc 2 568 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-24(%rbp), %rdx
-	movl	-16(%rbp), %ecx
-	movq	%rdx, %r9
-	movl	%ecx, %r8d
-	movq	%rax, %rdx
-	movl	$-1, %ecx
-	call	SubtructU_X_I_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 568 16
-	cmpl	$0, -12(%rbp)
-	je	.L123
-	.loc 2 569 24
-	movl	-12(%rbp), %eax
-	jmp	.L130
-.L129:
-	.loc 2 576 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-24(%rbp), %rdx
-	movl	-16(%rbp), %ecx
-	movq	%rdx, %r9
-	movl	%ecx, %r8d
-	movq	%rax, %rdx
-	movl	$-1, %ecx
-	call	AddU_X_I_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 576 16
-	cmpl	$0, -12(%rbp)
-	je	.L123
-	.loc 2 577 24
-	movl	-12(%rbp), %eax
-	jmp	.L130
+	jmp	.L125
 .L123:
-	.loc 2 580 8
+	.loc 2 548 25
+	movzbl	-25(%rbp), %eax
+	.loc 2 548 17
+	testb	%al, %al
+	jle	.L124
+	.loc 2 553 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-24(%rbp), %rdx
+	movl	-16(%rbp), %ecx
+	movq	%rdx, %r9
+	movl	%ecx, %r8d
+	movq	%rax, %rdx
+	movl	$-1, %ecx
+	call	SubtructU_X_I_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 553 16
+	cmpl	$0, -12(%rbp)
+	je	.L119
+	.loc 2 554 24
+	movl	-12(%rbp), %eax
+	jmp	.L125
+.L124:
+	.loc 2 561 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-24(%rbp), %rdx
+	movl	-16(%rbp), %ecx
+	movq	%rdx, %r9
+	movl	%ecx, %r8d
+	movq	%rax, %rdx
+	movl	$-1, %ecx
+	call	AddU_X_I_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 561 16
+	cmpl	$0, -12(%rbp)
+	je	.L119
+	.loc 2 562 24
+	movl	-12(%rbp), %eax
+	jmp	.L125
+.L119:
+	.loc 2 565 8
 	movq	-24(%rbp), %rdx
 	movq	32(%rbp), %rax
 	movq	%rdx, (%rax)
-	.loc 2 581 12
+	.loc 2 566 12
 	movl	$0, %eax
-.L130:
-	.loc 2 582 1 discriminator 4
+.L125:
+	.loc 2 567 1 discriminator 3
 	addq	$64, %rsp
+	popq	%rbp
+	.cfi_restore 6
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE4373:
+	.seh_endproc
+	.globl	PMC_Add_X_L
+	.def	PMC_Add_X_L;	.scl	2;	.type	32;	.endef
+	.seh_proc	PMC_Add_X_L
+PMC_Add_X_L:
+.LFB4374:
+	.loc 2 570 1
+	.cfi_startproc
+	pushq	%rbp
+	.seh_pushreg	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.seh_setframe	%rbp, 0
+	.cfi_def_cfa_register 6
+	subq	$80, %rsp
+	.seh_stackalloc	80
+	.seh_endprologue
+	movq	%rcx, 16(%rbp)
+	movq	%rdx, 24(%rbp)
+	movq	%r8, 32(%rbp)
+	.loc 2 571 8
+	cmpq	$0, 16(%rbp)
+	jne	.L127
+	.loc 2 572 16
+	movl	$-1, %eax
+	jmp	.L139
+.L127:
+	.loc 2 573 8
+	cmpq	$0, 32(%rbp)
+	jne	.L129
+	.loc 2 574 16
+	movl	$-1, %eax
+	jmp	.L139
+.L129:
+	.loc 2 576 20
+	movq	16(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	.loc 2 578 19
+	movq	-8(%rbp), %rax
+	movq	%rax, %rcx
+	call	CheckNumber
+	movl	%eax, -12(%rbp)
+	.loc 2 578 8
+	cmpl	$0, -12(%rbp)
+	je	.L130
+	.loc 2 579 16
+	movl	-12(%rbp), %eax
+	jmp	.L139
+.L130:
+	.loc 2 581 23
+	leaq	-33(%rbp), %rax
+	movq	24(%rbp), %rcx
+	movq	%rax, %rdx
+	call	GET_ABS_64
+	movq	%rax, -24(%rbp)
+	.loc 2 582 11
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 582 8
+	testb	%al, %al
+	jne	.L131
+	.loc 2 586 20
+	movzbl	-33(%rbp), %eax
+	.loc 2 586 12
+	testb	%al, %al
+	jne	.L132
+	.loc 2 591 16
+	movq	.refptr.number_zero(%rip), %rax
+	movq	%rax, -32(%rbp)
+	jmp	.L133
+.L132:
+	.loc 2 598 27
+	movzbl	-33(%rbp), %eax
+	movsbl	%al, %eax
+	leaq	-32(%rbp), %rcx
+	movq	-24(%rbp), %rdx
+	movq	%rcx, %r8
+	movl	%eax, %ecx
+	call	From_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 598 16
+	cmpl	$0, -12(%rbp)
+	je	.L133
+	.loc 2 599 24
+	movl	-12(%rbp), %eax
+	jmp	.L139
+.L131:
+	.loc 2 602 16
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 602 13
+	testb	%al, %al
+	jle	.L134
+	.loc 2 606 20
+	movzbl	-33(%rbp), %eax
+	.loc 2 606 12
+	testb	%al, %al
+	jne	.L135
+	.loc 2 611 27
+	leaq	-32(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	movq	%rax, %rdx
+	call	DuplicateNumber
+	movl	%eax, -12(%rbp)
+	.loc 2 611 16
+	cmpl	$0, -12(%rbp)
+	je	.L133
+	.loc 2 612 24
+	movl	-12(%rbp), %eax
+	jmp	.L139
+.L135:
+	.loc 2 614 25
+	movzbl	-33(%rbp), %eax
+	.loc 2 614 17
+	testb	%al, %al
+	jle	.L136
+	.loc 2 619 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$1, %ecx
+	call	AddU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 619 16
+	cmpl	$0, -12(%rbp)
+	je	.L133
+	.loc 2 620 24
+	movl	-12(%rbp), %eax
+	jmp	.L139
+.L136:
+	.loc 2 627 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$1, %ecx
+	call	SubtructU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 627 16
+	cmpl	$0, -12(%rbp)
+	je	.L133
+	.loc 2 628 24
+	movl	-12(%rbp), %eax
+	jmp	.L139
+.L134:
+	.loc 2 635 20
+	movzbl	-33(%rbp), %eax
+	.loc 2 635 12
+	testb	%al, %al
+	jne	.L137
+	.loc 2 640 27
+	leaq	-32(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	movq	%rax, %rdx
+	call	DuplicateNumber
+	movl	%eax, -12(%rbp)
+	.loc 2 640 16
+	cmpl	$0, -12(%rbp)
+	je	.L133
+	.loc 2 641 24
+	movl	-12(%rbp), %eax
+	jmp	.L139
+.L137:
+	.loc 2 643 25
+	movzbl	-33(%rbp), %eax
+	.loc 2 643 17
+	testb	%al, %al
+	jle	.L138
+	.loc 2 648 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$-1, %ecx
+	call	SubtructU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 648 16
+	cmpl	$0, -12(%rbp)
+	je	.L133
+	.loc 2 649 24
+	movl	-12(%rbp), %eax
+	jmp	.L139
+.L138:
+	.loc 2 656 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$-1, %ecx
+	call	AddU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 656 16
+	cmpl	$0, -12(%rbp)
+	je	.L133
+	.loc 2 657 24
+	movl	-12(%rbp), %eax
+	jmp	.L139
+.L133:
+	.loc 2 660 8
+	movq	-32(%rbp), %rdx
+	movq	32(%rbp), %rax
+	movq	%rdx, (%rax)
+	.loc 2 661 12
+	movl	$0, %eax
+.L139:
+	.loc 2 662 1 discriminator 3
+	addq	$80, %rsp
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
@@ -1794,260 +1947,12 @@ PMC_Add_X_I:
 	.cfi_endproc
 .LFE4374:
 	.seh_endproc
-	.globl	PMC_Add_X_L
-	.def	PMC_Add_X_L;	.scl	2;	.type	32;	.endef
-	.seh_proc	PMC_Add_X_L
-PMC_Add_X_L:
-.LFB4375:
-	.loc 2 585 1
-	.cfi_startproc
-	pushq	%rbp
-	.seh_pushreg	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.seh_setframe	%rbp, 0
-	.cfi_def_cfa_register 6
-	subq	$80, %rsp
-	.seh_stackalloc	80
-	.seh_endprologue
-	movq	%rcx, 16(%rbp)
-	movq	%rdx, 24(%rbp)
-	movq	%r8, 32(%rbp)
-	.loc 2 586 8
-	cmpq	$0, 16(%rbp)
-	jne	.L132
-	.loc 2 587 16
-	movl	$-1, %eax
-	jmp	.L145
-.L132:
-	.loc 2 588 8
-	cmpq	$0, 32(%rbp)
-	jne	.L134
-	.loc 2 589 16
-	movl	$-1, %eax
-	jmp	.L145
-.L134:
-	.loc 2 591 20
-	movq	16(%rbp), %rax
-	movq	%rax, -8(%rbp)
-	.loc 2 593 19
-	movq	-8(%rbp), %rax
-	movq	%rax, %rcx
-	call	CheckNumber
-	movl	%eax, -12(%rbp)
-	.loc 2 593 8
-	cmpl	$0, -12(%rbp)
-	je	.L135
-	.loc 2 594 16
-	movl	-12(%rbp), %eax
-	jmp	.L145
-.L135:
-	.loc 2 596 23
-	leaq	-33(%rbp), %rax
-	movq	24(%rbp), %rcx
-	movq	%rax, %rdx
-	call	GET_ABS_64
-	movq	%rax, -24(%rbp)
-	.loc 2 597 11
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 597 8
-	testb	%al, %al
-	jne	.L136
-	.loc 2 601 20
-	movzbl	-33(%rbp), %eax
-	.loc 2 601 12
-	testb	%al, %al
-	jne	.L137
-	.loc 2 605 16
-	movq	.refptr.number_zero(%rip), %rax
-	movq	%rax, -32(%rbp)
-	jmp	.L138
-.L137:
-	.loc 2 607 25
-	movzbl	-33(%rbp), %eax
-	.loc 2 607 17
-	testb	%al, %al
-	jle	.L139
-	.loc 2 612 27
-	movzbl	-33(%rbp), %eax
-	movsbl	%al, %eax
-	leaq	-32(%rbp), %rcx
-	movq	-24(%rbp), %rdx
-	movq	%rcx, %r8
-	movl	%eax, %ecx
-	call	From_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 612 16
-	cmpl	$0, -12(%rbp)
-	je	.L138
-	.loc 2 613 24
-	movl	-12(%rbp), %eax
-	jmp	.L145
-.L139:
-	.loc 2 620 27
-	movzbl	-33(%rbp), %eax
-	movsbl	%al, %eax
-	leaq	-32(%rbp), %rcx
-	movq	-24(%rbp), %rdx
-	movq	%rcx, %r8
-	movl	%eax, %ecx
-	call	From_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 620 16
-	cmpl	$0, -12(%rbp)
-	je	.L138
-	.loc 2 621 24
-	movl	-12(%rbp), %eax
-	jmp	.L145
-.L136:
-	.loc 2 624 16
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 624 13
-	testb	%al, %al
-	jle	.L140
-	.loc 2 628 20
-	movzbl	-33(%rbp), %eax
-	.loc 2 628 12
-	testb	%al, %al
-	jne	.L141
-	.loc 2 633 27
-	leaq	-32(%rbp), %rax
-	movq	-8(%rbp), %rcx
-	movq	%rax, %rdx
-	call	DuplicateNumber
-	movl	%eax, -12(%rbp)
-	.loc 2 633 16
-	cmpl	$0, -12(%rbp)
-	je	.L138
-	.loc 2 634 24
-	movl	-12(%rbp), %eax
-	jmp	.L145
-.L141:
-	.loc 2 636 25
-	movzbl	-33(%rbp), %eax
-	.loc 2 636 17
-	testb	%al, %al
-	jle	.L142
-	.loc 2 641 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$1, %ecx
-	call	AddU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 641 16
-	cmpl	$0, -12(%rbp)
-	je	.L138
-	.loc 2 642 24
-	movl	-12(%rbp), %eax
-	jmp	.L145
-.L142:
-	.loc 2 649 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$1, %ecx
-	call	SubtructU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 649 16
-	cmpl	$0, -12(%rbp)
-	je	.L138
-	.loc 2 650 24
-	movl	-12(%rbp), %eax
-	jmp	.L145
-.L140:
-	.loc 2 657 20
-	movzbl	-33(%rbp), %eax
-	.loc 2 657 12
-	testb	%al, %al
-	jne	.L143
-	.loc 2 662 27
-	leaq	-32(%rbp), %rax
-	movq	-8(%rbp), %rcx
-	movq	%rax, %rdx
-	call	DuplicateNumber
-	movl	%eax, -12(%rbp)
-	.loc 2 662 16
-	cmpl	$0, -12(%rbp)
-	je	.L138
-	.loc 2 663 24
-	movl	-12(%rbp), %eax
-	jmp	.L145
-.L143:
-	.loc 2 665 25
-	movzbl	-33(%rbp), %eax
-	.loc 2 665 17
-	testb	%al, %al
-	jle	.L144
-	.loc 2 670 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$-1, %ecx
-	call	SubtructU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 670 16
-	cmpl	$0, -12(%rbp)
-	je	.L138
-	.loc 2 671 24
-	movl	-12(%rbp), %eax
-	jmp	.L145
-.L144:
-	.loc 2 678 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$-1, %ecx
-	call	AddU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 678 16
-	cmpl	$0, -12(%rbp)
-	je	.L138
-	.loc 2 679 24
-	movl	-12(%rbp), %eax
-	jmp	.L145
-.L138:
-	.loc 2 682 8
-	movq	-32(%rbp), %rdx
-	movq	32(%rbp), %rax
-	movq	%rdx, (%rax)
-	.loc 2 683 12
-	movl	$0, %eax
-.L145:
-	.loc 2 684 1 discriminator 4
-	addq	$80, %rsp
-	popq	%rbp
-	.cfi_restore 6
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE4375:
-	.seh_endproc
 	.globl	PMC_Add_X_UX
 	.def	PMC_Add_X_UX;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Add_X_UX
 PMC_Add_X_UX:
-.LFB4376:
-	.loc 2 687 1
+.LFB4375:
+	.loc 2 665 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -2062,107 +1967,107 @@ PMC_Add_X_UX:
 	movq	%rcx, 16(%rbp)
 	movq	%rdx, 24(%rbp)
 	movq	%r8, 32(%rbp)
-	.loc 2 688 8
+	.loc 2 666 8
 	cmpq	$0, 16(%rbp)
-	jne	.L147
-	.loc 2 689 16
+	jne	.L141
+	.loc 2 667 16
 	movl	$-1, %eax
-	jmp	.L164
-.L147:
-	.loc 2 690 8
+	jmp	.L158
+.L141:
+	.loc 2 668 8
 	cmpq	$0, 24(%rbp)
-	jne	.L149
-	.loc 2 691 16
+	jne	.L143
+	.loc 2 669 16
 	movl	$-1, %eax
-	jmp	.L164
-.L149:
-	.loc 2 692 8
+	jmp	.L158
+.L143:
+	.loc 2 670 8
 	cmpq	$0, 32(%rbp)
-	jne	.L150
-	.loc 2 693 16
+	jne	.L144
+	.loc 2 671 16
 	movl	$-1, %eax
-	jmp	.L164
-.L150:
-	.loc 2 695 20
+	jmp	.L158
+.L144:
+	.loc 2 673 20
 	movq	16(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	.loc 2 697 19
+	.loc 2 675 19
 	movq	-8(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 697 8
+	.loc 2 675 8
 	cmpl	$0, -12(%rbp)
-	je	.L151
-	.loc 2 698 16
+	je	.L145
+	.loc 2 676 16
 	movl	-12(%rbp), %eax
-	jmp	.L164
-.L151:
-	.loc 2 700 19
+	jmp	.L158
+.L145:
+	.loc 2 678 19
 	leaq	-25(%rbp), %rax
 	movq	24(%rbp), %rcx
 	movq	%rax, %rdx
-	call	IS_ZERO_UINT
+	call	IsZero_UINT
 	movl	%eax, -12(%rbp)
-	.loc 2 700 8
+	.loc 2 678 8
 	cmpl	$0, -12(%rbp)
-	je	.L152
-	.loc 2 701 16
+	je	.L146
+	.loc 2 679 16
 	movl	-12(%rbp), %eax
-	jmp	.L164
-.L152:
-	.loc 2 702 11
+	jmp	.L158
+.L146:
+	.loc 2 680 11
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 702 8
+	.loc 2 680 8
 	testb	%al, %al
-	jne	.L153
-	.loc 2 706 13
+	jne	.L147
+	.loc 2 684 13
 	movzbl	-25(%rbp), %eax
-	.loc 2 706 12
+	.loc 2 684 12
 	testb	%al, %al
-	je	.L154
-	.loc 2 711 16
+	je	.L148
+	.loc 2 689 16
 	movq	.refptr.number_zero(%rip), %rax
 	movq	%rax, -24(%rbp)
-	jmp	.L160
-.L154:
+	jmp	.L154
+.L148:
 .LBB9:
-	.loc 2 719 34
+	.loc 2 697 34
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	88(%rax), %r8
-	.loc 2 719 27
+	.loc 2 697 27
 	leaq	-40(%rbp), %rax
 	movq	24(%rbp), %rcx
 	movq	%rax, %rdx
 	call	*%r8
-.LVL26:
+.LVL25:
 	movl	%eax, -12(%rbp)
-	.loc 2 719 16
+	.loc 2 697 16
 	cmpl	$0, -12(%rbp)
-	je	.L156
-	.loc 2 720 24
+	je	.L150
+	.loc 2 698 24
 	movl	-12(%rbp), %eax
-	jmp	.L164
-.L156:
-	.loc 2 722 34
+	jmp	.L158
+.L150:
+	.loc 2 700 34
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	40(%rax), %r8
-	.loc 2 722 27
+	.loc 2 700 27
 	movq	-40(%rbp), %rcx
 	leaq	-44(%rbp), %rax
 	movq	%rax, %rdx
 	call	*%r8
-.LVL27:
+.LVL26:
 	movl	%eax, -12(%rbp)
-	.loc 2 722 16
+	.loc 2 700 16
 	cmpl	$0, -12(%rbp)
-	je	.L158
-	.loc 2 723 24
+	je	.L152
+	.loc 2 701 24
 	movl	-12(%rbp), %eax
-	jmp	.L164
-.L158:
-	.loc 2 724 27
+	jmp	.L158
+.L152:
+	.loc 2 702 27
 	movq	-40(%rbp), %rdx
 	leaq	-24(%rbp), %rax
 	movq	%rdx, %r8
@@ -2170,47 +2075,47 @@ PMC_Add_X_UX:
 	movq	%rax, %rcx
 	call	AllocateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 724 16
+	.loc 2 702 16
 	cmpl	$0, -12(%rbp)
-	je	.L160
-	.loc 2 726 24
+	je	.L154
+	.loc 2 704 24
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	32(%rax), %rax
-	.loc 2 726 17
+	.loc 2 704 17
 	movq	-40(%rbp), %rdx
 	movq	%rdx, %rcx
 	call	*%rax
-.LVL28:
-	.loc 2 727 24
+.LVL27:
+	.loc 2 705 24
 	movl	-12(%rbp), %eax
-	jmp	.L164
-.L153:
+	jmp	.L158
+.L147:
 .LBE9:
-	.loc 2 731 16
+	.loc 2 709 16
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 731 13
+	.loc 2 709 13
 	testb	%al, %al
-	jle	.L161
-	.loc 2 735 13
+	jle	.L155
+	.loc 2 713 13
 	movzbl	-25(%rbp), %eax
-	.loc 2 735 12
+	.loc 2 713 12
 	testb	%al, %al
-	je	.L162
-	.loc 2 740 27
+	je	.L156
+	.loc 2 718 27
 	leaq	-24(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 740 16
+	.loc 2 718 16
 	cmpl	$0, -12(%rbp)
-	je	.L160
-	.loc 2 741 24
+	je	.L154
+	.loc 2 719 24
 	movl	-12(%rbp), %eax
-	jmp	.L164
-.L162:
-	.loc 2 748 27
+	jmp	.L158
+.L156:
+	.loc 2 726 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -2221,32 +2126,32 @@ PMC_Add_X_UX:
 	movl	$1, %ecx
 	call	AddU_X_X_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 748 16
+	.loc 2 726 16
 	cmpl	$0, -12(%rbp)
-	je	.L160
-	.loc 2 749 24
+	je	.L154
+	.loc 2 727 24
 	movl	-12(%rbp), %eax
-	jmp	.L164
-.L161:
-	.loc 2 756 13
+	jmp	.L158
+.L155:
+	.loc 2 734 13
 	movzbl	-25(%rbp), %eax
-	.loc 2 756 12
+	.loc 2 734 12
 	testb	%al, %al
-	je	.L163
-	.loc 2 761 27
+	je	.L157
+	.loc 2 739 27
 	leaq	-24(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 761 16
+	.loc 2 739 16
 	cmpl	$0, -12(%rbp)
-	je	.L160
-	.loc 2 762 24
+	je	.L154
+	.loc 2 740 24
 	movl	-12(%rbp), %eax
-	jmp	.L164
-.L163:
-	.loc 2 769 27
+	jmp	.L158
+.L157:
+	.loc 2 747 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -2257,35 +2162,35 @@ PMC_Add_X_UX:
 	movl	$-1, %ecx
 	call	SubtructU_X_X_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 769 16
+	.loc 2 747 16
 	cmpl	$0, -12(%rbp)
-	je	.L160
-	.loc 2 770 24
+	je	.L154
+	.loc 2 748 24
 	movl	-12(%rbp), %eax
-	jmp	.L164
-.L160:
-	.loc 2 774 8
+	jmp	.L158
+.L154:
+	.loc 2 752 8
 	movq	-24(%rbp), %rdx
 	movq	32(%rbp), %rax
 	movq	%rdx, (%rax)
-	.loc 2 775 12
+	.loc 2 753 12
 	movl	$0, %eax
-.L164:
-	.loc 2 776 1 discriminator 3
+.L158:
+	.loc 2 754 1 discriminator 3
 	addq	$80, %rsp
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE4376:
+.LFE4375:
 	.seh_endproc
 	.globl	PMC_Add_X_X
 	.def	PMC_Add_X_X;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Add_X_X
 PMC_Add_X_X:
-.LFB4377:
-	.loc 2 779 1
+.LFB4376:
+	.loc 2 757 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -2300,119 +2205,119 @@ PMC_Add_X_X:
 	movq	%rcx, 16(%rbp)
 	movq	%rdx, 24(%rbp)
 	movq	%r8, 32(%rbp)
-	.loc 2 780 8
+	.loc 2 758 8
 	cmpq	$0, 16(%rbp)
-	jne	.L166
-	.loc 2 781 16
+	jne	.L160
+	.loc 2 759 16
 	movl	$-1, %eax
-	jmp	.L180
-.L166:
-	.loc 2 782 8
+	jmp	.L174
+.L160:
+	.loc 2 760 8
 	cmpq	$0, 24(%rbp)
-	jne	.L168
-	.loc 2 783 16
+	jne	.L162
+	.loc 2 761 16
 	movl	$-1, %eax
-	jmp	.L180
-.L168:
-	.loc 2 784 8
+	jmp	.L174
+.L162:
+	.loc 2 762 8
 	cmpq	$0, 32(%rbp)
-	jne	.L169
-	.loc 2 785 16
+	jne	.L163
+	.loc 2 763 16
 	movl	$-1, %eax
-	jmp	.L180
-.L169:
-	.loc 2 787 20
+	jmp	.L174
+.L163:
+	.loc 2 765 20
 	movq	16(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	.loc 2 788 20
+	.loc 2 766 20
 	movq	24(%rbp), %rax
 	movq	%rax, -16(%rbp)
-	.loc 2 790 19
+	.loc 2 768 19
 	movq	-8(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -20(%rbp)
-	.loc 2 790 8
+	.loc 2 768 8
 	cmpl	$0, -20(%rbp)
-	je	.L170
-	.loc 2 791 16
+	je	.L164
+	.loc 2 769 16
 	movl	-20(%rbp), %eax
-	jmp	.L180
-.L170:
-	.loc 2 792 19
+	jmp	.L174
+.L164:
+	.loc 2 770 19
 	movq	-16(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -20(%rbp)
-	.loc 2 792 8
+	.loc 2 770 8
 	cmpl	$0, -20(%rbp)
-	je	.L171
-	.loc 2 793 16
+	je	.L165
+	.loc 2 771 16
 	movl	-20(%rbp), %eax
-	jmp	.L180
-.L171:
-	.loc 2 794 11
+	jmp	.L174
+.L165:
+	.loc 2 772 11
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 794 8
+	.loc 2 772 8
 	testb	%al, %al
-	jne	.L172
-	.loc 2 798 15
+	jne	.L166
+	.loc 2 776 15
 	movq	-16(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 798 12
+	.loc 2 776 12
 	testb	%al, %al
-	jne	.L173
-	.loc 2 802 16
+	jne	.L167
+	.loc 2 781 16
 	movq	.refptr.number_zero(%rip), %rax
 	movq	%rax, -32(%rbp)
-	jmp	.L174
-.L173:
-	.loc 2 809 27
+	jmp	.L168
+.L167:
+	.loc 2 788 27
 	leaq	-32(%rbp), %rax
 	movq	-16(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -20(%rbp)
-	.loc 2 809 16
+	.loc 2 788 16
 	cmpl	$0, -20(%rbp)
-	je	.L174
-	.loc 2 810 24
+	je	.L168
+	.loc 2 789 24
 	movl	-20(%rbp), %eax
-	jmp	.L180
-.L172:
-	.loc 2 813 16
+	jmp	.L174
+.L166:
+	.loc 2 792 16
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 813 13
+	.loc 2 792 13
 	testb	%al, %al
-	jle	.L175
-	.loc 2 817 15
+	jle	.L169
+	.loc 2 796 15
 	movq	-16(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 817 12
+	.loc 2 796 12
 	testb	%al, %al
-	jne	.L176
-	.loc 2 822 27
+	jne	.L170
+	.loc 2 801 27
 	leaq	-32(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -20(%rbp)
-	.loc 2 822 16
+	.loc 2 801 16
 	cmpl	$0, -20(%rbp)
-	je	.L174
-	.loc 2 823 24
+	je	.L168
+	.loc 2 802 24
 	movl	-20(%rbp), %eax
-	jmp	.L180
-.L176:
-	.loc 2 825 20
+	jmp	.L174
+.L170:
+	.loc 2 804 20
 	movq	-16(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 825 17
+	.loc 2 804 17
 	testb	%al, %al
-	jle	.L177
-	.loc 2 830 27
+	jle	.L171
+	.loc 2 809 27
 	movq	-16(%rbp), %rax
 	movq	8(%rax), %rcx
 	movq	-8(%rbp), %rax
@@ -2424,13 +2329,57 @@ PMC_Add_X_X:
 	movl	$1, %ecx
 	call	AddU_X_X_Imp
 	movl	%eax, -20(%rbp)
+	.loc 2 809 16
+	cmpl	$0, -20(%rbp)
+	je	.L168
+	.loc 2 810 24
+	movl	-20(%rbp), %eax
+	jmp	.L174
+.L171:
+	.loc 2 817 27
+	movq	-16(%rbp), %rax
+	movq	8(%rax), %rcx
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$1, %ecx
+	call	SubtructU_X_X_Imp
+	movl	%eax, -20(%rbp)
+	.loc 2 817 16
+	cmpl	$0, -20(%rbp)
+	je	.L168
+	.loc 2 818 24
+	movl	-20(%rbp), %eax
+	jmp	.L174
+.L169:
+	.loc 2 825 15
+	movq	-16(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 825 12
+	testb	%al, %al
+	jne	.L172
+	.loc 2 830 27
+	leaq	-32(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	movq	%rax, %rdx
+	call	DuplicateNumber
+	movl	%eax, -20(%rbp)
 	.loc 2 830 16
 	cmpl	$0, -20(%rbp)
-	je	.L174
+	je	.L168
 	.loc 2 831 24
 	movl	-20(%rbp), %eax
-	jmp	.L180
-.L177:
+	jmp	.L174
+.L172:
+	.loc 2 833 20
+	movq	-16(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 833 17
+	testb	%al, %al
+	jle	.L173
 	.loc 2 838 27
 	movq	-16(%rbp), %rax
 	movq	8(%rax), %rcx
@@ -2440,61 +2389,17 @@ PMC_Add_X_X:
 	movq	%rdx, %r9
 	movq	%rcx, %r8
 	movq	%rax, %rdx
-	movl	$1, %ecx
+	movl	$-1, %ecx
 	call	SubtructU_X_X_Imp
 	movl	%eax, -20(%rbp)
 	.loc 2 838 16
 	cmpl	$0, -20(%rbp)
-	je	.L174
+	je	.L168
 	.loc 2 839 24
 	movl	-20(%rbp), %eax
-	jmp	.L180
-.L175:
-	.loc 2 846 15
-	movq	-16(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 846 12
-	testb	%al, %al
-	jne	.L178
-	.loc 2 851 27
-	leaq	-32(%rbp), %rax
-	movq	-8(%rbp), %rcx
-	movq	%rax, %rdx
-	call	DuplicateNumber
-	movl	%eax, -20(%rbp)
-	.loc 2 851 16
-	cmpl	$0, -20(%rbp)
-	je	.L174
-	.loc 2 852 24
-	movl	-20(%rbp), %eax
-	jmp	.L180
-.L178:
-	.loc 2 854 20
-	movq	-16(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 854 17
-	testb	%al, %al
-	jle	.L179
-	.loc 2 859 27
-	movq	-16(%rbp), %rax
-	movq	8(%rax), %rcx
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$-1, %ecx
-	call	SubtructU_X_X_Imp
-	movl	%eax, -20(%rbp)
-	.loc 2 859 16
-	cmpl	$0, -20(%rbp)
-	je	.L174
-	.loc 2 860 24
-	movl	-20(%rbp), %eax
-	jmp	.L180
-.L179:
-	.loc 2 867 27
+	jmp	.L174
+.L173:
+	.loc 2 846 27
 	movq	-16(%rbp), %rax
 	movq	8(%rax), %rcx
 	movq	-8(%rbp), %rax
@@ -2506,35 +2411,35 @@ PMC_Add_X_X:
 	movl	$-1, %ecx
 	call	AddU_X_X_Imp
 	movl	%eax, -20(%rbp)
-	.loc 2 867 16
+	.loc 2 846 16
 	cmpl	$0, -20(%rbp)
-	je	.L174
-	.loc 2 868 24
+	je	.L168
+	.loc 2 847 24
 	movl	-20(%rbp), %eax
-	jmp	.L180
-.L174:
-	.loc 2 871 8
+	jmp	.L174
+.L168:
+	.loc 2 850 8
 	movq	-32(%rbp), %rdx
 	movq	32(%rbp), %rax
 	movq	%rdx, (%rax)
-	.loc 2 872 12
+	.loc 2 851 12
 	movl	$0, %eax
-.L180:
-	.loc 2 873 1 discriminator 3
+.L174:
+	.loc 2 852 1 discriminator 3
 	addq	$64, %rsp
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE4377:
+.LFE4376:
 	.seh_endproc
 	.globl	PMC_Subtruct_I_X
 	.def	PMC_Subtruct_I_X;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Subtruct_I_X
 PMC_Subtruct_I_X:
-.LFB4378:
-	.loc 2 876 1
+.LFB4377:
+	.loc 2 855 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -2549,168 +2454,168 @@ PMC_Subtruct_I_X:
 	movl	%ecx, 16(%rbp)
 	movq	%rdx, 24(%rbp)
 	movq	%r8, 32(%rbp)
-	.loc 2 877 8
+	.loc 2 856 8
 	cmpq	$0, 24(%rbp)
-	jne	.L182
-	.loc 2 878 16
+	jne	.L176
+	.loc 2 857 16
 	movl	$-1, %eax
-	jmp	.L194
-.L182:
-	.loc 2 879 8
+	jmp	.L188
+.L176:
+	.loc 2 858 8
 	cmpq	$0, 32(%rbp)
-	jne	.L184
-	.loc 2 880 16
+	jne	.L178
+	.loc 2 859 16
 	movl	$-1, %eax
-	jmp	.L194
-.L184:
-	.loc 2 882 20
+	jmp	.L188
+.L178:
+	.loc 2 861 20
 	movq	24(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	.loc 2 884 19
+	.loc 2 863 19
 	movq	-8(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 884 8
+	.loc 2 863 8
 	cmpl	$0, -12(%rbp)
-	je	.L185
-	.loc 2 885 16
+	je	.L179
+	.loc 2 864 16
 	movl	-12(%rbp), %eax
-	jmp	.L194
-.L185:
-	.loc 2 887 23
+	jmp	.L188
+.L179:
+	.loc 2 866 23
 	leaq	-25(%rbp), %rax
 	movq	%rax, %rdx
 	movl	16(%rbp), %ecx
 	call	GET_ABS_32
 	movl	%eax, -16(%rbp)
-	.loc 2 888 16
+	.loc 2 867 16
 	movzbl	-25(%rbp), %eax
-	.loc 2 888 8
+	.loc 2 867 8
 	testb	%al, %al
-	jne	.L186
-	.loc 2 892 15
+	jne	.L180
+	.loc 2 871 15
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 892 12
+	.loc 2 871 12
 	testb	%al, %al
-	jne	.L187
-	.loc 2 896 16
+	jne	.L181
+	.loc 2 876 16
 	movq	.refptr.number_zero(%rip), %rax
 	movq	%rax, -24(%rbp)
-	jmp	.L188
-.L187:
-	.loc 2 903 27
+	jmp	.L182
+.L181:
+	.loc 2 883 27
 	leaq	-24(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	Negate_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 903 16
+	.loc 2 883 16
 	cmpl	$0, -12(%rbp)
-	je	.L188
-	.loc 2 904 24
+	je	.L182
+	.loc 2 884 24
 	movl	-12(%rbp), %eax
-	jmp	.L194
+	jmp	.L188
+.L180:
+	.loc 2 887 21
+	movzbl	-25(%rbp), %eax
+	.loc 2 887 13
+	testb	%al, %al
+	jle	.L183
+	.loc 2 891 15
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 891 12
+	testb	%al, %al
+	jne	.L184
+	.loc 2 896 27
+	movzbl	-25(%rbp), %eax
+	movsbl	%al, %eax
+	leaq	-24(%rbp), %rcx
+	movl	-16(%rbp), %edx
+	movq	%rcx, %r8
+	movl	%eax, %ecx
+	call	From_I_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 896 16
+	cmpl	$0, -12(%rbp)
+	je	.L182
+	.loc 2 897 24
+	movl	-12(%rbp), %eax
+	jmp	.L188
+.L184:
+	.loc 2 899 20
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 899 17
+	testb	%al, %al
+	jle	.L185
+	.loc 2 904 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-24(%rbp), %rdx
+	movl	-16(%rbp), %ecx
+	movq	%rdx, %r9
+	movl	%ecx, %r8d
+	movq	%rax, %rdx
+	movl	$-1, %ecx
+	call	SubtructU_X_I_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 904 16
+	cmpl	$0, -12(%rbp)
+	je	.L182
+	.loc 2 905 24
+	movl	-12(%rbp), %eax
+	jmp	.L188
+.L185:
+	.loc 2 912 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-24(%rbp), %rdx
+	movl	-16(%rbp), %ecx
+	movq	%rdx, %r9
+	movl	%ecx, %r8d
+	movq	%rax, %rdx
+	movl	$1, %ecx
+	call	AddU_X_I_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 912 16
+	cmpl	$0, -12(%rbp)
+	je	.L182
+	.loc 2 913 24
+	movl	-12(%rbp), %eax
+	jmp	.L188
+.L183:
+	.loc 2 920 15
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 920 12
+	testb	%al, %al
+	jne	.L186
+	.loc 2 925 27
+	movzbl	-25(%rbp), %eax
+	movsbl	%al, %eax
+	leaq	-24(%rbp), %rcx
+	movl	-16(%rbp), %edx
+	movq	%rcx, %r8
+	movl	%eax, %ecx
+	call	From_I_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 925 16
+	cmpl	$0, -12(%rbp)
+	je	.L182
+	.loc 2 926 24
+	movl	-12(%rbp), %eax
+	jmp	.L188
 .L186:
-	.loc 2 907 21
-	movzbl	-25(%rbp), %eax
-	.loc 2 907 13
-	testb	%al, %al
-	jle	.L189
-	.loc 2 911 15
+	.loc 2 928 20
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 911 12
+	.loc 2 928 17
 	testb	%al, %al
-	jne	.L190
-	.loc 2 916 27
-	movzbl	-25(%rbp), %eax
-	movsbl	%al, %eax
-	leaq	-24(%rbp), %rcx
-	movl	-16(%rbp), %edx
-	movq	%rcx, %r8
-	movl	%eax, %ecx
-	call	From_I_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 916 16
-	cmpl	$0, -12(%rbp)
-	je	.L188
-	.loc 2 917 24
-	movl	-12(%rbp), %eax
-	jmp	.L194
-.L190:
-	.loc 2 919 20
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 919 17
-	testb	%al, %al
-	jle	.L191
-	.loc 2 924 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-24(%rbp), %rdx
-	movl	-16(%rbp), %ecx
-	movq	%rdx, %r9
-	movl	%ecx, %r8d
-	movq	%rax, %rdx
-	movl	$-1, %ecx
-	call	SubtructU_X_I_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 924 16
-	cmpl	$0, -12(%rbp)
-	je	.L188
-	.loc 2 925 24
-	movl	-12(%rbp), %eax
-	jmp	.L194
-.L191:
-	.loc 2 932 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-24(%rbp), %rdx
-	movl	-16(%rbp), %ecx
-	movq	%rdx, %r9
-	movl	%ecx, %r8d
-	movq	%rax, %rdx
-	movl	$1, %ecx
-	call	AddU_X_I_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 932 16
-	cmpl	$0, -12(%rbp)
-	je	.L188
-	.loc 2 933 24
-	movl	-12(%rbp), %eax
-	jmp	.L194
-.L189:
-	.loc 2 940 15
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 940 12
-	testb	%al, %al
-	jne	.L192
-	.loc 2 945 27
-	movzbl	-25(%rbp), %eax
-	movsbl	%al, %eax
-	leaq	-24(%rbp), %rcx
-	movl	-16(%rbp), %edx
-	movq	%rcx, %r8
-	movl	%eax, %ecx
-	call	From_I_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 945 16
-	cmpl	$0, -12(%rbp)
-	je	.L188
-	.loc 2 946 24
-	movl	-12(%rbp), %eax
-	jmp	.L194
-.L192:
-	.loc 2 948 20
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 948 17
-	testb	%al, %al
-	jle	.L193
-	.loc 2 953 27
+	jle	.L187
+	.loc 2 933 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -2721,14 +2626,14 @@ PMC_Subtruct_I_X:
 	movl	$-1, %ecx
 	call	AddU_X_I_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 953 16
+	.loc 2 933 16
 	cmpl	$0, -12(%rbp)
-	je	.L188
-	.loc 2 954 24
+	je	.L182
+	.loc 2 934 24
 	movl	-12(%rbp), %eax
-	jmp	.L194
-.L193:
-	.loc 2 961 27
+	jmp	.L188
+.L187:
+	.loc 2 941 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -2739,22 +2644,255 @@ PMC_Subtruct_I_X:
 	movl	$1, %ecx
 	call	SubtructU_X_I_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 961 16
+	.loc 2 941 16
 	cmpl	$0, -12(%rbp)
-	je	.L188
-	.loc 2 962 24
+	je	.L182
+	.loc 2 942 24
 	movl	-12(%rbp), %eax
-	jmp	.L194
-.L188:
-	.loc 2 965 8
+	jmp	.L188
+.L182:
+	.loc 2 945 8
 	movq	-24(%rbp), %rdx
 	movq	32(%rbp), %rax
 	movq	%rdx, (%rax)
-	.loc 2 966 12
+	.loc 2 946 12
 	movl	$0, %eax
-.L194:
-	.loc 2 967 1 discriminator 3
+.L188:
+	.loc 2 947 1 discriminator 3
 	addq	$64, %rsp
+	popq	%rbp
+	.cfi_restore 6
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE4377:
+	.seh_endproc
+	.globl	PMC_Subtruct_L_X
+	.def	PMC_Subtruct_L_X;	.scl	2;	.type	32;	.endef
+	.seh_proc	PMC_Subtruct_L_X
+PMC_Subtruct_L_X:
+.LFB4378:
+	.loc 2 950 1
+	.cfi_startproc
+	pushq	%rbp
+	.seh_pushreg	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.seh_setframe	%rbp, 0
+	.cfi_def_cfa_register 6
+	subq	$80, %rsp
+	.seh_stackalloc	80
+	.seh_endprologue
+	movq	%rcx, 16(%rbp)
+	movq	%rdx, 24(%rbp)
+	movq	%r8, 32(%rbp)
+	.loc 2 951 8
+	cmpq	$0, 24(%rbp)
+	jne	.L190
+	.loc 2 952 16
+	movl	$-1, %eax
+	jmp	.L202
+.L190:
+	.loc 2 953 8
+	cmpq	$0, 32(%rbp)
+	jne	.L192
+	.loc 2 954 16
+	movl	$-1, %eax
+	jmp	.L202
+.L192:
+	.loc 2 956 20
+	movq	24(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	.loc 2 958 19
+	movq	-8(%rbp), %rax
+	movq	%rax, %rcx
+	call	CheckNumber
+	movl	%eax, -12(%rbp)
+	.loc 2 958 8
+	cmpl	$0, -12(%rbp)
+	je	.L193
+	.loc 2 959 16
+	movl	-12(%rbp), %eax
+	jmp	.L202
+.L193:
+	.loc 2 961 23
+	leaq	-33(%rbp), %rax
+	movq	%rax, %rdx
+	movq	16(%rbp), %rcx
+	call	GET_ABS_64
+	movq	%rax, -24(%rbp)
+	.loc 2 962 16
+	movzbl	-33(%rbp), %eax
+	.loc 2 962 8
+	testb	%al, %al
+	jne	.L194
+	.loc 2 966 15
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 966 12
+	testb	%al, %al
+	jne	.L195
+	.loc 2 971 16
+	movq	.refptr.number_zero(%rip), %rax
+	movq	%rax, -32(%rbp)
+	jmp	.L196
+.L195:
+	.loc 2 978 27
+	leaq	-32(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	movq	%rax, %rdx
+	call	Negate_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 978 16
+	cmpl	$0, -12(%rbp)
+	je	.L196
+	.loc 2 979 24
+	movl	-12(%rbp), %eax
+	jmp	.L202
+.L194:
+	.loc 2 982 21
+	movzbl	-33(%rbp), %eax
+	.loc 2 982 13
+	testb	%al, %al
+	jle	.L197
+	.loc 2 986 15
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 986 12
+	testb	%al, %al
+	jne	.L198
+	.loc 2 991 27
+	movzbl	-33(%rbp), %eax
+	movsbl	%al, %eax
+	leaq	-32(%rbp), %rcx
+	movq	-24(%rbp), %rdx
+	movq	%rcx, %r8
+	movl	%eax, %ecx
+	call	From_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 991 16
+	cmpl	$0, -12(%rbp)
+	je	.L196
+	.loc 2 992 24
+	movl	-12(%rbp), %eax
+	jmp	.L202
+.L198:
+	.loc 2 994 20
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 994 17
+	testb	%al, %al
+	jle	.L199
+	.loc 2 999 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$-1, %ecx
+	call	SubtructU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 999 16
+	cmpl	$0, -12(%rbp)
+	je	.L196
+	.loc 2 1000 24
+	movl	-12(%rbp), %eax
+	jmp	.L202
+.L199:
+	.loc 2 1007 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$1, %ecx
+	call	AddU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 1007 16
+	cmpl	$0, -12(%rbp)
+	je	.L196
+	.loc 2 1008 24
+	movl	-12(%rbp), %eax
+	jmp	.L202
+.L197:
+	.loc 2 1015 15
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 1015 12
+	testb	%al, %al
+	jne	.L200
+	.loc 2 1020 27
+	movzbl	-33(%rbp), %eax
+	movsbl	%al, %eax
+	leaq	-32(%rbp), %rcx
+	movq	-24(%rbp), %rdx
+	movq	%rcx, %r8
+	movl	%eax, %ecx
+	call	From_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 1020 16
+	cmpl	$0, -12(%rbp)
+	je	.L196
+	.loc 2 1021 24
+	movl	-12(%rbp), %eax
+	jmp	.L202
+.L200:
+	.loc 2 1023 20
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 1023 17
+	testb	%al, %al
+	jle	.L201
+	.loc 2 1028 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$-1, %ecx
+	call	AddU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 1028 16
+	cmpl	$0, -12(%rbp)
+	je	.L196
+	.loc 2 1029 24
+	movl	-12(%rbp), %eax
+	jmp	.L202
+.L201:
+	.loc 2 1036 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$1, %ecx
+	call	SubtructU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 1036 16
+	cmpl	$0, -12(%rbp)
+	je	.L196
+	.loc 2 1037 24
+	movl	-12(%rbp), %eax
+	jmp	.L202
+.L196:
+	.loc 2 1040 8
+	movq	-32(%rbp), %rdx
+	movq	32(%rbp), %rax
+	movq	%rdx, (%rax)
+	.loc 2 1041 12
+	movl	$0, %eax
+.L202:
+	.loc 2 1042 1 discriminator 3
+	addq	$80, %rsp
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
@@ -2762,245 +2900,12 @@ PMC_Subtruct_I_X:
 	.cfi_endproc
 .LFE4378:
 	.seh_endproc
-	.globl	PMC_Subtruct_L_X
-	.def	PMC_Subtruct_L_X;	.scl	2;	.type	32;	.endef
-	.seh_proc	PMC_Subtruct_L_X
-PMC_Subtruct_L_X:
-.LFB4379:
-	.loc 2 970 1
-	.cfi_startproc
-	pushq	%rbp
-	.seh_pushreg	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.seh_setframe	%rbp, 0
-	.cfi_def_cfa_register 6
-	subq	$80, %rsp
-	.seh_stackalloc	80
-	.seh_endprologue
-	movq	%rcx, 16(%rbp)
-	movq	%rdx, 24(%rbp)
-	movq	%r8, 32(%rbp)
-	.loc 2 971 8
-	cmpq	$0, 24(%rbp)
-	jne	.L196
-	.loc 2 972 16
-	movl	$-1, %eax
-	jmp	.L208
-.L196:
-	.loc 2 973 8
-	cmpq	$0, 32(%rbp)
-	jne	.L198
-	.loc 2 974 16
-	movl	$-1, %eax
-	jmp	.L208
-.L198:
-	.loc 2 976 20
-	movq	24(%rbp), %rax
-	movq	%rax, -8(%rbp)
-	.loc 2 978 19
-	movq	-8(%rbp), %rax
-	movq	%rax, %rcx
-	call	CheckNumber
-	movl	%eax, -12(%rbp)
-	.loc 2 978 8
-	cmpl	$0, -12(%rbp)
-	je	.L199
-	.loc 2 979 16
-	movl	-12(%rbp), %eax
-	jmp	.L208
-.L199:
-	.loc 2 981 23
-	leaq	-33(%rbp), %rax
-	movq	%rax, %rdx
-	movq	16(%rbp), %rcx
-	call	GET_ABS_64
-	movq	%rax, -24(%rbp)
-	.loc 2 982 16
-	movzbl	-33(%rbp), %eax
-	.loc 2 982 8
-	testb	%al, %al
-	jne	.L200
-	.loc 2 986 15
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 986 12
-	testb	%al, %al
-	jne	.L201
-	.loc 2 990 16
-	movq	.refptr.number_zero(%rip), %rax
-	movq	%rax, -32(%rbp)
-	jmp	.L202
-.L201:
-	.loc 2 997 27
-	leaq	-32(%rbp), %rax
-	movq	-8(%rbp), %rcx
-	movq	%rax, %rdx
-	call	Negate_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 997 16
-	cmpl	$0, -12(%rbp)
-	je	.L202
-	.loc 2 998 24
-	movl	-12(%rbp), %eax
-	jmp	.L208
-.L200:
-	.loc 2 1001 21
-	movzbl	-33(%rbp), %eax
-	.loc 2 1001 13
-	testb	%al, %al
-	jle	.L203
-	.loc 2 1005 15
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 1005 12
-	testb	%al, %al
-	jne	.L204
-	.loc 2 1010 27
-	movzbl	-33(%rbp), %eax
-	movsbl	%al, %eax
-	leaq	-32(%rbp), %rcx
-	movq	-24(%rbp), %rdx
-	movq	%rcx, %r8
-	movl	%eax, %ecx
-	call	From_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1010 16
-	cmpl	$0, -12(%rbp)
-	je	.L202
-	.loc 2 1011 24
-	movl	-12(%rbp), %eax
-	jmp	.L208
-.L204:
-	.loc 2 1013 20
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 1013 17
-	testb	%al, %al
-	jle	.L205
-	.loc 2 1018 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$-1, %ecx
-	call	SubtructU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1018 16
-	cmpl	$0, -12(%rbp)
-	je	.L202
-	.loc 2 1019 24
-	movl	-12(%rbp), %eax
-	jmp	.L208
-.L205:
-	.loc 2 1026 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$1, %ecx
-	call	AddU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1026 16
-	cmpl	$0, -12(%rbp)
-	je	.L202
-	.loc 2 1027 24
-	movl	-12(%rbp), %eax
-	jmp	.L208
-.L203:
-	.loc 2 1034 15
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 1034 12
-	testb	%al, %al
-	jne	.L206
-	.loc 2 1039 27
-	movzbl	-33(%rbp), %eax
-	movsbl	%al, %eax
-	leaq	-32(%rbp), %rcx
-	movq	-24(%rbp), %rdx
-	movq	%rcx, %r8
-	movl	%eax, %ecx
-	call	From_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1039 16
-	cmpl	$0, -12(%rbp)
-	je	.L202
-	.loc 2 1040 24
-	movl	-12(%rbp), %eax
-	jmp	.L208
-.L206:
-	.loc 2 1042 20
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 1042 17
-	testb	%al, %al
-	jle	.L207
-	.loc 2 1047 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$-1, %ecx
-	call	AddU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1047 16
-	cmpl	$0, -12(%rbp)
-	je	.L202
-	.loc 2 1048 24
-	movl	-12(%rbp), %eax
-	jmp	.L208
-.L207:
-	.loc 2 1055 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$1, %ecx
-	call	SubtructU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1055 16
-	cmpl	$0, -12(%rbp)
-	je	.L202
-	.loc 2 1056 24
-	movl	-12(%rbp), %eax
-	jmp	.L208
-.L202:
-	.loc 2 1059 8
-	movq	-32(%rbp), %rdx
-	movq	32(%rbp), %rax
-	movq	%rdx, (%rax)
-	.loc 2 1060 12
-	movl	$0, %eax
-.L208:
-	.loc 2 1061 1 discriminator 3
-	addq	$80, %rsp
-	popq	%rbp
-	.cfi_restore 6
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE4379:
-	.seh_endproc
 	.globl	PMC_Subtruct_UX_X
 	.def	PMC_Subtruct_UX_X;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Subtruct_UX_X
 PMC_Subtruct_UX_X:
-.LFB4380:
-	.loc 2 1064 1
+.LFB4379:
+	.loc 2 1045 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -3015,128 +2920,109 @@ PMC_Subtruct_UX_X:
 	movq	%rcx, 16(%rbp)
 	movq	%rdx, 24(%rbp)
 	movq	%r8, 32(%rbp)
-	.loc 2 1065 8
+	.loc 2 1046 8
 	cmpq	$0, 16(%rbp)
-	jne	.L210
-	.loc 2 1066 16
+	jne	.L204
+	.loc 2 1047 16
 	movl	$-1, %eax
-	jmp	.L225
-.L210:
-	.loc 2 1067 8
+	jmp	.L218
+.L204:
+	.loc 2 1048 8
 	cmpq	$0, 24(%rbp)
-	jne	.L212
-	.loc 2 1068 16
+	jne	.L206
+	.loc 2 1049 16
 	movl	$-1, %eax
-	jmp	.L225
-.L212:
-	.loc 2 1069 8
+	jmp	.L218
+.L206:
+	.loc 2 1050 8
 	cmpq	$0, 32(%rbp)
-	jne	.L213
-	.loc 2 1070 16
+	jne	.L207
+	.loc 2 1051 16
 	movl	$-1, %eax
-	jmp	.L225
-.L213:
-	.loc 2 1072 20
+	jmp	.L218
+.L207:
+	.loc 2 1053 20
 	movq	24(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	.loc 2 1074 19
+	.loc 2 1055 19
 	movq	-8(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 1074 8
+	.loc 2 1055 8
 	cmpl	$0, -12(%rbp)
-	je	.L214
-	.loc 2 1075 16
+	je	.L208
+	.loc 2 1056 16
 	movl	-12(%rbp), %eax
-	jmp	.L225
-.L214:
-	.loc 2 1077 19
+	jmp	.L218
+.L208:
+	.loc 2 1058 19
 	leaq	-25(%rbp), %rax
 	movq	%rax, %rdx
 	movq	16(%rbp), %rcx
-	call	IS_ZERO_UINT
+	call	IsZero_UINT
 	movl	%eax, -12(%rbp)
-	.loc 2 1077 8
+	.loc 2 1058 8
 	cmpl	$0, -12(%rbp)
-	je	.L215
-	.loc 2 1078 16
+	je	.L209
+	.loc 2 1059 16
 	movl	-12(%rbp), %eax
-	jmp	.L225
-.L215:
-	.loc 2 1079 9
+	jmp	.L218
+.L209:
+	.loc 2 1060 9
 	movzbl	-25(%rbp), %eax
-	.loc 2 1079 8
+	.loc 2 1060 8
 	testb	%al, %al
-	je	.L216
-	.loc 2 1083 15
+	je	.L210
+	.loc 2 1064 15
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1083 12
+	.loc 2 1064 12
 	testb	%al, %al
-	jne	.L217
-	.loc 2 1088 16
+	jne	.L211
+	.loc 2 1069 16
 	movq	.refptr.number_zero(%rip), %rax
 	movq	%rax, -24(%rbp)
+	jmp	.L212
+.L211:
+	.loc 2 1076 27
+	leaq	-24(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	movq	%rax, %rdx
+	call	Negate_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 1076 16
+	cmpl	$0, -12(%rbp)
+	je	.L212
+	.loc 2 1077 24
+	movl	-12(%rbp), %eax
 	jmp	.L218
-.L217:
-	.loc 2 1090 20
+.L210:
+	.loc 2 1084 15
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1090 17
+	.loc 2 1084 12
 	testb	%al, %al
-	jle	.L219
-	.loc 2 1095 27
-	leaq	-24(%rbp), %rax
-	movq	-8(%rbp), %rcx
-	movq	%rax, %rdx
-	call	Negate_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1095 16
-	cmpl	$0, -12(%rbp)
-	je	.L218
-	.loc 2 1096 24
-	movl	-12(%rbp), %eax
-	jmp	.L225
-.L219:
-	.loc 2 1103 27
-	leaq	-24(%rbp), %rax
-	movq	-8(%rbp), %rcx
-	movq	%rax, %rdx
-	call	Negate_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1103 16
-	cmpl	$0, -12(%rbp)
-	je	.L218
-	.loc 2 1104 24
-	movl	-12(%rbp), %eax
-	jmp	.L225
-.L216:
-	.loc 2 1111 15
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 1111 12
-	testb	%al, %al
-	jne	.L220
+	jne	.L213
 .LBB10:
-	.loc 2 1117 34
+	.loc 2 1090 34
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	88(%rax), %r8
-	.loc 2 1117 27
+	.loc 2 1090 27
 	leaq	-40(%rbp), %rax
 	movq	%rax, %rdx
 	movq	16(%rbp), %rcx
 	call	*%r8
-.LVL29:
+.LVL28:
 	movl	%eax, -12(%rbp)
-	.loc 2 1117 16
+	.loc 2 1090 16
 	cmpl	$0, -12(%rbp)
-	je	.L221
-	.loc 2 1118 24
+	je	.L214
+	.loc 2 1091 24
 	movl	-12(%rbp), %eax
-	jmp	.L225
-.L221:
-	.loc 2 1119 27
+	jmp	.L218
+.L214:
+	.loc 2 1092 27
 	movq	-40(%rbp), %rdx
 	leaq	-24(%rbp), %rax
 	movq	%rdx, %r8
@@ -3144,29 +3030,29 @@ PMC_Subtruct_UX_X:
 	movq	%rax, %rcx
 	call	AllocateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 1119 16
+	.loc 2 1092 16
 	cmpl	$0, -12(%rbp)
-	je	.L218
-	.loc 2 1121 24
+	je	.L212
+	.loc 2 1094 24
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	32(%rax), %rax
-	.loc 2 1121 17
+	.loc 2 1094 17
 	movq	-40(%rbp), %rdx
 	movq	%rdx, %rcx
 	call	*%rax
-.LVL30:
-	.loc 2 1122 24
+.LVL29:
+	.loc 2 1095 24
 	movl	-12(%rbp), %eax
-	jmp	.L225
-.L220:
+	jmp	.L218
+.L213:
 .LBE10:
-	.loc 2 1125 20
+	.loc 2 1098 20
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1125 17
+	.loc 2 1098 17
 	testb	%al, %al
-	jle	.L224
-	.loc 2 1130 27
+	jle	.L217
+	.loc 2 1103 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rdx
 	leaq	-24(%rbp), %rax
@@ -3176,14 +3062,14 @@ PMC_Subtruct_UX_X:
 	movl	$1, %ecx
 	call	SubtructU_X_X_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 1130 16
+	.loc 2 1103 16
 	cmpl	$0, -12(%rbp)
-	je	.L218
-	.loc 2 1131 24
+	je	.L212
+	.loc 2 1104 24
 	movl	-12(%rbp), %eax
-	jmp	.L225
-.L224:
-	.loc 2 1138 27
+	jmp	.L218
+.L217:
+	.loc 2 1111 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rdx
 	leaq	-24(%rbp), %rax
@@ -3193,35 +3079,35 @@ PMC_Subtruct_UX_X:
 	movl	$1, %ecx
 	call	AddU_X_X_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 1138 16
+	.loc 2 1111 16
 	cmpl	$0, -12(%rbp)
-	je	.L218
-	.loc 2 1139 24
+	je	.L212
+	.loc 2 1112 24
 	movl	-12(%rbp), %eax
-	jmp	.L225
-.L218:
-	.loc 2 1142 8
+	jmp	.L218
+.L212:
+	.loc 2 1115 8
 	movq	-24(%rbp), %rdx
 	movq	32(%rbp), %rax
 	movq	%rdx, (%rax)
-	.loc 2 1143 12
+	.loc 2 1116 12
 	movl	$0, %eax
-.L225:
-	.loc 2 1144 1 discriminator 3
+.L218:
+	.loc 2 1117 1 discriminator 2
 	addq	$80, %rsp
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE4380:
+.LFE4379:
 	.seh_endproc
 	.globl	PMC_Subtruct_X_I
 	.def	PMC_Subtruct_X_I;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Subtruct_X_I
 PMC_Subtruct_X_I:
-.LFB4381:
-	.loc 2 1147 1
+.LFB4380:
+	.loc 2 1120 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -3236,63 +3122,58 @@ PMC_Subtruct_X_I:
 	movq	%rcx, 16(%rbp)
 	movl	%edx, 24(%rbp)
 	movq	%r8, 32(%rbp)
-	.loc 2 1148 8
+	.loc 2 1121 8
 	cmpq	$0, 16(%rbp)
-	jne	.L227
-	.loc 2 1149 16
+	jne	.L220
+	.loc 2 1122 16
 	movl	$-1, %eax
-	jmp	.L240
-.L227:
-	.loc 2 1150 8
+	jmp	.L232
+.L220:
+	.loc 2 1123 8
 	cmpq	$0, 32(%rbp)
-	jne	.L229
-	.loc 2 1151 16
+	jne	.L222
+	.loc 2 1124 16
 	movl	$-1, %eax
-	jmp	.L240
-.L229:
-	.loc 2 1153 20
+	jmp	.L232
+.L222:
+	.loc 2 1126 20
 	movq	16(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	.loc 2 1155 19
+	.loc 2 1128 19
 	movq	-8(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 1155 8
+	.loc 2 1128 8
 	cmpl	$0, -12(%rbp)
-	je	.L230
-	.loc 2 1156 16
+	je	.L223
+	.loc 2 1129 16
 	movl	-12(%rbp), %eax
-	jmp	.L240
-.L230:
-	.loc 2 1158 23
+	jmp	.L232
+.L223:
+	.loc 2 1131 23
 	leaq	-25(%rbp), %rax
 	movl	24(%rbp), %ecx
 	movq	%rax, %rdx
 	call	GET_ABS_32
 	movl	%eax, -16(%rbp)
-	.loc 2 1159 11
+	.loc 2 1132 11
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1159 8
+	.loc 2 1132 8
 	testb	%al, %al
-	jne	.L231
-	.loc 2 1163 20
+	jne	.L224
+	.loc 2 1136 20
 	movzbl	-25(%rbp), %eax
-	.loc 2 1163 12
+	.loc 2 1136 12
 	testb	%al, %al
-	jne	.L232
-	.loc 2 1167 16
+	jne	.L225
+	.loc 2 1141 16
 	movq	.refptr.number_zero(%rip), %rax
 	movq	%rax, -24(%rbp)
-	jmp	.L233
-.L232:
-	.loc 2 1169 25
-	movzbl	-25(%rbp), %eax
-	.loc 2 1169 17
-	testb	%al, %al
-	jle	.L234
-	.loc 2 1174 27
+	jmp	.L226
+.L225:
+	.loc 2 1148 27
 	movzbl	-25(%rbp), %eax
 	negl	%eax
 	movsbl	%al, %eax
@@ -3302,60 +3183,43 @@ PMC_Subtruct_X_I:
 	movl	%eax, %ecx
 	call	From_I_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 1174 16
+	.loc 2 1148 16
 	cmpl	$0, -12(%rbp)
-	je	.L233
-	.loc 2 1175 24
+	je	.L226
+	.loc 2 1149 24
 	movl	-12(%rbp), %eax
-	jmp	.L240
-.L234:
-	.loc 2 1182 27
-	movzbl	-25(%rbp), %eax
-	negl	%eax
-	movsbl	%al, %eax
-	leaq	-24(%rbp), %rcx
-	movl	-16(%rbp), %edx
-	movq	%rcx, %r8
-	movl	%eax, %ecx
-	call	From_I_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1182 16
-	cmpl	$0, -12(%rbp)
-	je	.L233
-	.loc 2 1183 24
-	movl	-12(%rbp), %eax
-	jmp	.L240
-.L231:
-	.loc 2 1186 16
+	jmp	.L232
+.L224:
+	.loc 2 1152 16
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1186 13
+	.loc 2 1152 13
 	testb	%al, %al
-	jle	.L235
-	.loc 2 1190 20
+	jle	.L227
+	.loc 2 1156 20
 	movzbl	-25(%rbp), %eax
-	.loc 2 1190 12
+	.loc 2 1156 12
 	testb	%al, %al
-	jne	.L236
-	.loc 2 1195 27
+	jne	.L228
+	.loc 2 1161 27
 	leaq	-24(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 1195 16
+	.loc 2 1161 16
 	cmpl	$0, -12(%rbp)
-	je	.L233
-	.loc 2 1196 24
+	je	.L226
+	.loc 2 1162 24
 	movl	-12(%rbp), %eax
-	jmp	.L240
-.L236:
-	.loc 2 1198 25
+	jmp	.L232
+.L228:
+	.loc 2 1164 25
 	movzbl	-25(%rbp), %eax
-	.loc 2 1198 17
+	.loc 2 1164 17
 	testb	%al, %al
-	jle	.L237
-	.loc 2 1203 27
+	jle	.L229
+	.loc 2 1169 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -3366,14 +3230,14 @@ PMC_Subtruct_X_I:
 	movl	$1, %ecx
 	call	SubtructU_X_I_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 1203 16
+	.loc 2 1169 16
 	cmpl	$0, -12(%rbp)
-	je	.L233
-	.loc 2 1204 24
+	je	.L226
+	.loc 2 1170 24
 	movl	-12(%rbp), %eax
-	jmp	.L240
-.L237:
-	.loc 2 1211 27
+	jmp	.L232
+.L229:
+	.loc 2 1177 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -3384,37 +3248,37 @@ PMC_Subtruct_X_I:
 	movl	$1, %ecx
 	call	AddU_X_I_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 1211 16
+	.loc 2 1177 16
 	cmpl	$0, -12(%rbp)
-	je	.L233
-	.loc 2 1212 24
+	je	.L226
+	.loc 2 1178 24
 	movl	-12(%rbp), %eax
-	jmp	.L240
-.L235:
-	.loc 2 1219 20
+	jmp	.L232
+.L227:
+	.loc 2 1185 20
 	movzbl	-25(%rbp), %eax
-	.loc 2 1219 12
+	.loc 2 1185 12
 	testb	%al, %al
-	jne	.L238
-	.loc 2 1224 27
+	jne	.L230
+	.loc 2 1190 27
 	leaq	-24(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 1224 16
+	.loc 2 1190 16
 	cmpl	$0, -12(%rbp)
-	je	.L233
-	.loc 2 1225 24
+	je	.L226
+	.loc 2 1191 24
 	movl	-12(%rbp), %eax
-	jmp	.L240
-.L238:
-	.loc 2 1227 25
+	jmp	.L232
+.L230:
+	.loc 2 1193 25
 	movzbl	-25(%rbp), %eax
-	.loc 2 1227 17
+	.loc 2 1193 17
 	testb	%al, %al
-	jle	.L239
-	.loc 2 1232 27
+	jle	.L231
+	.loc 2 1198 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -3425,14 +3289,14 @@ PMC_Subtruct_X_I:
 	movl	$-1, %ecx
 	call	AddU_X_I_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 1232 16
+	.loc 2 1198 16
 	cmpl	$0, -12(%rbp)
-	je	.L233
-	.loc 2 1233 24
+	je	.L226
+	.loc 2 1199 24
 	movl	-12(%rbp), %eax
-	jmp	.L240
-.L239:
-	.loc 2 1240 27
+	jmp	.L232
+.L231:
+	.loc 2 1206 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -3443,22 +3307,250 @@ PMC_Subtruct_X_I:
 	movl	$-1, %ecx
 	call	SubtructU_X_I_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 1240 16
+	.loc 2 1206 16
 	cmpl	$0, -12(%rbp)
-	je	.L233
-	.loc 2 1241 24
+	je	.L226
+	.loc 2 1207 24
 	movl	-12(%rbp), %eax
-	jmp	.L240
-.L233:
-	.loc 2 1244 8
+	jmp	.L232
+.L226:
+	.loc 2 1210 8
 	movq	-24(%rbp), %rdx
 	movq	32(%rbp), %rax
 	movq	%rdx, (%rax)
-	.loc 2 1245 12
+	.loc 2 1211 12
 	movl	$0, %eax
-.L240:
-	.loc 2 1246 1 discriminator 4
+.L232:
+	.loc 2 1212 1 discriminator 3
 	addq	$64, %rsp
+	popq	%rbp
+	.cfi_restore 6
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE4380:
+	.seh_endproc
+	.globl	PMC_Subtruct_X_L
+	.def	PMC_Subtruct_X_L;	.scl	2;	.type	32;	.endef
+	.seh_proc	PMC_Subtruct_X_L
+PMC_Subtruct_X_L:
+.LFB4381:
+	.loc 2 1215 1
+	.cfi_startproc
+	pushq	%rbp
+	.seh_pushreg	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.seh_setframe	%rbp, 0
+	.cfi_def_cfa_register 6
+	subq	$80, %rsp
+	.seh_stackalloc	80
+	.seh_endprologue
+	movq	%rcx, 16(%rbp)
+	movq	%rdx, 24(%rbp)
+	movq	%r8, 32(%rbp)
+	.loc 2 1216 8
+	cmpq	$0, 16(%rbp)
+	jne	.L234
+	.loc 2 1217 16
+	movl	$-1, %eax
+	jmp	.L246
+.L234:
+	.loc 2 1218 8
+	cmpq	$0, 32(%rbp)
+	jne	.L236
+	.loc 2 1219 16
+	movl	$-1, %eax
+	jmp	.L246
+.L236:
+	.loc 2 1221 20
+	movq	16(%rbp), %rax
+	movq	%rax, -8(%rbp)
+	.loc 2 1223 19
+	movq	-8(%rbp), %rax
+	movq	%rax, %rcx
+	call	CheckNumber
+	movl	%eax, -12(%rbp)
+	.loc 2 1223 8
+	cmpl	$0, -12(%rbp)
+	je	.L237
+	.loc 2 1224 16
+	movl	-12(%rbp), %eax
+	jmp	.L246
+.L237:
+	.loc 2 1226 23
+	leaq	-33(%rbp), %rax
+	movq	24(%rbp), %rcx
+	movq	%rax, %rdx
+	call	GET_ABS_64
+	movq	%rax, -24(%rbp)
+	.loc 2 1227 11
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 1227 8
+	testb	%al, %al
+	jne	.L238
+	.loc 2 1231 20
+	movzbl	-33(%rbp), %eax
+	.loc 2 1231 12
+	testb	%al, %al
+	jne	.L239
+	.loc 2 1236 16
+	movq	.refptr.number_zero(%rip), %rax
+	movq	%rax, -32(%rbp)
+	jmp	.L240
+.L239:
+	.loc 2 1243 27
+	movzbl	-33(%rbp), %eax
+	negl	%eax
+	movsbl	%al, %eax
+	leaq	-32(%rbp), %rcx
+	movq	-24(%rbp), %rdx
+	movq	%rcx, %r8
+	movl	%eax, %ecx
+	call	From_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 1243 16
+	cmpl	$0, -12(%rbp)
+	je	.L240
+	.loc 2 1244 24
+	movl	-12(%rbp), %eax
+	jmp	.L246
+.L238:
+	.loc 2 1247 16
+	movq	-8(%rbp), %rax
+	movzbl	16(%rax), %eax
+	.loc 2 1247 13
+	testb	%al, %al
+	jle	.L241
+	.loc 2 1251 20
+	movzbl	-33(%rbp), %eax
+	.loc 2 1251 12
+	testb	%al, %al
+	jne	.L242
+	.loc 2 1256 27
+	leaq	-32(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	movq	%rax, %rdx
+	call	DuplicateNumber
+	movl	%eax, -12(%rbp)
+	.loc 2 1256 16
+	cmpl	$0, -12(%rbp)
+	je	.L240
+	.loc 2 1257 24
+	movl	-12(%rbp), %eax
+	jmp	.L246
+.L242:
+	.loc 2 1259 25
+	movzbl	-33(%rbp), %eax
+	.loc 2 1259 17
+	testb	%al, %al
+	jle	.L243
+	.loc 2 1264 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$1, %ecx
+	call	SubtructU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 1264 16
+	cmpl	$0, -12(%rbp)
+	je	.L240
+	.loc 2 1265 24
+	movl	-12(%rbp), %eax
+	jmp	.L246
+.L243:
+	.loc 2 1272 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$1, %ecx
+	call	AddU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 1272 16
+	cmpl	$0, -12(%rbp)
+	je	.L240
+	.loc 2 1273 24
+	movl	-12(%rbp), %eax
+	jmp	.L246
+.L241:
+	.loc 2 1280 20
+	movzbl	-33(%rbp), %eax
+	.loc 2 1280 12
+	testb	%al, %al
+	jne	.L244
+	.loc 2 1285 27
+	leaq	-32(%rbp), %rax
+	movq	-8(%rbp), %rcx
+	movq	%rax, %rdx
+	call	DuplicateNumber
+	movl	%eax, -12(%rbp)
+	.loc 2 1285 16
+	cmpl	$0, -12(%rbp)
+	je	.L240
+	.loc 2 1286 24
+	movl	-12(%rbp), %eax
+	jmp	.L246
+.L244:
+	.loc 2 1288 25
+	movzbl	-33(%rbp), %eax
+	.loc 2 1288 17
+	testb	%al, %al
+	jle	.L245
+	.loc 2 1293 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$-1, %ecx
+	call	AddU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 1293 16
+	cmpl	$0, -12(%rbp)
+	je	.L240
+	.loc 2 1294 24
+	movl	-12(%rbp), %eax
+	jmp	.L246
+.L245:
+	.loc 2 1301 27
+	movq	-8(%rbp), %rax
+	movq	8(%rax), %rax
+	leaq	-32(%rbp), %rdx
+	movq	-24(%rbp), %rcx
+	movq	%rdx, %r9
+	movq	%rcx, %r8
+	movq	%rax, %rdx
+	movl	$-1, %ecx
+	call	SubtructU_X_L_Imp
+	movl	%eax, -12(%rbp)
+	.loc 2 1301 16
+	cmpl	$0, -12(%rbp)
+	je	.L240
+	.loc 2 1302 24
+	movl	-12(%rbp), %eax
+	jmp	.L246
+.L240:
+	.loc 2 1305 8
+	movq	-32(%rbp), %rdx
+	movq	32(%rbp), %rax
+	movq	%rdx, (%rax)
+	.loc 2 1306 12
+	movl	$0, %eax
+.L246:
+	.loc 2 1307 1 discriminator 3
+	addq	$80, %rsp
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
@@ -3466,262 +3558,12 @@ PMC_Subtruct_X_I:
 	.cfi_endproc
 .LFE4381:
 	.seh_endproc
-	.globl	PMC_Subtruct_X_L
-	.def	PMC_Subtruct_X_L;	.scl	2;	.type	32;	.endef
-	.seh_proc	PMC_Subtruct_X_L
-PMC_Subtruct_X_L:
-.LFB4382:
-	.loc 2 1249 1
-	.cfi_startproc
-	pushq	%rbp
-	.seh_pushreg	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.seh_setframe	%rbp, 0
-	.cfi_def_cfa_register 6
-	subq	$80, %rsp
-	.seh_stackalloc	80
-	.seh_endprologue
-	movq	%rcx, 16(%rbp)
-	movq	%rdx, 24(%rbp)
-	movq	%r8, 32(%rbp)
-	.loc 2 1250 8
-	cmpq	$0, 16(%rbp)
-	jne	.L242
-	.loc 2 1251 16
-	movl	$-1, %eax
-	jmp	.L255
-.L242:
-	.loc 2 1252 8
-	cmpq	$0, 32(%rbp)
-	jne	.L244
-	.loc 2 1253 16
-	movl	$-1, %eax
-	jmp	.L255
-.L244:
-	.loc 2 1255 20
-	movq	16(%rbp), %rax
-	movq	%rax, -8(%rbp)
-	.loc 2 1257 19
-	movq	-8(%rbp), %rax
-	movq	%rax, %rcx
-	call	CheckNumber
-	movl	%eax, -12(%rbp)
-	.loc 2 1257 8
-	cmpl	$0, -12(%rbp)
-	je	.L245
-	.loc 2 1258 16
-	movl	-12(%rbp), %eax
-	jmp	.L255
-.L245:
-	.loc 2 1260 23
-	leaq	-33(%rbp), %rax
-	movq	24(%rbp), %rcx
-	movq	%rax, %rdx
-	call	GET_ABS_64
-	movq	%rax, -24(%rbp)
-	.loc 2 1261 11
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 1261 8
-	testb	%al, %al
-	jne	.L246
-	.loc 2 1265 20
-	movzbl	-33(%rbp), %eax
-	.loc 2 1265 12
-	testb	%al, %al
-	jne	.L247
-	.loc 2 1269 16
-	movq	.refptr.number_zero(%rip), %rax
-	movq	%rax, -32(%rbp)
-	jmp	.L248
-.L247:
-	.loc 2 1271 25
-	movzbl	-33(%rbp), %eax
-	.loc 2 1271 17
-	testb	%al, %al
-	jle	.L249
-	.loc 2 1276 27
-	movzbl	-33(%rbp), %eax
-	negl	%eax
-	movsbl	%al, %eax
-	leaq	-32(%rbp), %rcx
-	movq	-24(%rbp), %rdx
-	movq	%rcx, %r8
-	movl	%eax, %ecx
-	call	From_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1276 16
-	cmpl	$0, -12(%rbp)
-	je	.L248
-	.loc 2 1277 24
-	movl	-12(%rbp), %eax
-	jmp	.L255
-.L249:
-	.loc 2 1284 27
-	movzbl	-33(%rbp), %eax
-	negl	%eax
-	movsbl	%al, %eax
-	leaq	-32(%rbp), %rcx
-	movq	-24(%rbp), %rdx
-	movq	%rcx, %r8
-	movl	%eax, %ecx
-	call	From_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1284 16
-	cmpl	$0, -12(%rbp)
-	je	.L248
-	.loc 2 1285 24
-	movl	-12(%rbp), %eax
-	jmp	.L255
-.L246:
-	.loc 2 1288 16
-	movq	-8(%rbp), %rax
-	movzbl	16(%rax), %eax
-	.loc 2 1288 13
-	testb	%al, %al
-	jle	.L250
-	.loc 2 1292 20
-	movzbl	-33(%rbp), %eax
-	.loc 2 1292 12
-	testb	%al, %al
-	jne	.L251
-	.loc 2 1297 27
-	leaq	-32(%rbp), %rax
-	movq	-8(%rbp), %rcx
-	movq	%rax, %rdx
-	call	DuplicateNumber
-	movl	%eax, -12(%rbp)
-	.loc 2 1297 16
-	cmpl	$0, -12(%rbp)
-	je	.L248
-	.loc 2 1298 24
-	movl	-12(%rbp), %eax
-	jmp	.L255
-.L251:
-	.loc 2 1300 25
-	movzbl	-33(%rbp), %eax
-	.loc 2 1300 17
-	testb	%al, %al
-	jle	.L252
-	.loc 2 1305 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$1, %ecx
-	call	SubtructU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1305 16
-	cmpl	$0, -12(%rbp)
-	je	.L248
-	.loc 2 1306 24
-	movl	-12(%rbp), %eax
-	jmp	.L255
-.L252:
-	.loc 2 1313 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$1, %ecx
-	call	AddU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1313 16
-	cmpl	$0, -12(%rbp)
-	je	.L248
-	.loc 2 1314 24
-	movl	-12(%rbp), %eax
-	jmp	.L255
-.L250:
-	.loc 2 1321 20
-	movzbl	-33(%rbp), %eax
-	.loc 2 1321 12
-	testb	%al, %al
-	jne	.L253
-	.loc 2 1326 27
-	leaq	-32(%rbp), %rax
-	movq	-8(%rbp), %rcx
-	movq	%rax, %rdx
-	call	DuplicateNumber
-	movl	%eax, -12(%rbp)
-	.loc 2 1326 16
-	cmpl	$0, -12(%rbp)
-	je	.L248
-	.loc 2 1327 24
-	movl	-12(%rbp), %eax
-	jmp	.L255
-.L253:
-	.loc 2 1329 25
-	movzbl	-33(%rbp), %eax
-	.loc 2 1329 17
-	testb	%al, %al
-	jle	.L254
-	.loc 2 1334 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$-1, %ecx
-	call	AddU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1334 16
-	cmpl	$0, -12(%rbp)
-	je	.L248
-	.loc 2 1335 24
-	movl	-12(%rbp), %eax
-	jmp	.L255
-.L254:
-	.loc 2 1342 27
-	movq	-8(%rbp), %rax
-	movq	8(%rax), %rax
-	leaq	-32(%rbp), %rdx
-	movq	-24(%rbp), %rcx
-	movq	%rdx, %r9
-	movq	%rcx, %r8
-	movq	%rax, %rdx
-	movl	$-1, %ecx
-	call	SubtructU_X_L_Imp
-	movl	%eax, -12(%rbp)
-	.loc 2 1342 16
-	cmpl	$0, -12(%rbp)
-	je	.L248
-	.loc 2 1343 24
-	movl	-12(%rbp), %eax
-	jmp	.L255
-.L248:
-	.loc 2 1346 8
-	movq	-32(%rbp), %rdx
-	movq	32(%rbp), %rax
-	movq	%rdx, (%rax)
-	.loc 2 1347 12
-	movl	$0, %eax
-.L255:
-	.loc 2 1348 1 discriminator 4
-	addq	$80, %rsp
-	popq	%rbp
-	.cfi_restore 6
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE4382:
-	.seh_endproc
 	.globl	PMC_Subtruct_X_UX
 	.def	PMC_Subtruct_X_UX;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Subtruct_X_UX
 PMC_Subtruct_X_UX:
-.LFB4383:
-	.loc 2 1351 1
+.LFB4382:
+	.loc 2 1310 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -3736,90 +3578,90 @@ PMC_Subtruct_X_UX:
 	movq	%rcx, 16(%rbp)
 	movq	%rdx, 24(%rbp)
 	movq	%r8, 32(%rbp)
-	.loc 2 1352 8
+	.loc 2 1311 8
 	cmpq	$0, 16(%rbp)
-	jne	.L257
-	.loc 2 1353 16
+	jne	.L248
+	.loc 2 1312 16
 	movl	$-1, %eax
-	jmp	.L273
-.L257:
-	.loc 2 1354 8
+	jmp	.L264
+.L248:
+	.loc 2 1313 8
 	cmpq	$0, 24(%rbp)
-	jne	.L259
-	.loc 2 1355 16
+	jne	.L250
+	.loc 2 1314 16
 	movl	$-1, %eax
-	jmp	.L273
-.L259:
-	.loc 2 1356 8
+	jmp	.L264
+.L250:
+	.loc 2 1315 8
 	cmpq	$0, 32(%rbp)
-	jne	.L260
-	.loc 2 1357 16
+	jne	.L251
+	.loc 2 1316 16
 	movl	$-1, %eax
-	jmp	.L273
-.L260:
-	.loc 2 1359 20
+	jmp	.L264
+.L251:
+	.loc 2 1318 20
 	movq	16(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	.loc 2 1361 19
+	.loc 2 1320 19
 	movq	-8(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 1361 8
+	.loc 2 1320 8
 	cmpl	$0, -12(%rbp)
-	je	.L261
-	.loc 2 1362 16
+	je	.L252
+	.loc 2 1321 16
 	movl	-12(%rbp), %eax
-	jmp	.L273
-.L261:
-	.loc 2 1364 19
+	jmp	.L264
+.L252:
+	.loc 2 1323 19
 	leaq	-25(%rbp), %rax
 	movq	24(%rbp), %rcx
 	movq	%rax, %rdx
-	call	IS_ZERO_UINT
+	call	IsZero_UINT
 	movl	%eax, -12(%rbp)
-	.loc 2 1364 8
+	.loc 2 1323 8
 	cmpl	$0, -12(%rbp)
-	je	.L262
-	.loc 2 1365 16
+	je	.L253
+	.loc 2 1324 16
 	movl	-12(%rbp), %eax
-	jmp	.L273
-.L262:
-	.loc 2 1366 11
+	jmp	.L264
+.L253:
+	.loc 2 1325 11
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1366 8
+	.loc 2 1325 8
 	testb	%al, %al
-	jne	.L263
-	.loc 2 1370 13
+	jne	.L254
+	.loc 2 1329 13
 	movzbl	-25(%rbp), %eax
-	.loc 2 1370 12
+	.loc 2 1329 12
 	testb	%al, %al
-	je	.L264
-	.loc 2 1375 16
+	je	.L255
+	.loc 2 1334 16
 	movq	.refptr.number_zero(%rip), %rax
 	movq	%rax, -24(%rbp)
-	jmp	.L269
-.L264:
+	jmp	.L260
+.L255:
 .LBB11:
-	.loc 2 1383 34
+	.loc 2 1342 34
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	88(%rax), %r8
-	.loc 2 1383 27
+	.loc 2 1342 27
 	leaq	-40(%rbp), %rax
 	movq	24(%rbp), %rcx
 	movq	%rax, %rdx
 	call	*%r8
-.LVL31:
+.LVL30:
 	movl	%eax, -12(%rbp)
-	.loc 2 1383 16
+	.loc 2 1342 16
 	cmpl	$0, -12(%rbp)
-	je	.L266
-	.loc 2 1384 24
+	je	.L257
+	.loc 2 1343 24
 	movl	-12(%rbp), %eax
-	jmp	.L273
-.L266:
-	.loc 2 1385 27
+	jmp	.L264
+.L257:
+	.loc 2 1344 27
 	movq	-40(%rbp), %rdx
 	leaq	-24(%rbp), %rax
 	movq	%rdx, %r8
@@ -3827,47 +3669,47 @@ PMC_Subtruct_X_UX:
 	movq	%rax, %rcx
 	call	AllocateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 1385 16
+	.loc 2 1344 16
 	cmpl	$0, -12(%rbp)
-	je	.L269
-	.loc 2 1387 24
+	je	.L260
+	.loc 2 1346 24
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	32(%rax), %rax
-	.loc 2 1387 17
+	.loc 2 1346 17
 	movq	-40(%rbp), %rdx
 	movq	%rdx, %rcx
 	call	*%rax
-.LVL32:
-	.loc 2 1388 24
+.LVL31:
+	.loc 2 1347 24
 	movl	-12(%rbp), %eax
-	jmp	.L273
-.L263:
+	jmp	.L264
+.L254:
 .LBE11:
-	.loc 2 1393 16
+	.loc 2 1352 16
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1393 13
+	.loc 2 1352 13
 	testb	%al, %al
-	jle	.L270
-	.loc 2 1397 13
+	jle	.L261
+	.loc 2 1356 13
 	movzbl	-25(%rbp), %eax
-	.loc 2 1397 12
+	.loc 2 1356 12
 	testb	%al, %al
-	je	.L271
-	.loc 2 1402 27
+	je	.L262
+	.loc 2 1361 27
 	leaq	-24(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 1402 16
+	.loc 2 1361 16
 	cmpl	$0, -12(%rbp)
-	je	.L269
-	.loc 2 1403 24
+	je	.L260
+	.loc 2 1362 24
 	movl	-12(%rbp), %eax
-	jmp	.L273
-.L271:
-	.loc 2 1410 27
+	jmp	.L264
+.L262:
+	.loc 2 1369 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -3878,32 +3720,32 @@ PMC_Subtruct_X_UX:
 	movl	$1, %ecx
 	call	SubtructU_X_X_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 1410 16
+	.loc 2 1369 16
 	cmpl	$0, -12(%rbp)
-	je	.L269
-	.loc 2 1411 24
+	je	.L260
+	.loc 2 1370 24
 	movl	-12(%rbp), %eax
-	jmp	.L273
-.L270:
-	.loc 2 1419 13
+	jmp	.L264
+.L261:
+	.loc 2 1378 13
 	movzbl	-25(%rbp), %eax
-	.loc 2 1419 12
+	.loc 2 1378 12
 	testb	%al, %al
-	je	.L272
-	.loc 2 1424 27
+	je	.L263
+	.loc 2 1383 27
 	leaq	-24(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -12(%rbp)
-	.loc 2 1424 16
+	.loc 2 1383 16
 	cmpl	$0, -12(%rbp)
-	je	.L269
-	.loc 2 1425 24
+	je	.L260
+	.loc 2 1384 24
 	movl	-12(%rbp), %eax
-	jmp	.L273
-.L272:
-	.loc 2 1432 27
+	jmp	.L264
+.L263:
+	.loc 2 1391 27
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	leaq	-24(%rbp), %rdx
@@ -3914,35 +3756,35 @@ PMC_Subtruct_X_UX:
 	movl	$-1, %ecx
 	call	AddU_X_X_Imp
 	movl	%eax, -12(%rbp)
-	.loc 2 1432 16
+	.loc 2 1391 16
 	cmpl	$0, -12(%rbp)
-	je	.L269
-	.loc 2 1433 24
+	je	.L260
+	.loc 2 1392 24
 	movl	-12(%rbp), %eax
-	jmp	.L273
-.L269:
-	.loc 2 1436 8
+	jmp	.L264
+.L260:
+	.loc 2 1395 8
 	movq	-24(%rbp), %rdx
 	movq	32(%rbp), %rax
 	movq	%rdx, (%rax)
-	.loc 2 1437 12
+	.loc 2 1396 12
 	movl	$0, %eax
-.L273:
-	.loc 2 1438 1 discriminator 3
+.L264:
+	.loc 2 1397 1 discriminator 3
 	addq	$80, %rsp
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE4383:
+.LFE4382:
 	.seh_endproc
 	.globl	PMC_Subtruct_X_X
 	.def	PMC_Subtruct_X_X;	.scl	2;	.type	32;	.endef
 	.seh_proc	PMC_Subtruct_X_X
 PMC_Subtruct_X_X:
-.LFB4384:
-	.loc 2 1441 1
+.LFB4383:
+	.loc 2 1400 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -3957,119 +3799,119 @@ PMC_Subtruct_X_X:
 	movq	%rcx, 16(%rbp)
 	movq	%rdx, 24(%rbp)
 	movq	%r8, 32(%rbp)
-	.loc 2 1442 8
+	.loc 2 1401 8
 	cmpq	$0, 16(%rbp)
-	jne	.L275
-	.loc 2 1443 16
+	jne	.L266
+	.loc 2 1402 16
 	movl	$-1, %eax
-	jmp	.L289
-.L275:
-	.loc 2 1444 8
+	jmp	.L280
+.L266:
+	.loc 2 1403 8
 	cmpq	$0, 24(%rbp)
-	jne	.L277
-	.loc 2 1445 16
+	jne	.L268
+	.loc 2 1404 16
 	movl	$-1, %eax
-	jmp	.L289
-.L277:
-	.loc 2 1446 8
+	jmp	.L280
+.L268:
+	.loc 2 1405 8
 	cmpq	$0, 32(%rbp)
-	jne	.L278
-	.loc 2 1447 16
+	jne	.L269
+	.loc 2 1406 16
 	movl	$-1, %eax
-	jmp	.L289
-.L278:
-	.loc 2 1449 20
+	jmp	.L280
+.L269:
+	.loc 2 1408 20
 	movq	16(%rbp), %rax
 	movq	%rax, -8(%rbp)
-	.loc 2 1450 20
+	.loc 2 1409 20
 	movq	24(%rbp), %rax
 	movq	%rax, -16(%rbp)
-	.loc 2 1452 19
+	.loc 2 1411 19
 	movq	-8(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -20(%rbp)
-	.loc 2 1452 8
+	.loc 2 1411 8
 	cmpl	$0, -20(%rbp)
-	je	.L279
-	.loc 2 1453 16
+	je	.L270
+	.loc 2 1412 16
 	movl	-20(%rbp), %eax
-	jmp	.L289
-.L279:
-	.loc 2 1454 19
+	jmp	.L280
+.L270:
+	.loc 2 1413 19
 	movq	-16(%rbp), %rax
 	movq	%rax, %rcx
 	call	CheckNumber
 	movl	%eax, -20(%rbp)
-	.loc 2 1454 8
+	.loc 2 1413 8
 	cmpl	$0, -20(%rbp)
-	je	.L280
-	.loc 2 1455 16
+	je	.L271
+	.loc 2 1414 16
 	movl	-20(%rbp), %eax
-	jmp	.L289
-.L280:
-	.loc 2 1456 11
+	jmp	.L280
+.L271:
+	.loc 2 1415 11
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1456 8
+	.loc 2 1415 8
 	testb	%al, %al
-	jne	.L281
-	.loc 2 1460 15
+	jne	.L272
+	.loc 2 1419 15
 	movq	-16(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1460 12
+	.loc 2 1419 12
 	testb	%al, %al
-	jne	.L282
-	.loc 2 1464 16
+	jne	.L273
+	.loc 2 1424 16
 	movq	.refptr.number_zero(%rip), %rax
 	movq	%rax, -32(%rbp)
-	jmp	.L283
-.L282:
-	.loc 2 1471 27
+	jmp	.L274
+.L273:
+	.loc 2 1431 27
 	leaq	-32(%rbp), %rax
 	movq	-16(%rbp), %rcx
 	movq	%rax, %rdx
 	call	Negate_Imp
 	movl	%eax, -20(%rbp)
-	.loc 2 1471 16
+	.loc 2 1431 16
 	cmpl	$0, -20(%rbp)
-	je	.L283
-	.loc 2 1472 24
+	je	.L274
+	.loc 2 1432 24
 	movl	-20(%rbp), %eax
-	jmp	.L289
-.L281:
-	.loc 2 1475 16
+	jmp	.L280
+.L272:
+	.loc 2 1435 16
 	movq	-8(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1475 13
+	.loc 2 1435 13
 	testb	%al, %al
-	jle	.L284
-	.loc 2 1479 15
+	jle	.L275
+	.loc 2 1439 15
 	movq	-16(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1479 12
+	.loc 2 1439 12
 	testb	%al, %al
-	jne	.L285
-	.loc 2 1484 27
+	jne	.L276
+	.loc 2 1444 27
 	leaq	-32(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -20(%rbp)
-	.loc 2 1484 16
+	.loc 2 1444 16
 	cmpl	$0, -20(%rbp)
-	je	.L283
-	.loc 2 1485 24
+	je	.L274
+	.loc 2 1445 24
 	movl	-20(%rbp), %eax
-	jmp	.L289
-.L285:
-	.loc 2 1487 20
+	jmp	.L280
+.L276:
+	.loc 2 1447 20
 	movq	-16(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1487 17
+	.loc 2 1447 17
 	testb	%al, %al
-	jle	.L286
-	.loc 2 1492 27
+	jle	.L277
+	.loc 2 1452 27
 	movq	-16(%rbp), %rax
 	movq	8(%rax), %rcx
 	movq	-8(%rbp), %rax
@@ -4081,14 +3923,14 @@ PMC_Subtruct_X_X:
 	movl	$1, %ecx
 	call	SubtructU_X_X_Imp
 	movl	%eax, -20(%rbp)
-	.loc 2 1492 16
+	.loc 2 1452 16
 	cmpl	$0, -20(%rbp)
-	je	.L283
-	.loc 2 1493 24
+	je	.L274
+	.loc 2 1453 24
 	movl	-20(%rbp), %eax
-	jmp	.L289
-.L286:
-	.loc 2 1500 27
+	jmp	.L280
+.L277:
+	.loc 2 1460 27
 	movq	-16(%rbp), %rax
 	movq	8(%rax), %rcx
 	movq	-8(%rbp), %rax
@@ -4100,39 +3942,39 @@ PMC_Subtruct_X_X:
 	movl	$1, %ecx
 	call	AddU_X_X_Imp
 	movl	%eax, -20(%rbp)
-	.loc 2 1500 16
+	.loc 2 1460 16
 	cmpl	$0, -20(%rbp)
-	je	.L283
-	.loc 2 1501 24
+	je	.L274
+	.loc 2 1461 24
 	movl	-20(%rbp), %eax
-	jmp	.L289
-.L284:
-	.loc 2 1508 15
+	jmp	.L280
+.L275:
+	.loc 2 1468 15
 	movq	-16(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1508 12
+	.loc 2 1468 12
 	testb	%al, %al
-	jne	.L287
-	.loc 2 1513 27
+	jne	.L278
+	.loc 2 1473 27
 	leaq	-32(%rbp), %rax
 	movq	-8(%rbp), %rcx
 	movq	%rax, %rdx
 	call	DuplicateNumber
 	movl	%eax, -20(%rbp)
-	.loc 2 1513 16
+	.loc 2 1473 16
 	cmpl	$0, -20(%rbp)
-	je	.L283
-	.loc 2 1514 24
+	je	.L274
+	.loc 2 1474 24
 	movl	-20(%rbp), %eax
-	jmp	.L289
-.L287:
-	.loc 2 1516 20
+	jmp	.L280
+.L278:
+	.loc 2 1476 20
 	movq	-16(%rbp), %rax
 	movzbl	16(%rax), %eax
-	.loc 2 1516 17
+	.loc 2 1476 17
 	testb	%al, %al
-	jle	.L288
-	.loc 2 1521 27
+	jle	.L279
+	.loc 2 1481 27
 	movq	-16(%rbp), %rax
 	movq	8(%rax), %rcx
 	movq	-8(%rbp), %rax
@@ -4144,14 +3986,14 @@ PMC_Subtruct_X_X:
 	movl	$-1, %ecx
 	call	AddU_X_X_Imp
 	movl	%eax, -20(%rbp)
-	.loc 2 1521 16
+	.loc 2 1481 16
 	cmpl	$0, -20(%rbp)
-	je	.L283
-	.loc 2 1522 24
+	je	.L274
+	.loc 2 1482 24
 	movl	-20(%rbp), %eax
-	jmp	.L289
-.L288:
-	.loc 2 1529 27
+	jmp	.L280
+.L279:
+	.loc 2 1489 27
 	movq	-16(%rbp), %rax
 	movq	8(%rax), %rcx
 	movq	-8(%rbp), %rax
@@ -4163,28 +4005,28 @@ PMC_Subtruct_X_X:
 	movl	$-1, %ecx
 	call	SubtructU_X_X_Imp
 	movl	%eax, -20(%rbp)
-	.loc 2 1529 16
+	.loc 2 1489 16
 	cmpl	$0, -20(%rbp)
-	je	.L283
-	.loc 2 1530 24
+	je	.L274
+	.loc 2 1490 24
 	movl	-20(%rbp), %eax
-	jmp	.L289
-.L283:
-	.loc 2 1533 8
+	jmp	.L280
+.L274:
+	.loc 2 1493 8
 	movq	-32(%rbp), %rdx
 	movq	32(%rbp), %rax
 	movq	%rdx, (%rax)
-	.loc 2 1534 12
+	.loc 2 1494 12
 	movl	$0, %eax
-.L289:
-	.loc 2 1535 1 discriminator 3
+.L280:
+	.loc 2 1495 1 discriminator 3
 	addq	$64, %rsp
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE4384:
+.LFE4383:
 	.seh_endproc
 .Letext0:
 	.file 3 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/crtdefs.h"
@@ -4218,7 +4060,7 @@ PMC_Subtruct_X_X:
 	.file 31 "../pmc_sint_internal.h"
 	.section	.debug_info,"dr"
 .Ldebug_info0:
-	.long	0x67e7
+	.long	0x677c
 	.word	0x4
 	.secrel32	.Ldebug_abbrev0
 	.byte	0x8
@@ -9379,18 +9221,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Subtruct_X_X\0"
 	.byte	0x2
-	.word	0x5a0
+	.word	0x577
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4384
-	.quad	.LFE4384-.LFB4384
+	.quad	.LFB4383
+	.quad	.LFE4383-.LFB4383
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x5a33
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x5a0
+	.word	0x577
 	.byte	0x32
 	.long	0x4adc
 	.uleb128 0x2
@@ -9399,7 +9241,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x5a0
+	.word	0x577
 	.byte	0x45
 	.long	0x4adc
 	.uleb128 0x2
@@ -9408,7 +9250,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x5a0
+	.word	0x577
 	.byte	0x59
 	.long	0x5830
 	.uleb128 0x2
@@ -9417,7 +9259,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x5a8
+	.word	0x57f
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -9426,7 +9268,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nu\0"
 	.byte	0x2
-	.word	0x5a9
+	.word	0x580
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9435,7 +9277,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nv\0"
 	.byte	0x2
-	.word	0x5aa
+	.word	0x581
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9444,7 +9286,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x5ab
+	.word	0x582
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9457,18 +9299,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Subtruct_X_UX\0"
 	.byte	0x2
-	.word	0x546
+	.word	0x51d
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4383
-	.quad	.LFE4383-.LFB4383
+	.quad	.LFB4382
+	.quad	.LFE4382-.LFB4382
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x5af7
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x546
+	.word	0x51d
 	.byte	0x33
 	.long	0x4adc
 	.uleb128 0x2
@@ -9477,7 +9319,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x546
+	.word	0x51d
 	.byte	0x46
 	.long	0x4a8f
 	.uleb128 0x2
@@ -9486,7 +9328,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x546
+	.word	0x51d
 	.byte	0x5a
 	.long	0x5830
 	.uleb128 0x2
@@ -9495,7 +9337,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x54e
+	.word	0x525
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -9504,7 +9346,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nu\0"
 	.byte	0x2
-	.word	0x54f
+	.word	0x526
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9513,7 +9355,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x550
+	.word	0x527
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9522,7 +9364,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF2
 	.byte	0x2
-	.word	0x553
+	.word	0x52a
 	.byte	0xa
 	.long	0xc4
 	.uleb128 0x2
@@ -9534,7 +9376,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "new_v\0"
 	.byte	0x2
-	.word	0x566
+	.word	0x53d
 	.byte	0x1d
 	.long	0x4a8f
 	.uleb128 0x2
@@ -9545,18 +9387,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Subtruct_X_L\0"
 	.byte	0x2
-	.word	0x4e0
+	.word	0x4be
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4382
-	.quad	.LFE4382-.LFB4382
+	.quad	.LFB4381
+	.quad	.LFE4381-.LFB4381
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x5ba0
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x4e0
+	.word	0x4be
 	.byte	0x32
 	.long	0x4adc
 	.uleb128 0x2
@@ -9565,7 +9407,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x4e0
+	.word	0x4be
 	.byte	0x3e
 	.long	0x49b8
 	.uleb128 0x2
@@ -9574,7 +9416,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x4e0
+	.word	0x4be
 	.byte	0x52
 	.long	0x5830
 	.uleb128 0x2
@@ -9583,7 +9425,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x4e6
+	.word	0x4c4
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -9592,7 +9434,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nu\0"
 	.byte	0x2
-	.word	0x4e7
+	.word	0x4c5
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9601,7 +9443,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x4e8
+	.word	0x4c6
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9610,7 +9452,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF3
 	.byte	0x2
-	.word	0x4eb
+	.word	0x4c9
 	.byte	0xa
 	.long	0xc4
 	.uleb128 0x2
@@ -9619,7 +9461,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF4
 	.byte	0x2
-	.word	0x4ec
+	.word	0x4ca
 	.byte	0xf
 	.long	0x49db
 	.uleb128 0x2
@@ -9629,18 +9471,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Subtruct_X_I\0"
 	.byte	0x2
-	.word	0x47a
+	.word	0x45f
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4381
-	.quad	.LFE4381-.LFB4381
+	.quad	.LFB4380
+	.quad	.LFE4380-.LFB4380
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x5c49
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x47a
+	.word	0x45f
 	.byte	0x32
 	.long	0x4adc
 	.uleb128 0x2
@@ -9649,7 +9491,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x47a
+	.word	0x45f
 	.byte	0x3e
 	.long	0x49a7
 	.uleb128 0x2
@@ -9658,7 +9500,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x47a
+	.word	0x45f
 	.byte	0x52
 	.long	0x5830
 	.uleb128 0x2
@@ -9667,7 +9509,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x480
+	.word	0x465
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -9676,7 +9518,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nu\0"
 	.byte	0x2
-	.word	0x481
+	.word	0x466
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9685,7 +9527,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x482
+	.word	0x467
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9694,7 +9536,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF3
 	.byte	0x2
-	.word	0x485
+	.word	0x46a
 	.byte	0xa
 	.long	0xc4
 	.uleb128 0x2
@@ -9703,7 +9545,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF4
 	.byte	0x2
-	.word	0x486
+	.word	0x46b
 	.byte	0xf
 	.long	0x49c9
 	.uleb128 0x2
@@ -9713,18 +9555,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Subtruct_UX_X\0"
 	.byte	0x2
-	.word	0x427
+	.word	0x414
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4380
-	.quad	.LFE4380-.LFB4380
+	.quad	.LFB4379
+	.quad	.LFE4379-.LFB4379
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x5d07
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x427
+	.word	0x414
 	.byte	0x33
 	.long	0x4a8f
 	.uleb128 0x2
@@ -9733,7 +9575,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x427
+	.word	0x414
 	.byte	0x46
 	.long	0x4adc
 	.uleb128 0x2
@@ -9742,7 +9584,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x427
+	.word	0x414
 	.byte	0x5a
 	.long	0x5830
 	.uleb128 0x2
@@ -9751,7 +9593,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x42f
+	.word	0x41c
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -9760,7 +9602,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nv\0"
 	.byte	0x2
-	.word	0x430
+	.word	0x41d
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9769,7 +9611,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x431
+	.word	0x41e
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9778,7 +9620,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF5
 	.byte	0x2
-	.word	0x434
+	.word	0x421
 	.byte	0xa
 	.long	0xc4
 	.uleb128 0x2
@@ -9790,7 +9632,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "new_u\0"
 	.byte	0x2
-	.word	0x45c
+	.word	0x441
 	.byte	0x1d
 	.long	0x4a8f
 	.uleb128 0x2
@@ -9801,18 +9643,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Subtruct_L_X\0"
 	.byte	0x2
-	.word	0x3c9
+	.word	0x3b5
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4379
-	.quad	.LFE4379-.LFB4379
+	.quad	.LFB4378
+	.quad	.LFE4378-.LFB4378
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x5db0
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x3c9
+	.word	0x3b5
 	.byte	0x2b
 	.long	0x49b8
 	.uleb128 0x2
@@ -9821,7 +9663,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x3c9
+	.word	0x3b5
 	.byte	0x3e
 	.long	0x4adc
 	.uleb128 0x2
@@ -9830,7 +9672,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x3c9
+	.word	0x3b5
 	.byte	0x52
 	.long	0x5830
 	.uleb128 0x2
@@ -9839,7 +9681,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x3cf
+	.word	0x3bb
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -9848,7 +9690,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nv\0"
 	.byte	0x2
-	.word	0x3d0
+	.word	0x3bc
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9857,7 +9699,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x3d1
+	.word	0x3bd
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9866,7 +9708,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF6
 	.byte	0x2
-	.word	0x3d4
+	.word	0x3c0
 	.byte	0xa
 	.long	0xc4
 	.uleb128 0x2
@@ -9875,7 +9717,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF7
 	.byte	0x2
-	.word	0x3d5
+	.word	0x3c1
 	.byte	0xf
 	.long	0x49db
 	.uleb128 0x2
@@ -9885,18 +9727,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Subtruct_I_X\0"
 	.byte	0x2
-	.word	0x36b
+	.word	0x356
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4378
-	.quad	.LFE4378-.LFB4378
+	.quad	.LFB4377
+	.quad	.LFE4377-.LFB4377
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x5e59
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x36b
+	.word	0x356
 	.byte	0x2b
 	.long	0x49a7
 	.uleb128 0x2
@@ -9905,7 +9747,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x36b
+	.word	0x356
 	.byte	0x3e
 	.long	0x4adc
 	.uleb128 0x2
@@ -9914,7 +9756,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x36b
+	.word	0x356
 	.byte	0x52
 	.long	0x5830
 	.uleb128 0x2
@@ -9923,7 +9765,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x371
+	.word	0x35c
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -9932,7 +9774,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nv\0"
 	.byte	0x2
-	.word	0x372
+	.word	0x35d
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9941,7 +9783,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x373
+	.word	0x35e
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -9950,7 +9792,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF6
 	.byte	0x2
-	.word	0x376
+	.word	0x361
 	.byte	0xa
 	.long	0xc4
 	.uleb128 0x2
@@ -9959,7 +9801,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF7
 	.byte	0x2
-	.word	0x377
+	.word	0x362
 	.byte	0xf
 	.long	0x49c9
 	.uleb128 0x2
@@ -9969,18 +9811,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Add_X_X\0"
 	.byte	0x2
-	.word	0x30a
+	.word	0x2f4
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4377
-	.quad	.LFE4377-.LFB4377
+	.quad	.LFB4376
+	.quad	.LFE4376-.LFB4376
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x5eec
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x30a
+	.word	0x2f4
 	.byte	0x2d
 	.long	0x4adc
 	.uleb128 0x2
@@ -9989,7 +9831,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x30a
+	.word	0x2f4
 	.byte	0x40
 	.long	0x4adc
 	.uleb128 0x2
@@ -9998,7 +9840,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x30a
+	.word	0x2f4
 	.byte	0x54
 	.long	0x5830
 	.uleb128 0x2
@@ -10007,7 +9849,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x312
+	.word	0x2fc
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -10016,7 +9858,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nu\0"
 	.byte	0x2
-	.word	0x313
+	.word	0x2fd
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10025,7 +9867,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nv\0"
 	.byte	0x2
-	.word	0x314
+	.word	0x2fe
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10034,7 +9876,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x315
+	.word	0x2ff
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10044,18 +9886,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Add_X_UX\0"
 	.byte	0x2
-	.word	0x2ae
+	.word	0x298
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4376
-	.quad	.LFE4376-.LFB4376
+	.quad	.LFB4375
+	.quad	.LFE4375-.LFB4375
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x5fb6
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x2ae
+	.word	0x298
 	.byte	0x2e
 	.long	0x4adc
 	.uleb128 0x2
@@ -10064,7 +9906,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x2ae
+	.word	0x298
 	.byte	0x41
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10073,7 +9915,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x2ae
+	.word	0x298
 	.byte	0x55
 	.long	0x5830
 	.uleb128 0x2
@@ -10082,7 +9924,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x2b6
+	.word	0x2a0
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -10091,7 +9933,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nu\0"
 	.byte	0x2
-	.word	0x2b7
+	.word	0x2a1
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10100,7 +9942,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x2b8
+	.word	0x2a2
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10109,7 +9951,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF2
 	.byte	0x2
-	.word	0x2bb
+	.word	0x2a5
 	.byte	0xa
 	.long	0xc4
 	.uleb128 0x2
@@ -10121,7 +9963,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "new_v\0"
 	.byte	0x2
-	.word	0x2ce
+	.word	0x2b8
 	.byte	0x1d
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10130,7 +9972,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "type\0"
 	.byte	0x2
-	.word	0x2d1
+	.word	0x2bb
 	.byte	0x22
 	.long	0x4a05
 	.uleb128 0x2
@@ -10141,18 +9983,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Add_X_L\0"
 	.byte	0x2
-	.word	0x248
+	.word	0x239
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4375
-	.quad	.LFE4375-.LFB4375
+	.quad	.LFB4374
+	.quad	.LFE4374-.LFB4374
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x605a
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x248
+	.word	0x239
 	.byte	0x2d
 	.long	0x4adc
 	.uleb128 0x2
@@ -10161,7 +10003,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x248
+	.word	0x239
 	.byte	0x39
 	.long	0x49b8
 	.uleb128 0x2
@@ -10170,7 +10012,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x248
+	.word	0x239
 	.byte	0x4d
 	.long	0x5830
 	.uleb128 0x2
@@ -10179,7 +10021,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x24e
+	.word	0x23f
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -10188,7 +10030,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nu\0"
 	.byte	0x2
-	.word	0x24f
+	.word	0x240
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10197,7 +10039,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x250
+	.word	0x241
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10206,7 +10048,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF3
 	.byte	0x2
-	.word	0x253
+	.word	0x244
 	.byte	0xa
 	.long	0xc4
 	.uleb128 0x2
@@ -10215,7 +10057,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF4
 	.byte	0x2
-	.word	0x254
+	.word	0x245
 	.byte	0xf
 	.long	0x49db
 	.uleb128 0x2
@@ -10225,18 +10067,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Add_X_I\0"
 	.byte	0x2
-	.word	0x1e2
+	.word	0x1da
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4374
-	.quad	.LFE4374-.LFB4374
+	.quad	.LFB4373
+	.quad	.LFE4373-.LFB4373
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x60fe
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x1e2
+	.word	0x1da
 	.byte	0x2d
 	.long	0x4adc
 	.uleb128 0x2
@@ -10245,7 +10087,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x1e2
+	.word	0x1da
 	.byte	0x39
 	.long	0x49a7
 	.uleb128 0x2
@@ -10254,7 +10096,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x1e2
+	.word	0x1da
 	.byte	0x4d
 	.long	0x5830
 	.uleb128 0x2
@@ -10263,7 +10105,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x1e8
+	.word	0x1e0
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -10272,7 +10114,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nu\0"
 	.byte	0x2
-	.word	0x1e9
+	.word	0x1e1
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10281,7 +10123,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x1ea
+	.word	0x1e2
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10290,7 +10132,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF3
 	.byte	0x2
-	.word	0x1ed
+	.word	0x1e5
 	.byte	0xa
 	.long	0xc4
 	.uleb128 0x2
@@ -10299,7 +10141,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF4
 	.byte	0x2
-	.word	0x1ee
+	.word	0x1e6
 	.byte	0xf
 	.long	0x49c9
 	.uleb128 0x2
@@ -10309,18 +10151,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Add_UX_X\0"
 	.byte	0x2
-	.word	0x199
+	.word	0x191
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4373
-	.quad	.LFE4373-.LFB4373
+	.quad	.LFB4372
+	.quad	.LFE4372-.LFB4372
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x61b7
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x199
+	.word	0x191
 	.byte	0x2e
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10329,7 +10171,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x199
+	.word	0x191
 	.byte	0x41
 	.long	0x4adc
 	.uleb128 0x2
@@ -10338,7 +10180,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x199
+	.word	0x191
 	.byte	0x55
 	.long	0x5830
 	.uleb128 0x2
@@ -10347,7 +10189,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x19f
+	.word	0x197
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -10356,7 +10198,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nv\0"
 	.byte	0x2
-	.word	0x1a0
+	.word	0x198
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10365,7 +10207,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x1a1
+	.word	0x199
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10374,7 +10216,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF5
 	.byte	0x2
-	.word	0x1a4
+	.word	0x19c
 	.byte	0xa
 	.long	0xc4
 	.uleb128 0x2
@@ -10386,7 +10228,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "new_u\0"
 	.byte	0x2
-	.word	0x1c4
+	.word	0x1bc
 	.byte	0x1d
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10397,18 +10239,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1c
 	.ascii "PMC_Add_L_X\0"
 	.byte	0x2
-	.word	0x13b
+	.word	0x132
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4372
-	.quad	.LFE4372-.LFB4372
+	.quad	.LFB4371
+	.quad	.LFE4371-.LFB4371
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x625b
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x2
-	.word	0x13b
+	.word	0x132
 	.byte	0x26
 	.long	0x49b8
 	.uleb128 0x2
@@ -10417,7 +10259,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "v\0"
 	.byte	0x2
-	.word	0x13b
+	.word	0x132
 	.byte	0x39
 	.long	0x4adc
 	.uleb128 0x2
@@ -10426,7 +10268,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1d
 	.ascii "w\0"
 	.byte	0x2
-	.word	0x13b
+	.word	0x132
 	.byte	0x4d
 	.long	0x5830
 	.uleb128 0x2
@@ -10435,7 +10277,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF1
 	.byte	0x2
-	.word	0x141
+	.word	0x138
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -10444,7 +10286,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nv\0"
 	.byte	0x2
-	.word	0x142
+	.word	0x139
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10453,7 +10295,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1f
 	.ascii "nw\0"
 	.byte	0x2
-	.word	0x143
+	.word	0x13a
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10462,7 +10304,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF6
 	.byte	0x2
-	.word	0x146
+	.word	0x13d
 	.byte	0xa
 	.long	0xc4
 	.uleb128 0x2
@@ -10471,7 +10313,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x1e
 	.secrel32	.LASF7
 	.byte	0x2
-	.word	0x147
+	.word	0x13e
 	.byte	0xf
 	.long	0x49db
 	.uleb128 0x2
@@ -10481,18 +10323,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x21
 	.ascii "PMC_Add_I_X\0"
 	.byte	0x2
-	.byte	0xdd
+	.byte	0xd3
 	.byte	0x11
 	.long	0x49ed
-	.quad	.LFB4371
-	.quad	.LFE4371-.LFB4371
+	.quad	.LFB4370
+	.quad	.LFE4370-.LFB4370
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x62f6
 	.uleb128 0x22
 	.ascii "u\0"
 	.byte	0x2
-	.byte	0xdd
+	.byte	0xd3
 	.byte	0x26
 	.long	0x49a7
 	.uleb128 0x2
@@ -10501,7 +10343,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "v\0"
 	.byte	0x2
-	.byte	0xdd
+	.byte	0xd3
 	.byte	0x39
 	.long	0x4adc
 	.uleb128 0x2
@@ -10510,7 +10352,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "w\0"
 	.byte	0x2
-	.byte	0xdd
+	.byte	0xd3
 	.byte	0x4d
 	.long	0x5830
 	.uleb128 0x2
@@ -10519,7 +10361,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF1
 	.byte	0x2
-	.byte	0xe3
+	.byte	0xd9
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -10528,7 +10370,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x24
 	.ascii "nv\0"
 	.byte	0x2
-	.byte	0xe4
+	.byte	0xda
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10537,7 +10379,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x24
 	.ascii "nw\0"
 	.byte	0x2
-	.byte	0xe5
+	.byte	0xdb
 	.byte	0x14
 	.long	0x5a33
 	.uleb128 0x2
@@ -10546,7 +10388,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF6
 	.byte	0x2
-	.byte	0xe8
+	.byte	0xde
 	.byte	0xa
 	.long	0xc4
 	.uleb128 0x2
@@ -10555,7 +10397,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF7
 	.byte	0x2
-	.byte	0xe9
+	.byte	0xdf
 	.byte	0xf
 	.long	0x49c9
 	.uleb128 0x2
@@ -10565,18 +10407,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x25
 	.ascii "SubtructU_X_X_Imp\0"
 	.byte	0x2
-	.byte	0xb1
+	.byte	0xa7
 	.byte	0x18
 	.long	0x49ed
-	.quad	.LFB4370
-	.quad	.LFE4370-.LFB4370
+	.quad	.LFB4369
+	.quad	.LFE4369-.LFB4369
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x63bf
 	.uleb128 0x26
 	.secrel32	.LASF8
 	.byte	0x2
-	.byte	0xb1
+	.byte	0xa7
 	.byte	0x2f
 	.long	0xc4
 	.uleb128 0x2
@@ -10585,7 +10427,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "u\0"
 	.byte	0x2
-	.byte	0xb1
+	.byte	0xa7
 	.byte	0x45
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10594,7 +10436,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "v\0"
 	.byte	0x2
-	.byte	0xb1
+	.byte	0xa7
 	.byte	0x58
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10603,7 +10445,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "w\0"
 	.byte	0x2
-	.byte	0xb1
+	.byte	0xa7
 	.byte	0x6b
 	.long	0x63bf
 	.uleb128 0x2
@@ -10612,7 +10454,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF1
 	.byte	0x2
-	.byte	0xb3
+	.byte	0xa9
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -10621,7 +10463,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x24
 	.ascii "c\0"
 	.byte	0x2
-	.byte	0xb4
+	.byte	0xaa
 	.byte	0xe
 	.long	0x49a7
 	.uleb128 0x2
@@ -10634,7 +10476,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF9
 	.byte	0x2
-	.byte	0xbc
+	.byte	0xb2
 	.byte	0x19
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10647,7 +10489,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF9
 	.byte	0x2
-	.byte	0xd1
+	.byte	0xc7
 	.byte	0x19
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10661,18 +10503,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x25
 	.ascii "SubtructU_X_L_Imp\0"
 	.byte	0x2
-	.byte	0x82
+	.byte	0x78
 	.byte	0x18
 	.long	0x49ed
-	.quad	.LFB4369
-	.quad	.LFE4369-.LFB4369
+	.quad	.LFB4368
+	.quad	.LFE4368-.LFB4368
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x649b
 	.uleb128 0x26
 	.secrel32	.LASF8
 	.byte	0x2
-	.byte	0x82
+	.byte	0x78
 	.byte	0x2f
 	.long	0xc4
 	.uleb128 0x2
@@ -10681,7 +10523,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "u\0"
 	.byte	0x2
-	.byte	0x82
+	.byte	0x78
 	.byte	0x45
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10690,7 +10532,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "v\0"
 	.byte	0x2
-	.byte	0x82
+	.byte	0x78
 	.byte	0x52
 	.long	0x49db
 	.uleb128 0x2
@@ -10699,7 +10541,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "w\0"
 	.byte	0x2
-	.byte	0x82
+	.byte	0x78
 	.byte	0x65
 	.long	0x63bf
 	.uleb128 0x2
@@ -10708,7 +10550,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF1
 	.byte	0x2
-	.byte	0x84
+	.byte	0x7a
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -10717,7 +10559,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x24
 	.ascii "c\0"
 	.byte	0x2
-	.byte	0x85
+	.byte	0x7b
 	.byte	0xe
 	.long	0x49a7
 	.uleb128 0x2
@@ -10730,7 +10572,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF9
 	.byte	0x2
-	.byte	0x8d
+	.byte	0x83
 	.byte	0x19
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10743,7 +10585,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x24
 	.ascii "t\0"
 	.byte	0x2
-	.byte	0xa2
+	.byte	0x98
 	.byte	0x13
 	.long	0x49db
 	.uleb128 0x2
@@ -10752,7 +10594,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF9
 	.byte	0x2
-	.byte	0xa5
+	.byte	0x9b
 	.byte	0x19
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10763,18 +10605,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x25
 	.ascii "SubtructU_X_I_Imp\0"
 	.byte	0x2
-	.byte	0x53
+	.byte	0x49
 	.byte	0x18
 	.long	0x49ed
-	.quad	.LFB4368
-	.quad	.LFE4368-.LFB4368
+	.quad	.LFB4367
+	.quad	.LFE4367-.LFB4367
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x6571
 	.uleb128 0x26
 	.secrel32	.LASF8
 	.byte	0x2
-	.byte	0x53
+	.byte	0x49
 	.byte	0x2f
 	.long	0xc4
 	.uleb128 0x2
@@ -10783,7 +10625,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "u\0"
 	.byte	0x2
-	.byte	0x53
+	.byte	0x49
 	.byte	0x45
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10792,7 +10634,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "v\0"
 	.byte	0x2
-	.byte	0x53
+	.byte	0x49
 	.byte	0x52
 	.long	0x49c9
 	.uleb128 0x2
@@ -10801,7 +10643,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "w\0"
 	.byte	0x2
-	.byte	0x53
+	.byte	0x49
 	.byte	0x65
 	.long	0x63bf
 	.uleb128 0x2
@@ -10810,7 +10652,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF1
 	.byte	0x2
-	.byte	0x55
+	.byte	0x4b
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -10819,7 +10661,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x24
 	.ascii "c\0"
 	.byte	0x2
-	.byte	0x56
+	.byte	0x4c
 	.byte	0xe
 	.long	0x49a7
 	.uleb128 0x2
@@ -10832,7 +10674,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF9
 	.byte	0x2
-	.byte	0x5e
+	.byte	0x54
 	.byte	0x19
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10845,7 +10687,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x24
 	.ascii "t\0"
 	.byte	0x2
-	.byte	0x73
+	.byte	0x69
 	.byte	0x13
 	.long	0x49c9
 	.uleb128 0x2
@@ -10854,7 +10696,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF9
 	.byte	0x2
-	.byte	0x76
+	.byte	0x6c
 	.byte	0x19
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10865,18 +10707,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x25
 	.ascii "AddU_X_X_Imp\0"
 	.byte	0x2
-	.byte	0x45
+	.byte	0x3b
 	.byte	0x18
 	.long	0x49ed
-	.quad	.LFB4367
-	.quad	.LFE4367-.LFB4367
+	.quad	.LFB4366
+	.quad	.LFE4366-.LFB4366
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x65f1
 	.uleb128 0x26
 	.secrel32	.LASF8
 	.byte	0x2
-	.byte	0x45
+	.byte	0x3b
 	.byte	0x2a
 	.long	0xc4
 	.uleb128 0x2
@@ -10885,7 +10727,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "u\0"
 	.byte	0x2
-	.byte	0x45
+	.byte	0x3b
 	.byte	0x40
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10894,7 +10736,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "v\0"
 	.byte	0x2
-	.byte	0x45
+	.byte	0x3b
 	.byte	0x53
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10903,7 +10745,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "w\0"
 	.byte	0x2
-	.byte	0x45
+	.byte	0x3b
 	.byte	0x66
 	.long	0x63bf
 	.uleb128 0x2
@@ -10912,7 +10754,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF1
 	.byte	0x2
-	.byte	0x47
+	.byte	0x3d
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -10921,7 +10763,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF9
 	.byte	0x2
-	.byte	0x48
+	.byte	0x3e
 	.byte	0x15
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10931,18 +10773,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x25
 	.ascii "AddU_X_L_Imp\0"
 	.byte	0x2
-	.byte	0x37
+	.byte	0x2d
 	.byte	0x18
 	.long	0x49ed
-	.quad	.LFB4366
-	.quad	.LFE4366-.LFB4366
+	.quad	.LFB4365
+	.quad	.LFE4365-.LFB4365
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x6671
 	.uleb128 0x26
 	.secrel32	.LASF8
 	.byte	0x2
-	.byte	0x37
+	.byte	0x2d
 	.byte	0x2a
 	.long	0xc4
 	.uleb128 0x2
@@ -10951,7 +10793,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "u\0"
 	.byte	0x2
-	.byte	0x37
+	.byte	0x2d
 	.byte	0x40
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10960,7 +10802,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "v\0"
 	.byte	0x2
-	.byte	0x37
+	.byte	0x2d
 	.byte	0x4d
 	.long	0x49db
 	.uleb128 0x2
@@ -10969,7 +10811,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "w\0"
 	.byte	0x2
-	.byte	0x37
+	.byte	0x2d
 	.byte	0x60
 	.long	0x63bf
 	.uleb128 0x2
@@ -10978,7 +10820,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF1
 	.byte	0x2
-	.byte	0x39
+	.byte	0x2f
 	.byte	0x15
 	.long	0x49ed
 	.uleb128 0x2
@@ -10987,7 +10829,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x23
 	.secrel32	.LASF9
 	.byte	0x2
-	.byte	0x3a
+	.byte	0x30
 	.byte	0x15
 	.long	0x4a8f
 	.uleb128 0x2
@@ -10997,18 +10839,18 @@ PMC_Subtruct_X_X:
 	.uleb128 0x25
 	.ascii "AddU_X_I_Imp\0"
 	.byte	0x2
-	.byte	0x29
+	.byte	0x1f
 	.byte	0x18
 	.long	0x49ed
-	.quad	.LFB4365
-	.quad	.LFE4365-.LFB4365
+	.quad	.LFB4364
+	.quad	.LFE4364-.LFB4364
 	.uleb128 0x1
 	.byte	0x9c
 	.long	0x66f1
 	.uleb128 0x26
 	.secrel32	.LASF8
 	.byte	0x2
-	.byte	0x29
+	.byte	0x1f
 	.byte	0x2a
 	.long	0xc4
 	.uleb128 0x2
@@ -11017,7 +10859,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "u\0"
 	.byte	0x2
-	.byte	0x29
+	.byte	0x1f
 	.byte	0x40
 	.long	0x4a8f
 	.uleb128 0x2
@@ -11026,7 +10868,7 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "v\0"
 	.byte	0x2
-	.byte	0x29
+	.byte	0x1f
 	.byte	0x4d
 	.long	0x49c9
 	.uleb128 0x2
@@ -11035,60 +10877,12 @@ PMC_Subtruct_X_X:
 	.uleb128 0x22
 	.ascii "w\0"
 	.byte	0x2
-	.byte	0x29
+	.byte	0x1f
 	.byte	0x60
 	.long	0x63bf
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 24
-	.uleb128 0x23
-	.secrel32	.LASF1
-	.byte	0x2
-	.byte	0x2b
-	.byte	0x15
-	.long	0x49ed
-	.uleb128 0x2
-	.byte	0x91
-	.sleb128 -20
-	.uleb128 0x23
-	.secrel32	.LASF9
-	.byte	0x2
-	.byte	0x2c
-	.byte	0x15
-	.long	0x4a8f
-	.uleb128 0x2
-	.byte	0x91
-	.sleb128 -32
-	.byte	0
-	.uleb128 0x25
-	.ascii "IS_ZERO_UINT\0"
-	.byte	0x2
-	.byte	0x1f
-	.byte	0x18
-	.long	0x49ed
-	.quad	.LFB4364
-	.quad	.LFE4364-.LFB4364
-	.uleb128 0x1
-	.byte	0x9c
-	.long	0x675c
-	.uleb128 0x22
-	.ascii "x\0"
-	.byte	0x2
-	.byte	0x1f
-	.byte	0x35
-	.long	0x4a8f
-	.uleb128 0x2
-	.byte	0x91
-	.sleb128 0
-	.uleb128 0x22
-	.ascii "is_zero\0"
-	.byte	0x2
-	.byte	0x1f
-	.byte	0x3e
-	.long	0x447
-	.uleb128 0x2
-	.byte	0x91
-	.sleb128 8
 	.uleb128 0x23
 	.secrel32	.LASF1
 	.byte	0x2
@@ -11098,15 +10892,15 @@ PMC_Subtruct_X_X:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
-	.uleb128 0x24
-	.ascii "type\0"
+	.uleb128 0x23
+	.secrel32	.LASF9
 	.byte	0x2
 	.byte	0x22
-	.byte	0x1a
-	.long	0x4a05
+	.byte	0x15
+	.long	0x4a8f
 	.uleb128 0x2
 	.byte	0x91
-	.sleb128 -24
+	.sleb128 -32
 	.byte	0
 	.uleb128 0x28
 	.ascii "GET_ABS_64\0"
@@ -11118,7 +10912,7 @@ PMC_Subtruct_X_X:
 	.quad	.LFE4363-.LFB4363
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x67a5
+	.long	0x673a
 	.uleb128 0x1d
 	.ascii "u\0"
 	.byte	0x1
@@ -11876,6 +11670,7 @@ PMC_Subtruct_X_X:
 	.def	DuplicateNumber;	.scl	2;	.type	32;	.endef
 	.def	From_I_Imp;	.scl	2;	.type	32;	.endef
 	.def	From_L_Imp;	.scl	2;	.type	32;	.endef
+	.def	IsZero_UINT;	.scl	2;	.type	32;	.endef
 	.def	Negate_Imp;	.scl	2;	.type	32;	.endef
 	.section	.rdata$.refptr.number_zero, "dr"
 	.globl	.refptr.number_zero

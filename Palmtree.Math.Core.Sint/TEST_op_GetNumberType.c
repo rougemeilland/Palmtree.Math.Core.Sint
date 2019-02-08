@@ -35,8 +35,8 @@ void TEST_GetNumberType_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep,
     PMC_NUMBER_TYPE_CODE actual_value;
     PMC_STATUS_CODE result;
     PMC_STATUS_CODE x_result;
-    TEST_Assert(env, FormatTestLabel(L"TEST_GetNumberType_X (%d.%d)", no, 1), (x_result = ep->FromByteArray(x_buf, x_buf_size, &x)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", x_result));
-    TEST_Assert(env, FormatTestLabel(L"TEST_GetNumberType_X (%d.%d)", no, 2), (result = ep->GetNumberType_X(x, &actual_value)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_GetPropertyValue_X_Iの復帰コードが期待通りではない(%d)", result));
+    TEST_Assert(env, FormatTestLabel(L"TEST_GetNumberType_X (%d.%d)", no, 1), (x_result = ep->FromByteArray(x_buf, x_buf_size, &x)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", x_result));
+    TEST_Assert(env, FormatTestLabel(L"TEST_GetNumberType_X (%d.%d)", no, 2), (result = ep->GetNumberType_X(x, &actual_value)) == PMC_STATUS_OK, FormatTestMesssage(L"GetPropertyValue_X_Iの復帰コードが期待通りではない(%d)", result));
     TEST_Assert(env, FormatTestLabel(L"TEST_GetNumberType_X (%d.%d)", no, 3), actual_value == desired_value, L"データの内容が一致しない");
     if (x_result == PMC_STATUS_OK)
         ep->Dispose(x);

@@ -59,11 +59,18 @@ EXTRN	PMC_Subtruct_X_I:PROC
 EXTRN	PMC_Subtruct_X_L:PROC
 EXTRN	PMC_Subtruct_X_UX:PROC
 EXTRN	PMC_Subtruct_X_X:PROC
+EXTRN	PMC_Multiply_I_X:PROC
+EXTRN	PMC_Multiply_L_X:PROC
+EXTRN	PMC_Multiply_UX_X:PROC
+EXTRN	PMC_Multiply_X_I:PROC
+EXTRN	PMC_Multiply_X_L:PROC
+EXTRN	PMC_Multiply_X_UX:PROC
+EXTRN	PMC_Multiply_X_X:PROC
 EXTRN	_RTC_InitBase:PROC
 EXTRN	_RTC_Shutdown:PROC
 EXTRN	__CheckForDebuggerJustMyCode:PROC
 _BSS	SEGMENT
-entry_points DB	0300H DUP (?)
+entry_points DB	0338H DUP (?)
 hLib_UINT DQ	01H DUP (?)
 fp_PMC_UINT_Initialize DQ 01H DUP (?)
 initialized DD	01H DUP (?)
@@ -71,7 +78,7 @@ _BSS	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$PMC_SINT_Initialize DD imagerel $LN8
-	DD	imagerel $LN8+569
+	DD	imagerel $LN8+667
 	DD	imagerel $unwind$PMC_SINT_Initialize
 pdata	ENDS
 ;	COMDAT pdata
@@ -666,86 +673,116 @@ $LN6@PMC_SINT_I:
 	lea	rax, OFFSET FLAT:PMC_Subtruct_X_X
 	mov	QWORD PTR entry_points+760, rax
 
-; 122  :         /*
-; 123  :         entry_points.Multiply_I_X = PMC_Multiply_I_X;
-; 124  :         entry_points.Multiply_L_X = PMC_Multiply_L_X;
+; 122  :         entry_points.Multiply_I_X = PMC_Multiply_I_X;
+
+	lea	rax, OFFSET FLAT:PMC_Multiply_I_X
+	mov	QWORD PTR entry_points+768, rax
+
+; 123  :         entry_points.Multiply_L_X = PMC_Multiply_L_X;
+
+	lea	rax, OFFSET FLAT:PMC_Multiply_L_X
+	mov	QWORD PTR entry_points+776, rax
+
+; 124  :         entry_points.Multiply_UX_X = PMC_Multiply_UX_X;
+
+	lea	rax, OFFSET FLAT:PMC_Multiply_UX_X
+	mov	QWORD PTR entry_points+784, rax
+
 ; 125  :         entry_points.Multiply_X_I = PMC_Multiply_X_I;
+
+	lea	rax, OFFSET FLAT:PMC_Multiply_X_I
+	mov	QWORD PTR entry_points+792, rax
+
 ; 126  :         entry_points.Multiply_X_L = PMC_Multiply_X_L;
-; 127  :         entry_points.Multiply_X_X = PMC_Multiply_X_X;
-; 128  :         entry_points.DivRem_I_X = PMC_DivRem_I_X;
-; 129  :         entry_points.DivRem_L_X = PMC_DivRem_L_X;
-; 130  :         entry_points.DivRem_X_I = PMC_DivRem_X_I;
-; 131  :         entry_points.DivRem_X_L = PMC_DivRem_X_L;
-; 132  :         entry_points.DivRem_X_X = PMC_DivRem_X_X;
-; 133  :         entry_points.RightShift_X_I = PMC_RightShift_X_I;
-; 134  :         entry_points.LeftShift_X_I = PMC_LeftShift_X_I;
-; 135  :         entry_points.BitwiseAnd_I_X = PMC_BitwiseAnd_I_X;
-; 136  :         entry_points.BitwiseAnd_L_X = PMC_BitwiseAnd_L_X;
-; 137  :         entry_points.BitwiseAnd_X_I = PMC_BitwiseAnd_X_I;
-; 138  :         entry_points.BitwiseAnd_X_L = PMC_BitwiseAnd_X_L;
-; 139  :         entry_points.BitwiseAnd_X_X = PMC_BitwiseAnd_X_X;
-; 140  :         entry_points.BitwiseOr_I_X = PMC_BitwiseOr_I_X;
-; 141  :         entry_points.BitwiseOr_L_X = PMC_BitwiseOr_L_X;
-; 142  :         entry_points.BitwiseOr_X_I = PMC_BitwiseOr_X_I;
-; 143  :         entry_points.BitwiseOr_X_L = PMC_BitwiseOr_X_L;
-; 144  :         entry_points.BitwiseOr_X_X = PMC_BitwiseOr_X_X;
-; 145  :         entry_points.ExclusiveOr_I_X = PMC_ExclusiveOr_I_X;
-; 146  :         entry_points.ExclusiveOr_L_X = PMC_ExclusiveOr_L_X;
-; 147  :         entry_points.ExclusiveOr_X_I = PMC_ExclusiveOr_X_I;
-; 148  :         entry_points.ExclusiveOr_X_L = PMC_ExclusiveOr_X_L;
-; 149  :         entry_points.ExclusiveOr_X_X = PMC_ExclusiveOr_X_X;
-; 150  :         entry_points.Compare_I_X = PMC_Compare_I_X;
-; 151  :         entry_points.Compare_L_X = PMC_Compare_L_X;
-; 152  :         entry_points.Compare_X_I = PMC_Compare_X_I;
-; 153  :         entry_points.Compare_X_L = PMC_Compare_X_L;
-; 154  :         entry_points.Compare_X_X = PMC_Compare_X_X;
-; 155  :         entry_points.Equals_I_X = PMC_Equals_I_X;
-; 156  :         entry_points.Equals_L_X = PMC_Equals_L_X;
-; 157  :         entry_points.Equals_X_I = PMC_Equals_X_I;
-; 158  :         entry_points.Equals_X_L = PMC_Equals_X_L;
-; 159  :         entry_points.Equals_X_X = PMC_Equals_X_X;
-; 160  :         entry_points.GreatestCommonDivisor_I_X = PMC_GreatestCommonDivisor_I_X;
-; 161  :         entry_points.GreatestCommonDivisor_L_X = PMC_GreatestCommonDivisor_L_X;
-; 162  :         entry_points.GreatestCommonDivisor_X_I = PMC_GreatestCommonDivisor_X_I;
-; 163  :         entry_points.GreatestCommonDivisor_X_L = PMC_GreatestCommonDivisor_X_L;
-; 164  :         entry_points.GreatestCommonDivisor_X_X = PMC_GreatestCommonDivisor_X_X;
-; 165  :         entry_points.Pow_X_I = PMC_Pow_X_I;
-; 166  :         entry_points.ModPow_X_X_X = PMC_ModPow_X_X_X;
-; 167  :         */
-; 168  :         entry_points.GetNumberType_X = PMC_GetNumberType_X;
+
+	lea	rax, OFFSET FLAT:PMC_Multiply_X_L
+	mov	QWORD PTR entry_points+800, rax
+
+; 127  :         entry_points.Multiply_X_UX = PMC_Multiply_X_UX;
+
+	lea	rax, OFFSET FLAT:PMC_Multiply_X_UX
+	mov	QWORD PTR entry_points+808, rax
+
+; 128  :         entry_points.Multiply_X_X = PMC_Multiply_X_X;
+
+	lea	rax, OFFSET FLAT:PMC_Multiply_X_X
+	mov	QWORD PTR entry_points+816, rax
+
+; 129  :         /*
+; 130  :         entry_points.DivRem_I_X = PMC_DivRem_I_X;
+; 131  :         entry_points.DivRem_L_X = PMC_DivRem_L_X;
+; 132  :         entry_points.DivRem_X_I = PMC_DivRem_X_I;
+; 133  :         entry_points.DivRem_X_L = PMC_DivRem_X_L;
+; 134  :         entry_points.DivRem_X_X = PMC_DivRem_X_X;
+; 135  :         entry_points.RightShift_X_I = PMC_RightShift_X_I;
+; 136  :         entry_points.LeftShift_X_I = PMC_LeftShift_X_I;
+; 137  :         entry_points.BitwiseAnd_I_X = PMC_BitwiseAnd_I_X;
+; 138  :         entry_points.BitwiseAnd_L_X = PMC_BitwiseAnd_L_X;
+; 139  :         entry_points.BitwiseAnd_X_I = PMC_BitwiseAnd_X_I;
+; 140  :         entry_points.BitwiseAnd_X_L = PMC_BitwiseAnd_X_L;
+; 141  :         entry_points.BitwiseAnd_X_X = PMC_BitwiseAnd_X_X;
+; 142  :         entry_points.BitwiseOr_I_X = PMC_BitwiseOr_I_X;
+; 143  :         entry_points.BitwiseOr_L_X = PMC_BitwiseOr_L_X;
+; 144  :         entry_points.BitwiseOr_X_I = PMC_BitwiseOr_X_I;
+; 145  :         entry_points.BitwiseOr_X_L = PMC_BitwiseOr_X_L;
+; 146  :         entry_points.BitwiseOr_X_X = PMC_BitwiseOr_X_X;
+; 147  :         entry_points.ExclusiveOr_I_X = PMC_ExclusiveOr_I_X;
+; 148  :         entry_points.ExclusiveOr_L_X = PMC_ExclusiveOr_L_X;
+; 149  :         entry_points.ExclusiveOr_X_I = PMC_ExclusiveOr_X_I;
+; 150  :         entry_points.ExclusiveOr_X_L = PMC_ExclusiveOr_X_L;
+; 151  :         entry_points.ExclusiveOr_X_X = PMC_ExclusiveOr_X_X;
+; 152  :         entry_points.Compare_I_X = PMC_Compare_I_X;
+; 153  :         entry_points.Compare_L_X = PMC_Compare_L_X;
+; 154  :         entry_points.Compare_X_I = PMC_Compare_X_I;
+; 155  :         entry_points.Compare_X_L = PMC_Compare_X_L;
+; 156  :         entry_points.Compare_X_X = PMC_Compare_X_X;
+; 157  :         entry_points.Equals_I_X = PMC_Equals_I_X;
+; 158  :         entry_points.Equals_L_X = PMC_Equals_L_X;
+; 159  :         entry_points.Equals_X_I = PMC_Equals_X_I;
+; 160  :         entry_points.Equals_X_L = PMC_Equals_X_L;
+; 161  :         entry_points.Equals_X_X = PMC_Equals_X_X;
+; 162  :         entry_points.GreatestCommonDivisor_I_X = PMC_GreatestCommonDivisor_I_X;
+; 163  :         entry_points.GreatestCommonDivisor_L_X = PMC_GreatestCommonDivisor_L_X;
+; 164  :         entry_points.GreatestCommonDivisor_X_I = PMC_GreatestCommonDivisor_X_I;
+; 165  :         entry_points.GreatestCommonDivisor_X_L = PMC_GreatestCommonDivisor_X_L;
+; 166  :         entry_points.GreatestCommonDivisor_X_X = PMC_GreatestCommonDivisor_X_X;
+; 167  :         entry_points.Pow_X_I = PMC_Pow_X_I;
+; 168  :         entry_points.ModPow_X_X_X = PMC_ModPow_X_X_X;
+; 169  :         */
+; 170  :         entry_points.GetNumberType_X = PMC_GetNumberType_X;
 
 	lea	rax, OFFSET FLAT:PMC_GetNumberType_X
 	mov	QWORD PTR entry_points+592, rax
 
-; 169  :         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
+; 171  :         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
 
 	lea	rax, OFFSET FLAT:PMC_GetConstantValue_I
 	mov	QWORD PTR entry_points+600, rax
 
-; 170  :         entry_points.Clone_X = PMC_Clone_X;
+; 172  :         entry_points.Clone_X = PMC_Clone_X;
 
 	lea	rax, OFFSET FLAT:PMC_Clone_X
 	mov	QWORD PTR entry_points+624, rax
 
-; 171  :         entry_points.Negate_X = PMC_Negate_X;
+; 173  :         entry_points.Negate_X = PMC_Negate_X;
 
 	lea	rax, OFFSET FLAT:PMC_Negate_X
 	mov	QWORD PTR entry_points+648, rax
 
-; 172  : 
-; 173  :         initialized = TRUE;
+; 174  : 
+; 175  :         initialized = TRUE;
 
 	mov	DWORD PTR initialized, 1
 $LN5@PMC_SINT_I:
 
-; 174  :     }
-; 175  : 
-; 176  :     return (&entry_points);
+; 176  :     }
+; 177  : 
+; 178  :     return (&entry_points);
 
 	lea	rax, OFFSET FLAT:entry_points
 $LN1@PMC_SINT_I:
 
-; 177  : }
+; 179  : }
 
 	lea	rsp, QWORD PTR [rbp+232]
 	pop	rdi

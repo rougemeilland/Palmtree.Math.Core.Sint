@@ -222,6 +222,7 @@
     <ClCompile Include="pmc_getnumbertype.c" />
     <ClCompile Include="pmc_initialize.c" />
     <ClCompile Include="pmc_memory.c" />
+    <ClCompile Include="pmc_multiply.c" />
     <ClCompile Include="pmc_negate.c" />
     <ClCompile Include="pmc_statistics.c" />
     <ClCompile Include="pmc_to.c" />
@@ -230,6 +231,7 @@
     <ClCompile Include="TEST_op_Clone.c" />
     <ClCompile Include="TEST_op_From_To.c" />
     <ClCompile Include="TEST_op_GetNumberType.c" />
+    <ClCompile Include="TEST_op_Multiply.c" />
     <ClCompile Include="TEST_op_Negate.c" />
     <ClCompile Include="TEST_op_Subtruct.c" />
   </ItemGroup>

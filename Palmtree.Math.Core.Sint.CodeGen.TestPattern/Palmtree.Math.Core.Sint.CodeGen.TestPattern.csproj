@@ -56,6 +56,7 @@
     <Compile Include="StringExtensions.cs" />
     <Compile Include="TestPatternBase.cs" />
     <Compile Include="TestTerm.cs" />
+    <Compile Include="TEST_Multiply.cs" />
     <Compile Include="TEST_Add.cs" />
     <Compile Include="TEST_Negate.cs" />
     <Compile Include="TEST_Clone.cs" />

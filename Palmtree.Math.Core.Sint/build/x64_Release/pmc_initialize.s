@@ -98,7 +98,6 @@ PMC_SINT_Initialize:
 	movq	.refptr.PMC_Subtruct_I_X(%rip), %rax
 	movq	%rax, 712+entry_points(%rip)
 	movq	.refptr.PMC_Subtruct_L_X(%rip), %rax
-	movl	$1, initialized(%rip)
 	movq	%rax, 720+entry_points(%rip)
 	movq	.refptr.PMC_Subtruct_UX_X(%rip), %rax
 	movq	%rax, 728+entry_points(%rip)
@@ -110,6 +109,20 @@ PMC_SINT_Initialize:
 	movq	%rax, 752+entry_points(%rip)
 	movq	.refptr.PMC_Subtruct_X_X(%rip), %rax
 	movq	%rax, 760+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_I_X(%rip), %rax
+	movq	%rax, 768+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_L_X(%rip), %rax
+	movq	%rax, 776+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_UX_X(%rip), %rax
+	movq	%rax, 784+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_X_I(%rip), %rax
+	movq	%rax, 792+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_X_L(%rip), %rax
+	movq	%rax, 800+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_X_UX(%rip), %rax
+	movq	%rax, 808+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_X_X(%rip), %rax
+	movq	%rax, 816+entry_points(%rip)
 	movq	.refptr.PMC_GetNumberType_X(%rip), %rax
 	movq	%rax, 592+entry_points(%rip)
 	movq	.refptr.PMC_GetConstantValue_I(%rip), %rax
@@ -117,6 +130,7 @@ PMC_SINT_Initialize:
 	movq	.refptr.PMC_Clone_X(%rip), %rax
 	movq	%rax, 624+entry_points(%rip)
 	movq	.refptr.PMC_Negate_X(%rip), %rax
+	movl	$1, initialized(%rip)
 	movq	%rax, 648+entry_points(%rip)
 	movq	%rbx, %rax
 	addq	$32, %rsp
@@ -159,7 +173,7 @@ PMC_SINT_Initialize:
 .lcomm initialized,4,4
 .lcomm fp_PMC_UINT_Initialize,8,8
 .lcomm hLib_UINT,8,8
-.lcomm entry_points,768,32
+.lcomm entry_points,824,32
 	.comm	ep_uint, 560, 5
 	.ident	"GCC: (x86_64-win32-seh-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	Initialize_Memory;	.scl	2;	.type	32;	.endef
@@ -185,6 +199,41 @@ PMC_SINT_Initialize:
 	.linkonce	discard
 .refptr.PMC_GetNumberType_X:
 	.quad	PMC_GetNumberType_X
+	.section	.rdata$.refptr.PMC_Multiply_X_X, "dr"
+	.globl	.refptr.PMC_Multiply_X_X
+	.linkonce	discard
+.refptr.PMC_Multiply_X_X:
+	.quad	PMC_Multiply_X_X
+	.section	.rdata$.refptr.PMC_Multiply_X_UX, "dr"
+	.globl	.refptr.PMC_Multiply_X_UX
+	.linkonce	discard
+.refptr.PMC_Multiply_X_UX:
+	.quad	PMC_Multiply_X_UX
+	.section	.rdata$.refptr.PMC_Multiply_X_L, "dr"
+	.globl	.refptr.PMC_Multiply_X_L
+	.linkonce	discard
+.refptr.PMC_Multiply_X_L:
+	.quad	PMC_Multiply_X_L
+	.section	.rdata$.refptr.PMC_Multiply_X_I, "dr"
+	.globl	.refptr.PMC_Multiply_X_I
+	.linkonce	discard
+.refptr.PMC_Multiply_X_I:
+	.quad	PMC_Multiply_X_I
+	.section	.rdata$.refptr.PMC_Multiply_UX_X, "dr"
+	.globl	.refptr.PMC_Multiply_UX_X
+	.linkonce	discard
+.refptr.PMC_Multiply_UX_X:
+	.quad	PMC_Multiply_UX_X
+	.section	.rdata$.refptr.PMC_Multiply_L_X, "dr"
+	.globl	.refptr.PMC_Multiply_L_X
+	.linkonce	discard
+.refptr.PMC_Multiply_L_X:
+	.quad	PMC_Multiply_L_X
+	.section	.rdata$.refptr.PMC_Multiply_I_X, "dr"
+	.globl	.refptr.PMC_Multiply_I_X
+	.linkonce	discard
+.refptr.PMC_Multiply_I_X:
+	.quad	PMC_Multiply_I_X
 	.section	.rdata$.refptr.PMC_Subtruct_X_X, "dr"
 	.globl	.refptr.PMC_Subtruct_X_X
 	.linkonce	discard

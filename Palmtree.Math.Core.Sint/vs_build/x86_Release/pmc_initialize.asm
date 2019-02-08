@@ -25,7 +25,7 @@ CONST	SEGMENT
 	DB	'e.Uint.dll', 00H				; `string'
 CONST	ENDS
 PUBLIC	_PMC_SINT_Initialize@4
-_entry_points DB 0180H DUP (?)
+_entry_points DB 019cH DUP (?)
 _initialized DD	01H DUP (?)
 _hLib_UINT DD	01H DUP (?)
 _fp_PMC_UINT_Initialize DD 01H DUP (?)

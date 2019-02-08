@@ -27,6 +27,16 @@
 #include "pmc_sint_internal.h"
 
 
+PMC_STATUS_CODE IsZero_UINT(PMC_HANDLE_UINT x, char* is_zero)
+{
+    PMC_STATUS_CODE result;
+    PMC_NUMBER_TYPE_CODE type;
+    if ((result = ep_uint.GetNumberType_X(x, &type)) != PMC_STATUS_OK)
+        return (result);
+    *is_zero = (type & PMC_NUMBER_TYPE_IS_ZERO) ? 1 : 0;
+    return (PMC_STATUS_OK);
+}
+
 PMC_STATUS_CODE __PMC_CALL PMC_GetNumberType_X(PMC_HANDLE_SINT x, PMC_NUMBER_TYPE_CODE* o)
 {
     if (x == NULL)

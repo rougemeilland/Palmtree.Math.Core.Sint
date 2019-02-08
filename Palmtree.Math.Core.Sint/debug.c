@@ -70,7 +70,7 @@ __declspec(dllexport) void __stdcall DoDebug(PMC_DEBUG_ENVIRONMENT *env)
     PMC_SINT_ENTRY_POINTS* ep = PMC_SINT_Initialize(&conf);
     if (ep == NULL)
     {
-         env->log(L"PMC_SINT_Initialize failed\n");
+         env->log(L"SINT_Initialize failed\n");
          return;
     }
 #ifdef _M_IX86

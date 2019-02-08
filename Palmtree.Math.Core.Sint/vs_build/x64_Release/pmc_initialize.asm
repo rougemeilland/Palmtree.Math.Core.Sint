@@ -21,7 +21,7 @@ CONST	SEGMENT
 	DB	'e.Uint.dll', 00H				; `string'
 CONST	ENDS
 PUBLIC	PMC_SINT_Initialize
-entry_points DB	0300H DUP (?)
+entry_points DB	0338H DUP (?)
 initialized DD	01H DUP (?)
 	ALIGN	8
 
@@ -43,7 +43,7 @@ pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$1$PMC_SINT_Initialize DD imagerel $LN85@PMC_SINT_I+232
-	DD	imagerel $LN85@PMC_SINT_I+811
+	DD	imagerel $LN85@PMC_SINT_I+909
 	DD	imagerel $chain$1$PMC_SINT_Initialize
 pdata	ENDS
 ;	COMDAT pdata

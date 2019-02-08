@@ -119,12 +119,14 @@ PMC_EXPORT PMC_SINT_ENTRY_POINTS* __PMC_CALL PMC_SINT_Initialize(PMC_CONFIGURATI
         entry_points.Subtruct_X_L = PMC_Subtruct_X_L;
         entry_points.Subtruct_X_UX = PMC_Subtruct_X_UX;
         entry_points.Subtruct_X_X = PMC_Subtruct_X_X;
-        /*
         entry_points.Multiply_I_X = PMC_Multiply_I_X;
         entry_points.Multiply_L_X = PMC_Multiply_L_X;
+        entry_points.Multiply_UX_X = PMC_Multiply_UX_X;
         entry_points.Multiply_X_I = PMC_Multiply_X_I;
         entry_points.Multiply_X_L = PMC_Multiply_X_L;
+        entry_points.Multiply_X_UX = PMC_Multiply_X_UX;
         entry_points.Multiply_X_X = PMC_Multiply_X_X;
+        /*
         entry_points.DivRem_I_X = PMC_DivRem_I_X;
         entry_points.DivRem_L_X = PMC_DivRem_L_X;
         entry_points.DivRem_X_I = PMC_DivRem_X_I;

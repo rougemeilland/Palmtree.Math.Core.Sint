@@ -49014,7 +49014,16 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Subtruct_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Subtruct_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Subtruct_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-# 416 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+
+
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+# 418 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 } PMC_SINT_ENTRY_POINTS;
 #pragma endregion
 
@@ -49120,6 +49129,7 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern void DeallocateNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE CheckNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE DuplicateNumber(NUMBER_HEADER* x, NUMBER_HEADER** op);
+    extern PMC_STATUS_CODE IsZero_UINT(PMC_HANDLE_UINT x, char* is_zero);
     extern PMC_STATUS_CODE Negate_Imp(NUMBER_HEADER* x, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_I_Imp(char x_sign, _UINT32_T x_abs, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_L_Imp(char x_sign, _UINT64_T x_abs, NUMBER_HEADER** o);
@@ -49173,7 +49183,15 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-# 191 "../pmc_sint_internal.h"
+
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+# 195 "../pmc_sint_internal.h"
 #pragma endregion
 
 
@@ -49236,41 +49254,65 @@ extern void TEST_From_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, i
 
 extern void TEST_GetNumberType_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*x_buf, size_t x_buf_size, PMC_NUMBER_TYPE_CODE desired_value);
 
+extern void TEST_Multiply_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 68 "../pmc_sint_debug.h" 3
+                                                                                            int 
+# 68 "../pmc_sint_debug.h"
+                                                                                                    u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 69 "../pmc_sint_debug.h" 3
+                                                                                            long long 
+# 69 "../pmc_sint_debug.h"
+                                                                                                    u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 71 "../pmc_sint_debug.h" 3
+                                                                                                                                     int 
+# 71 "../pmc_sint_debug.h"
+                                                                                                                                             v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 72 "../pmc_sint_debug.h" 3
+                                                                                                                                     long long 
+# 72 "../pmc_sint_debug.h"
+                                                                                                                                             v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+
 extern void TEST_Negate_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*x_buf, size_t x_buf_size, unsigned char*desired_o_buf, size_t desired_o_buf_size);
 
 extern void TEST_Subtruct_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
-# 70 "../pmc_sint_debug.h" 3
+# 78 "../pmc_sint_debug.h" 3
                                                                                             int 
-# 70 "../pmc_sint_debug.h"
+# 78 "../pmc_sint_debug.h"
                                                                                                     u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 extern void TEST_Subtruct_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
-# 71 "../pmc_sint_debug.h" 3
+# 79 "../pmc_sint_debug.h" 3
                                                                                             long long 
-# 71 "../pmc_sint_debug.h"
+# 79 "../pmc_sint_debug.h"
                                                                                                     u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 extern void TEST_Subtruct_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 extern void TEST_Subtruct_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
-# 73 "../pmc_sint_debug.h" 3
+# 81 "../pmc_sint_debug.h" 3
                                                                                                                                      int 
-# 73 "../pmc_sint_debug.h"
+# 81 "../pmc_sint_debug.h"
                                                                                                                                              v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 extern void TEST_Subtruct_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
-# 74 "../pmc_sint_debug.h" 3
+# 82 "../pmc_sint_debug.h" 3
                                                                                                                                      long long 
-# 74 "../pmc_sint_debug.h"
+# 82 "../pmc_sint_debug.h"
                                                                                                                                              v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 extern void TEST_Subtruct_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 extern void TEST_Subtruct_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 
 extern void TEST_To_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* buf, size_t buf_size, PMC_STATUS_CODE desired_result_code, 
-# 78 "../pmc_sint_debug.h" 3
+# 86 "../pmc_sint_debug.h" 3
                                                                                                                                                                 int 
-# 78 "../pmc_sint_debug.h"
+# 86 "../pmc_sint_debug.h"
                                                                                                                                                                         desired_rvalue);
 extern void TEST_To_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* buf, size_t buf_size, PMC_STATUS_CODE desired_result_code, 
-# 79 "../pmc_sint_debug.h" 3
+# 87 "../pmc_sint_debug.h" 3
                                                                                                                                                                 long long 
-# 79 "../pmc_sint_debug.h"
+# 87 "../pmc_sint_debug.h"
                                                                                                                                                                         desired_rvalue);
 
 #pragma endregion
@@ -49355,7 +49397,7 @@ __attribute__((dllexport)) void __attribute__((__stdcall__)) DoDebug(PMC_DEBUG_E
 # 71 "../debug.c"
                  )
     {
-         env->log(L"PMC_SINT_Initialize failed\n");
+         env->log(L"SINT_Initialize failed\n");
          return;
     }
 

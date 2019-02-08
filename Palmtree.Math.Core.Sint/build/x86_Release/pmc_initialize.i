@@ -100437,7 +100437,16 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Subtruct_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Subtruct_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Subtruct_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-# 416 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+
+
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+# 418 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 } PMC_SINT_ENTRY_POINTS;
 #pragma endregion
 
@@ -100540,6 +100549,7 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern void DeallocateNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE CheckNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE DuplicateNumber(NUMBER_HEADER* x, NUMBER_HEADER** op);
+    extern PMC_STATUS_CODE IsZero_UINT(PMC_HANDLE_UINT x, char* is_zero);
     extern PMC_STATUS_CODE Negate_Imp(NUMBER_HEADER* x, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_I_Imp(char x_sign, _UINT32_T x_abs, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_L_Imp(char x_sign, _UINT64_T x_abs, NUMBER_HEADER** o);
@@ -100593,7 +100603,15 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-# 191 "../pmc_sint_internal.h"
+
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+# 195 "../pmc_sint_internal.h"
 #pragma endregion
 
 
@@ -101273,16 +101291,23 @@ __attribute__((dllexport)) PMC_SINT_ENTRY_POINTS* __attribute__((__stdcall__)) P
         entry_points.Subtruct_X_L = PMC_Subtruct_X_L;
         entry_points.Subtruct_X_UX = PMC_Subtruct_X_UX;
         entry_points.Subtruct_X_X = PMC_Subtruct_X_X;
-# 168 "../pmc_initialize.c"
+        entry_points.Multiply_I_X = PMC_Multiply_I_X;
+        entry_points.Multiply_L_X = PMC_Multiply_L_X;
+        entry_points.Multiply_UX_X = PMC_Multiply_UX_X;
+        entry_points.Multiply_X_I = PMC_Multiply_X_I;
+        entry_points.Multiply_X_L = PMC_Multiply_X_L;
+        entry_points.Multiply_X_UX = PMC_Multiply_X_UX;
+        entry_points.Multiply_X_X = PMC_Multiply_X_X;
+# 170 "../pmc_initialize.c"
         entry_points.GetNumberType_X = PMC_GetNumberType_X;
         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
         entry_points.Clone_X = PMC_Clone_X;
         entry_points.Negate_X = PMC_Negate_X;
 
         initialized = 
-# 173 "../pmc_initialize.c" 3
+# 175 "../pmc_initialize.c" 3
                      1
-# 173 "../pmc_initialize.c"
+# 175 "../pmc_initialize.c"
                          ;
     }
 

@@ -38,10 +38,10 @@ void TEST_Negate_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no
     PMC_STATUS_CODE result;
     PMC_STATUS_CODE x_result;
     PMC_STATUS_CODE o_result;
-    TEST_Assert(env, FormatTestLabel(L"PMC_Negate_X (%d.%d)", no, 1), (x_result = ep->FromByteArray(x_buf, x_buf_size, &x)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", x_result));
-    TEST_Assert(env, FormatTestLabel(L"PMC_Negate_X (%d.%d)", no, 2), (o_result = ep->Negate_X(x, &o)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_Negate_Xの復帰コードが期待通りではない(%d)", o_result));
-    TEST_Assert(env, FormatTestLabel(L"PMC_Negate_X (%d.%d)", no, 3), (result = ep->ToByteArray(o, actual_o_buf, sizeof(actual_o_buf), &actual_o_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
-    TEST_Assert(env, FormatTestLabel(L"PMC_Negate_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_o_buf, actual_o_buf_size, desired_o_buf, desired_o_buf_size) == 0, L"データの内容が一致しない");
+    TEST_Assert(env, FormatTestLabel(L"Negate_X (%d.%d)", no, 1), (x_result = ep->FromByteArray(x_buf, x_buf_size, &x)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", x_result));
+    TEST_Assert(env, FormatTestLabel(L"Negate_X (%d.%d)", no, 2), (o_result = ep->Negate_X(x, &o)) == PMC_STATUS_OK, FormatTestMesssage(L"Negate_Xの復帰コードが期待通りではない(%d)", o_result));
+    TEST_Assert(env, FormatTestLabel(L"Negate_X (%d.%d)", no, 3), (result = ep->ToByteArray(o, actual_o_buf, sizeof(actual_o_buf), &actual_o_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
+    TEST_Assert(env, FormatTestLabel(L"Negate_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_o_buf, actual_o_buf_size, desired_o_buf, desired_o_buf_size) == 0, L"データの内容が一致しない");
     if (o_result == PMC_STATUS_OK)
         ep->Dispose(o);
     if (x_result == PMC_STATUS_OK)

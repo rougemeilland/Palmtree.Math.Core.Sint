@@ -39,6 +39,7 @@ PUBLIC	__JustMyCode_Default
 EXTRN	AllocateNumber:PROC
 EXTRN	CheckNumber:PROC
 EXTRN	DuplicateNumber:PROC
+EXTRN	IsZero_UINT:PROC
 EXTRN	Negate_Imp:PROC
 EXTRN	From_I_Imp:PROC
 EXTRN	From_L_Imp:PROC
@@ -71,14 +72,14 @@ $pdata$PMC_Add_UX_X DD imagerel $LN20
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$PMC_Add_X_I DD imagerel $LN30
-	DD	imagerel $LN30+642
+$pdata$PMC_Add_X_I DD imagerel $LN27
+	DD	imagerel $LN27+596
 	DD	imagerel $unwind$PMC_Add_X_I
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$PMC_Add_X_L DD imagerel $LN30
-	DD	imagerel $LN30+647
+$pdata$PMC_Add_X_L DD imagerel $LN27
+	DD	imagerel $LN27+600
 	DD	imagerel $unwind$PMC_Add_X_L
 pdata	ENDS
 ;	COMDAT pdata
@@ -107,20 +108,20 @@ $pdata$PMC_Subtruct_L_X DD imagerel $LN27
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$PMC_Subtruct_UX_X DD imagerel $LN24
-	DD	imagerel $LN24+576
+$pdata$PMC_Subtruct_UX_X DD imagerel $LN21
+	DD	imagerel $LN21+532
 	DD	imagerel $unwind$PMC_Subtruct_UX_X
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$PMC_Subtruct_X_I DD imagerel $LN30
-	DD	imagerel $LN30+652
+$pdata$PMC_Subtruct_X_I DD imagerel $LN27
+	DD	imagerel $LN27+601
 	DD	imagerel $unwind$PMC_Subtruct_X_I
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$PMC_Subtruct_X_L DD imagerel $LN30
-	DD	imagerel $LN30+657
+$pdata$PMC_Subtruct_X_L DD imagerel $LN27
+	DD	imagerel $LN27+605
 	DD	imagerel $unwind$PMC_Subtruct_X_L
 pdata	ENDS
 ;	COMDAT pdata
@@ -146,12 +147,6 @@ pdata	SEGMENT
 $pdata$GET_ABS_64 DD imagerel GET_ABS_64
 	DD	imagerel GET_ABS_64+198
 	DD	imagerel $unwind$GET_ABS_64
-pdata	ENDS
-;	COMDAT pdata
-pdata	SEGMENT
-$pdata$IS_ZERO_UINT DD imagerel IS_ZERO_UINT
-	DD	imagerel IS_ZERO_UINT+204
-	DD	imagerel $unwind$IS_ZERO_UINT
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
@@ -412,31 +407,6 @@ AddU_X_I_Imp$rtcVarDesc DD 048H
 AddU_X_I_Imp$rtcFrameData DD 01H
 	DD	00H
 	DQ	FLAT:AddU_X_I_Imp$rtcVarDesc
-CONST	ENDS
-;	COMDAT xdata
-xdata	SEGMENT
-$unwind$IS_ZERO_UINT DD 025054019H
-	DD	01132318H
-	DD	0700c0025H
-	DD	0500bH
-	DD	imagerel __GSHandlerCheck
-	DD	0118H
-xdata	ENDS
-;	COMDAT CONST
-CONST	SEGMENT
-IS_ZERO_UINT$rtcName$0 DB 074H
-	DB	079H
-	DB	070H
-	DB	065H
-	DB	00H
-	ORG $+11
-IS_ZERO_UINT$rtcVarDesc DD 044H
-	DD	04H
-	DQ	FLAT:IS_ZERO_UINT$rtcName$0
-	ORG $+48
-IS_ZERO_UINT$rtcFrameData DD 01H
-	DD	00H
-	DQ	FLAT:IS_ZERO_UINT$rtcVarDesc
 CONST	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
@@ -989,7 +959,7 @@ v$ = 368
 w$ = 376
 SubtructU_X_X_Imp PROC					; COMDAT
 
-; 178  : {
+; 168  : {
 
 	mov	QWORD PTR [rsp+32], r9
 	mov	QWORD PTR [rsp+24], r8
@@ -1010,9 +980,9 @@ SubtructU_X_X_Imp PROC					; COMDAT
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 179  :     PMC_STATUS_CODE result;
-; 180  :     _INT32_T c;
-; 181  :     if ((result = ep_uint.Compare_X_X(u, v, &c)) != PMC_STATUS_OK)
+; 169  :     PMC_STATUS_CODE result;
+; 170  :     _INT32_T c;
+; 171  :     if ((result = ep_uint.Compare_X_X(u, v, &c)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR c$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
@@ -1022,23 +992,23 @@ SubtructU_X_X_Imp PROC					; COMDAT
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN2@SubtructU_
 
-; 182  :         return (result);
+; 172  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@SubtructU_
 $LN2@SubtructU_:
 
-; 183  :     if (c > 0)
+; 173  :     if (c > 0)
 
 	cmp	DWORD PTR c$[rbp], 0
 	jle	SHORT $LN3@SubtructU_
 
-; 184  :     {
-; 185  :         // abs(u) > abs(v) ÇÃèÍçá
-; 186  : 
-; 187  :         // abs(u) - abs(v) Çï‘Ç∑
-; 188  :         PMC_HANDLE_UINT w_abs;
-; 189  :         if ((result = ep_uint.Subtruct_X_X(u, v, &w_abs)) != PMC_STATUS_OK)
+; 174  :     {
+; 175  :         // abs(u) > abs(v) ÇÃèÍçá
+; 176  : 
+; 177  :         // abs(u) - abs(v) Çï‘Ç∑
+; 178  :         PMC_HANDLE_UINT w_abs;
+; 179  :         if ((result = ep_uint.Subtruct_X_X(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR w_abs$6[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
@@ -1048,13 +1018,13 @@ $LN2@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@SubtructU_
 
-; 190  :             return (result);
+; 180  :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@SubtructU_
 $LN5@SubtructU_:
 
-; 191  :         if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
+; 181  :         if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR w_abs$6[rbp]
 	movzx	edx, BYTE PTR sign$[rbp]
@@ -1064,51 +1034,51 @@ $LN5@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN6@SubtructU_
 
-; 192  :         {
-; 193  :             ep_uint.Dispose(w_abs);
+; 182  :         {
+; 183  :             ep_uint.Dispose(w_abs);
 
 	mov	rcx, QWORD PTR w_abs$6[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 194  :             return (result);
+; 184  :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@SubtructU_
 $LN6@SubtructU_:
 
-; 195  :         }
-; 196  :     }
+; 185  :         }
+; 186  :     }
 
 	jmp	SHORT $LN4@SubtructU_
 $LN3@SubtructU_:
 
-; 197  :     else if (c == 0)
+; 187  :     else if (c == 0)
 
 	cmp	DWORD PTR c$[rbp], 0
 	jne	SHORT $LN7@SubtructU_
 
-; 198  :     {
-; 199  :         // abs(u) == abs(v) ÇÃèÍçá
-; 200  : 
-; 201  :         // 0 Çï‘Ç∑
-; 202  :         *w = &number_zero;
+; 188  :     {
+; 189  :         // abs(u) == abs(v) ÇÃèÍçá
+; 190  : 
+; 191  :         // 0 Çï‘Ç∑
+; 192  :         *w = &number_zero;
 
 	mov	rax, QWORD PTR w$[rbp]
 	lea	rcx, OFFSET FLAT:number_zero
 	mov	QWORD PTR [rax], rcx
 
-; 203  :     }
+; 193  :     }
 
 	jmp	SHORT $LN8@SubtructU_
 $LN7@SubtructU_:
 
-; 204  :     else
-; 205  :     {
-; 206  :         // abs(u) < abs(v) ÇÃèÍçá
-; 207  : 
-; 208  :         // - (abs(v) - abs(u)) Çï‘Ç∑
-; 209  :         PMC_HANDLE_UINT w_abs;
-; 210  :         if ((result = ep_uint.Subtruct_X_X(v, u, &w_abs)) != PMC_STATUS_OK)
+; 194  :     else
+; 195  :     {
+; 196  :         // abs(u) < abs(v) ÇÃèÍçá
+; 197  : 
+; 198  :         // - (abs(v) - abs(u)) Çï‘Ç∑
+; 199  :         PMC_HANDLE_UINT w_abs;
+; 200  :         if ((result = ep_uint.Subtruct_X_X(v, u, &w_abs)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR w_abs$7[rbp]
 	mov	rdx, QWORD PTR u$[rbp]
@@ -1118,13 +1088,13 @@ $LN7@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN9@SubtructU_
 
-; 211  :             return (result);
+; 201  :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@SubtructU_
 $LN9@SubtructU_:
 
-; 212  :         if ((result = AllocateNumber(w, -sign, w_abs)) != PMC_STATUS_OK)
+; 202  :         if ((result = AllocateNumber(w, -sign, w_abs)) != PMC_STATUS_OK)
 
 	movsx	eax, BYTE PTR sign$[rbp]
 	neg	eax
@@ -1136,13 +1106,13 @@ $LN9@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN10@SubtructU_
 
-; 213  :         {
-; 214  :             ep_uint.Dispose(w_abs);
+; 203  :         {
+; 204  :             ep_uint.Dispose(w_abs);
 
 	mov	rcx, QWORD PTR w_abs$7[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 215  :             return (result);
+; 205  :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@SubtructU_
@@ -1150,14 +1120,14 @@ $LN10@SubtructU_:
 $LN8@SubtructU_:
 $LN4@SubtructU_:
 
-; 216  :         }
-; 217  :     }
-; 218  :     return (PMC_STATUS_OK);
+; 206  :         }
+; 207  :     }
+; 208  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@SubtructU_:
 
-; 219  : }
+; 209  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -1189,7 +1159,7 @@ v$ = 400
 w$ = 408
 SubtructU_X_L_Imp PROC					; COMDAT
 
-; 131  : {
+; 121  : {
 
 	mov	QWORD PTR [rsp+32], r9
 	mov	QWORD PTR [rsp+24], r8
@@ -1210,9 +1180,9 @@ SubtructU_X_L_Imp PROC					; COMDAT
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 132  :     PMC_STATUS_CODE result;
-; 133  :     _INT32_T c;
-; 134  :     if ((result = ep_uint.Compare_X_L(u, v, &c)) != PMC_STATUS_OK)
+; 122  :     PMC_STATUS_CODE result;
+; 123  :     _INT32_T c;
+; 124  :     if ((result = ep_uint.Compare_X_L(u, v, &c)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR c$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
@@ -1222,23 +1192,23 @@ SubtructU_X_L_Imp PROC					; COMDAT
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN2@SubtructU_
 
-; 135  :         return (result);
+; 125  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@SubtructU_
 $LN2@SubtructU_:
 
-; 136  :     if (c > 0)
+; 126  :     if (c > 0)
 
 	cmp	DWORD PTR c$[rbp], 0
 	jle	SHORT $LN3@SubtructU_
 
-; 137  :     {
-; 138  :         // abs(u) > abs(v) ÇÃèÍçá
-; 139  : 
-; 140  :         // abs(u) - abs(v) Çï‘Ç∑
-; 141  :         PMC_HANDLE_UINT w_abs;
-; 142  :         if ((result = ep_uint.Subtruct_X_L(u, v, &w_abs)) != PMC_STATUS_OK)
+; 127  :     {
+; 128  :         // abs(u) > abs(v) ÇÃèÍçá
+; 129  : 
+; 130  :         // abs(u) - abs(v) Çï‘Ç∑
+; 131  :         PMC_HANDLE_UINT w_abs;
+; 132  :         if ((result = ep_uint.Subtruct_X_L(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR w_abs$7[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
@@ -1248,13 +1218,13 @@ $LN2@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@SubtructU_
 
-; 143  :             return (result);
+; 133  :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@SubtructU_
 $LN5@SubtructU_:
 
-; 144  :         if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
+; 134  :         if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR w_abs$7[rbp]
 	movzx	edx, BYTE PTR sign$[rbp]
@@ -1264,51 +1234,51 @@ $LN5@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN6@SubtructU_
 
-; 145  :         {
-; 146  :             ep_uint.Dispose(w_abs);
+; 135  :         {
+; 136  :             ep_uint.Dispose(w_abs);
 
 	mov	rcx, QWORD PTR w_abs$7[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 147  :             return (result);
+; 137  :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@SubtructU_
 $LN6@SubtructU_:
 
-; 148  :         }
-; 149  :     }
+; 138  :         }
+; 139  :     }
 
 	jmp	$LN4@SubtructU_
 $LN3@SubtructU_:
 
-; 150  :     else if (c == 0)
+; 140  :     else if (c == 0)
 
 	cmp	DWORD PTR c$[rbp], 0
 	jne	SHORT $LN7@SubtructU_
 
-; 151  :     {
-; 152  :         // abs(u) == abs(v) ÇÃèÍçá
-; 153  : 
-; 154  :         // 0 Çï‘Ç∑
-; 155  :         *w = &number_zero;
+; 141  :     {
+; 142  :         // abs(u) == abs(v) ÇÃèÍçá
+; 143  : 
+; 144  :         // 0 Çï‘Ç∑
+; 145  :         *w = &number_zero;
 
 	mov	rax, QWORD PTR w$[rbp]
 	lea	rcx, OFFSET FLAT:number_zero
 	mov	QWORD PTR [rax], rcx
 
-; 156  :     }
+; 146  :     }
 
 	jmp	SHORT $LN8@SubtructU_
 $LN7@SubtructU_:
 
-; 157  :     else
-; 158  :     {
-; 159  :         // abs(u) < abs(v) ÇÃèÍçá
-; 160  : 
-; 161  :         // - (abs(v) - abs(u)) Çï‘Ç∑
-; 162  :         _UINT64_T t;
-; 163  :         if ((result = ep_uint.Subtruct_L_X(v, u, &t)) != PMC_STATUS_OK)
+; 147  :     else
+; 148  :     {
+; 149  :         // abs(u) < abs(v) ÇÃèÍçá
+; 150  : 
+; 151  :         // - (abs(v) - abs(u)) Çï‘Ç∑
+; 152  :         _UINT64_T t;
+; 153  :         if ((result = ep_uint.Subtruct_L_X(v, u, &t)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR t$8[rbp]
 	mov	rdx, QWORD PTR u$[rbp]
@@ -1318,14 +1288,14 @@ $LN7@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN9@SubtructU_
 
-; 164  :             return (result);
+; 154  :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@SubtructU_
 $LN9@SubtructU_:
 
-; 165  :         PMC_HANDLE_UINT w_abs;
-; 166  :         if ((result = ep_uint.From_L(t, &w_abs)) != PMC_STATUS_OK)
+; 155  :         PMC_HANDLE_UINT w_abs;
+; 156  :         if ((result = ep_uint.From_L(t, &w_abs)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR w_abs$9[rbp]
 	mov	rcx, QWORD PTR t$8[rbp]
@@ -1334,13 +1304,13 @@ $LN9@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN10@SubtructU_
 
-; 167  :             return (result);
+; 157  :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@SubtructU_
 $LN10@SubtructU_:
 
-; 168  :         if ((result = AllocateNumber(w, -sign, w_abs)) != PMC_STATUS_OK)
+; 158  :         if ((result = AllocateNumber(w, -sign, w_abs)) != PMC_STATUS_OK)
 
 	movsx	eax, BYTE PTR sign$[rbp]
 	neg	eax
@@ -1352,13 +1322,13 @@ $LN10@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN11@SubtructU_
 
-; 169  :         {
-; 170  :             ep_uint.Dispose(w_abs);
+; 159  :         {
+; 160  :             ep_uint.Dispose(w_abs);
 
 	mov	rcx, QWORD PTR w_abs$9[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 171  :             return (result);
+; 161  :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@SubtructU_
@@ -1366,14 +1336,14 @@ $LN11@SubtructU_:
 $LN8@SubtructU_:
 $LN4@SubtructU_:
 
-; 172  :         }
-; 173  :     }
-; 174  :     return (PMC_STATUS_OK);
+; 162  :         }
+; 163  :     }
+; 164  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@SubtructU_:
 
-; 175  : }
+; 165  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -1405,7 +1375,7 @@ v$ = 400
 w$ = 408
 SubtructU_X_I_Imp PROC					; COMDAT
 
-; 84   : {
+; 74   : {
 
 	mov	QWORD PTR [rsp+32], r9
 	mov	DWORD PTR [rsp+24], r8d
@@ -1426,9 +1396,9 @@ SubtructU_X_I_Imp PROC					; COMDAT
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 85   :     PMC_STATUS_CODE result;
-; 86   :     _INT32_T c;
-; 87   :     if ((result = ep_uint.Compare_X_I(u, v, &c)) != PMC_STATUS_OK)
+; 75   :     PMC_STATUS_CODE result;
+; 76   :     _INT32_T c;
+; 77   :     if ((result = ep_uint.Compare_X_I(u, v, &c)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR c$[rbp]
 	mov	edx, DWORD PTR v$[rbp]
@@ -1438,23 +1408,23 @@ SubtructU_X_I_Imp PROC					; COMDAT
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN2@SubtructU_
 
-; 88   :         return (result);
+; 78   :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@SubtructU_
 $LN2@SubtructU_:
 
-; 89   :     if (c > 0)
+; 79   :     if (c > 0)
 
 	cmp	DWORD PTR c$[rbp], 0
 	jle	SHORT $LN3@SubtructU_
 
-; 90   :     {
-; 91   :         // abs(u) > abs(v) ÇÃèÍçá
-; 92   : 
-; 93   :         // abs(u) - abs(v) Çï‘Ç∑
-; 94   :         PMC_HANDLE_UINT w_abs;
-; 95   :         if ((result = ep_uint.Subtruct_X_I(u, v, &w_abs)) != PMC_STATUS_OK)
+; 80   :     {
+; 81   :         // abs(u) > abs(v) ÇÃèÍçá
+; 82   : 
+; 83   :         // abs(u) - abs(v) Çï‘Ç∑
+; 84   :         PMC_HANDLE_UINT w_abs;
+; 85   :         if ((result = ep_uint.Subtruct_X_I(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR w_abs$7[rbp]
 	mov	edx, DWORD PTR v$[rbp]
@@ -1464,13 +1434,13 @@ $LN2@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@SubtructU_
 
-; 96   :             return (result);
+; 86   :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@SubtructU_
 $LN5@SubtructU_:
 
-; 97   :         if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
+; 87   :         if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR w_abs$7[rbp]
 	movzx	edx, BYTE PTR sign$[rbp]
@@ -1480,51 +1450,51 @@ $LN5@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN6@SubtructU_
 
-; 98   :         {
-; 99   :             ep_uint.Dispose(w_abs);
+; 88   :         {
+; 89   :             ep_uint.Dispose(w_abs);
 
 	mov	rcx, QWORD PTR w_abs$7[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 100  :             return (result);
+; 90   :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@SubtructU_
 $LN6@SubtructU_:
 
-; 101  :         }
-; 102  :     }
+; 91   :         }
+; 92   :     }
 
 	jmp	$LN4@SubtructU_
 $LN3@SubtructU_:
 
-; 103  :     else if (c == 0)
+; 93   :     else if (c == 0)
 
 	cmp	DWORD PTR c$[rbp], 0
 	jne	SHORT $LN7@SubtructU_
 
-; 104  :     {
-; 105  :         // abs(u) == abs(v) ÇÃèÍçá
-; 106  : 
-; 107  :         // 0 Çï‘Ç∑
-; 108  :         *w = &number_zero;
+; 94   :     {
+; 95   :         // abs(u) == abs(v) ÇÃèÍçá
+; 96   : 
+; 97   :         // 0 Çï‘Ç∑
+; 98   :         *w = &number_zero;
 
 	mov	rax, QWORD PTR w$[rbp]
 	lea	rcx, OFFSET FLAT:number_zero
 	mov	QWORD PTR [rax], rcx
 
-; 109  :     }
+; 99   :     }
 
 	jmp	SHORT $LN8@SubtructU_
 $LN7@SubtructU_:
 
-; 110  :     else
-; 111  :     {
-; 112  :         // abs(u) < abs(v) ÇÃèÍçá
-; 113  : 
-; 114  :         // - (abs(v) - abs(u)) Çï‘Ç∑
-; 115  :         _UINT32_T t;
-; 116  :         if ((result = ep_uint.Subtruct_I_X(v, u, &t)) != PMC_STATUS_OK)
+; 100  :     else
+; 101  :     {
+; 102  :         // abs(u) < abs(v) ÇÃèÍçá
+; 103  : 
+; 104  :         // - (abs(v) - abs(u)) Çï‘Ç∑
+; 105  :         _UINT32_T t;
+; 106  :         if ((result = ep_uint.Subtruct_I_X(v, u, &t)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR t$8[rbp]
 	mov	rdx, QWORD PTR u$[rbp]
@@ -1534,14 +1504,14 @@ $LN7@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN9@SubtructU_
 
-; 117  :             return (result);
+; 107  :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@SubtructU_
 $LN9@SubtructU_:
 
-; 118  :         PMC_HANDLE_UINT w_abs;
-; 119  :         if ((result = ep_uint.From_I(t, &w_abs)) != PMC_STATUS_OK)
+; 108  :         PMC_HANDLE_UINT w_abs;
+; 109  :         if ((result = ep_uint.From_I(t, &w_abs)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR w_abs$9[rbp]
 	mov	ecx, DWORD PTR t$8[rbp]
@@ -1550,13 +1520,13 @@ $LN9@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN10@SubtructU_
 
-; 120  :             return (result);
+; 110  :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@SubtructU_
 $LN10@SubtructU_:
 
-; 121  :         if ((result = AllocateNumber(w, -sign, w_abs)) != PMC_STATUS_OK)
+; 111  :         if ((result = AllocateNumber(w, -sign, w_abs)) != PMC_STATUS_OK)
 
 	movsx	eax, BYTE PTR sign$[rbp]
 	neg	eax
@@ -1568,13 +1538,13 @@ $LN10@SubtructU_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN11@SubtructU_
 
-; 122  :         {
-; 123  :             ep_uint.Dispose(w_abs);
+; 112  :         {
+; 113  :             ep_uint.Dispose(w_abs);
 
 	mov	rcx, QWORD PTR w_abs$9[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 124  :             return (result);
+; 114  :             return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@SubtructU_
@@ -1582,14 +1552,14 @@ $LN11@SubtructU_:
 $LN8@SubtructU_:
 $LN4@SubtructU_:
 
-; 125  :         }
-; 126  :     }
-; 127  :     return (PMC_STATUS_OK);
+; 115  :         }
+; 116  :     }
+; 117  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@SubtructU_:
 
-; 128  : }
+; 118  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -1618,7 +1588,7 @@ v$ = 304
 w$ = 312
 AddU_X_X_Imp PROC					; COMDAT
 
-; 70   : {
+; 60   : {
 
 	mov	QWORD PTR [rsp+32], r9
 	mov	QWORD PTR [rsp+24], r8
@@ -1639,9 +1609,9 @@ AddU_X_X_Imp PROC					; COMDAT
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 71   :     PMC_STATUS_CODE result;
-; 72   :     PMC_HANDLE_UINT w_abs;
-; 73   :     if ((result = ep_uint.Add_X_X(u, v, &w_abs)) != PMC_STATUS_OK)
+; 61   :     PMC_STATUS_CODE result;
+; 62   :     PMC_HANDLE_UINT w_abs;
+; 63   :     if ((result = ep_uint.Add_X_X(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR w_abs$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
@@ -1651,13 +1621,13 @@ AddU_X_X_Imp PROC					; COMDAT
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN2@AddU_X_X_I
 
-; 74   :         return (result);
+; 64   :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@AddU_X_X_I
 $LN2@AddU_X_X_I:
 
-; 75   :     if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
+; 65   :     if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR w_abs$[rbp]
 	movzx	edx, BYTE PTR sign$[rbp]
@@ -1667,25 +1637,25 @@ $LN2@AddU_X_X_I:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN3@AddU_X_X_I
 
-; 76   :     {
-; 77   :         ep_uint.Dispose(w_abs);
+; 66   :     {
+; 67   :         ep_uint.Dispose(w_abs);
 
 	mov	rcx, QWORD PTR w_abs$[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 78   :         return (result);
+; 68   :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@AddU_X_X_I
 $LN3@AddU_X_X_I:
 
-; 79   :     }
-; 80   :     return (PMC_STATUS_OK);
+; 69   :     }
+; 70   :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@AddU_X_X_I:
 
-; 81   : }
+; 71   : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -1714,7 +1684,7 @@ v$ = 304
 w$ = 312
 AddU_X_L_Imp PROC					; COMDAT
 
-; 56   : {
+; 46   : {
 
 	mov	QWORD PTR [rsp+32], r9
 	mov	QWORD PTR [rsp+24], r8
@@ -1735,9 +1705,9 @@ AddU_X_L_Imp PROC					; COMDAT
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 57   :     PMC_STATUS_CODE result;
-; 58   :     PMC_HANDLE_UINT w_abs;
-; 59   :     if ((result = ep_uint.Add_X_L(u, v, &w_abs)) != PMC_STATUS_OK)
+; 47   :     PMC_STATUS_CODE result;
+; 48   :     PMC_HANDLE_UINT w_abs;
+; 49   :     if ((result = ep_uint.Add_X_L(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR w_abs$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
@@ -1747,13 +1717,13 @@ AddU_X_L_Imp PROC					; COMDAT
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN2@AddU_X_L_I
 
-; 60   :         return (result);
+; 50   :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@AddU_X_L_I
 $LN2@AddU_X_L_I:
 
-; 61   :     if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
+; 51   :     if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR w_abs$[rbp]
 	movzx	edx, BYTE PTR sign$[rbp]
@@ -1763,25 +1733,25 @@ $LN2@AddU_X_L_I:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN3@AddU_X_L_I
 
-; 62   :     {
-; 63   :         ep_uint.Dispose(w_abs);
+; 52   :     {
+; 53   :         ep_uint.Dispose(w_abs);
 
 	mov	rcx, QWORD PTR w_abs$[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 64   :         return (result);
+; 54   :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@AddU_X_L_I
 $LN3@AddU_X_L_I:
 
-; 65   :     }
-; 66   :     return (PMC_STATUS_OK);
+; 55   :     }
+; 56   :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@AddU_X_L_I:
 
-; 67   : }
+; 57   : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -1810,7 +1780,7 @@ v$ = 304
 w$ = 312
 AddU_X_I_Imp PROC					; COMDAT
 
-; 42   : {
+; 32   : {
 
 	mov	QWORD PTR [rsp+32], r9
 	mov	DWORD PTR [rsp+24], r8d
@@ -1831,9 +1801,9 @@ AddU_X_I_Imp PROC					; COMDAT
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 43   :     PMC_STATUS_CODE result;
-; 44   :     PMC_HANDLE_UINT w_abs;
-; 45   :     if ((result = ep_uint.Add_X_I(u, v, &w_abs)) != PMC_STATUS_OK)
+; 33   :     PMC_STATUS_CODE result;
+; 34   :     PMC_HANDLE_UINT w_abs;
+; 35   :     if ((result = ep_uint.Add_X_I(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR w_abs$[rbp]
 	mov	edx, DWORD PTR v$[rbp]
@@ -1843,13 +1813,13 @@ AddU_X_I_Imp PROC					; COMDAT
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN2@AddU_X_I_I
 
-; 46   :         return (result);
+; 36   :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@AddU_X_I_I
 $LN2@AddU_X_I_I:
 
-; 47   :     if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
+; 37   :     if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR w_abs$[rbp]
 	movzx	edx, BYTE PTR sign$[rbp]
@@ -1859,25 +1829,25 @@ $LN2@AddU_X_I_I:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN3@AddU_X_I_I
 
-; 48   :     {
-; 49   :         ep_uint.Dispose(w_abs);
+; 38   :     {
+; 39   :         ep_uint.Dispose(w_abs);
 
 	mov	rcx, QWORD PTR w_abs$[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 50   :         return (result);
+; 40   :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@AddU_X_I_I
 $LN3@AddU_X_I_I:
 
-; 51   :     }
-; 52   :     return (PMC_STATUS_OK);
+; 41   :     }
+; 42   :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@AddU_X_I_I:
 
-; 53   : }
+; 43   : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -1892,90 +1862,6 @@ $LN1@AddU_X_I_I:
 	pop	rbp
 	ret	0
 AddU_X_I_Imp ENDP
-_TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
-; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_add_sub.c
-;	COMDAT IS_ZERO_UINT
-_TEXT	SEGMENT
-result$ = 4
-type$ = 36
-tv70 = 244
-__$ArrayPad$ = 248
-x$ = 288
-is_zero$ = 296
-IS_ZERO_UINT PROC					; COMDAT
-
-; 32   : {
-
-	mov	QWORD PTR [rsp+16], rdx
-	mov	QWORD PTR [rsp+8], rcx
-	push	rbp
-	push	rdi
-	sub	rsp, 296				; 00000128H
-	lea	rbp, QWORD PTR [rsp+32]
-	mov	rdi, rsp
-	mov	ecx, 74					; 0000004aH
-	mov	eax, -858993460				; ccccccccH
-	rep stosd
-	mov	rcx, QWORD PTR [rsp+328]
-	mov	rax, QWORD PTR __security_cookie
-	xor	rax, rbp
-	mov	QWORD PTR __$ArrayPad$[rbp], rax
-	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
-	call	__CheckForDebuggerJustMyCode
-
-; 33   :     PMC_STATUS_CODE result;
-; 34   :     PMC_NUMBER_TYPE_CODE type;
-; 35   :     if ((result = ep_uint.GetNumberType_X(x, &type)) != PMC_STATUS_OK)
-
-	lea	rdx, QWORD PTR type$[rbp]
-	mov	rcx, QWORD PTR x$[rbp]
-	call	QWORD PTR ep_uint+40
-	mov	DWORD PTR result$[rbp], eax
-	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN2@IS_ZERO_UI
-
-; 36   :         return (result);
-
-	mov	eax, DWORD PTR result$[rbp]
-	jmp	SHORT $LN1@IS_ZERO_UI
-$LN2@IS_ZERO_UI:
-
-; 37   :     *is_zero = (type & PMC_NUMBER_TYPE_IS_ZERO) ? 1 : 0;
-
-	mov	eax, DWORD PTR type$[rbp]
-	and	eax, 1
-	test	eax, eax
-	je	SHORT $LN4@IS_ZERO_UI
-	mov	DWORD PTR tv70[rbp], 1
-	jmp	SHORT $LN5@IS_ZERO_UI
-$LN4@IS_ZERO_UI:
-	mov	DWORD PTR tv70[rbp], 0
-$LN5@IS_ZERO_UI:
-	mov	rax, QWORD PTR is_zero$[rbp]
-	movzx	ecx, BYTE PTR tv70[rbp]
-	mov	BYTE PTR [rax], cl
-
-; 38   :     return (PMC_STATUS_OK);
-
-	xor	eax, eax
-$LN1@IS_ZERO_UI:
-
-; 39   : }
-
-	mov	rdi, rax
-	lea	rcx, QWORD PTR [rbp-32]
-	lea	rdx, OFFSET FLAT:IS_ZERO_UINT$rtcFrameData
-	call	_RTC_CheckStackVars
-	mov	rax, rdi
-	mov	rcx, QWORD PTR __$ArrayPad$[rbp]
-	xor	rcx, rbp
-	call	__security_check_cookie
-	lea	rsp, QWORD PTR [rbp+264]
-	pop	rdi
-	pop	rbp
-	ret	0
-IS_ZERO_UINT ENDP
 _TEXT	ENDS
 ; Function compile flags: /Odtp /RTCsu /ZI
 ; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.uint\palmtree.math.core.uint\pmc_inline_func.h
@@ -2191,7 +2077,7 @@ v$ = 360
 w$ = 368
 PMC_Subtruct_X_X PROC					; COMDAT
 
-; 1441 : {
+; 1400 : {
 
 $LN29:
 	mov	QWORD PTR [rsp+24], r8
@@ -2212,52 +2098,52 @@ $LN29:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 1442 :     if (u == NULL)
+; 1401 :     if (u == NULL)
 
 	cmp	QWORD PTR u$[rbp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 1443 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1402 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 1444 :     if (v == NULL)
+; 1403 :     if (v == NULL)
 
 	cmp	QWORD PTR v$[rbp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 1445 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1404 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 1446 :     if (w == NULL)
+; 1405 :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN4@PMC_Subtru
 
-; 1447 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1406 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 1448 :     PMC_STATUS_CODE result;
-; 1449 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 1407 :     PMC_STATUS_CODE result;
+; 1408 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	rax, QWORD PTR u$[rbp]
 	mov	QWORD PTR nu$[rbp], rax
 
-; 1450 :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 1409 :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	rax, QWORD PTR v$[rbp]
 	mov	QWORD PTR nv$[rbp], rax
 
-; 1451 :     NUMBER_HEADER* nw;
-; 1452 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 1410 :     NUMBER_HEADER* nw;
+; 1411 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	CheckNumber
@@ -2265,13 +2151,13 @@ $LN4@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@PMC_Subtru
 
-; 1453 :         return (result);
+; 1412 :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 1454 :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 1413 :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nv$[rbp]
 	call	CheckNumber
@@ -2279,48 +2165,49 @@ $LN5@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN6@PMC_Subtru
 
-; 1455 :         return (result);
+; 1414 :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN6@PMC_Subtru:
 
-; 1456 :     if (nu->SIGN == 0)
+; 1415 :     if (nu->SIGN == 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Subtru
 
-; 1457 :     {
-; 1458 :         // u == 0 ÇÃèÍçá
-; 1459 : 
-; 1460 :         if (nv->SIGN == 0)
+; 1416 :     {
+; 1417 :         // u == 0 ÇÃèÍçá
+; 1418 : 
+; 1419 :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN9@PMC_Subtru
 
-; 1461 :         {
-; 1462 :             // v == 0 ÇÃèÍçá
-; 1463 : 
-; 1464 :             nw = &number_zero;
+; 1420 :         {
+; 1421 :             // v == 0 ÇÃèÍçá
+; 1422 : 
+; 1423 :             // 0 Çï‘Ç∑
+; 1424 :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 1465 :         }
+; 1425 :         }
 
 	jmp	SHORT $LN10@PMC_Subtru
 $LN9@PMC_Subtru:
 
-; 1466 :         else
-; 1467 :         {
-; 1468 :             // v != 0 ÇÃèÍçá
-; 1469 : 
-; 1470 :             // -v Çï‘Ç∑
-; 1471 :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
+; 1426 :         else
+; 1427 :         {
+; 1428 :             // v != 0 ÇÃèÍçá
+; 1429 : 
+; 1430 :             // -v Çï‘Ç∑
+; 1431 :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nv$[rbp]
@@ -2329,41 +2216,41 @@ $LN9@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN11@PMC_Subtru
 
-; 1472 :                 return (result);
+; 1432 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN11@PMC_Subtru:
 $LN10@PMC_Subtru:
 
-; 1473 :         }
-; 1474 :     }
+; 1433 :         }
+; 1434 :     }
 
 	jmp	$LN8@PMC_Subtru
 $LN7@PMC_Subtru:
 
-; 1475 :     else if (nu->SIGN > 0)
+; 1435 :     else if (nu->SIGN > 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	$LN12@PMC_Subtru
 
-; 1476 :     {
-; 1477 :         // u > 0 ÇÃèÍçá
-; 1478 : 
-; 1479 :         if (nv->SIGN == 0)
+; 1436 :     {
+; 1437 :         // u > 0 ÇÃèÍçá
+; 1438 : 
+; 1439 :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN14@PMC_Subtru
 
-; 1480 :         {
-; 1481 :             // v == 0 ÇÃèÍçá
-; 1482 : 
-; 1483 :             // u Çï‘Ç∑
-; 1484 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1440 :         {
+; 1441 :             // v == 0 ÇÃèÍçá
+; 1442 : 
+; 1443 :             // u Çï‘Ç∑
+; 1444 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
@@ -2372,29 +2259,29 @@ $LN7@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN16@PMC_Subtru
 
-; 1485 :                 return (result);
+; 1445 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN16@PMC_Subtru:
 
-; 1486 :         }
+; 1446 :         }
 
 	jmp	SHORT $LN15@PMC_Subtru
 $LN14@PMC_Subtru:
 
-; 1487 :         else if (nv->SIGN > 0)
+; 1447 :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN17@PMC_Subtru
 
-; 1488 :         {
-; 1489 :             // v > 0 ÇÃèÍçá
-; 1490 : 
-; 1491 :             // abs(u) - abs(v) Çï‘Ç∑
-; 1492 :             if ((result = SubtructU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 1448 :         {
+; 1449 :             // v > 0 ÇÃèÍçá
+; 1450 : 
+; 1451 :             // abs(u) - abs(v) Çï‘Ç∑
+; 1452 :             if ((result = SubtructU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	rax, QWORD PTR nv$[rbp]
@@ -2407,23 +2294,23 @@ $LN14@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN19@PMC_Subtru
 
-; 1493 :                 return (result);
+; 1453 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN19@PMC_Subtru:
 
-; 1494 :         }
+; 1454 :         }
 
 	jmp	SHORT $LN18@PMC_Subtru
 $LN17@PMC_Subtru:
 
-; 1495 :         else
-; 1496 :         {
-; 1497 :             // v < 0 ÇÃèÍçá
-; 1498 : 
-; 1499 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 1500 :             if ((result = AddU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 1455 :         else
+; 1456 :         {
+; 1457 :             // v < 0 ÇÃèÍçá
+; 1458 : 
+; 1459 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 1460 :             if ((result = AddU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	rax, QWORD PTR nv$[rbp]
@@ -2436,7 +2323,7 @@ $LN17@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN20@PMC_Subtru
 
-; 1501 :                 return (result);
+; 1461 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
@@ -2444,28 +2331,28 @@ $LN20@PMC_Subtru:
 $LN18@PMC_Subtru:
 $LN15@PMC_Subtru:
 
-; 1502 :         }
-; 1503 :     }
+; 1462 :         }
+; 1463 :     }
 
 	jmp	$LN13@PMC_Subtru
 $LN12@PMC_Subtru:
 
-; 1504 :     else
-; 1505 :     {
-; 1506 :         // u < 0 ÇÃèÍçá
-; 1507 : 
-; 1508 :         if (nv->SIGN == 0)
+; 1464 :     else
+; 1465 :     {
+; 1466 :         // u < 0 ÇÃèÍçá
+; 1467 : 
+; 1468 :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN21@PMC_Subtru
 
-; 1509 :         {
-; 1510 :             // v == 0 ÇÃèÍçá
-; 1511 : 
-; 1512 :             // u Çï‘Ç∑
-; 1513 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1469 :         {
+; 1470 :             // v == 0 ÇÃèÍçá
+; 1471 : 
+; 1472 :             // u Çï‘Ç∑
+; 1473 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
@@ -2474,29 +2361,29 @@ $LN12@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN23@PMC_Subtru
 
-; 1514 :                 return (result);
+; 1474 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN23@PMC_Subtru:
 
-; 1515 :         }
+; 1475 :         }
 
 	jmp	SHORT $LN22@PMC_Subtru
 $LN21@PMC_Subtru:
 
-; 1516 :         else if (nv->SIGN > 0)
+; 1476 :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN24@PMC_Subtru
 
-; 1517 :         {
-; 1518 :             // v > 0 ÇÃèÍçá
-; 1519 : 
-; 1520 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 1521 :             if ((result = AddU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 1477 :         {
+; 1478 :             // v > 0 ÇÃèÍçá
+; 1479 : 
+; 1480 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 1481 :             if ((result = AddU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	rax, QWORD PTR nv$[rbp]
@@ -2509,23 +2396,23 @@ $LN21@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN26@PMC_Subtru
 
-; 1522 :                 return (result);
+; 1482 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN26@PMC_Subtru:
 
-; 1523 :         }
+; 1483 :         }
 
 	jmp	SHORT $LN25@PMC_Subtru
 $LN24@PMC_Subtru:
 
-; 1524 :         else
-; 1525 :         {
-; 1526 :             // v < 0 ÇÃèÍçá
-; 1527 : 
-; 1528 :             // - abs(u) + abs(v) Çï‘Ç∑
-; 1529 :             if ((result = SubtructU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 1484 :         else
+; 1485 :         {
+; 1486 :             // v < 0 ÇÃèÍçá
+; 1487 : 
+; 1488 :             // - abs(u) + abs(v) Çï‘Ç∑
+; 1489 :             if ((result = SubtructU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	rax, QWORD PTR nv$[rbp]
@@ -2538,7 +2425,7 @@ $LN24@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN27@PMC_Subtru
 
-; 1530 :                 return (result);
+; 1490 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
@@ -2548,20 +2435,20 @@ $LN22@PMC_Subtru:
 $LN13@PMC_Subtru:
 $LN8@PMC_Subtru:
 
-; 1531 :         }
-; 1532 :     }
-; 1533 :     *w = (PMC_HANDLE_SINT)nw;
+; 1491 :         }
+; 1492 :     }
+; 1493 :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 1534 :     return (PMC_STATUS_OK);
+; 1494 :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 1535 : }
+; 1495 : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -2592,7 +2479,7 @@ v$ = 392
 w$ = 400
 PMC_Subtruct_X_UX PROC					; COMDAT
 
-; 1351 : {
+; 1310 : {
 
 $LN24:
 	mov	QWORD PTR [rsp+24], r8
@@ -2613,47 +2500,47 @@ $LN24:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 1352 :     if (u == NULL)
+; 1311 :     if (u == NULL)
 
 	cmp	QWORD PTR u$[rbp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 1353 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1312 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 1354 :     if (v == NULL)
+; 1313 :     if (v == NULL)
 
 	cmp	QWORD PTR v$[rbp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 1355 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1314 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 1356 :     if (w == NULL)
+; 1315 :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN4@PMC_Subtru
 
-; 1357 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1316 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 1358 :     PMC_STATUS_CODE result;
-; 1359 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 1317 :     PMC_STATUS_CODE result;
+; 1318 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	rax, QWORD PTR u$[rbp]
 	mov	QWORD PTR nu$[rbp], rax
 
-; 1360 :     NUMBER_HEADER* nw;
-; 1361 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 1319 :     NUMBER_HEADER* nw;
+; 1320 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	CheckNumber
@@ -2661,65 +2548,65 @@ $LN4@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@PMC_Subtru
 
-; 1362 :         return (result);
+; 1321 :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 1363 :     char v_is_zero;
-; 1364 :     if ((result = IS_ZERO_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
+; 1322 :     char v_is_zero;
+; 1323 :     if ((result = IsZero_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR v_is_zero$[rbp]
 	mov	rcx, QWORD PTR v$[rbp]
-	call	IS_ZERO_UINT
+	call	IsZero_UINT
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN6@PMC_Subtru
 
-; 1365 :         return (result);
+; 1324 :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN6@PMC_Subtru:
 
-; 1366 :     if (nu->SIGN == 0)
+; 1325 :     if (nu->SIGN == 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Subtru
 
-; 1367 :     {
-; 1368 :         // u == 0 ÇÃèÍçá
-; 1369 : 
-; 1370 :         if (v_is_zero)
+; 1326 :     {
+; 1327 :         // u == 0 ÇÃèÍçá
+; 1328 : 
+; 1329 :         if (v_is_zero)
 
 	movsx	eax, BYTE PTR v_is_zero$[rbp]
 	test	eax, eax
 	je	SHORT $LN9@PMC_Subtru
 
-; 1371 :         {
-; 1372 :             // v == 0 ÇÃèÍçá
-; 1373 : 
-; 1374 :             // 0 Çï‘Ç∑
-; 1375 :             nw = &number_zero;
+; 1330 :         {
+; 1331 :             // v == 0 ÇÃèÍçá
+; 1332 : 
+; 1333 :             // 0 Çï‘Ç∑
+; 1334 :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 1376 :         }
+; 1335 :         }
 
 	jmp	SHORT $LN10@PMC_Subtru
 $LN9@PMC_Subtru:
 
-; 1377 :         else
-; 1378 :         {
-; 1379 :             // v > 0 ÇÃèÍçá
-; 1380 : 
-; 1381 :             // -v Çï‘Ç∑
-; 1382 :             PMC_HANDLE_UINT new_v;
-; 1383 :             if ((result = ep_uint.Clone_X(v, &new_v)) != PMC_STATUS_OK)
+; 1336 :         else
+; 1337 :         {
+; 1338 :             // v > 0 ÇÃèÍçá
+; 1339 : 
+; 1340 :             // -v Çï‘Ç∑
+; 1341 :             PMC_HANDLE_UINT new_v;
+; 1342 :             if ((result = ep_uint.Clone_X(v, &new_v)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR new_v$6[rbp]
 	mov	rcx, QWORD PTR v$[rbp]
@@ -2728,13 +2615,13 @@ $LN9@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN11@PMC_Subtru
 
-; 1384 :                 return (result);
+; 1343 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN11@PMC_Subtru:
 
-; 1385 :             if ((result = AllocateNumber(&nw, -1, new_v)) != PMC_STATUS_OK)
+; 1344 :             if ((result = AllocateNumber(&nw, -1, new_v)) != PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR new_v$6[rbp]
 	mov	dl, -1
@@ -2744,48 +2631,48 @@ $LN11@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN12@PMC_Subtru
 
-; 1386 :             {
-; 1387 :                 ep_uint.Dispose(new_v);
+; 1345 :             {
+; 1346 :                 ep_uint.Dispose(new_v);
 
 	mov	rcx, QWORD PTR new_v$6[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 1388 :                 return (result);
+; 1347 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN12@PMC_Subtru:
 $LN10@PMC_Subtru:
 
-; 1389 :             }
-; 1390 :         }
-; 1391 : 
-; 1392 :     }
+; 1348 :             }
+; 1349 :         }
+; 1350 : 
+; 1351 :     }
 
 	jmp	$LN8@PMC_Subtru
 $LN7@PMC_Subtru:
 
-; 1393 :     else if (nu->SIGN > 0)
+; 1352 :     else if (nu->SIGN > 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN13@PMC_Subtru
 
-; 1394 :     {
-; 1395 :         // u > 0 ÇÃèÍçá
-; 1396 : 
-; 1397 :         if (v_is_zero)
+; 1353 :     {
+; 1354 :         // u > 0 ÇÃèÍçá
+; 1355 : 
+; 1356 :         if (v_is_zero)
 
 	movsx	eax, BYTE PTR v_is_zero$[rbp]
 	test	eax, eax
 	je	SHORT $LN15@PMC_Subtru
 
-; 1398 :         {
-; 1399 :             // v == 0 ÇÃèÍçá
-; 1400 : 
-; 1401 :             // u Çï‘Ç∑
-; 1402 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1357 :         {
+; 1358 :             // v == 0 ÇÃèÍçá
+; 1359 : 
+; 1360 :             // u Çï‘Ç∑
+; 1361 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
@@ -2794,23 +2681,23 @@ $LN7@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN17@PMC_Subtru
 
-; 1403 :                 return (result);
+; 1362 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN17@PMC_Subtru:
 
-; 1404 :         }
+; 1363 :         }
 
 	jmp	SHORT $LN16@PMC_Subtru
 $LN15@PMC_Subtru:
 
-; 1405 :         else
-; 1406 :         {
-; 1407 :             // v > 0 ÇÃèÍçá
-; 1408 : 
-; 1409 :             // abs(u) - v Çï‘Ç∑
-; 1410 :             if ((result = SubtructU_X_X_Imp(1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
+; 1364 :         else
+; 1365 :         {
+; 1366 :             // v > 0 ÇÃèÍçá
+; 1367 : 
+; 1368 :             // abs(u) - v Çï‘Ç∑
+; 1369 :             if ((result = SubtructU_X_X_Imp(1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR v$[rbp]
@@ -2822,35 +2709,35 @@ $LN15@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN18@PMC_Subtru
 
-; 1411 :                 return (result);
+; 1370 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN18@PMC_Subtru:
 $LN16@PMC_Subtru:
 
-; 1412 :         }
-; 1413 : 
-; 1414 :     }
+; 1371 :         }
+; 1372 : 
+; 1373 :     }
 
 	jmp	SHORT $LN14@PMC_Subtru
 $LN13@PMC_Subtru:
 
-; 1415 :     else
-; 1416 :     {
-; 1417 :         // u < 0 ÇÃèÍçá
-; 1418 : 
-; 1419 :         if (v_is_zero)
+; 1374 :     else
+; 1375 :     {
+; 1376 :         // u < 0 ÇÃèÍçá
+; 1377 : 
+; 1378 :         if (v_is_zero)
 
 	movsx	eax, BYTE PTR v_is_zero$[rbp]
 	test	eax, eax
 	je	SHORT $LN19@PMC_Subtru
 
-; 1420 :         {
-; 1421 :             // v == 0 ÇÃèÍçá
-; 1422 : 
-; 1423 :             // u Çï‘Ç∑
-; 1424 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1379 :         {
+; 1380 :             // v == 0 ÇÃèÍçá
+; 1381 : 
+; 1382 :             // u Çï‘Ç∑
+; 1383 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
@@ -2859,23 +2746,23 @@ $LN13@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN21@PMC_Subtru
 
-; 1425 :                 return (result);
+; 1384 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN21@PMC_Subtru:
 
-; 1426 :         }
+; 1385 :         }
 
 	jmp	SHORT $LN20@PMC_Subtru
 $LN19@PMC_Subtru:
 
-; 1427 :         else
-; 1428 :         {
-; 1429 :             // v > 0 ÇÃèÍçá
-; 1430 : 
-; 1431 :             // - abs(u) - v ÇåvéZÇ∑ÇÈ
-; 1432 :             if ((result = AddU_X_X_Imp(-1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
+; 1386 :         else
+; 1387 :         {
+; 1388 :             // v > 0 ÇÃèÍçá
+; 1389 : 
+; 1390 :             // - abs(u) - v ÇåvéZÇ∑ÇÈ
+; 1391 :             if ((result = AddU_X_X_Imp(-1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR v$[rbp]
@@ -2887,7 +2774,7 @@ $LN19@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN22@PMC_Subtru
 
-; 1433 :                 return (result);
+; 1392 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
@@ -2896,20 +2783,20 @@ $LN20@PMC_Subtru:
 $LN14@PMC_Subtru:
 $LN8@PMC_Subtru:
 
-; 1434 :         }
-; 1435 :     }
-; 1436 :     *w = (PMC_HANDLE_SINT)nw;
+; 1393 :         }
+; 1394 :     }
+; 1395 :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 1437 :     return (PMC_STATUS_OK);
+; 1396 :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 1438 : }
+; 1397 : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -2940,9 +2827,9 @@ v$ = 392
 w$ = 400
 PMC_Subtruct_X_L PROC					; COMDAT
 
-; 1249 : {
+; 1215 : {
 
-$LN30:
+$LN27:
 	mov	QWORD PTR [rsp+24], r8
 	mov	QWORD PTR [rsp+16], rdx
 	mov	QWORD PTR [rsp+8], rcx
@@ -2961,36 +2848,36 @@ $LN30:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 1250 :     if (u == NULL)
+; 1216 :     if (u == NULL)
 
 	cmp	QWORD PTR u$[rbp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 1251 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1217 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 1252 :     if (w == NULL)
+; 1218 :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 1253 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1219 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 1254 :     PMC_STATUS_CODE result;
-; 1255 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 1220 :     PMC_STATUS_CODE result;
+; 1221 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	rax, QWORD PTR u$[rbp]
 	mov	QWORD PTR nu$[rbp], rax
 
-; 1256 :     NUMBER_HEADER* nw;
-; 1257 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 1222 :     NUMBER_HEADER* nw;
+; 1223 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	CheckNumber
@@ -2998,60 +2885,56 @@ $LN3@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@PMC_Subtru
 
-; 1258 :         return (result);
+; 1224 :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 1259 :     char v_sign;
-; 1260 :     _UINT64_T v_abs = GET_ABS_64(v, &v_sign);
+; 1225 :     char v_sign;
+; 1226 :     _UINT64_T v_abs = GET_ABS_64(v, &v_sign);
 
 	lea	rdx, QWORD PTR v_sign$[rbp]
 	mov	rcx, QWORD PTR v$[rbp]
 	call	GET_ABS_64
 	mov	QWORD PTR v_abs$[rbp], rax
 
-; 1261 :     if (nu->SIGN == 0)
+; 1227 :     if (nu->SIGN == 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Subtru
 
-; 1262 :     {
-; 1263 :         // u == 0 ÇÃèÍçá
-; 1264 : 
-; 1265 :         if (v_sign == 0)
+; 1228 :     {
+; 1229 :         // u == 0 ÇÃèÍçá
+; 1230 : 
+; 1231 :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Subtru
 
-; 1266 :         {
-; 1267 :             // v == 0 ÇÃèÍçá
-; 1268 : 
-; 1269 :             nw = &number_zero;
+; 1232 :         {
+; 1233 :             // v == 0 ÇÃèÍçá
+; 1234 : 
+; 1235 :             // 0 Çï‘Ç∑
+; 1236 :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 1270 :         }
+; 1237 :         }
 
 	jmp	SHORT $LN8@PMC_Subtru
 $LN7@PMC_Subtru:
 
-; 1271 :         else if (v_sign > 0)
-
-	movsx	eax, BYTE PTR v_sign$[rbp]
-	test	eax, eax
-	jle	SHORT $LN9@PMC_Subtru
-
-; 1272 :         {
-; 1273 :             // v > 0 ÇÃèÍçá
-; 1274 : 
-; 1275 :             // -v Çï‘Ç∑
-; 1276 :             if ((result = From_L_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
+; 1238 :         else
+; 1239 :         {
+; 1240 :             // v != 0 ÇÃèÍçá
+; 1241 : 
+; 1242 :             // -v Çï‘Ç∑
+; 1243 :             if ((result = From_L_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	neg	eax
@@ -3061,129 +2944,100 @@ $LN7@PMC_Subtru:
 	call	From_L_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN11@PMC_Subtru
+	je	SHORT $LN9@PMC_Subtru
 
-; 1277 :                 return (result);
+; 1244 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
-$LN11@PMC_Subtru:
-
-; 1278 :         }
-
-	jmp	SHORT $LN10@PMC_Subtru
 $LN9@PMC_Subtru:
-
-; 1279 :         else
-; 1280 :         {
-; 1281 :             // v < 0 ÇÃèÍçá
-; 1282 : 
-; 1283 :             // - v Çï‘Ç∑
-; 1284 :             if ((result = From_L_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
-
-	movsx	eax, BYTE PTR v_sign$[rbp]
-	neg	eax
-	lea	r8, QWORD PTR nw$[rbp]
-	mov	rdx, QWORD PTR v_abs$[rbp]
-	movzx	ecx, al
-	call	From_L_Imp
-	mov	DWORD PTR result$[rbp], eax
-	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN12@PMC_Subtru
-
-; 1285 :                 return (result);
-
-	mov	eax, DWORD PTR result$[rbp]
-	jmp	$LN1@PMC_Subtru
-$LN12@PMC_Subtru:
-$LN10@PMC_Subtru:
 $LN8@PMC_Subtru:
 
-; 1286 :         }
-; 1287 :     }
+; 1245 :         }
+; 1246 :     }
 
 	jmp	$LN6@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 1288 :     else if (nu->SIGN > 0)
+; 1247 :     else if (nu->SIGN > 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
-	jle	$LN13@PMC_Subtru
+	jle	$LN10@PMC_Subtru
 
-; 1289 :     {
-; 1290 :         // u > 0 ÇÃèÍçá
-; 1291 : 
-; 1292 :         if (v_sign == 0)
+; 1248 :     {
+; 1249 :         // u > 0 ÇÃèÍçá
+; 1250 : 
+; 1251 :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
-	jne	SHORT $LN15@PMC_Subtru
+	jne	SHORT $LN12@PMC_Subtru
 
-; 1293 :         {
-; 1294 :             // v == 0 ÇÃèÍçá
-; 1295 : 
-; 1296 :             // u Çï‘Ç∑
-; 1297 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1252 :         {
+; 1253 :             // v == 0 ÇÃèÍçá
+; 1254 : 
+; 1255 :             // u Çï‘Ç∑
+; 1256 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	DuplicateNumber
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
+	je	SHORT $LN14@PMC_Subtru
+
+; 1257 :                 return (result);
+
+	mov	eax, DWORD PTR result$[rbp]
+	jmp	$LN1@PMC_Subtru
+$LN14@PMC_Subtru:
+
+; 1258 :         }
+
+	jmp	SHORT $LN13@PMC_Subtru
+$LN12@PMC_Subtru:
+
+; 1259 :         else if (v_sign > 0)
+
+	movsx	eax, BYTE PTR v_sign$[rbp]
+	test	eax, eax
+	jle	SHORT $LN15@PMC_Subtru
+
+; 1260 :         {
+; 1261 :             // v > 0 ÇÃèÍçá
+; 1262 : 
+; 1263 :             // abs(u) - abs(v) Çï‘Ç∑
+; 1264 :             if ((result = SubtructU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+
+	lea	r9, QWORD PTR nw$[rbp]
+	mov	r8, QWORD PTR v_abs$[rbp]
+	mov	rax, QWORD PTR nu$[rbp]
+	mov	rdx, QWORD PTR [rax+8]
+	mov	cl, 1
+	call	SubtructU_X_L_Imp
+	mov	DWORD PTR result$[rbp], eax
+	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN17@PMC_Subtru
 
-; 1298 :                 return (result);
+; 1265 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN17@PMC_Subtru:
 
-; 1299 :         }
+; 1266 :         }
 
 	jmp	SHORT $LN16@PMC_Subtru
 $LN15@PMC_Subtru:
 
-; 1300 :         else if (v_sign > 0)
-
-	movsx	eax, BYTE PTR v_sign$[rbp]
-	test	eax, eax
-	jle	SHORT $LN18@PMC_Subtru
-
-; 1301 :         {
-; 1302 :             // v > 0 ÇÃèÍçá
-; 1303 : 
-; 1304 :             // abs(u) - abs(v) Çï‘Ç∑
-; 1305 :             if ((result = SubtructU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
-
-	lea	r9, QWORD PTR nw$[rbp]
-	mov	r8, QWORD PTR v_abs$[rbp]
-	mov	rax, QWORD PTR nu$[rbp]
-	mov	rdx, QWORD PTR [rax+8]
-	mov	cl, 1
-	call	SubtructU_X_L_Imp
-	mov	DWORD PTR result$[rbp], eax
-	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN20@PMC_Subtru
-
-; 1306 :                 return (result);
-
-	mov	eax, DWORD PTR result$[rbp]
-	jmp	$LN1@PMC_Subtru
-$LN20@PMC_Subtru:
-
-; 1307 :         }
-
-	jmp	SHORT $LN19@PMC_Subtru
-$LN18@PMC_Subtru:
-
-; 1308 :         else
-; 1309 :         {
-; 1310 :             // v < 0 ÇÃèÍçá
-; 1311 : 
-; 1312 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 1313 :             if ((result = AddU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1267 :         else
+; 1268 :         {
+; 1269 :             // v < 0 ÇÃèÍçá
+; 1270 : 
+; 1271 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 1272 :             if ((result = AddU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR v_abs$[rbp]
@@ -3193,67 +3047,67 @@ $LN18@PMC_Subtru:
 	call	AddU_X_L_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN21@PMC_Subtru
+	je	SHORT $LN18@PMC_Subtru
 
-; 1314 :                 return (result);
+; 1273 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
-$LN21@PMC_Subtru:
-$LN19@PMC_Subtru:
+$LN18@PMC_Subtru:
 $LN16@PMC_Subtru:
-
-; 1315 :         }
-; 1316 :     }
-
-	jmp	SHORT $LN14@PMC_Subtru
 $LN13@PMC_Subtru:
 
-; 1317 :     else
-; 1318 :     {
-; 1319 :         // u < 0 ÇÃèÍçá
-; 1320 : 
-; 1321 :         if (v_sign == 0)
+; 1274 :         }
+; 1275 :     }
+
+	jmp	SHORT $LN11@PMC_Subtru
+$LN10@PMC_Subtru:
+
+; 1276 :     else
+; 1277 :     {
+; 1278 :         // u < 0 ÇÃèÍçá
+; 1279 : 
+; 1280 :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
-	jne	SHORT $LN22@PMC_Subtru
+	jne	SHORT $LN19@PMC_Subtru
 
-; 1322 :         {
-; 1323 :             // v == 0 ÇÃèÍçá
-; 1324 : 
-; 1325 :             // u Çï‘Ç∑
-; 1326 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1281 :         {
+; 1282 :             // v == 0 ÇÃèÍçá
+; 1283 : 
+; 1284 :             // u Çï‘Ç∑
+; 1285 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	DuplicateNumber
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN24@PMC_Subtru
+	je	SHORT $LN21@PMC_Subtru
 
-; 1327 :                 return (result);
+; 1286 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN24@PMC_Subtru:
+$LN21@PMC_Subtru:
 
-; 1328 :         }
+; 1287 :         }
 
-	jmp	SHORT $LN23@PMC_Subtru
-$LN22@PMC_Subtru:
+	jmp	SHORT $LN20@PMC_Subtru
+$LN19@PMC_Subtru:
 
-; 1329 :         else if (v_sign > 0)
+; 1288 :         else if (v_sign > 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
-	jle	SHORT $LN25@PMC_Subtru
+	jle	SHORT $LN22@PMC_Subtru
 
-; 1330 :         {
-; 1331 :             // v > 0 ÇÃèÍçá
-; 1332 : 
-; 1333 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 1334 :             if ((result = AddU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1289 :         {
+; 1290 :             // v > 0 ÇÃèÍçá
+; 1291 : 
+; 1292 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 1293 :             if ((result = AddU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR v_abs$[rbp]
@@ -3263,25 +3117,25 @@ $LN22@PMC_Subtru:
 	call	AddU_X_L_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN27@PMC_Subtru
+	je	SHORT $LN24@PMC_Subtru
 
-; 1335 :                 return (result);
+; 1294 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN27@PMC_Subtru:
+$LN24@PMC_Subtru:
 
-; 1336 :         }
+; 1295 :         }
 
-	jmp	SHORT $LN26@PMC_Subtru
-$LN25@PMC_Subtru:
+	jmp	SHORT $LN23@PMC_Subtru
+$LN22@PMC_Subtru:
 
-; 1337 :         else
-; 1338 :         {
-; 1339 :             // v < 0 ÇÃèÍçá
-; 1340 : 
-; 1341 :             // - abs(u) + abs(v) Çï‘Ç∑
-; 1342 :             if ((result = SubtructU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1296 :         else
+; 1297 :         {
+; 1298 :             // v < 0 ÇÃèÍçá
+; 1299 : 
+; 1300 :             // - abs(u) + abs(v) Çï‘Ç∑
+; 1301 :             if ((result = SubtructU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR v_abs$[rbp]
@@ -3291,32 +3145,32 @@ $LN25@PMC_Subtru:
 	call	SubtructU_X_L_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN28@PMC_Subtru
+	je	SHORT $LN25@PMC_Subtru
 
-; 1343 :                 return (result);
+; 1302 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN28@PMC_Subtru:
-$LN26@PMC_Subtru:
+$LN25@PMC_Subtru:
 $LN23@PMC_Subtru:
-$LN14@PMC_Subtru:
+$LN20@PMC_Subtru:
+$LN11@PMC_Subtru:
 $LN6@PMC_Subtru:
 
-; 1344 :         }
-; 1345 :     }
-; 1346 :     *w = (PMC_HANDLE_SINT)nw;
+; 1303 :         }
+; 1304 :     }
+; 1305 :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 1347 :     return (PMC_STATUS_OK);
+; 1306 :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 1348 : }
+; 1307 : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -3347,9 +3201,9 @@ v$ = 392
 w$ = 400
 PMC_Subtruct_X_I PROC					; COMDAT
 
-; 1147 : {
+; 1120 : {
 
-$LN30:
+$LN27:
 	mov	QWORD PTR [rsp+24], r8
 	mov	DWORD PTR [rsp+16], edx
 	mov	QWORD PTR [rsp+8], rcx
@@ -3368,36 +3222,36 @@ $LN30:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 1148 :     if (u == NULL)
+; 1121 :     if (u == NULL)
 
 	cmp	QWORD PTR u$[rbp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 1149 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1122 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 1150 :     if (w == NULL)
+; 1123 :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 1151 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1124 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 1152 :     PMC_STATUS_CODE result;
-; 1153 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 1125 :     PMC_STATUS_CODE result;
+; 1126 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	rax, QWORD PTR u$[rbp]
 	mov	QWORD PTR nu$[rbp], rax
 
-; 1154 :     NUMBER_HEADER* nw;
-; 1155 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 1127 :     NUMBER_HEADER* nw;
+; 1128 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	CheckNumber
@@ -3405,60 +3259,56 @@ $LN3@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@PMC_Subtru
 
-; 1156 :         return (result);
+; 1129 :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 1157 :     char v_sign;
-; 1158 :     _UINT32_T v_abs = GET_ABS_32(v, &v_sign);
+; 1130 :     char v_sign;
+; 1131 :     _UINT32_T v_abs = GET_ABS_32(v, &v_sign);
 
 	lea	rdx, QWORD PTR v_sign$[rbp]
 	mov	ecx, DWORD PTR v$[rbp]
 	call	GET_ABS_32
 	mov	DWORD PTR v_abs$[rbp], eax
 
-; 1159 :     if (nu->SIGN == 0)
+; 1132 :     if (nu->SIGN == 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Subtru
 
-; 1160 :     {
-; 1161 :         // u == 0 ÇÃèÍçá
-; 1162 : 
-; 1163 :         if (v_sign == 0)
+; 1133 :     {
+; 1134 :         // u == 0 ÇÃèÍçá
+; 1135 : 
+; 1136 :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Subtru
 
-; 1164 :         {
-; 1165 :             // v == 0 ÇÃèÍçá
-; 1166 : 
-; 1167 :             nw = &number_zero;
+; 1137 :         {
+; 1138 :             // v == 0 ÇÃèÍçá
+; 1139 : 
+; 1140 :             // 0 Çï‘Ç∑
+; 1141 :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 1168 :         }
+; 1142 :         }
 
 	jmp	SHORT $LN8@PMC_Subtru
 $LN7@PMC_Subtru:
 
-; 1169 :         else if (v_sign > 0)
-
-	movsx	eax, BYTE PTR v_sign$[rbp]
-	test	eax, eax
-	jle	SHORT $LN9@PMC_Subtru
-
-; 1170 :         {
-; 1171 :             // v > 0 ÇÃèÍçá
-; 1172 : 
-; 1173 :             // -v Çï‘Ç∑
-; 1174 :             if ((result = From_I_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
+; 1143 :         else
+; 1144 :         {
+; 1145 :             // v != 0 ÇÃèÍçá
+; 1146 : 
+; 1147 :             // -v Çï‘Ç∑
+; 1148 :             if ((result = From_I_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	neg	eax
@@ -3468,129 +3318,100 @@ $LN7@PMC_Subtru:
 	call	From_I_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN11@PMC_Subtru
+	je	SHORT $LN9@PMC_Subtru
 
-; 1175 :                 return (result);
+; 1149 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
-$LN11@PMC_Subtru:
-
-; 1176 :         }
-
-	jmp	SHORT $LN10@PMC_Subtru
 $LN9@PMC_Subtru:
-
-; 1177 :         else
-; 1178 :         {
-; 1179 :             // v < 0 ÇÃèÍçá
-; 1180 : 
-; 1181 :             // -v Çï‘Ç∑
-; 1182 :             if ((result = From_I_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
-
-	movsx	eax, BYTE PTR v_sign$[rbp]
-	neg	eax
-	lea	r8, QWORD PTR nw$[rbp]
-	mov	edx, DWORD PTR v_abs$[rbp]
-	movzx	ecx, al
-	call	From_I_Imp
-	mov	DWORD PTR result$[rbp], eax
-	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN12@PMC_Subtru
-
-; 1183 :                 return (result);
-
-	mov	eax, DWORD PTR result$[rbp]
-	jmp	$LN1@PMC_Subtru
-$LN12@PMC_Subtru:
-$LN10@PMC_Subtru:
 $LN8@PMC_Subtru:
 
-; 1184 :         }
-; 1185 :     }
+; 1150 :         }
+; 1151 :     }
 
 	jmp	$LN6@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 1186 :     else if (nu->SIGN > 0)
+; 1152 :     else if (nu->SIGN > 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
-	jle	$LN13@PMC_Subtru
+	jle	$LN10@PMC_Subtru
 
-; 1187 :     {
-; 1188 :         // u > 0 ÇÃèÍçá
-; 1189 : 
-; 1190 :         if (v_sign == 0)
+; 1153 :     {
+; 1154 :         // u > 0 ÇÃèÍçá
+; 1155 : 
+; 1156 :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
-	jne	SHORT $LN15@PMC_Subtru
+	jne	SHORT $LN12@PMC_Subtru
 
-; 1191 :         {
-; 1192 :             // v == 0 ÇÃèÍçá
-; 1193 : 
-; 1194 :             // u Çï‘Ç∑
-; 1195 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1157 :         {
+; 1158 :             // v == 0 ÇÃèÍçá
+; 1159 : 
+; 1160 :             // u Çï‘Ç∑
+; 1161 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	DuplicateNumber
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
+	je	SHORT $LN14@PMC_Subtru
+
+; 1162 :                 return (result);
+
+	mov	eax, DWORD PTR result$[rbp]
+	jmp	$LN1@PMC_Subtru
+$LN14@PMC_Subtru:
+
+; 1163 :         }
+
+	jmp	SHORT $LN13@PMC_Subtru
+$LN12@PMC_Subtru:
+
+; 1164 :         else if (v_sign > 0)
+
+	movsx	eax, BYTE PTR v_sign$[rbp]
+	test	eax, eax
+	jle	SHORT $LN15@PMC_Subtru
+
+; 1165 :         {
+; 1166 :             // v > 0 ÇÃèÍçá
+; 1167 : 
+; 1168 :             // abs(u) - abs(v) Çï‘Ç∑
+; 1169 :             if ((result = SubtructU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+
+	lea	r9, QWORD PTR nw$[rbp]
+	mov	r8d, DWORD PTR v_abs$[rbp]
+	mov	rax, QWORD PTR nu$[rbp]
+	mov	rdx, QWORD PTR [rax+8]
+	mov	cl, 1
+	call	SubtructU_X_I_Imp
+	mov	DWORD PTR result$[rbp], eax
+	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN17@PMC_Subtru
 
-; 1196 :                 return (result);
+; 1170 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN17@PMC_Subtru:
 
-; 1197 :         }
+; 1171 :         }
 
 	jmp	SHORT $LN16@PMC_Subtru
 $LN15@PMC_Subtru:
 
-; 1198 :         else if (v_sign > 0)
-
-	movsx	eax, BYTE PTR v_sign$[rbp]
-	test	eax, eax
-	jle	SHORT $LN18@PMC_Subtru
-
-; 1199 :         {
-; 1200 :             // v > 0 ÇÃèÍçá
-; 1201 : 
-; 1202 :             // abs(u) - abs(v) Çï‘Ç∑
-; 1203 :             if ((result = SubtructU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
-
-	lea	r9, QWORD PTR nw$[rbp]
-	mov	r8d, DWORD PTR v_abs$[rbp]
-	mov	rax, QWORD PTR nu$[rbp]
-	mov	rdx, QWORD PTR [rax+8]
-	mov	cl, 1
-	call	SubtructU_X_I_Imp
-	mov	DWORD PTR result$[rbp], eax
-	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN20@PMC_Subtru
-
-; 1204 :                 return (result);
-
-	mov	eax, DWORD PTR result$[rbp]
-	jmp	$LN1@PMC_Subtru
-$LN20@PMC_Subtru:
-
-; 1205 :         }
-
-	jmp	SHORT $LN19@PMC_Subtru
-$LN18@PMC_Subtru:
-
-; 1206 :         else
-; 1207 :         {
-; 1208 :             // v < 0 ÇÃèÍçá
-; 1209 : 
-; 1210 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 1211 :             if ((result = AddU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1172 :         else
+; 1173 :         {
+; 1174 :             // v < 0 ÇÃèÍçá
+; 1175 : 
+; 1176 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 1177 :             if ((result = AddU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR v_abs$[rbp]
@@ -3600,67 +3421,67 @@ $LN18@PMC_Subtru:
 	call	AddU_X_I_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN21@PMC_Subtru
+	je	SHORT $LN18@PMC_Subtru
 
-; 1212 :                 return (result);
+; 1178 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
-$LN21@PMC_Subtru:
-$LN19@PMC_Subtru:
+$LN18@PMC_Subtru:
 $LN16@PMC_Subtru:
-
-; 1213 :         }
-; 1214 :     }
-
-	jmp	SHORT $LN14@PMC_Subtru
 $LN13@PMC_Subtru:
 
-; 1215 :     else
-; 1216 :     {
-; 1217 :         // u < 0 ÇÃèÍçá
-; 1218 : 
-; 1219 :         if (v_sign == 0)
+; 1179 :         }
+; 1180 :     }
+
+	jmp	SHORT $LN11@PMC_Subtru
+$LN10@PMC_Subtru:
+
+; 1181 :     else
+; 1182 :     {
+; 1183 :         // u < 0 ÇÃèÍçá
+; 1184 : 
+; 1185 :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
-	jne	SHORT $LN22@PMC_Subtru
+	jne	SHORT $LN19@PMC_Subtru
 
-; 1220 :         {
-; 1221 :             // v == 0 ÇÃèÍçá
-; 1222 : 
-; 1223 :             // u Çï‘Ç∑
-; 1224 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1186 :         {
+; 1187 :             // v == 0 ÇÃèÍçá
+; 1188 : 
+; 1189 :             // u Çï‘Ç∑
+; 1190 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	DuplicateNumber
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN24@PMC_Subtru
+	je	SHORT $LN21@PMC_Subtru
 
-; 1225 :                 return (result);
+; 1191 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN24@PMC_Subtru:
+$LN21@PMC_Subtru:
 
-; 1226 :         }
+; 1192 :         }
 
-	jmp	SHORT $LN23@PMC_Subtru
-$LN22@PMC_Subtru:
+	jmp	SHORT $LN20@PMC_Subtru
+$LN19@PMC_Subtru:
 
-; 1227 :         else if (v_sign > 0)
+; 1193 :         else if (v_sign > 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
-	jle	SHORT $LN25@PMC_Subtru
+	jle	SHORT $LN22@PMC_Subtru
 
-; 1228 :         {
-; 1229 :             // v > 0 ÇÃèÍçá
-; 1230 : 
-; 1231 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 1232 :             if ((result = AddU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1194 :         {
+; 1195 :             // v > 0 ÇÃèÍçá
+; 1196 : 
+; 1197 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 1198 :             if ((result = AddU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR v_abs$[rbp]
@@ -3670,25 +3491,25 @@ $LN22@PMC_Subtru:
 	call	AddU_X_I_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN27@PMC_Subtru
+	je	SHORT $LN24@PMC_Subtru
 
-; 1233 :                 return (result);
+; 1199 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN27@PMC_Subtru:
+$LN24@PMC_Subtru:
 
-; 1234 :         }
+; 1200 :         }
 
-	jmp	SHORT $LN26@PMC_Subtru
-$LN25@PMC_Subtru:
+	jmp	SHORT $LN23@PMC_Subtru
+$LN22@PMC_Subtru:
 
-; 1235 :         else
-; 1236 :         {
-; 1237 :             // v < 0 ÇÃèÍçá
-; 1238 : 
-; 1239 :             // - abs(u) + abs(v) Çï‘Ç∑
-; 1240 :             if ((result = SubtructU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1201 :         else
+; 1202 :         {
+; 1203 :             // v < 0 ÇÃèÍçá
+; 1204 : 
+; 1205 :             // - abs(u) + abs(v) Çï‘Ç∑
+; 1206 :             if ((result = SubtructU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR v_abs$[rbp]
@@ -3698,32 +3519,32 @@ $LN25@PMC_Subtru:
 	call	SubtructU_X_I_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN28@PMC_Subtru
+	je	SHORT $LN25@PMC_Subtru
 
-; 1241 :                 return (result);
+; 1207 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN28@PMC_Subtru:
-$LN26@PMC_Subtru:
+$LN25@PMC_Subtru:
 $LN23@PMC_Subtru:
-$LN14@PMC_Subtru:
+$LN20@PMC_Subtru:
+$LN11@PMC_Subtru:
 $LN6@PMC_Subtru:
 
-; 1242 :         }
-; 1243 :     }
-; 1244 :     *w = (PMC_HANDLE_SINT)nw;
+; 1208 :         }
+; 1209 :     }
+; 1210 :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 1245 :     return (PMC_STATUS_OK);
+; 1211 :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 1246 : }
+; 1212 : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -3754,9 +3575,9 @@ v$ = 392
 w$ = 400
 PMC_Subtruct_UX_X PROC					; COMDAT
 
-; 1064 : {
+; 1045 : {
 
-$LN24:
+$LN21:
 	mov	QWORD PTR [rsp+24], r8
 	mov	QWORD PTR [rsp+16], rdx
 	mov	QWORD PTR [rsp+8], rcx
@@ -3775,47 +3596,47 @@ $LN24:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 1065 :     if (u == NULL)
+; 1046 :     if (u == NULL)
 
 	cmp	QWORD PTR u$[rbp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 1066 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1047 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 1067 :     if (v == NULL)
+; 1048 :     if (v == NULL)
 
 	cmp	QWORD PTR v$[rbp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 1068 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1049 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 1069 :     if (w == NULL)
+; 1050 :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN4@PMC_Subtru
 
-; 1070 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1051 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 1071 :     PMC_STATUS_CODE result;
-; 1072 :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 1052 :     PMC_STATUS_CODE result;
+; 1053 :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	rax, QWORD PTR v$[rbp]
 	mov	QWORD PTR nv$[rbp], rax
 
-; 1073 :     NUMBER_HEADER* nw;
-; 1074 :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 1054 :     NUMBER_HEADER* nw;
+; 1055 :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nv$[rbp]
 	call	CheckNumber
@@ -3823,149 +3644,117 @@ $LN4@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@PMC_Subtru
 
-; 1075 :         return (result);
+; 1056 :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 1076 :     char u_is_zero;
-; 1077 :     if ((result = IS_ZERO_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
+; 1057 :     char u_is_zero;
+; 1058 :     if ((result = IsZero_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR u_is_zero$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	IS_ZERO_UINT
+	call	IsZero_UINT
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN6@PMC_Subtru
 
-; 1078 :         return (result);
+; 1059 :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN6@PMC_Subtru:
 
-; 1079 :     if (u_is_zero)
+; 1060 :     if (u_is_zero)
 
 	movsx	eax, BYTE PTR u_is_zero$[rbp]
 	test	eax, eax
 	je	SHORT $LN7@PMC_Subtru
 
-; 1080 :     {
-; 1081 :         // u == 0 ÇÃèÍçá
-; 1082 : 
-; 1083 :         if (nv->SIGN == 0)
+; 1061 :     {
+; 1062 :         // u == 0 ÇÃèÍçá
+; 1063 : 
+; 1064 :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN9@PMC_Subtru
 
-; 1084 :         {
-; 1085 :             // v == 0 ÇÃèÍçá
-; 1086 : 
-; 1087 :             // 0 Çï‘Ç∑
-; 1088 :             nw = &number_zero;
+; 1065 :         {
+; 1066 :             // v == 0 ÇÃèÍçá
+; 1067 : 
+; 1068 :             // 0 Çï‘Ç∑
+; 1069 :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 1089 :         }
+; 1070 :         }
 
 	jmp	SHORT $LN10@PMC_Subtru
 $LN9@PMC_Subtru:
 
-; 1090 :         else if (nv->SIGN > 0)
-
-	mov	rax, QWORD PTR nv$[rbp]
-	movsx	eax, BYTE PTR [rax+16]
-	test	eax, eax
-	jle	SHORT $LN11@PMC_Subtru
-
-; 1091 :         {
-; 1092 :             // v > 0 ÇÃèÍçá
-; 1093 : 
-; 1094 :             // -v Çï‘Ç∑
-; 1095 :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
+; 1071 :         else
+; 1072 :         {
+; 1073 :             // v != 0 ÇÃèÍçá
+; 1074 : 
+; 1075 :             // -v Çï‘Ç∑
+; 1076 :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nv$[rbp]
 	call	Negate_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN13@PMC_Subtru
+	je	SHORT $LN11@PMC_Subtru
 
-; 1096 :                 return (result);
+; 1077 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
-$LN13@PMC_Subtru:
-
-; 1097 :         }
-
-	jmp	SHORT $LN12@PMC_Subtru
 $LN11@PMC_Subtru:
-
-; 1098 :         else
-; 1099 :         {
-; 1100 :             // v < 0 ÇÃèÍçá
-; 1101 : 
-; 1102 :             // -v Çï‘Ç∑
-; 1103 :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
-
-	lea	rdx, QWORD PTR nw$[rbp]
-	mov	rcx, QWORD PTR nv$[rbp]
-	call	Negate_Imp
-	mov	DWORD PTR result$[rbp], eax
-	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN14@PMC_Subtru
-
-; 1104 :                 return (result);
-
-	mov	eax, DWORD PTR result$[rbp]
-	jmp	$LN1@PMC_Subtru
-$LN14@PMC_Subtru:
-$LN12@PMC_Subtru:
 $LN10@PMC_Subtru:
 
-; 1105 :         }
-; 1106 :     }
+; 1078 :         }
+; 1079 :     }
 
 	jmp	$LN8@PMC_Subtru
 $LN7@PMC_Subtru:
 
-; 1107 :     else
-; 1108 :     {
-; 1109 :         // u > 0 ÇÃèÍçá
-; 1110 : 
-; 1111 :         if (nv->SIGN == 0)
+; 1080 :     else
+; 1081 :     {
+; 1082 :         // u > 0 ÇÃèÍçá
+; 1083 : 
+; 1084 :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
-	jne	SHORT $LN15@PMC_Subtru
+	jne	SHORT $LN12@PMC_Subtru
 
-; 1112 :         {
-; 1113 :             // v == 0 ÇÃèÍçá
-; 1114 : 
-; 1115 :             // u Çï‘Ç∑
-; 1116 :             PMC_HANDLE_UINT new_u;
-; 1117 :             if ((result = ep_uint.Clone_X(u, &new_u)) != PMC_STATUS_OK)
+; 1085 :         {
+; 1086 :             // v == 0 ÇÃèÍçá
+; 1087 : 
+; 1088 :             // u Çï‘Ç∑
+; 1089 :             PMC_HANDLE_UINT new_u;
+; 1090 :             if ((result = ep_uint.Clone_X(u, &new_u)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR new_u$6[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	call	QWORD PTR ep_uint+88
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN17@PMC_Subtru
+	je	SHORT $LN14@PMC_Subtru
 
-; 1118 :                 return (result);
+; 1091 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
-$LN17@PMC_Subtru:
+$LN14@PMC_Subtru:
 
-; 1119 :             if ((result = AllocateNumber(&nw, 1, new_u)) != PMC_STATUS_OK)
+; 1092 :             if ((result = AllocateNumber(&nw, 1, new_u)) != PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR new_u$6[rbp]
 	mov	dl, 1
@@ -3973,38 +3762,38 @@ $LN17@PMC_Subtru:
 	call	AllocateNumber
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN18@PMC_Subtru
+	je	SHORT $LN15@PMC_Subtru
 
-; 1120 :             {
-; 1121 :                 ep_uint.Dispose(new_u);
+; 1093 :             {
+; 1094 :                 ep_uint.Dispose(new_u);
 
 	mov	rcx, QWORD PTR new_u$6[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 1122 :                 return (result);
+; 1095 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN18@PMC_Subtru:
-
-; 1123 :             }
-; 1124 :         }
-
-	jmp	SHORT $LN16@PMC_Subtru
 $LN15@PMC_Subtru:
 
-; 1125 :         else if (nv->SIGN > 0)
+; 1096 :             }
+; 1097 :         }
+
+	jmp	SHORT $LN13@PMC_Subtru
+$LN12@PMC_Subtru:
+
+; 1098 :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
-	jle	SHORT $LN19@PMC_Subtru
+	jle	SHORT $LN16@PMC_Subtru
 
-; 1126 :         {
-; 1127 :             // u > 0 ÇÃèÍçá
-; 1128 : 
-; 1129 :             // u - abs(v) Çï‘Ç∑
-; 1130 :             if ((result = SubtructU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 1099 :         {
+; 1100 :             // u > 0 ÇÃèÍçá
+; 1101 : 
+; 1102 :             // u - abs(v) Çï‘Ç∑
+; 1103 :             if ((result = SubtructU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	rax, QWORD PTR nv$[rbp]
@@ -4014,25 +3803,25 @@ $LN15@PMC_Subtru:
 	call	SubtructU_X_X_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN21@PMC_Subtru
+	je	SHORT $LN18@PMC_Subtru
 
-; 1131 :                 return (result);
+; 1104 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN21@PMC_Subtru:
+$LN18@PMC_Subtru:
 
-; 1132 :         }
+; 1105 :         }
 
-	jmp	SHORT $LN20@PMC_Subtru
-$LN19@PMC_Subtru:
+	jmp	SHORT $LN17@PMC_Subtru
+$LN16@PMC_Subtru:
 
-; 1133 :         else
-; 1134 :         {
-; 1135 :             // u < 0 ÇÃèÍçá
-; 1136 : 
-; 1137 :             // u + abs(v) ÇåvéZÇ∑ÇÈ
-; 1138 :             if ((result = AddU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 1106 :         else
+; 1107 :         {
+; 1108 :             // u < 0 ÇÃèÍçá
+; 1109 : 
+; 1110 :             // u + abs(v) ÇåvéZÇ∑ÇÈ
+; 1111 :             if ((result = AddU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	rax, QWORD PTR nv$[rbp]
@@ -4042,31 +3831,31 @@ $LN19@PMC_Subtru:
 	call	AddU_X_X_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN22@PMC_Subtru
+	je	SHORT $LN19@PMC_Subtru
 
-; 1139 :                 return (result);
+; 1112 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN22@PMC_Subtru:
-$LN20@PMC_Subtru:
-$LN16@PMC_Subtru:
+$LN19@PMC_Subtru:
+$LN17@PMC_Subtru:
+$LN13@PMC_Subtru:
 $LN8@PMC_Subtru:
 
-; 1140 :         }
-; 1141 :     }
-; 1142 :     *w = (PMC_HANDLE_SINT)nw;
+; 1113 :         }
+; 1114 :     }
+; 1115 :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 1143 :     return (PMC_STATUS_OK);
+; 1116 :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 1144 : }
+; 1117 : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -4097,7 +3886,7 @@ v$ = 392
 w$ = 400
 PMC_Subtruct_L_X PROC					; COMDAT
 
-; 970  : {
+; 950  : {
 
 $LN27:
 	mov	QWORD PTR [rsp+24], r8
@@ -4118,36 +3907,36 @@ $LN27:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 971  :     if (v == NULL)
+; 951  :     if (v == NULL)
 
 	cmp	QWORD PTR v$[rbp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 972  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 952  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 973  :     if (w == NULL)
+; 953  :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 974  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 954  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 975  :     PMC_STATUS_CODE result;
-; 976  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 955  :     PMC_STATUS_CODE result;
+; 956  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	rax, QWORD PTR v$[rbp]
 	mov	QWORD PTR nv$[rbp], rax
 
-; 977  :     NUMBER_HEADER* nw;
-; 978  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 957  :     NUMBER_HEADER* nw;
+; 958  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nv$[rbp]
 	call	CheckNumber
@@ -4155,55 +3944,56 @@ $LN3@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@PMC_Subtru
 
-; 979  :         return (result);
+; 959  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 980  :     char u_sign;
-; 981  :     _UINT64_T u_abs = GET_ABS_64(u, &u_sign);
+; 960  :     char u_sign;
+; 961  :     _UINT64_T u_abs = GET_ABS_64(u, &u_sign);
 
 	lea	rdx, QWORD PTR u_sign$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	call	GET_ABS_64
 	mov	QWORD PTR u_abs$[rbp], rax
 
-; 982  :     if (u_sign == 0)
+; 962  :     if (u_sign == 0)
 
 	movsx	eax, BYTE PTR u_sign$[rbp]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Subtru
 
-; 983  :     {
-; 984  :         // u == 0 ÇÃèÍçá
-; 985  : 
-; 986  :         if (nv->SIGN == 0)
+; 963  :     {
+; 964  :         // u == 0 ÇÃèÍçá
+; 965  : 
+; 966  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Subtru
 
-; 987  :         {
-; 988  :             // v == 0 ÇÃèÍçá
-; 989  : 
-; 990  :             nw = &number_zero;
+; 967  :         {
+; 968  :             // v == 0 ÇÃèÍçá
+; 969  : 
+; 970  :             // 0 Çï‘Ç∑
+; 971  :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 991  :         }
+; 972  :         }
 
 	jmp	SHORT $LN8@PMC_Subtru
 $LN7@PMC_Subtru:
 
-; 992  :         else
-; 993  :         {
-; 994  :             // v != 0 ÇÃèÍçá
-; 995  : 
-; 996  :             // -v Çï‘Ç∑
-; 997  :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
+; 973  :         else
+; 974  :         {
+; 975  :             // v != 0 ÇÃèÍçá
+; 976  : 
+; 977  :             // -v Çï‘Ç∑
+; 978  :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nv$[rbp]
@@ -4212,40 +4002,40 @@ $LN7@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN9@PMC_Subtru
 
-; 998  :                 return (result);
+; 979  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN9@PMC_Subtru:
 $LN8@PMC_Subtru:
 
-; 999  :         }
-; 1000 :     }
+; 980  :         }
+; 981  :     }
 
 	jmp	$LN6@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 1001 :     else if (u_sign > 0)
+; 982  :     else if (u_sign > 0)
 
 	movsx	eax, BYTE PTR u_sign$[rbp]
 	test	eax, eax
 	jle	$LN10@PMC_Subtru
 
-; 1002 :     {
-; 1003 :         // u > 0 ÇÃèÍçá
-; 1004 : 
-; 1005 :         if (nv->SIGN == 0)
+; 983  :     {
+; 984  :         // u > 0 ÇÃèÍçá
+; 985  : 
+; 986  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN12@PMC_Subtru
 
-; 1006 :         {
-; 1007 :             // v == 0 ÇÃèÍçá
-; 1008 : 
-; 1009 :             // u Çï‘Ç∑
-; 1010 :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 987  :         {
+; 988  :             // v == 0 ÇÃèÍçá
+; 989  : 
+; 990  :             // u Çï‘Ç∑
+; 991  :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR nw$[rbp]
 	mov	rdx, QWORD PTR u_abs$[rbp]
@@ -4255,29 +4045,29 @@ $LN5@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN14@PMC_Subtru
 
-; 1011 :                 return (result);
+; 992  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN14@PMC_Subtru:
 
-; 1012 :         }
+; 993  :         }
 
 	jmp	SHORT $LN13@PMC_Subtru
 $LN12@PMC_Subtru:
 
-; 1013 :         else if (nv->SIGN > 0)
+; 994  :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN15@PMC_Subtru
 
-; 1014 :         {
-; 1015 :             // v > 0 ÇÃèÍçá
-; 1016 : 
-; 1017 :             // abs(u) - abs(v) Çï‘Ç∑
-; 1018 :             if ((result = SubtructU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 995  :         {
+; 996  :             // v > 0 ÇÃèÍçá
+; 997  : 
+; 998  :             // abs(u) - abs(v) Çï‘Ç∑
+; 999  :             if ((result = SubtructU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR u_abs$[rbp]
@@ -4289,23 +4079,23 @@ $LN12@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN17@PMC_Subtru
 
-; 1019 :                 return (result);
+; 1000 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN17@PMC_Subtru:
 
-; 1020 :         }
+; 1001 :         }
 
 	jmp	SHORT $LN16@PMC_Subtru
 $LN15@PMC_Subtru:
 
-; 1021 :         else
-; 1022 :         {
-; 1023 :             // v < 0 ÇÃèÍçá
-; 1024 : 
-; 1025 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 1026 :             if ((result = AddU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 1002 :         else
+; 1003 :         {
+; 1004 :             // v < 0 ÇÃèÍçá
+; 1005 : 
+; 1006 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 1007 :             if ((result = AddU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR u_abs$[rbp]
@@ -4317,7 +4107,7 @@ $LN15@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN18@PMC_Subtru
 
-; 1027 :                 return (result);
+; 1008 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
@@ -4325,28 +4115,28 @@ $LN18@PMC_Subtru:
 $LN16@PMC_Subtru:
 $LN13@PMC_Subtru:
 
-; 1028 :         }
-; 1029 :     }
+; 1009 :         }
+; 1010 :     }
 
 	jmp	$LN11@PMC_Subtru
 $LN10@PMC_Subtru:
 
-; 1030 :     else
-; 1031 :     {
-; 1032 :         // u < 0 ÇÃèÍçá
-; 1033 : 
-; 1034 :         if (nv->SIGN == 0)
+; 1011 :     else
+; 1012 :     {
+; 1013 :         // u < 0 ÇÃèÍçá
+; 1014 : 
+; 1015 :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN19@PMC_Subtru
 
-; 1035 :         {
-; 1036 :             // v == 0 ÇÃèÍçá
-; 1037 : 
-; 1038 :             // u Çï‘Ç∑
-; 1039 :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 1016 :         {
+; 1017 :             // v == 0 ÇÃèÍçá
+; 1018 : 
+; 1019 :             // u Çï‘Ç∑
+; 1020 :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR nw$[rbp]
 	mov	rdx, QWORD PTR u_abs$[rbp]
@@ -4356,29 +4146,29 @@ $LN10@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN21@PMC_Subtru
 
-; 1040 :                 return (result);
+; 1021 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN21@PMC_Subtru:
 
-; 1041 :         }
+; 1022 :         }
 
 	jmp	SHORT $LN20@PMC_Subtru
 $LN19@PMC_Subtru:
 
-; 1042 :         else if (nv->SIGN > 0)
+; 1023 :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN22@PMC_Subtru
 
-; 1043 :         {
-; 1044 :             // v > 0 ÇÃèÍçá
-; 1045 : 
-; 1046 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 1047 :             if ((result = AddU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 1024 :         {
+; 1025 :             // v > 0 ÇÃèÍçá
+; 1026 : 
+; 1027 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 1028 :             if ((result = AddU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR u_abs$[rbp]
@@ -4390,23 +4180,23 @@ $LN19@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN24@PMC_Subtru
 
-; 1048 :                 return (result);
+; 1029 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN24@PMC_Subtru:
 
-; 1049 :         }
+; 1030 :         }
 
 	jmp	SHORT $LN23@PMC_Subtru
 $LN22@PMC_Subtru:
 
-; 1050 :         else
-; 1051 :         {
-; 1052 :             // v < 0 ÇÃèÍçá
-; 1053 : 
-; 1054 :             // - abs(u) + abs(v) Çï‘Ç∑
-; 1055 :             if ((result = SubtructU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 1031 :         else
+; 1032 :         {
+; 1033 :             // v < 0 ÇÃèÍçá
+; 1034 : 
+; 1035 :             // - abs(u) + abs(v) Çï‘Ç∑
+; 1036 :             if ((result = SubtructU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR u_abs$[rbp]
@@ -4418,7 +4208,7 @@ $LN22@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN25@PMC_Subtru
 
-; 1056 :                 return (result);
+; 1037 :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
@@ -4428,20 +4218,20 @@ $LN20@PMC_Subtru:
 $LN11@PMC_Subtru:
 $LN6@PMC_Subtru:
 
-; 1057 :         }
-; 1058 :     }
-; 1059 :     *w = (PMC_HANDLE_SINT)nw;
+; 1038 :         }
+; 1039 :     }
+; 1040 :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 1060 :     return (PMC_STATUS_OK);
+; 1041 :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 1061 : }
+; 1042 : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -4472,7 +4262,7 @@ v$ = 392
 w$ = 400
 PMC_Subtruct_I_X PROC					; COMDAT
 
-; 876  : {
+; 855  : {
 
 $LN27:
 	mov	QWORD PTR [rsp+24], r8
@@ -4493,36 +4283,36 @@ $LN27:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 877  :     if (v == NULL)
+; 856  :     if (v == NULL)
 
 	cmp	QWORD PTR v$[rbp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 878  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 857  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 879  :     if (w == NULL)
+; 858  :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 880  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 859  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 881  :     PMC_STATUS_CODE result;
-; 882  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 860  :     PMC_STATUS_CODE result;
+; 861  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	rax, QWORD PTR v$[rbp]
 	mov	QWORD PTR nv$[rbp], rax
 
-; 883  :     NUMBER_HEADER* nw;
-; 884  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 862  :     NUMBER_HEADER* nw;
+; 863  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nv$[rbp]
 	call	CheckNumber
@@ -4530,55 +4320,56 @@ $LN3@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@PMC_Subtru
 
-; 885  :         return (result);
+; 864  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 886  :     char u_sign;
-; 887  :     _UINT32_T u_abs = GET_ABS_32(u, &u_sign);
+; 865  :     char u_sign;
+; 866  :     _UINT32_T u_abs = GET_ABS_32(u, &u_sign);
 
 	lea	rdx, QWORD PTR u_sign$[rbp]
 	mov	ecx, DWORD PTR u$[rbp]
 	call	GET_ABS_32
 	mov	DWORD PTR u_abs$[rbp], eax
 
-; 888  :     if (u_sign == 0)
+; 867  :     if (u_sign == 0)
 
 	movsx	eax, BYTE PTR u_sign$[rbp]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Subtru
 
-; 889  :     {
-; 890  :         // u == 0 ÇÃèÍçá
-; 891  : 
-; 892  :         if (nv->SIGN == 0)
+; 868  :     {
+; 869  :         // u == 0 ÇÃèÍçá
+; 870  : 
+; 871  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Subtru
 
-; 893  :         {
-; 894  :             // v == 0 ÇÃèÍçá
-; 895  : 
-; 896  :             nw = &number_zero;
+; 872  :         {
+; 873  :             // v == 0 ÇÃèÍçá
+; 874  : 
+; 875  :             // 0 Çï‘Ç∑
+; 876  :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 897  :         }
+; 877  :         }
 
 	jmp	SHORT $LN8@PMC_Subtru
 $LN7@PMC_Subtru:
 
-; 898  :         else
-; 899  :         {
-; 900  :             // v != 0 ÇÃèÍçá
-; 901  : 
-; 902  :             // -v Çï‘Ç∑
-; 903  :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
+; 878  :         else
+; 879  :         {
+; 880  :             // v != 0 ÇÃèÍçá
+; 881  : 
+; 882  :             // -v Çï‘Ç∑
+; 883  :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nv$[rbp]
@@ -4587,40 +4378,40 @@ $LN7@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN9@PMC_Subtru
 
-; 904  :                 return (result);
+; 884  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN9@PMC_Subtru:
 $LN8@PMC_Subtru:
 
-; 905  :         }
-; 906  :     }
+; 885  :         }
+; 886  :     }
 
 	jmp	$LN6@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 907  :     else if (u_sign > 0)
+; 887  :     else if (u_sign > 0)
 
 	movsx	eax, BYTE PTR u_sign$[rbp]
 	test	eax, eax
 	jle	$LN10@PMC_Subtru
 
-; 908  :     {
-; 909  :         // u > 0 ÇÃèÍçá
-; 910  : 
-; 911  :         if (nv->SIGN == 0)
+; 888  :     {
+; 889  :         // u > 0 ÇÃèÍçá
+; 890  : 
+; 891  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN12@PMC_Subtru
 
-; 912  :         {
-; 913  :             // v == 0 ÇÃèÍçá
-; 914  : 
-; 915  :             // u Çï‘Ç∑
-; 916  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 892  :         {
+; 893  :             // v == 0 ÇÃèÍçá
+; 894  : 
+; 895  :             // u Çï‘Ç∑
+; 896  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR nw$[rbp]
 	mov	edx, DWORD PTR u_abs$[rbp]
@@ -4630,29 +4421,29 @@ $LN5@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN14@PMC_Subtru
 
-; 917  :                 return (result);
+; 897  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN14@PMC_Subtru:
 
-; 918  :         }
+; 898  :         }
 
 	jmp	SHORT $LN13@PMC_Subtru
 $LN12@PMC_Subtru:
 
-; 919  :         else if (nv->SIGN > 0)
+; 899  :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN15@PMC_Subtru
 
-; 920  :         {
-; 921  :             // v > 0 ÇÃèÍçá
-; 922  : 
-; 923  :             // abs(u) - abs(v) Çï‘Ç∑
-; 924  :             if ((result = SubtructU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 900  :         {
+; 901  :             // v > 0 ÇÃèÍçá
+; 902  : 
+; 903  :             // abs(u) - abs(v) Çï‘Ç∑
+; 904  :             if ((result = SubtructU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR u_abs$[rbp]
@@ -4664,23 +4455,23 @@ $LN12@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN17@PMC_Subtru
 
-; 925  :                 return (result);
+; 905  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
 $LN17@PMC_Subtru:
 
-; 926  :         }
+; 906  :         }
 
 	jmp	SHORT $LN16@PMC_Subtru
 $LN15@PMC_Subtru:
 
-; 927  :         else
-; 928  :         {
-; 929  :             // v < 0 ÇÃèÍçá
-; 930  : 
-; 931  :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 932  :             if ((result = AddU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 907  :         else
+; 908  :         {
+; 909  :             // v < 0 ÇÃèÍçá
+; 910  : 
+; 911  :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 912  :             if ((result = AddU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR u_abs$[rbp]
@@ -4692,7 +4483,7 @@ $LN15@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN18@PMC_Subtru
 
-; 933  :                 return (result);
+; 913  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Subtru
@@ -4700,28 +4491,28 @@ $LN18@PMC_Subtru:
 $LN16@PMC_Subtru:
 $LN13@PMC_Subtru:
 
-; 934  :         }
-; 935  :     }
+; 914  :         }
+; 915  :     }
 
 	jmp	$LN11@PMC_Subtru
 $LN10@PMC_Subtru:
 
-; 936  :     else
-; 937  :     {
-; 938  :         // u < 0 ÇÃèÍçá
-; 939  : 
-; 940  :         if (nv->SIGN == 0)
+; 916  :     else
+; 917  :     {
+; 918  :         // u < 0 ÇÃèÍçá
+; 919  : 
+; 920  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN19@PMC_Subtru
 
-; 941  :         {
-; 942  :             // v == 0 ÇÃèÍçá
-; 943  : 
-; 944  :             // u Çï‘Ç∑
-; 945  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 921  :         {
+; 922  :             // v == 0 ÇÃèÍçá
+; 923  : 
+; 924  :             // u Çï‘Ç∑
+; 925  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR nw$[rbp]
 	mov	edx, DWORD PTR u_abs$[rbp]
@@ -4731,29 +4522,29 @@ $LN10@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN21@PMC_Subtru
 
-; 946  :                 return (result);
+; 926  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN21@PMC_Subtru:
 
-; 947  :         }
+; 927  :         }
 
 	jmp	SHORT $LN20@PMC_Subtru
 $LN19@PMC_Subtru:
 
-; 948  :         else if (nv->SIGN > 0)
+; 928  :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN22@PMC_Subtru
 
-; 949  :         {
-; 950  :             // v > 0 ÇÃèÍçá
-; 951  : 
-; 952  :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 953  :             if ((result = AddU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 929  :         {
+; 930  :             // v > 0 ÇÃèÍçá
+; 931  : 
+; 932  :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 933  :             if ((result = AddU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR u_abs$[rbp]
@@ -4765,23 +4556,23 @@ $LN19@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN24@PMC_Subtru
 
-; 954  :                 return (result);
+; 934  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN24@PMC_Subtru:
 
-; 955  :         }
+; 935  :         }
 
 	jmp	SHORT $LN23@PMC_Subtru
 $LN22@PMC_Subtru:
 
-; 956  :         else
-; 957  :         {
-; 958  :             // v < 0 ÇÃèÍçá
-; 959  : 
-; 960  :             // - abs(u) + abs(v) Çï‘Ç∑
-; 961  :             if ((result = SubtructU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 936  :         else
+; 937  :         {
+; 938  :             // v < 0 ÇÃèÍçá
+; 939  : 
+; 940  :             // - abs(u) + abs(v) Çï‘Ç∑
+; 941  :             if ((result = SubtructU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR u_abs$[rbp]
@@ -4793,7 +4584,7 @@ $LN22@PMC_Subtru:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN25@PMC_Subtru
 
-; 962  :                 return (result);
+; 942  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Subtru
@@ -4803,20 +4594,20 @@ $LN20@PMC_Subtru:
 $LN11@PMC_Subtru:
 $LN6@PMC_Subtru:
 
-; 963  :         }
-; 964  :     }
-; 965  :     *w = (PMC_HANDLE_SINT)nw;
+; 943  :         }
+; 944  :     }
+; 945  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 966  :     return (PMC_STATUS_OK);
+; 946  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 967  : }
+; 947  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -4846,7 +4637,7 @@ v$ = 360
 w$ = 368
 PMC_Add_X_X PROC					; COMDAT
 
-; 779  : {
+; 757  : {
 
 $LN29:
 	mov	QWORD PTR [rsp+24], r8
@@ -4867,52 +4658,52 @@ $LN29:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 780  :     if (u == NULL)
+; 758  :     if (u == NULL)
 
 	cmp	QWORD PTR u$[rbp], 0
 	jne	SHORT $LN2@PMC_Add_X_
 
-; 781  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 759  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN2@PMC_Add_X_:
 
-; 782  :     if (v == NULL)
+; 760  :     if (v == NULL)
 
 	cmp	QWORD PTR v$[rbp], 0
 	jne	SHORT $LN3@PMC_Add_X_
 
-; 783  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 761  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN3@PMC_Add_X_:
 
-; 784  :     if (w == NULL)
+; 762  :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN4@PMC_Add_X_
 
-; 785  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 763  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN4@PMC_Add_X_:
 
-; 786  :     PMC_STATUS_CODE result;
-; 787  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 764  :     PMC_STATUS_CODE result;
+; 765  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	rax, QWORD PTR u$[rbp]
 	mov	QWORD PTR nu$[rbp], rax
 
-; 788  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 766  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	rax, QWORD PTR v$[rbp]
 	mov	QWORD PTR nv$[rbp], rax
 
-; 789  :     NUMBER_HEADER* nw;
-; 790  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 767  :     NUMBER_HEADER* nw;
+; 768  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	CheckNumber
@@ -4920,13 +4711,13 @@ $LN4@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@PMC_Add_X_
 
-; 791  :         return (result);
+; 769  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN5@PMC_Add_X_:
 
-; 792  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 770  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nv$[rbp]
 	call	CheckNumber
@@ -4934,48 +4725,49 @@ $LN5@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN6@PMC_Add_X_
 
-; 793  :         return (result);
+; 771  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN6@PMC_Add_X_:
 
-; 794  :     if (nu->SIGN == 0)
+; 772  :     if (nu->SIGN == 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Add_X_
 
-; 795  :     {
-; 796  :         // u == 0 ÇÃèÍçá
-; 797  : 
-; 798  :         if (nv->SIGN == 0)
+; 773  :     {
+; 774  :         // u == 0 ÇÃèÍçá
+; 775  : 
+; 776  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN9@PMC_Add_X_
 
-; 799  :         {
-; 800  :             // v == 0 ÇÃèÍçá
-; 801  : 
-; 802  :             nw = &number_zero;
+; 777  :         {
+; 778  :             // v == 0 ÇÃèÍçá
+; 779  : 
+; 780  :             // 0 Çï‘Ç∑
+; 781  :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 803  :         }
+; 782  :         }
 
 	jmp	SHORT $LN10@PMC_Add_X_
 $LN9@PMC_Add_X_:
 
-; 804  :         else
-; 805  :         {
-; 806  :             // v != 0 ÇÃèÍçá
-; 807  : 
-; 808  :             // v Çï‘Ç∑
-; 809  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
+; 783  :         else
+; 784  :         {
+; 785  :             // v != 0 ÇÃèÍçá
+; 786  : 
+; 787  :             // v Çï‘Ç∑
+; 788  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nv$[rbp]
@@ -4984,41 +4776,41 @@ $LN9@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN11@PMC_Add_X_
 
-; 810  :                 return (result);
+; 789  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN11@PMC_Add_X_:
 $LN10@PMC_Add_X_:
 
-; 811  :         }
-; 812  :     }
+; 790  :         }
+; 791  :     }
 
 	jmp	$LN8@PMC_Add_X_
 $LN7@PMC_Add_X_:
 
-; 813  :     else if (nu->SIGN > 0)
+; 792  :     else if (nu->SIGN > 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	$LN12@PMC_Add_X_
 
-; 814  :     {
-; 815  :         // u > 0 ÇÃèÍçá
-; 816  : 
-; 817  :         if (nv->SIGN == 0)
+; 793  :     {
+; 794  :         // u > 0 ÇÃèÍçá
+; 795  : 
+; 796  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN14@PMC_Add_X_
 
-; 818  :         {
-; 819  :             // v == 0 ÇÃèÍçá
-; 820  : 
-; 821  :             // u Çï‘Ç∑
-; 822  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 797  :         {
+; 798  :             // v == 0 ÇÃèÍçá
+; 799  : 
+; 800  :             // u Çï‘Ç∑
+; 801  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
@@ -5027,29 +4819,29 @@ $LN7@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN16@PMC_Add_X_
 
-; 823  :                 return (result);
+; 802  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN16@PMC_Add_X_:
 
-; 824  :         }
+; 803  :         }
 
 	jmp	SHORT $LN15@PMC_Add_X_
 $LN14@PMC_Add_X_:
 
-; 825  :         else if (nv->SIGN > 0)
+; 804  :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN17@PMC_Add_X_
 
-; 826  :         {
-; 827  :             // v > 0 ÇÃèÍçá
-; 828  : 
-; 829  :             // abs(u) + abs(v) Çï‘Ç∑
-; 830  :             if ((result = AddU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 805  :         {
+; 806  :             // v > 0 ÇÃèÍçá
+; 807  : 
+; 808  :             // abs(u) + abs(v) Çï‘Ç∑
+; 809  :             if ((result = AddU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	rax, QWORD PTR nv$[rbp]
@@ -5062,23 +4854,23 @@ $LN14@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN19@PMC_Add_X_
 
-; 831  :                 return (result);
+; 810  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN19@PMC_Add_X_:
 
-; 832  :         }
+; 811  :         }
 
 	jmp	SHORT $LN18@PMC_Add_X_
 $LN17@PMC_Add_X_:
 
-; 833  :         else
-; 834  :         {
-; 835  :             // v < 0 ÇÃèÍçá
-; 836  : 
-; 837  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 838  :             if ((result = SubtructU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 812  :         else
+; 813  :         {
+; 814  :             // v < 0 ÇÃèÍçá
+; 815  : 
+; 816  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 817  :             if ((result = SubtructU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	rax, QWORD PTR nv$[rbp]
@@ -5091,7 +4883,7 @@ $LN17@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN20@PMC_Add_X_
 
-; 839  :                 return (result);
+; 818  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
@@ -5099,28 +4891,28 @@ $LN20@PMC_Add_X_:
 $LN18@PMC_Add_X_:
 $LN15@PMC_Add_X_:
 
-; 840  :         }
-; 841  :     }
+; 819  :         }
+; 820  :     }
 
 	jmp	$LN13@PMC_Add_X_
 $LN12@PMC_Add_X_:
 
-; 842  :     else
-; 843  :     {
-; 844  :         // u < 0 ÇÃèÍçá
-; 845  : 
-; 846  :         if (nv->SIGN == 0)
+; 821  :     else
+; 822  :     {
+; 823  :         // u < 0 ÇÃèÍçá
+; 824  : 
+; 825  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN21@PMC_Add_X_
 
-; 847  :         {
-; 848  :             // v == 0 ÇÃèÍçá
-; 849  : 
-; 850  :             // u Çï‘Ç∑
-; 851  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 826  :         {
+; 827  :             // v == 0 ÇÃèÍçá
+; 828  : 
+; 829  :             // u Çï‘Ç∑
+; 830  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
@@ -5129,29 +4921,29 @@ $LN12@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN23@PMC_Add_X_
 
-; 852  :                 return (result);
+; 831  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN23@PMC_Add_X_:
 
-; 853  :         }
+; 832  :         }
 
 	jmp	SHORT $LN22@PMC_Add_X_
 $LN21@PMC_Add_X_:
 
-; 854  :         else if (nv->SIGN > 0)
+; 833  :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN24@PMC_Add_X_
 
-; 855  :         {
-; 856  :             // v > 0 ÇÃèÍçá
-; 857  : 
-; 858  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 859  :             if ((result = SubtructU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 834  :         {
+; 835  :             // v > 0 ÇÃèÍçá
+; 836  : 
+; 837  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 838  :             if ((result = SubtructU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	rax, QWORD PTR nv$[rbp]
@@ -5164,23 +4956,23 @@ $LN21@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN26@PMC_Add_X_
 
-; 860  :                 return (result);
+; 839  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN26@PMC_Add_X_:
 
-; 861  :         }
+; 840  :         }
 
 	jmp	SHORT $LN25@PMC_Add_X_
 $LN24@PMC_Add_X_:
 
-; 862  :         else
-; 863  :         {
-; 864  :             // v < 0 ÇÃèÍçá
-; 865  : 
-; 866  :             // - abs(u) - abs(v) Çï‘Ç∑
-; 867  :             if ((result = AddU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 841  :         else
+; 842  :         {
+; 843  :             // v < 0 ÇÃèÍçá
+; 844  : 
+; 845  :             // - abs(u) - abs(v) Çï‘Ç∑
+; 846  :             if ((result = AddU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	rax, QWORD PTR nv$[rbp]
@@ -5193,7 +4985,7 @@ $LN24@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN27@PMC_Add_X_
 
-; 868  :                 return (result);
+; 847  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_X_
@@ -5203,20 +4995,20 @@ $LN22@PMC_Add_X_:
 $LN13@PMC_Add_X_:
 $LN8@PMC_Add_X_:
 
-; 869  :         }
-; 870  :     }
-; 871  :     *w = (PMC_HANDLE_SINT)nw;
+; 848  :         }
+; 849  :     }
+; 850  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 872  :     return (PMC_STATUS_OK);
+; 851  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_X_:
 
-; 873  : }
+; 852  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -5248,7 +5040,7 @@ v$ = 424
 w$ = 432
 PMC_Add_X_UX PROC					; COMDAT
 
-; 687  : {
+; 665  : {
 
 $LN25:
 	mov	QWORD PTR [rsp+24], r8
@@ -5269,47 +5061,47 @@ $LN25:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 688  :     if (u == NULL)
+; 666  :     if (u == NULL)
 
 	cmp	QWORD PTR u$[rbp], 0
 	jne	SHORT $LN2@PMC_Add_X_
 
-; 689  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 667  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN2@PMC_Add_X_:
 
-; 690  :     if (v == NULL)
+; 668  :     if (v == NULL)
 
 	cmp	QWORD PTR v$[rbp], 0
 	jne	SHORT $LN3@PMC_Add_X_
 
-; 691  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 669  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN3@PMC_Add_X_:
 
-; 692  :     if (w == NULL)
+; 670  :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN4@PMC_Add_X_
 
-; 693  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 671  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN4@PMC_Add_X_:
 
-; 694  :     PMC_STATUS_CODE result;
-; 695  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 672  :     PMC_STATUS_CODE result;
+; 673  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	rax, QWORD PTR u$[rbp]
 	mov	QWORD PTR nu$[rbp], rax
 
-; 696  :     NUMBER_HEADER* nw;
-; 697  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 674  :     NUMBER_HEADER* nw;
+; 675  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	CheckNumber
@@ -5317,65 +5109,65 @@ $LN4@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@PMC_Add_X_
 
-; 698  :         return (result);
+; 676  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN5@PMC_Add_X_:
 
-; 699  :     char v_is_zero;
-; 700  :     if ((result = IS_ZERO_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
+; 677  :     char v_is_zero;
+; 678  :     if ((result = IsZero_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR v_is_zero$[rbp]
 	mov	rcx, QWORD PTR v$[rbp]
-	call	IS_ZERO_UINT
+	call	IsZero_UINT
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN6@PMC_Add_X_
 
-; 701  :         return (result);
+; 679  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN6@PMC_Add_X_:
 
-; 702  :     if (nu->SIGN == 0)
+; 680  :     if (nu->SIGN == 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	$LN7@PMC_Add_X_
 
-; 703  :     {
-; 704  :         // u == 0 ÇÃèÍçá
-; 705  : 
-; 706  :         if (v_is_zero)
+; 681  :     {
+; 682  :         // u == 0 ÇÃèÍçá
+; 683  : 
+; 684  :         if (v_is_zero)
 
 	movsx	eax, BYTE PTR v_is_zero$[rbp]
 	test	eax, eax
 	je	SHORT $LN9@PMC_Add_X_
 
-; 707  :         {
-; 708  :             // v == 0 ÇÃèÍçá
-; 709  : 
-; 710  :             // 0 Çï‘Ç∑
-; 711  :             nw = &number_zero;
+; 685  :         {
+; 686  :             // v == 0 ÇÃèÍçá
+; 687  : 
+; 688  :             // 0 Çï‘Ç∑
+; 689  :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 712  :         }
+; 690  :         }
 
 	jmp	SHORT $LN10@PMC_Add_X_
 $LN9@PMC_Add_X_:
 
-; 713  :         else
-; 714  :         {
-; 715  :             // v > 0 ÇÃèÍçá
-; 716  : 
-; 717  :             // v Çï‘Ç∑
-; 718  :             PMC_HANDLE_UINT new_v;
-; 719  :             if ((result = ep_uint.Clone_X(v, &new_v)) != PMC_STATUS_OK)
+; 691  :         else
+; 692  :         {
+; 693  :             // v > 0 ÇÃèÍçá
+; 694  : 
+; 695  :             // v Çï‘Ç∑
+; 696  :             PMC_HANDLE_UINT new_v;
+; 697  :             if ((result = ep_uint.Clone_X(v, &new_v)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR new_v$7[rbp]
 	mov	rcx, QWORD PTR v$[rbp]
@@ -5384,14 +5176,14 @@ $LN9@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN11@PMC_Add_X_
 
-; 720  :                 return (result);
+; 698  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN11@PMC_Add_X_:
 
-; 721  :             PMC_NUMBER_TYPE_CODE type;
-; 722  :             if ((result = ep_uint.GetNumberType_X(new_v, &type)) != PMC_STATUS_OK)
+; 699  :             PMC_NUMBER_TYPE_CODE type;
+; 700  :             if ((result = ep_uint.GetNumberType_X(new_v, &type)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR type$8[rbp]
 	mov	rcx, QWORD PTR new_v$7[rbp]
@@ -5400,13 +5192,13 @@ $LN11@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN12@PMC_Add_X_
 
-; 723  :                 return (result);
+; 701  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN12@PMC_Add_X_:
 
-; 724  :             if ((result = AllocateNumber(&nw, 1, new_v)) != PMC_STATUS_OK)
+; 702  :             if ((result = AllocateNumber(&nw, 1, new_v)) != PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR new_v$7[rbp]
 	mov	dl, 1
@@ -5416,47 +5208,47 @@ $LN12@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN13@PMC_Add_X_
 
-; 725  :             {
-; 726  :                 ep_uint.Dispose(new_v);
+; 703  :             {
+; 704  :                 ep_uint.Dispose(new_v);
 
 	mov	rcx, QWORD PTR new_v$7[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 727  :                 return (result);
+; 705  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN13@PMC_Add_X_:
 $LN10@PMC_Add_X_:
 
-; 728  :             }
-; 729  :         }
-; 730  :     }
+; 706  :             }
+; 707  :         }
+; 708  :     }
 
 	jmp	$LN8@PMC_Add_X_
 $LN7@PMC_Add_X_:
 
-; 731  :     else if (nu->SIGN > 0)
+; 709  :     else if (nu->SIGN > 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN14@PMC_Add_X_
 
-; 732  :     {
-; 733  :         // u > 0 ÇÃèÍçá
-; 734  : 
-; 735  :         if (v_is_zero)
+; 710  :     {
+; 711  :         // u > 0 ÇÃèÍçá
+; 712  : 
+; 713  :         if (v_is_zero)
 
 	movsx	eax, BYTE PTR v_is_zero$[rbp]
 	test	eax, eax
 	je	SHORT $LN16@PMC_Add_X_
 
-; 736  :         {
-; 737  :             // v == 0 ÇÃèÍçá
-; 738  : 
-; 739  :             // u Çï‘Ç∑
-; 740  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 714  :         {
+; 715  :             // v == 0 ÇÃèÍçá
+; 716  : 
+; 717  :             // u Çï‘Ç∑
+; 718  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
@@ -5465,23 +5257,23 @@ $LN7@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN18@PMC_Add_X_
 
-; 741  :                 return (result);
+; 719  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN18@PMC_Add_X_:
 
-; 742  :         }
+; 720  :         }
 
 	jmp	SHORT $LN17@PMC_Add_X_
 $LN16@PMC_Add_X_:
 
-; 743  :         else
-; 744  :         {
-; 745  :             // v > 0 ÇÃèÍçá
-; 746  : 
-; 747  :             // abs(u) + v Çï‘Ç∑
-; 748  :             if ((result = AddU_X_X_Imp(1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
+; 721  :         else
+; 722  :         {
+; 723  :             // v > 0 ÇÃèÍçá
+; 724  : 
+; 725  :             // abs(u) + v Çï‘Ç∑
+; 726  :             if ((result = AddU_X_X_Imp(1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR v$[rbp]
@@ -5493,34 +5285,34 @@ $LN16@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN19@PMC_Add_X_
 
-; 749  :                 return (result);
+; 727  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN19@PMC_Add_X_:
 $LN17@PMC_Add_X_:
 
-; 750  :         }
-; 751  :     }
+; 728  :         }
+; 729  :     }
 
 	jmp	SHORT $LN15@PMC_Add_X_
 $LN14@PMC_Add_X_:
 
-; 752  :     else
-; 753  :     {
-; 754  :         // u < 0 ÇÃèÍçá
-; 755  : 
-; 756  :         if (v_is_zero)
+; 730  :     else
+; 731  :     {
+; 732  :         // u < 0 ÇÃèÍçá
+; 733  : 
+; 734  :         if (v_is_zero)
 
 	movsx	eax, BYTE PTR v_is_zero$[rbp]
 	test	eax, eax
 	je	SHORT $LN20@PMC_Add_X_
 
-; 757  :         {
-; 758  :             // v == 0 ÇÃèÍçá
-; 759  : 
-; 760  :             // u Çï‘Ç∑
-; 761  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 735  :         {
+; 736  :             // v == 0 ÇÃèÍçá
+; 737  : 
+; 738  :             // u Çï‘Ç∑
+; 739  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
@@ -5529,23 +5321,23 @@ $LN14@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN22@PMC_Add_X_
 
-; 762  :                 return (result);
+; 740  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN22@PMC_Add_X_:
 
-; 763  :         }
+; 741  :         }
 
 	jmp	SHORT $LN21@PMC_Add_X_
 $LN20@PMC_Add_X_:
 
-; 764  :         else
-; 765  :         {
-; 766  :             // v > 0 ÇÃèÍçá
-; 767  : 
-; 768  :             // - abs(u) + v Çï‘Ç∑
-; 769  :             if ((result = SubtructU_X_X_Imp(-1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
+; 742  :         else
+; 743  :         {
+; 744  :             // v > 0 ÇÃèÍçá
+; 745  : 
+; 746  :             // - abs(u) + v Çï‘Ç∑
+; 747  :             if ((result = SubtructU_X_X_Imp(-1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR v$[rbp]
@@ -5557,7 +5349,7 @@ $LN20@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN23@PMC_Add_X_
 
-; 770  :                 return (result);
+; 748  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_X_
@@ -5566,21 +5358,21 @@ $LN21@PMC_Add_X_:
 $LN15@PMC_Add_X_:
 $LN8@PMC_Add_X_:
 
-; 771  :         }
-; 772  : 
-; 773  :     }
-; 774  :     *w = (PMC_HANDLE_SINT)nw;
+; 749  :         }
+; 750  : 
+; 751  :     }
+; 752  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 775  :     return (PMC_STATUS_OK);
+; 753  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_X_:
 
-; 776  : }
+; 754  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -5611,9 +5403,9 @@ v$ = 392
 w$ = 400
 PMC_Add_X_L PROC					; COMDAT
 
-; 585  : {
+; 570  : {
 
-$LN30:
+$LN27:
 	mov	QWORD PTR [rsp+24], r8
 	mov	QWORD PTR [rsp+16], rdx
 	mov	QWORD PTR [rsp+8], rcx
@@ -5632,36 +5424,36 @@ $LN30:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 586  :     if (u == NULL)
+; 571  :     if (u == NULL)
 
 	cmp	QWORD PTR u$[rbp], 0
 	jne	SHORT $LN2@PMC_Add_X_
 
-; 587  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 572  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN2@PMC_Add_X_:
 
-; 588  :     if (w == NULL)
+; 573  :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN3@PMC_Add_X_
 
-; 589  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 574  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN3@PMC_Add_X_:
 
-; 590  :     PMC_STATUS_CODE result;
-; 591  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 575  :     PMC_STATUS_CODE result;
+; 576  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	rax, QWORD PTR u$[rbp]
 	mov	QWORD PTR nu$[rbp], rax
 
-; 592  :     NUMBER_HEADER* nw;
-; 593  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 577  :     NUMBER_HEADER* nw;
+; 578  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	CheckNumber
@@ -5669,60 +5461,56 @@ $LN3@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@PMC_Add_X_
 
-; 594  :         return (result);
+; 579  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN4@PMC_Add_X_:
 
-; 595  :     char v_sign;
-; 596  :     _UINT64_T v_abs = GET_ABS_64(v, &v_sign);
+; 580  :     char v_sign;
+; 581  :     _UINT64_T v_abs = GET_ABS_64(v, &v_sign);
 
 	lea	rdx, QWORD PTR v_sign$[rbp]
 	mov	rcx, QWORD PTR v$[rbp]
 	call	GET_ABS_64
 	mov	QWORD PTR v_abs$[rbp], rax
 
-; 597  :     if (nu->SIGN == 0)
+; 582  :     if (nu->SIGN == 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Add_X_
 
-; 598  :     {
-; 599  :         // u == 0 ÇÃèÍçá
-; 600  : 
-; 601  :         if (v_sign == 0)
+; 583  :     {
+; 584  :         // u == 0 ÇÃèÍçá
+; 585  : 
+; 586  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Add_X_
 
-; 602  :         {
-; 603  :             // v == 0 ÇÃèÍçá
-; 604  : 
-; 605  :             nw = &number_zero;
+; 587  :         {
+; 588  :             // v == 0 ÇÃèÍçá
+; 589  : 
+; 590  :             // 0 Çï‘Ç∑
+; 591  :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 606  :         }
+; 592  :         }
 
 	jmp	SHORT $LN8@PMC_Add_X_
 $LN7@PMC_Add_X_:
 
-; 607  :         else if (v_sign > 0)
-
-	movsx	eax, BYTE PTR v_sign$[rbp]
-	test	eax, eax
-	jle	SHORT $LN9@PMC_Add_X_
-
-; 608  :         {
-; 609  :             // v > 0 ÇÃèÍçá
-; 610  : 
-; 611  :             // v Çï‘Ç∑
-; 612  :             if ((result = From_L_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
+; 593  :         else
+; 594  :         {
+; 595  :             // v != 0 ÇÃèÍçá
+; 596  : 
+; 597  :             // v Çï‘Ç∑
+; 598  :             if ((result = From_L_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR nw$[rbp]
 	mov	rdx, QWORD PTR v_abs$[rbp]
@@ -5730,127 +5518,100 @@ $LN7@PMC_Add_X_:
 	call	From_L_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN11@PMC_Add_X_
+	je	SHORT $LN9@PMC_Add_X_
 
-; 613  :                 return (result);
+; 599  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
-$LN11@PMC_Add_X_:
-
-; 614  :         }
-
-	jmp	SHORT $LN10@PMC_Add_X_
 $LN9@PMC_Add_X_:
-
-; 615  :         else
-; 616  :         {
-; 617  :             // v < 0 ÇÃèÍçá
-; 618  : 
-; 619  :             // v Çï‘Ç∑
-; 620  :             if ((result = From_L_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
-
-	lea	r8, QWORD PTR nw$[rbp]
-	mov	rdx, QWORD PTR v_abs$[rbp]
-	movzx	ecx, BYTE PTR v_sign$[rbp]
-	call	From_L_Imp
-	mov	DWORD PTR result$[rbp], eax
-	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN12@PMC_Add_X_
-
-; 621  :                 return (result);
-
-	mov	eax, DWORD PTR result$[rbp]
-	jmp	$LN1@PMC_Add_X_
-$LN12@PMC_Add_X_:
-$LN10@PMC_Add_X_:
 $LN8@PMC_Add_X_:
 
-; 622  :         }
-; 623  :     }
+; 600  :         }
+; 601  :     }
 
 	jmp	$LN6@PMC_Add_X_
 $LN5@PMC_Add_X_:
 
-; 624  :     else if (nu->SIGN > 0)
+; 602  :     else if (nu->SIGN > 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
-	jle	$LN13@PMC_Add_X_
+	jle	$LN10@PMC_Add_X_
 
-; 625  :     {
-; 626  :         // u > 0 ÇÃèÍçá
-; 627  : 
-; 628  :         if (v_sign == 0)
+; 603  :     {
+; 604  :         // u > 0 ÇÃèÍçá
+; 605  : 
+; 606  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
-	jne	SHORT $LN15@PMC_Add_X_
+	jne	SHORT $LN12@PMC_Add_X_
 
-; 629  :         {
-; 630  :             // v == 0 ÇÃèÍçá
-; 631  : 
-; 632  :             // u Çï‘Ç∑
-; 633  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 607  :         {
+; 608  :             // v == 0 ÇÃèÍçá
+; 609  : 
+; 610  :             // u Çï‘Ç∑
+; 611  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	DuplicateNumber
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
+	je	SHORT $LN14@PMC_Add_X_
+
+; 612  :                 return (result);
+
+	mov	eax, DWORD PTR result$[rbp]
+	jmp	$LN1@PMC_Add_X_
+$LN14@PMC_Add_X_:
+
+; 613  :         }
+
+	jmp	SHORT $LN13@PMC_Add_X_
+$LN12@PMC_Add_X_:
+
+; 614  :         else if (v_sign > 0)
+
+	movsx	eax, BYTE PTR v_sign$[rbp]
+	test	eax, eax
+	jle	SHORT $LN15@PMC_Add_X_
+
+; 615  :         {
+; 616  :             // v > 0 ÇÃèÍçá
+; 617  : 
+; 618  :             // abs(u) + abs(v) Çï‘Ç∑
+; 619  :             if ((result = AddU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+
+	lea	r9, QWORD PTR nw$[rbp]
+	mov	r8, QWORD PTR v_abs$[rbp]
+	mov	rax, QWORD PTR nu$[rbp]
+	mov	rdx, QWORD PTR [rax+8]
+	mov	cl, 1
+	call	AddU_X_L_Imp
+	mov	DWORD PTR result$[rbp], eax
+	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN17@PMC_Add_X_
 
-; 634  :                 return (result);
+; 620  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN17@PMC_Add_X_:
 
-; 635  :         }
+; 621  :         }
 
 	jmp	SHORT $LN16@PMC_Add_X_
 $LN15@PMC_Add_X_:
 
-; 636  :         else if (v_sign > 0)
-
-	movsx	eax, BYTE PTR v_sign$[rbp]
-	test	eax, eax
-	jle	SHORT $LN18@PMC_Add_X_
-
-; 637  :         {
-; 638  :             // v > 0 ÇÃèÍçá
-; 639  : 
-; 640  :             // abs(u) + abs(v) Çï‘Ç∑
-; 641  :             if ((result = AddU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
-
-	lea	r9, QWORD PTR nw$[rbp]
-	mov	r8, QWORD PTR v_abs$[rbp]
-	mov	rax, QWORD PTR nu$[rbp]
-	mov	rdx, QWORD PTR [rax+8]
-	mov	cl, 1
-	call	AddU_X_L_Imp
-	mov	DWORD PTR result$[rbp], eax
-	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN20@PMC_Add_X_
-
-; 642  :                 return (result);
-
-	mov	eax, DWORD PTR result$[rbp]
-	jmp	$LN1@PMC_Add_X_
-$LN20@PMC_Add_X_:
-
-; 643  :         }
-
-	jmp	SHORT $LN19@PMC_Add_X_
-$LN18@PMC_Add_X_:
-
-; 644  :         else
-; 645  :         {
-; 646  :             // v < 0 ÇÃèÍçá
-; 647  : 
-; 648  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 649  :             if ((result = SubtructU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 622  :         else
+; 623  :         {
+; 624  :             // v < 0 ÇÃèÍçá
+; 625  : 
+; 626  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 627  :             if ((result = SubtructU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR v_abs$[rbp]
@@ -5860,67 +5621,67 @@ $LN18@PMC_Add_X_:
 	call	SubtructU_X_L_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN21@PMC_Add_X_
+	je	SHORT $LN18@PMC_Add_X_
 
-; 650  :                 return (result);
+; 628  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
-$LN21@PMC_Add_X_:
-$LN19@PMC_Add_X_:
+$LN18@PMC_Add_X_:
 $LN16@PMC_Add_X_:
-
-; 651  :         }
-; 652  :     }
-
-	jmp	SHORT $LN14@PMC_Add_X_
 $LN13@PMC_Add_X_:
 
-; 653  :     else
-; 654  :     {
-; 655  :         // u < 0 ÇÃèÍçá
-; 656  : 
-; 657  :         if (v_sign == 0)
+; 629  :         }
+; 630  :     }
+
+	jmp	SHORT $LN11@PMC_Add_X_
+$LN10@PMC_Add_X_:
+
+; 631  :     else
+; 632  :     {
+; 633  :         // u < 0 ÇÃèÍçá
+; 634  : 
+; 635  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
-	jne	SHORT $LN22@PMC_Add_X_
+	jne	SHORT $LN19@PMC_Add_X_
 
-; 658  :         {
-; 659  :             // v == 0 ÇÃèÍçá
-; 660  : 
-; 661  :             // u Çï‘Ç∑
-; 662  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 636  :         {
+; 637  :             // v == 0 ÇÃèÍçá
+; 638  : 
+; 639  :             // u Çï‘Ç∑
+; 640  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	DuplicateNumber
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN24@PMC_Add_X_
+	je	SHORT $LN21@PMC_Add_X_
 
-; 663  :                 return (result);
+; 641  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_X_
-$LN24@PMC_Add_X_:
+$LN21@PMC_Add_X_:
 
-; 664  :         }
+; 642  :         }
 
-	jmp	SHORT $LN23@PMC_Add_X_
-$LN22@PMC_Add_X_:
+	jmp	SHORT $LN20@PMC_Add_X_
+$LN19@PMC_Add_X_:
 
-; 665  :         else if (v_sign > 0)
+; 643  :         else if (v_sign > 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
-	jle	SHORT $LN25@PMC_Add_X_
+	jle	SHORT $LN22@PMC_Add_X_
 
-; 666  :         {
-; 667  :             // v > 0 ÇÃèÍçá
-; 668  : 
-; 669  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 670  :             if ((result = SubtructU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 644  :         {
+; 645  :             // v > 0 ÇÃèÍçá
+; 646  : 
+; 647  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 648  :             if ((result = SubtructU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR v_abs$[rbp]
@@ -5930,25 +5691,25 @@ $LN22@PMC_Add_X_:
 	call	SubtructU_X_L_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN27@PMC_Add_X_
+	je	SHORT $LN24@PMC_Add_X_
 
-; 671  :                 return (result);
+; 649  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_X_
-$LN27@PMC_Add_X_:
+$LN24@PMC_Add_X_:
 
-; 672  :         }
+; 650  :         }
 
-	jmp	SHORT $LN26@PMC_Add_X_
-$LN25@PMC_Add_X_:
+	jmp	SHORT $LN23@PMC_Add_X_
+$LN22@PMC_Add_X_:
 
-; 673  :         else
-; 674  :         {
-; 675  :             // v < 0 ÇÃèÍçá
-; 676  : 
-; 677  :             // - abs(u) - abs(v) Çï‘Ç∑
-; 678  :             if ((result = AddU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 651  :         else
+; 652  :         {
+; 653  :             // v < 0 ÇÃèÍçá
+; 654  : 
+; 655  :             // - abs(u) - abs(v) Çï‘Ç∑
+; 656  :             if ((result = AddU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR v_abs$[rbp]
@@ -5958,32 +5719,32 @@ $LN25@PMC_Add_X_:
 	call	AddU_X_L_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN28@PMC_Add_X_
+	je	SHORT $LN25@PMC_Add_X_
 
-; 679  :                 return (result);
+; 657  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_X_
-$LN28@PMC_Add_X_:
-$LN26@PMC_Add_X_:
+$LN25@PMC_Add_X_:
 $LN23@PMC_Add_X_:
-$LN14@PMC_Add_X_:
+$LN20@PMC_Add_X_:
+$LN11@PMC_Add_X_:
 $LN6@PMC_Add_X_:
 
-; 680  :         }
-; 681  :     }
-; 682  :     *w = (PMC_HANDLE_SINT)nw;
+; 658  :         }
+; 659  :     }
+; 660  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 683  :     return (PMC_STATUS_OK);
+; 661  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_X_:
 
-; 684  : }
+; 662  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -6014,9 +5775,9 @@ v$ = 392
 w$ = 400
 PMC_Add_X_I PROC					; COMDAT
 
-; 483  : {
+; 475  : {
 
-$LN30:
+$LN27:
 	mov	QWORD PTR [rsp+24], r8
 	mov	DWORD PTR [rsp+16], edx
 	mov	QWORD PTR [rsp+8], rcx
@@ -6035,36 +5796,36 @@ $LN30:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 484  :     if (u == NULL)
+; 476  :     if (u == NULL)
 
 	cmp	QWORD PTR u$[rbp], 0
 	jne	SHORT $LN2@PMC_Add_X_
 
-; 485  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 477  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN2@PMC_Add_X_:
 
-; 486  :     if (w == NULL)
+; 478  :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN3@PMC_Add_X_
 
-; 487  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 479  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN3@PMC_Add_X_:
 
-; 488  :     PMC_STATUS_CODE result;
-; 489  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 480  :     PMC_STATUS_CODE result;
+; 481  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	rax, QWORD PTR u$[rbp]
 	mov	QWORD PTR nu$[rbp], rax
 
-; 490  :     NUMBER_HEADER* nw;
-; 491  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 482  :     NUMBER_HEADER* nw;
+; 483  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	CheckNumber
@@ -6072,60 +5833,56 @@ $LN3@PMC_Add_X_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@PMC_Add_X_
 
-; 492  :         return (result);
+; 484  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN4@PMC_Add_X_:
 
-; 493  :     char v_sign;
-; 494  :     _UINT32_T v_abs = GET_ABS_32(v, &v_sign);
+; 485  :     char v_sign;
+; 486  :     _UINT32_T v_abs = GET_ABS_32(v, &v_sign);
 
 	lea	rdx, QWORD PTR v_sign$[rbp]
 	mov	ecx, DWORD PTR v$[rbp]
 	call	GET_ABS_32
 	mov	DWORD PTR v_abs$[rbp], eax
 
-; 495  :     if (nu->SIGN == 0)
+; 487  :     if (nu->SIGN == 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Add_X_
 
-; 496  :     {
-; 497  :         // u == 0 ÇÃèÍçá
-; 498  : 
-; 499  :         if (v_sign == 0)
+; 488  :     {
+; 489  :         // u == 0 ÇÃèÍçá
+; 490  : 
+; 491  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Add_X_
 
-; 500  :         {
-; 501  :             // v == 0 ÇÃèÍçá
-; 502  : 
-; 503  :             nw = &number_zero;
+; 492  :         {
+; 493  :             // v == 0 ÇÃèÍçá
+; 494  : 
+; 495  :             // 0 Çï‘Ç∑
+; 496  :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 504  :         }
+; 497  :         }
 
 	jmp	SHORT $LN8@PMC_Add_X_
 $LN7@PMC_Add_X_:
 
-; 505  :         else if (v_sign > 0)
-
-	movsx	eax, BYTE PTR v_sign$[rbp]
-	test	eax, eax
-	jle	SHORT $LN9@PMC_Add_X_
-
-; 506  :         {
-; 507  :             // v > 0 ÇÃèÍçá
-; 508  : 
-; 509  :             // v Çï‘Ç∑
-; 510  :             if ((result = From_I_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
+; 498  :         else
+; 499  :         {
+; 500  :             // v != 0 ÇÃèÍçá
+; 501  : 
+; 502  :             // v Çï‘Ç∑
+; 503  :             if ((result = From_I_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR nw$[rbp]
 	mov	edx, DWORD PTR v_abs$[rbp]
@@ -6133,127 +5890,100 @@ $LN7@PMC_Add_X_:
 	call	From_I_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN11@PMC_Add_X_
+	je	SHORT $LN9@PMC_Add_X_
 
-; 511  :                 return (result);
+; 504  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
-$LN11@PMC_Add_X_:
-
-; 512  :         }
-
-	jmp	SHORT $LN10@PMC_Add_X_
 $LN9@PMC_Add_X_:
-
-; 513  :         else
-; 514  :         {
-; 515  :             // v < 0 ÇÃèÍçá
-; 516  : 
-; 517  :             // v Çï‘Ç∑
-; 518  :             if ((result = From_I_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
-
-	lea	r8, QWORD PTR nw$[rbp]
-	mov	edx, DWORD PTR v_abs$[rbp]
-	movzx	ecx, BYTE PTR v_sign$[rbp]
-	call	From_I_Imp
-	mov	DWORD PTR result$[rbp], eax
-	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN12@PMC_Add_X_
-
-; 519  :                 return (result);
-
-	mov	eax, DWORD PTR result$[rbp]
-	jmp	$LN1@PMC_Add_X_
-$LN12@PMC_Add_X_:
-$LN10@PMC_Add_X_:
 $LN8@PMC_Add_X_:
 
-; 520  :         }
-; 521  :     }
+; 505  :         }
+; 506  :     }
 
 	jmp	$LN6@PMC_Add_X_
 $LN5@PMC_Add_X_:
 
-; 522  :     else if (nu->SIGN > 0)
+; 507  :     else if (nu->SIGN > 0)
 
 	mov	rax, QWORD PTR nu$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
-	jle	$LN13@PMC_Add_X_
+	jle	$LN10@PMC_Add_X_
 
-; 523  :     {
-; 524  :         // u > 0 ÇÃèÍçá
-; 525  : 
-; 526  :         if (v_sign == 0)
+; 508  :     {
+; 509  :         // u > 0 ÇÃèÍçá
+; 510  : 
+; 511  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
-	jne	SHORT $LN15@PMC_Add_X_
+	jne	SHORT $LN12@PMC_Add_X_
 
-; 527  :         {
-; 528  :             // v == 0 ÇÃèÍçá
-; 529  : 
-; 530  :             // u Çï‘Ç∑
-; 531  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 512  :         {
+; 513  :             // v == 0 ÇÃèÍçá
+; 514  : 
+; 515  :             // u Çï‘Ç∑
+; 516  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	DuplicateNumber
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
+	je	SHORT $LN14@PMC_Add_X_
+
+; 517  :                 return (result);
+
+	mov	eax, DWORD PTR result$[rbp]
+	jmp	$LN1@PMC_Add_X_
+$LN14@PMC_Add_X_:
+
+; 518  :         }
+
+	jmp	SHORT $LN13@PMC_Add_X_
+$LN12@PMC_Add_X_:
+
+; 519  :         else if (v_sign > 0)
+
+	movsx	eax, BYTE PTR v_sign$[rbp]
+	test	eax, eax
+	jle	SHORT $LN15@PMC_Add_X_
+
+; 520  :         {
+; 521  :             // v > 0 ÇÃèÍçá
+; 522  : 
+; 523  :             // abs(u) + abs(v) Çï‘Ç∑
+; 524  :             if ((result = AddU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+
+	lea	r9, QWORD PTR nw$[rbp]
+	mov	r8d, DWORD PTR v_abs$[rbp]
+	mov	rax, QWORD PTR nu$[rbp]
+	mov	rdx, QWORD PTR [rax+8]
+	mov	cl, 1
+	call	AddU_X_I_Imp
+	mov	DWORD PTR result$[rbp], eax
+	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN17@PMC_Add_X_
 
-; 532  :                 return (result);
+; 525  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
 $LN17@PMC_Add_X_:
 
-; 533  :         }
+; 526  :         }
 
 	jmp	SHORT $LN16@PMC_Add_X_
 $LN15@PMC_Add_X_:
 
-; 534  :         else if (v_sign > 0)
-
-	movsx	eax, BYTE PTR v_sign$[rbp]
-	test	eax, eax
-	jle	SHORT $LN18@PMC_Add_X_
-
-; 535  :         {
-; 536  :             // v > 0 ÇÃèÍçá
-; 537  : 
-; 538  :             // abs(u) + abs(v) Çï‘Ç∑
-; 539  :             if ((result = AddU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
-
-	lea	r9, QWORD PTR nw$[rbp]
-	mov	r8d, DWORD PTR v_abs$[rbp]
-	mov	rax, QWORD PTR nu$[rbp]
-	mov	rdx, QWORD PTR [rax+8]
-	mov	cl, 1
-	call	AddU_X_I_Imp
-	mov	DWORD PTR result$[rbp], eax
-	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN20@PMC_Add_X_
-
-; 540  :                 return (result);
-
-	mov	eax, DWORD PTR result$[rbp]
-	jmp	$LN1@PMC_Add_X_
-$LN20@PMC_Add_X_:
-
-; 541  :         }
-
-	jmp	SHORT $LN19@PMC_Add_X_
-$LN18@PMC_Add_X_:
-
-; 542  :         else
-; 543  :         {
-; 544  :             // v < 0 ÇÃèÍçá
-; 545  : 
-; 546  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 547  :             if ((result = SubtructU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 527  :         else
+; 528  :         {
+; 529  :             // v < 0 ÇÃèÍçá
+; 530  : 
+; 531  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 532  :             if ((result = SubtructU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR v_abs$[rbp]
@@ -6263,67 +5993,67 @@ $LN18@PMC_Add_X_:
 	call	SubtructU_X_I_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN21@PMC_Add_X_
+	je	SHORT $LN18@PMC_Add_X_
 
-; 548  :                 return (result);
+; 533  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_X_
-$LN21@PMC_Add_X_:
-$LN19@PMC_Add_X_:
+$LN18@PMC_Add_X_:
 $LN16@PMC_Add_X_:
-
-; 549  :         }
-; 550  :     }
-
-	jmp	SHORT $LN14@PMC_Add_X_
 $LN13@PMC_Add_X_:
 
-; 551  :     else
-; 552  :     {
-; 553  :         // u < 0 ÇÃèÍçá
-; 554  : 
-; 555  :         if (v_sign == 0)
+; 534  :         }
+; 535  :     }
+
+	jmp	SHORT $LN11@PMC_Add_X_
+$LN10@PMC_Add_X_:
+
+; 536  :     else
+; 537  :     {
+; 538  :         // u < 0 ÇÃèÍçá
+; 539  : 
+; 540  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
-	jne	SHORT $LN22@PMC_Add_X_
+	jne	SHORT $LN19@PMC_Add_X_
 
-; 556  :         {
-; 557  :             // v == 0 ÇÃèÍçá
-; 558  : 
-; 559  :             // u Çï‘Ç∑
-; 560  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 541  :         {
+; 542  :             // v == 0 ÇÃèÍçá
+; 543  : 
+; 544  :             // u Çï‘Ç∑
+; 545  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nu$[rbp]
 	call	DuplicateNumber
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN24@PMC_Add_X_
+	je	SHORT $LN21@PMC_Add_X_
 
-; 561  :                 return (result);
+; 546  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_X_
-$LN24@PMC_Add_X_:
+$LN21@PMC_Add_X_:
 
-; 562  :         }
+; 547  :         }
 
-	jmp	SHORT $LN23@PMC_Add_X_
-$LN22@PMC_Add_X_:
+	jmp	SHORT $LN20@PMC_Add_X_
+$LN19@PMC_Add_X_:
 
-; 563  :         else if (v_sign > 0)
+; 548  :         else if (v_sign > 0)
 
 	movsx	eax, BYTE PTR v_sign$[rbp]
 	test	eax, eax
-	jle	SHORT $LN25@PMC_Add_X_
+	jle	SHORT $LN22@PMC_Add_X_
 
-; 564  :         {
-; 565  :             // v > 0 ÇÃèÍçá
-; 566  : 
-; 567  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 568  :             if ((result = SubtructU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 549  :         {
+; 550  :             // v > 0 ÇÃèÍçá
+; 551  : 
+; 552  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 553  :             if ((result = SubtructU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR v_abs$[rbp]
@@ -6333,25 +6063,25 @@ $LN22@PMC_Add_X_:
 	call	SubtructU_X_I_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN27@PMC_Add_X_
+	je	SHORT $LN24@PMC_Add_X_
 
-; 569  :                 return (result);
+; 554  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_X_
-$LN27@PMC_Add_X_:
+$LN24@PMC_Add_X_:
 
-; 570  :         }
+; 555  :         }
 
-	jmp	SHORT $LN26@PMC_Add_X_
-$LN25@PMC_Add_X_:
+	jmp	SHORT $LN23@PMC_Add_X_
+$LN22@PMC_Add_X_:
 
-; 571  :         else
-; 572  :         {
-; 573  :             // v < 0 ÇÃèÍçá
-; 574  : 
-; 575  :             // - abs(u) - abs(v) Çï‘Ç∑
-; 576  :             if ((result = AddU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 556  :         else
+; 557  :         {
+; 558  :             // v < 0 ÇÃèÍçá
+; 559  : 
+; 560  :             // - abs(u) - abs(v) Çï‘Ç∑
+; 561  :             if ((result = AddU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR v_abs$[rbp]
@@ -6361,32 +6091,32 @@ $LN25@PMC_Add_X_:
 	call	AddU_X_I_Imp
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
-	je	SHORT $LN28@PMC_Add_X_
+	je	SHORT $LN25@PMC_Add_X_
 
-; 577  :                 return (result);
+; 562  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_X_
-$LN28@PMC_Add_X_:
-$LN26@PMC_Add_X_:
+$LN25@PMC_Add_X_:
 $LN23@PMC_Add_X_:
-$LN14@PMC_Add_X_:
+$LN20@PMC_Add_X_:
+$LN11@PMC_Add_X_:
 $LN6@PMC_Add_X_:
 
-; 578  :         }
-; 579  :     }
-; 580  :     *w = (PMC_HANDLE_SINT)nw;
+; 563  :         }
+; 564  :     }
+; 565  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 581  :     return (PMC_STATUS_OK);
+; 566  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_X_:
 
-; 582  : }
+; 567  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -6417,7 +6147,7 @@ v$ = 392
 w$ = 400
 PMC_Add_UX_X PROC					; COMDAT
 
-; 410  : {
+; 402  : {
 
 $LN20:
 	mov	QWORD PTR [rsp+24], r8
@@ -6438,36 +6168,36 @@ $LN20:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 411  :     if (v == NULL)
+; 403  :     if (v == NULL)
 
 	cmp	QWORD PTR v$[rbp], 0
 	jne	SHORT $LN2@PMC_Add_UX
 
-; 412  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 404  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_UX
 $LN2@PMC_Add_UX:
 
-; 413  :     if (w == NULL)
+; 405  :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN3@PMC_Add_UX
 
-; 414  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 406  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_UX
 $LN3@PMC_Add_UX:
 
-; 415  :     PMC_STATUS_CODE result;
-; 416  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 407  :     PMC_STATUS_CODE result;
+; 408  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	rax, QWORD PTR v$[rbp]
 	mov	QWORD PTR nv$[rbp], rax
 
-; 417  :     NUMBER_HEADER* nw;
-; 418  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 409  :     NUMBER_HEADER* nw;
+; 410  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nv$[rbp]
 	call	CheckNumber
@@ -6475,64 +6205,64 @@ $LN3@PMC_Add_UX:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@PMC_Add_UX
 
-; 419  :         return (result);
+; 411  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_UX
 $LN4@PMC_Add_UX:
 
-; 420  :     char u_is_zero;
-; 421  :     if ((result = IS_ZERO_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
+; 412  :     char u_is_zero;
+; 413  :     if ((result = IsZero_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR u_is_zero$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	IS_ZERO_UINT
+	call	IsZero_UINT
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@PMC_Add_UX
 
-; 422  :         return (result);
+; 414  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_UX
 $LN5@PMC_Add_UX:
 
-; 423  :     if (u_is_zero)
+; 415  :     if (u_is_zero)
 
 	movsx	eax, BYTE PTR u_is_zero$[rbp]
 	test	eax, eax
 	je	SHORT $LN6@PMC_Add_UX
 
-; 424  :     {
-; 425  :         // u == 0 ÇÃèÍçá
-; 426  : 
-; 427  :         if (nv->SIGN == 0)
+; 416  :     {
+; 417  :         // u == 0 ÇÃèÍçá
+; 418  : 
+; 419  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN8@PMC_Add_UX
 
-; 428  :         {
-; 429  :             // v == 0 ÇÃèÍçá
-; 430  : 
-; 431  :             // 0 Çï‘Ç∑
-; 432  :             nw = &number_zero;
+; 420  :         {
+; 421  :             // v == 0 ÇÃèÍçá
+; 422  : 
+; 423  :             // 0 Çï‘Ç∑
+; 424  :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 433  :         }
+; 425  :         }
 
 	jmp	SHORT $LN9@PMC_Add_UX
 $LN8@PMC_Add_UX:
 
-; 434  :         else
-; 435  :         {
-; 436  :             // v != 0 ÇÃèÍçá
-; 437  : 
-; 438  :             // v Çï‘Ç∑
-; 439  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
+; 426  :         else
+; 427  :         {
+; 428  :             // v != 0 ÇÃèÍçá
+; 429  : 
+; 430  :             // v Çï‘Ç∑
+; 431  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nv$[rbp]
@@ -6541,36 +6271,36 @@ $LN8@PMC_Add_UX:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN10@PMC_Add_UX
 
-; 440  :                 return (result);
+; 432  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_UX
 $LN10@PMC_Add_UX:
 $LN9@PMC_Add_UX:
 
-; 441  :         }
-; 442  :     }
+; 433  :         }
+; 434  :     }
 
 	jmp	$LN7@PMC_Add_UX
 $LN6@PMC_Add_UX:
 
-; 443  :     else
-; 444  :     {
-; 445  :         // u > 0 ÇÃèÍçá
-; 446  : 
-; 447  :         if (nv->SIGN == 0)
+; 435  :     else
+; 436  :     {
+; 437  :         // u > 0 ÇÃèÍçá
+; 438  : 
+; 439  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN11@PMC_Add_UX
 
-; 448  :         {
-; 449  :             // v == 0 ÇÃèÍçá
-; 450  : 
-; 451  :             // u Çï‘Ç∑
-; 452  :             PMC_HANDLE_UINT new_u;
-; 453  :             if ((result = ep_uint.Clone_X(u, &new_u)) != PMC_STATUS_OK)
+; 440  :         {
+; 441  :             // v == 0 ÇÃèÍçá
+; 442  : 
+; 443  :             // u Çï‘Ç∑
+; 444  :             PMC_HANDLE_UINT new_u;
+; 445  :             if ((result = ep_uint.Clone_X(u, &new_u)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR new_u$6[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
@@ -6579,13 +6309,13 @@ $LN6@PMC_Add_UX:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN13@PMC_Add_UX
 
-; 454  :                 return (result);
+; 446  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_UX
 $LN13@PMC_Add_UX:
 
-; 455  :             if ((result = AllocateNumber(&nw, 1, new_u)) != PMC_STATUS_OK)
+; 447  :             if ((result = AllocateNumber(&nw, 1, new_u)) != PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR new_u$6[rbp]
 	mov	dl, 1
@@ -6595,36 +6325,36 @@ $LN13@PMC_Add_UX:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN14@PMC_Add_UX
 
-; 456  :             {
-; 457  :                 ep_uint.Dispose(new_u);
+; 448  :             {
+; 449  :                 ep_uint.Dispose(new_u);
 
 	mov	rcx, QWORD PTR new_u$6[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 458  :                 return (result);
+; 450  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_UX
 $LN14@PMC_Add_UX:
 
-; 459  :             }
-; 460  :         }
+; 451  :             }
+; 452  :         }
 
 	jmp	SHORT $LN12@PMC_Add_UX
 $LN11@PMC_Add_UX:
 
-; 461  :         else if (nv->SIGN > 0)
+; 453  :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN15@PMC_Add_UX
 
-; 462  :         {
-; 463  :             // v > 0 ÇÃèÍçá
-; 464  : 
-; 465  :             // u + abs(v) Çï‘Ç∑
-; 466  :             if ((result = AddU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 454  :         {
+; 455  :             // v > 0 ÇÃèÍçá
+; 456  : 
+; 457  :             // u + abs(v) Çï‘Ç∑
+; 458  :             if ((result = AddU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	rax, QWORD PTR nv$[rbp]
@@ -6636,23 +6366,23 @@ $LN11@PMC_Add_UX:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN17@PMC_Add_UX
 
-; 467  :                 return (result);
+; 459  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_UX
 $LN17@PMC_Add_UX:
 
-; 468  :         }
+; 460  :         }
 
 	jmp	SHORT $LN16@PMC_Add_UX
 $LN15@PMC_Add_UX:
 
-; 469  :         else
-; 470  :         {
-; 471  :             // v < 0 ÇÃèÍçá
-; 472  : 
-; 473  :             // u - abs(v) ÇåvéZÇ∑ÇÈ
-; 474  :             if ((result = SubtructU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 461  :         else
+; 462  :         {
+; 463  :             // v < 0 ÇÃèÍçá
+; 464  : 
+; 465  :             // u - abs(v) ÇåvéZÇ∑ÇÈ
+; 466  :             if ((result = SubtructU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	rax, QWORD PTR nv$[rbp]
@@ -6664,7 +6394,7 @@ $LN15@PMC_Add_UX:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN18@PMC_Add_UX
 
-; 475  :                 return (result);
+; 467  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_UX
@@ -6673,20 +6403,20 @@ $LN16@PMC_Add_UX:
 $LN12@PMC_Add_UX:
 $LN7@PMC_Add_UX:
 
-; 476  :         }
-; 477  :     }
-; 478  :     *w = (PMC_HANDLE_SINT)nw;
+; 468  :         }
+; 469  :     }
+; 470  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 479  :     return (PMC_STATUS_OK);
+; 471  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_UX:
 
-; 480  : }
+; 472  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -6717,7 +6447,7 @@ v$ = 392
 w$ = 400
 PMC_Add_L_X PROC					; COMDAT
 
-; 316  : {
+; 307  : {
 
 $LN27:
 	mov	QWORD PTR [rsp+24], r8
@@ -6738,36 +6468,36 @@ $LN27:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 317  :     if (v == NULL)
+; 308  :     if (v == NULL)
 
 	cmp	QWORD PTR v$[rbp], 0
 	jne	SHORT $LN2@PMC_Add_L_
 
-; 318  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 309  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_L_
 $LN2@PMC_Add_L_:
 
-; 319  :     if (w == NULL)
+; 310  :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN3@PMC_Add_L_
 
-; 320  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 311  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_L_
 $LN3@PMC_Add_L_:
 
-; 321  :     PMC_STATUS_CODE result;
-; 322  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 312  :     PMC_STATUS_CODE result;
+; 313  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	rax, QWORD PTR v$[rbp]
 	mov	QWORD PTR nv$[rbp], rax
 
-; 323  :     NUMBER_HEADER* nw;
-; 324  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 314  :     NUMBER_HEADER* nw;
+; 315  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nv$[rbp]
 	call	CheckNumber
@@ -6775,55 +6505,56 @@ $LN3@PMC_Add_L_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@PMC_Add_L_
 
-; 325  :         return (result);
+; 316  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_L_
 $LN4@PMC_Add_L_:
 
-; 326  :     char u_sign;
-; 327  :     _UINT64_T u_abs = GET_ABS_64(u, &u_sign);
+; 317  :     char u_sign;
+; 318  :     _UINT64_T u_abs = GET_ABS_64(u, &u_sign);
 
 	lea	rdx, QWORD PTR u_sign$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	call	GET_ABS_64
 	mov	QWORD PTR u_abs$[rbp], rax
 
-; 328  :     if (u_sign == 0)
+; 319  :     if (u_sign == 0)
 
 	movsx	eax, BYTE PTR u_sign$[rbp]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Add_L_
 
-; 329  :     {
-; 330  :         // u == 0 ÇÃèÍçá
-; 331  : 
-; 332  :         if (nv->SIGN == 0)
+; 320  :     {
+; 321  :         // u == 0 ÇÃèÍçá
+; 322  : 
+; 323  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Add_L_
 
-; 333  :         {
-; 334  :             // v == 0 ÇÃèÍçá
-; 335  : 
-; 336  :             nw = &number_zero;
+; 324  :         {
+; 325  :             // v == 0 ÇÃèÍçá
+; 326  : 
+; 327  :             // 0 Çï‘Ç∑
+; 328  :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 337  :         }
+; 329  :         }
 
 	jmp	SHORT $LN8@PMC_Add_L_
 $LN7@PMC_Add_L_:
 
-; 338  :         else
-; 339  :         {
-; 340  :             // v != 0 ÇÃèÍçá
-; 341  : 
-; 342  :             // v Çï‘Ç∑
-; 343  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
+; 330  :         else
+; 331  :         {
+; 332  :             // v != 0 ÇÃèÍçá
+; 333  : 
+; 334  :             // v Çï‘Ç∑
+; 335  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nv$[rbp]
@@ -6832,40 +6563,40 @@ $LN7@PMC_Add_L_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN9@PMC_Add_L_
 
-; 344  :                 return (result);
+; 336  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_L_
 $LN9@PMC_Add_L_:
 $LN8@PMC_Add_L_:
 
-; 345  :         }
-; 346  :     }
+; 337  :         }
+; 338  :     }
 
 	jmp	$LN6@PMC_Add_L_
 $LN5@PMC_Add_L_:
 
-; 347  :     else if (u_sign > 0)
+; 339  :     else if (u_sign > 0)
 
 	movsx	eax, BYTE PTR u_sign$[rbp]
 	test	eax, eax
 	jle	$LN10@PMC_Add_L_
 
-; 348  :     {
-; 349  :         // u > 0 ÇÃèÍçá
-; 350  : 
-; 351  :         if (nv->SIGN == 0)
+; 340  :     {
+; 341  :         // u > 0 ÇÃèÍçá
+; 342  : 
+; 343  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN12@PMC_Add_L_
 
-; 352  :         {
-; 353  :             // v == 0 ÇÃèÍçá
-; 354  : 
-; 355  :             // u Çï‘Ç∑
-; 356  :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 344  :         {
+; 345  :             // v == 0 ÇÃèÍçá
+; 346  : 
+; 347  :             // u Çï‘Ç∑
+; 348  :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR nw$[rbp]
 	mov	rdx, QWORD PTR u_abs$[rbp]
@@ -6875,29 +6606,29 @@ $LN5@PMC_Add_L_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN14@PMC_Add_L_
 
-; 357  :                 return (result);
+; 349  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_L_
 $LN14@PMC_Add_L_:
 
-; 358  :         }
+; 350  :         }
 
 	jmp	SHORT $LN13@PMC_Add_L_
 $LN12@PMC_Add_L_:
 
-; 359  :         else if (nv->SIGN > 0)
+; 351  :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN15@PMC_Add_L_
 
-; 360  :         {
-; 361  :             // v > 0 ÇÃèÍçá
-; 362  : 
-; 363  :             // abs(u) + abs(v) Çï‘Ç∑
-; 364  :             if ((result = AddU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 352  :         {
+; 353  :             // v > 0 ÇÃèÍçá
+; 354  : 
+; 355  :             // abs(u) + abs(v) Çï‘Ç∑
+; 356  :             if ((result = AddU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR u_abs$[rbp]
@@ -6909,23 +6640,23 @@ $LN12@PMC_Add_L_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN17@PMC_Add_L_
 
-; 365  :                 return (result);
+; 357  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_L_
 $LN17@PMC_Add_L_:
 
-; 366  :         }
+; 358  :         }
 
 	jmp	SHORT $LN16@PMC_Add_L_
 $LN15@PMC_Add_L_:
 
-; 367  :         else
-; 368  :         {
-; 369  :             // v < 0 ÇÃèÍçá
-; 370  : 
-; 371  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 372  :             if ((result = SubtructU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 359  :         else
+; 360  :         {
+; 361  :             // v < 0 ÇÃèÍçá
+; 362  : 
+; 363  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 364  :             if ((result = SubtructU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR u_abs$[rbp]
@@ -6937,7 +6668,7 @@ $LN15@PMC_Add_L_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN18@PMC_Add_L_
 
-; 373  :                 return (result);
+; 365  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_L_
@@ -6945,28 +6676,28 @@ $LN18@PMC_Add_L_:
 $LN16@PMC_Add_L_:
 $LN13@PMC_Add_L_:
 
-; 374  :         }
-; 375  :     }
+; 366  :         }
+; 367  :     }
 
 	jmp	$LN11@PMC_Add_L_
 $LN10@PMC_Add_L_:
 
-; 376  :     else
-; 377  :     {
-; 378  :         // u < 0 ÇÃèÍçá
-; 379  : 
-; 380  :         if (nv->SIGN == 0)
+; 368  :     else
+; 369  :     {
+; 370  :         // u < 0 ÇÃèÍçá
+; 371  : 
+; 372  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN19@PMC_Add_L_
 
-; 381  :         {
-; 382  :             // v == 0 ÇÃèÍçá
-; 383  : 
-; 384  :             // u Çï‘Ç∑
-; 385  :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 373  :         {
+; 374  :             // v == 0 ÇÃèÍçá
+; 375  : 
+; 376  :             // u Çï‘Ç∑
+; 377  :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR nw$[rbp]
 	mov	rdx, QWORD PTR u_abs$[rbp]
@@ -6976,29 +6707,29 @@ $LN10@PMC_Add_L_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN21@PMC_Add_L_
 
-; 386  :                 return (result);
+; 378  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_L_
 $LN21@PMC_Add_L_:
 
-; 387  :         }
+; 379  :         }
 
 	jmp	SHORT $LN20@PMC_Add_L_
 $LN19@PMC_Add_L_:
 
-; 388  :         else if (nv->SIGN > 0)
+; 380  :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN22@PMC_Add_L_
 
-; 389  :         {
-; 390  :             // v > 0 ÇÃèÍçá
-; 391  : 
-; 392  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 393  :             if ((result = SubtructU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 381  :         {
+; 382  :             // v > 0 ÇÃèÍçá
+; 383  : 
+; 384  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 385  :             if ((result = SubtructU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR u_abs$[rbp]
@@ -7010,23 +6741,23 @@ $LN19@PMC_Add_L_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN24@PMC_Add_L_
 
-; 394  :                 return (result);
+; 386  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_L_
 $LN24@PMC_Add_L_:
 
-; 395  :         }
+; 387  :         }
 
 	jmp	SHORT $LN23@PMC_Add_L_
 $LN22@PMC_Add_L_:
 
-; 396  :         else
-; 397  :         {
-; 398  :             // v < 0 ÇÃèÍçá
-; 399  : 
-; 400  :             // - abs(u) - abs(v) Çï‘Ç∑
-; 401  :             if ((result = AddU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 388  :         else
+; 389  :         {
+; 390  :             // v < 0 ÇÃèÍçá
+; 391  : 
+; 392  :             // - abs(u) - abs(v) Çï‘Ç∑
+; 393  :             if ((result = AddU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8, QWORD PTR u_abs$[rbp]
@@ -7038,7 +6769,7 @@ $LN22@PMC_Add_L_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN25@PMC_Add_L_
 
-; 402  :                 return (result);
+; 394  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_L_
@@ -7048,20 +6779,20 @@ $LN20@PMC_Add_L_:
 $LN11@PMC_Add_L_:
 $LN6@PMC_Add_L_:
 
-; 403  :         }
-; 404  :     }
-; 405  :     *w = (PMC_HANDLE_SINT)nw;
+; 395  :         }
+; 396  :     }
+; 397  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 406  :     return (PMC_STATUS_OK);
+; 398  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_L_:
 
-; 407  : }
+; 399  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -7092,7 +6823,7 @@ v$ = 392
 w$ = 400
 PMC_Add_I_X PROC					; COMDAT
 
-; 222  : {
+; 212  : {
 
 $LN27:
 	mov	QWORD PTR [rsp+24], r8
@@ -7113,36 +6844,36 @@ $LN27:
 	lea	rcx, OFFSET FLAT:__5A8189A9_pmc_add_sub@c
 	call	__CheckForDebuggerJustMyCode
 
-; 223  :     if (v == NULL)
+; 213  :     if (v == NULL)
 
 	cmp	QWORD PTR v$[rbp], 0
 	jne	SHORT $LN2@PMC_Add_I_
 
-; 224  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 214  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_I_
 $LN2@PMC_Add_I_:
 
-; 225  :     if (w == NULL)
+; 215  :     if (w == NULL)
 
 	cmp	QWORD PTR w$[rbp], 0
 	jne	SHORT $LN3@PMC_Add_I_
 
-; 226  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 216  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 	jmp	$LN1@PMC_Add_I_
 $LN3@PMC_Add_I_:
 
-; 227  :     PMC_STATUS_CODE result;
-; 228  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 217  :     PMC_STATUS_CODE result;
+; 218  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	rax, QWORD PTR v$[rbp]
 	mov	QWORD PTR nv$[rbp], rax
 
-; 229  :     NUMBER_HEADER* nw;
-; 230  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 219  :     NUMBER_HEADER* nw;
+; 220  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	rcx, QWORD PTR nv$[rbp]
 	call	CheckNumber
@@ -7150,55 +6881,56 @@ $LN3@PMC_Add_I_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@PMC_Add_I_
 
-; 231  :         return (result);
+; 221  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_I_
 $LN4@PMC_Add_I_:
 
-; 232  :     char u_sign;
-; 233  :     _UINT32_T u_abs = GET_ABS_32(u, &u_sign);
+; 222  :     char u_sign;
+; 223  :     _UINT32_T u_abs = GET_ABS_32(u, &u_sign);
 
 	lea	rdx, QWORD PTR u_sign$[rbp]
 	mov	ecx, DWORD PTR u$[rbp]
 	call	GET_ABS_32
 	mov	DWORD PTR u_abs$[rbp], eax
 
-; 234  :     if (u_sign == 0)
+; 224  :     if (u_sign == 0)
 
 	movsx	eax, BYTE PTR u_sign$[rbp]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Add_I_
 
-; 235  :     {
-; 236  :         // u == 0 ÇÃèÍçá
-; 237  : 
-; 238  :         if (nv->SIGN == 0)
+; 225  :     {
+; 226  :         // u == 0 ÇÃèÍçá
+; 227  : 
+; 228  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Add_I_
 
-; 239  :         {
-; 240  :             // v == 0 ÇÃèÍçá
-; 241  : 
-; 242  :             nw = &number_zero;
+; 229  :         {
+; 230  :             // v == 0 ÇÃèÍçá
+; 231  : 
+; 232  :             // 0 Çï‘Ç∑
+; 233  :             nw = &number_zero;
 
 	lea	rax, OFFSET FLAT:number_zero
 	mov	QWORD PTR nw$[rbp], rax
 
-; 243  :         }
+; 234  :         }
 
 	jmp	SHORT $LN8@PMC_Add_I_
 $LN7@PMC_Add_I_:
 
-; 244  :         else
-; 245  :         {
-; 246  :             // v != 0 ÇÃèÍçá
-; 247  : 
-; 248  :             // v Çï‘Ç∑
-; 249  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
+; 235  :         else
+; 236  :         {
+; 237  :             // v != 0 ÇÃèÍçá
+; 238  : 
+; 239  :             // v Çï‘Ç∑
+; 240  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR nw$[rbp]
 	mov	rcx, QWORD PTR nv$[rbp]
@@ -7207,40 +6939,40 @@ $LN7@PMC_Add_I_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN9@PMC_Add_I_
 
-; 250  :                 return (result);
+; 241  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_I_
 $LN9@PMC_Add_I_:
 $LN8@PMC_Add_I_:
 
-; 251  :         }
-; 252  :     }
+; 242  :         }
+; 243  :     }
 
 	jmp	$LN6@PMC_Add_I_
 $LN5@PMC_Add_I_:
 
-; 253  :     else if (u_sign > 0)
+; 244  :     else if (u_sign > 0)
 
 	movsx	eax, BYTE PTR u_sign$[rbp]
 	test	eax, eax
 	jle	$LN10@PMC_Add_I_
 
-; 254  :     {
-; 255  :         // u > 0 ÇÃèÍçá
-; 256  : 
-; 257  :         if (nv->SIGN == 0)
+; 245  :     {
+; 246  :         // u > 0 ÇÃèÍçá
+; 247  : 
+; 248  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN12@PMC_Add_I_
 
-; 258  :         {
-; 259  :             // v == 0 ÇÃèÍçá
-; 260  : 
-; 261  :             // u Çï‘Ç∑
-; 262  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 249  :         {
+; 250  :             // v == 0 ÇÃèÍçá
+; 251  : 
+; 252  :             // u Çï‘Ç∑
+; 253  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR nw$[rbp]
 	mov	edx, DWORD PTR u_abs$[rbp]
@@ -7250,29 +6982,29 @@ $LN5@PMC_Add_I_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN14@PMC_Add_I_
 
-; 263  :                 return (result);
+; 254  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_I_
 $LN14@PMC_Add_I_:
 
-; 264  :         }
+; 255  :         }
 
 	jmp	SHORT $LN13@PMC_Add_I_
 $LN12@PMC_Add_I_:
 
-; 265  :         else if (nv->SIGN > 0)
+; 256  :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN15@PMC_Add_I_
 
-; 266  :         {
-; 267  :             // v > 0 ÇÃèÍçá
-; 268  : 
-; 269  :             // abs(u) + abs(v) Çï‘Ç∑
-; 270  :             if ((result = AddU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 257  :         {
+; 258  :             // v > 0 ÇÃèÍçá
+; 259  : 
+; 260  :             // abs(u) + abs(v) Çï‘Ç∑
+; 261  :             if ((result = AddU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR u_abs$[rbp]
@@ -7284,23 +7016,23 @@ $LN12@PMC_Add_I_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN17@PMC_Add_I_
 
-; 271  :                 return (result);
+; 262  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_I_
 $LN17@PMC_Add_I_:
 
-; 272  :         }
+; 263  :         }
 
 	jmp	SHORT $LN16@PMC_Add_I_
 $LN15@PMC_Add_I_:
 
-; 273  :         else
-; 274  :         {
-; 275  :             // v < 0 ÇÃèÍçá
-; 276  : 
-; 277  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 278  :             if ((result = SubtructU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 264  :         else
+; 265  :         {
+; 266  :             // v < 0 ÇÃèÍçá
+; 267  : 
+; 268  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 269  :             if ((result = SubtructU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR u_abs$[rbp]
@@ -7312,7 +7044,7 @@ $LN15@PMC_Add_I_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN18@PMC_Add_I_
 
-; 279  :                 return (result);
+; 270  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	$LN1@PMC_Add_I_
@@ -7320,28 +7052,28 @@ $LN18@PMC_Add_I_:
 $LN16@PMC_Add_I_:
 $LN13@PMC_Add_I_:
 
-; 280  :         }
-; 281  :     }
+; 271  :         }
+; 272  :     }
 
 	jmp	$LN11@PMC_Add_I_
 $LN10@PMC_Add_I_:
 
-; 282  :     else
-; 283  :     {
-; 284  :         // u < 0 ÇÃèÍçá
-; 285  : 
-; 286  :         if (nv->SIGN == 0)
+; 273  :     else
+; 274  :     {
+; 275  :         // u < 0 ÇÃèÍçá
+; 276  : 
+; 277  :         if (nv->SIGN == 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jne	SHORT $LN19@PMC_Add_I_
 
-; 287  :         {
-; 288  :             // v == 0 ÇÃèÍçá
-; 289  : 
-; 290  :             // u Çï‘Ç∑
-; 291  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 278  :         {
+; 279  :             // v == 0 ÇÃèÍçá
+; 280  : 
+; 281  :             // u Çï‘Ç∑
+; 282  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r8, QWORD PTR nw$[rbp]
 	mov	edx, DWORD PTR u_abs$[rbp]
@@ -7351,29 +7083,29 @@ $LN10@PMC_Add_I_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN21@PMC_Add_I_
 
-; 292  :                 return (result);
+; 283  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_I_
 $LN21@PMC_Add_I_:
 
-; 293  :         }
+; 284  :         }
 
 	jmp	SHORT $LN20@PMC_Add_I_
 $LN19@PMC_Add_I_:
 
-; 294  :         else if (nv->SIGN > 0)
+; 285  :         else if (nv->SIGN > 0)
 
 	mov	rax, QWORD PTR nv$[rbp]
 	movsx	eax, BYTE PTR [rax+16]
 	test	eax, eax
 	jle	SHORT $LN22@PMC_Add_I_
 
-; 295  :         {
-; 296  :             // v > 0 ÇÃèÍçá
-; 297  : 
-; 298  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 299  :             if ((result = SubtructU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 286  :         {
+; 287  :             // v > 0 ÇÃèÍçá
+; 288  : 
+; 289  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 290  :             if ((result = SubtructU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR u_abs$[rbp]
@@ -7385,23 +7117,23 @@ $LN19@PMC_Add_I_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN24@PMC_Add_I_
 
-; 300  :                 return (result);
+; 291  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_I_
 $LN24@PMC_Add_I_:
 
-; 301  :         }
+; 292  :         }
 
 	jmp	SHORT $LN23@PMC_Add_I_
 $LN22@PMC_Add_I_:
 
-; 302  :         else
-; 303  :         {
-; 304  :             // v < 0 ÇÃèÍçá
-; 305  : 
-; 306  :             // - abs(u) - abs(v) Çï‘Ç∑
-; 307  :             if ((result = AddU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 293  :         else
+; 294  :         {
+; 295  :             // v < 0 ÇÃèÍçá
+; 296  : 
+; 297  :             // - abs(u) - abs(v) Çï‘Ç∑
+; 298  :             if ((result = AddU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	r9, QWORD PTR nw$[rbp]
 	mov	r8d, DWORD PTR u_abs$[rbp]
@@ -7413,7 +7145,7 @@ $LN22@PMC_Add_I_:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN25@PMC_Add_I_
 
-; 308  :                 return (result);
+; 299  :                 return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@PMC_Add_I_
@@ -7423,20 +7155,20 @@ $LN20@PMC_Add_I_:
 $LN11@PMC_Add_I_:
 $LN6@PMC_Add_I_:
 
-; 309  :         }
-; 310  :     }
-; 311  :     *w = (PMC_HANDLE_SINT)nw;
+; 300  :         }
+; 301  :     }
+; 302  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	rax, QWORD PTR w$[rbp]
 	mov	rcx, QWORD PTR nw$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 312  :     return (PMC_STATUS_OK);
+; 303  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_I_:
 
-; 313  : }
+; 304  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]

@@ -33,12 +33,12 @@ PUBLIC	_TEST_Subtruct_X_L
 PUBLIC	_TEST_Subtruct_X_UX
 PUBLIC	_TEST_Subtruct_X_X
 PUBLIC	__JustMyCode_Default
-PUBLIC	??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@ ; `string'
+PUBLIC	??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@ ; `string'
 PUBLIC	??_C@_1CK@JEFCPOGB@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAI?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@ ; `string'
 PUBLIC	??_C@_1EA@NGKGKFPL@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAI?$AA_?$AAX?$AAn?$PP?$KJ?$AA0@ ; `string'
-PUBLIC	??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@ ; `string'
+PUBLIC	??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@ ; `string'
 PUBLIC	??_C@_1BK@CBDJCOBM@?$PP?G?$PP?$PM?$PP?$LP?$AAn?$PP?$IF?$PP?$LJ?$AAL?$AA?$AA?$PP?t?$AAW?$AAj?$AAD@ ; `string'
-PUBLIC	??_C@_1DC@DBOKOPKF@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_@ ; `string'
+PUBLIC	??_C@_1CK@HMHBAFBJ@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@ ; `string'
 PUBLIC	??_C@_1EA@INDIFGGF@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_?$AAX?$AAn?$PP?$KJ?$AA0@ ; `string'
 PUBLIC	??_C@_1CM@JOAGBAMJ@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAU?$AAX?$AA_?$AAX?$AA?5?$AA?$CI@ ; `string'
 PUBLIC	??_C@_1EC@MMAEFCND@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAU?$AAX?$AA_?$AAX?$AAn?$PP?$KJ@ ; `string'
@@ -48,8 +48,8 @@ PUBLIC	??_C@_1CK@MEDHKEAH@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA
 PUBLIC	??_C@_1EA@MCHBOOEJ@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAL?$AAn?$PP?$KJ?$AA0@ ; `string'
 PUBLIC	??_C@_1CM@KAKNNFML@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAU?$AAX?$AA?5?$AA?$CI@ ; `string'
 PUBLIC	??_C@_1EC@ELOBBMPD@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAU?$AAX?$AAn?$PP?$KJ@ ; `string'
-PUBLIC	??_C@_1DC@CHIHAOMH@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_@ ; `string'
-PUBLIC	??_C@_1EI@OAJPEDPG@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_@ ; `string'
+PUBLIC	??_C@_1CK@GKBMOEHL@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@ ; `string'
+PUBLIC	??_C@_1EA@DIDCJOFM@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAX?$AAn?$PP?$KJ?$AA0@ ; `string'
 EXTRN	_TEST_Assert:PROC
 EXTRN	_FormatTestLabel:PROC
 EXTRN	_FormatTestMesssage:PROC
@@ -68,22 +68,22 @@ rtc$TMZ	ENDS
 rtc$IMZ	SEGMENT
 __RTC_InitBase.rtc$IMZ DD FLAT:__RTC_InitBase
 rtc$IMZ	ENDS
-;	COMDAT ??_C@_1EI@OAJPEDPG@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_@
+;	COMDAT ??_C@_1EA@DIDCJOFM@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAX?$AAn?$PP?$KJ?$AA0@
 CONST	SEGMENT
-??_C@_1EI@OAJPEDPG@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_@ DB 'P'
-	DB	00H, 'M', 00H, 'C', 00H, '_', 00H, 'S', 00H, 'u', 00H, 'b', 00H
-	DB	't', 00H, 'r', 00H, 'u', 00H, 'c', 00H, 't', 00H, '_', 00H, 'X'
-	DB	00H, '_', 00H, 'X', 00H, 'n0', 0a9H, '_0^', 0b3H, '0', 0fcH, '0'
-	DB	0c9H, '0L0', 01fH, 'g', 085H, '_', 01aH, 090H, 08aH, '0g0o0j0D'
-	DB	'0(', 00H, '%', 00H, 'd', 00H, ')', 00H, 00H, 00H ; `string'
+??_C@_1EA@DIDCJOFM@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAX?$AAn?$PP?$KJ?$AA0@ DB 'S'
+	DB	00H, 'u', 00H, 'b', 00H, 't', 00H, 'r', 00H, 'u', 00H, 'c', 00H
+	DB	't', 00H, '_', 00H, 'X', 00H, '_', 00H, 'X', 00H, 'n0', 0a9H, '_'
+	DB	'0^', 0b3H, '0', 0fcH, '0', 0c9H, '0L0', 01fH, 'g', 085H, '_', 01aH
+	DB	090H, 08aH, '0g0o0j0D0(', 00H, '%', 00H, 'd', 00H, ')', 00H, 00H
+	DB	00H						; `string'
 CONST	ENDS
-;	COMDAT ??_C@_1DC@CHIHAOMH@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_@
+;	COMDAT ??_C@_1CK@GKBMOEHL@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@
 CONST	SEGMENT
-??_C@_1DC@CHIHAOMH@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_@ DB 'P'
-	DB	00H, 'M', 00H, 'C', 00H, '_', 00H, 'S', 00H, 'u', 00H, 'b', 00H
-	DB	't', 00H, 'r', 00H, 'u', 00H, 'c', 00H, 't', 00H, '_', 00H, 'X'
-	DB	00H, '_', 00H, 'X', 00H, ' ', 00H, '(', 00H, '%', 00H, 'd', 00H
-	DB	'.', 00H, '%', 00H, 'd', 00H, ')', 00H, 00H, 00H ; `string'
+??_C@_1CK@GKBMOEHL@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@ DB 'S'
+	DB	00H, 'u', 00H, 'b', 00H, 't', 00H, 'r', 00H, 'u', 00H, 'c', 00H
+	DB	't', 00H, '_', 00H, 'X', 00H, '_', 00H, 'X', 00H, ' ', 00H, '('
+	DB	00H, '%', 00H, 'd', 00H, '.', 00H, '%', 00H, 'd', 00H, ')', 00H
+	DB	00H, 00H					; `string'
 CONST	ENDS
 ;	COMDAT ??_C@_1EC@ELOBBMPD@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAU?$AAX?$AAn?$PP?$KJ@
 CONST	SEGMENT
@@ -162,13 +162,13 @@ CONST	SEGMENT
 	DB	090H, 08aH, '0g0o0j0D0(', 00H, '%', 00H, 'd', 00H, ')', 00H, 00H
 	DB	00H						; `string'
 CONST	ENDS
-;	COMDAT ??_C@_1DC@DBOKOPKF@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_@
+;	COMDAT ??_C@_1CK@HMHBAFBJ@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@
 CONST	SEGMENT
-??_C@_1DC@DBOKOPKF@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_@ DB 'P'
-	DB	00H, 'M', 00H, 'C', 00H, '_', 00H, 'S', 00H, 'u', 00H, 'b', 00H
-	DB	't', 00H, 'r', 00H, 'u', 00H, 'c', 00H, 't', 00H, '_', 00H, 'L'
-	DB	00H, '_', 00H, 'X', 00H, ' ', 00H, '(', 00H, '%', 00H, 'd', 00H
-	DB	'.', 00H, '%', 00H, 'd', 00H, ')', 00H, 00H, 00H ; `string'
+??_C@_1CK@HMHBAFBJ@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@ DB 'S'
+	DB	00H, 'u', 00H, 'b', 00H, 't', 00H, 'r', 00H, 'u', 00H, 'c', 00H
+	DB	't', 00H, '_', 00H, 'L', 00H, '_', 00H, 'X', 00H, ' ', 00H, '('
+	DB	00H, '%', 00H, 'd', 00H, '.', 00H, '%', 00H, 'd', 00H, ')', 00H
+	DB	00H, 00H					; `string'
 CONST	ENDS
 ;	COMDAT ??_C@_1BK@CBDJCOBM@?$PP?G?$PP?$PM?$PP?$LP?$AAn?$PP?$IF?$PP?$LJ?$AAL?$AA?$AA?$PP?t?$AAW?$AAj?$AAD@
 CONST	SEGMENT
@@ -176,14 +176,13 @@ CONST	SEGMENT
 	DB	'0', 0fcH, '0', 0bfH, '0n0', 085H, 'Q', 0b9H, '[L0', 00H, 'N', 0f4H
 	DB	081H, 'W0j0D0', 00H, 00H			; `string'
 CONST	ENDS
-;	COMDAT ??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@
+;	COMDAT ??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@
 CONST	SEGMENT
-??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@ DB 'P'
-	DB	00H, 'M', 00H, 'C', 00H, '_', 00H, 'T', 00H, 'o', 00H, 'B', 00H
-	DB	'y', 00H, 't', 00H, 'e', 00H, 'A', 00H, 'r', 00H, 'r', 00H, 'a'
-	DB	00H, 'y', 00H, 'n0', 0a9H, '_0^', 0b3H, '0', 0fcH, '0', 0c9H, '0'
-	DB	'L0', 01fH, 'g', 085H, '_', 01aH, 090H, 08aH, '0g0o0j0D0(', 00H
-	DB	'%', 00H, 'd', 00H, ')', 00H, 00H, 00H	; `string'
+??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@ DB 'T'
+	DB	00H, 'o', 00H, 'B', 00H, 'y', 00H, 't', 00H, 'e', 00H, 'A', 00H
+	DB	'r', 00H, 'r', 00H, 'a', 00H, 'y', 00H, 'n0', 0a9H, '_0^', 0b3H
+	DB	'0', 0fcH, '0', 0c9H, '0L0', 01fH, 'g', 085H, '_', 01aH, 090H, 08aH
+	DB	'0g0o0j0D0(', 00H, '%', 00H, 'd', 00H, ')', 00H, 00H, 00H ; `string'
 CONST	ENDS
 ;	COMDAT ??_C@_1EA@NGKGKFPL@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAI?$AA_?$AAX?$AAn?$PP?$KJ?$AA0@
 CONST	SEGMENT
@@ -202,14 +201,14 @@ CONST	SEGMENT
 	DB	00H, '%', 00H, 'd', 00H, '.', 00H, '%', 00H, 'd', 00H, ')', 00H
 	DB	00H, 00H					; `string'
 CONST	ENDS
-;	COMDAT ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+;	COMDAT ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 CONST	SEGMENT
-??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@ DB 'P'
-	DB	00H, 'M', 00H, 'C', 00H, '_', 00H, 'F', 00H, 'r', 00H, 'o', 00H
-	DB	'm', 00H, 'B', 00H, 'y', 00H, 't', 00H, 'e', 00H, 'A', 00H, 'r'
-	DB	00H, 'r', 00H, 'a', 00H, 'y', 00H, 'n0', 0a9H, '_0^', 0b3H, '0'
-	DB	0fcH, '0', 0c9H, '0L0', 01fH, 'g', 085H, '_', 01aH, 090H, 08aH
-	DB	'0g0o0j0D0(', 00H, '%', 00H, 'd', 00H, ')', 00H, 00H, 00H ; `string'
+??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@ DB 'F'
+	DB	00H, 'r', 00H, 'o', 00H, 'm', 00H, 'B', 00H, 'y', 00H, 't', 00H
+	DB	'e', 00H, 'A', 00H, 'r', 00H, 'r', 00H, 'a', 00H, 'y', 00H, 'n'
+	DB	'0', 0a9H, '_0^', 0b3H, '0', 0fcH, '0', 0c9H, '0L0', 01fH, 'g', 085H
+	DB	'_', 01aH, 090H, 08aH, '0g0o0j0D0(', 00H, '%', 00H, 'd', 00H, ')'
+	DB	00H, 00H, 00H				; `string'
 CONST	ENDS
 ; Function compile flags: /Odt
 ;	COMDAT __JustMyCode_Default
@@ -231,7 +230,7 @@ _buffer2$ = 16						; size = 4
 _count2$ = 20						; size = 4
 __EQUALS_MEMORY PROC					; COMDAT
 
-; 87   : {
+; 95   : {
 
 	push	ebp
 	mov	ebp, esp
@@ -246,25 +245,25 @@ __EQUALS_MEMORY PROC					; COMDAT
 	mov	ecx, OFFSET __059414E1_pmc_sint_debug@h
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 88   :     if (count1 != count2)
+; 96   :     if (count1 != count2)
 
 	mov	eax, DWORD PTR _count1$[ebp]
 	cmp	eax, DWORD PTR _count2$[ebp]
 	je	SHORT $LN2@EQUALS_MEM
 
-; 89   :         return (-1);
+; 97   :         return (-1);
 
 	or	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN2@EQUALS_MEM:
 
-; 90   :     while (count1 > 0)
+; 98   :     while (count1 > 0)
 
 	cmp	DWORD PTR _count1$[ebp], 0
 	jbe	SHORT $LN3@EQUALS_MEM
 
-; 91   :     {
-; 92   :         if (*buffer1 != *buffer2)
+; 99   :     {
+; 100  :         if (*buffer1 != *buffer2)
 
 	mov	eax, DWORD PTR _buffer1$[ebp]
 	movzx	ecx, BYTE PTR [eax]
@@ -273,41 +272,41 @@ $LN2@EQUALS_MEM:
 	cmp	ecx, eax
 	je	SHORT $LN5@EQUALS_MEM
 
-; 93   :             return (-1);
+; 101  :             return (-1);
 
 	or	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN5@EQUALS_MEM:
 
-; 94   :         ++buffer1;
+; 102  :         ++buffer1;
 
 	mov	eax, DWORD PTR _buffer1$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _buffer1$[ebp], eax
 
-; 95   :         ++buffer2;
+; 103  :         ++buffer2;
 
 	mov	eax, DWORD PTR _buffer2$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _buffer2$[ebp], eax
 
-; 96   :         --count1;
+; 104  :         --count1;
 
 	mov	eax, DWORD PTR _count1$[ebp]
 	sub	eax, 1
 	mov	DWORD PTR _count1$[ebp], eax
 
-; 97   :     }
+; 105  :     }
 
 	jmp	SHORT $LN2@EQUALS_MEM
 $LN3@EQUALS_MEM:
 
-; 98   :     return (0);
+; 106  :     return (0);
 
 	xor	eax, eax
 $LN1@EQUALS_MEM:
 
-; 99   : }
+; 107  : }
 
 	pop	edi
 	pop	esi
@@ -377,7 +376,7 @@ _TEST_Subtruct_X_X PROC					; COMDAT
 ; 163  :     PMC_STATUS_CODE u_result;
 ; 164  :     PMC_STATUS_CODE v_result;
 ; 165  :     PMC_STATUS_CODE w_result;
-; 166  :     TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_X_X (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+; 166  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_X (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _u$[ebp]
@@ -401,7 +400,7 @@ $LN6@TEST_Subtr:
 $LN7@TEST_Subtr:
 	mov	edx, DWORD PTR _u_result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+	push	OFFSET ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -410,7 +409,7 @@ $LN7@TEST_Subtr:
 	push	1
 	mov	ecx, DWORD PTR _no$[ebp]
 	push	ecx
-	push	OFFSET ??_C@_1DC@CHIHAOMH@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_@
+	push	OFFSET ??_C@_1CK@GKBMOEHL@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@
 	call	_FormatTestLabel
 	add	esp, 12					; 0000000cH
 	push	eax
@@ -419,7 +418,7 @@ $LN7@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 167  :     TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_X_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+; 167  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _v$[ebp]
@@ -443,7 +442,7 @@ $LN8@TEST_Subtr:
 $LN9@TEST_Subtr:
 	mov	edx, DWORD PTR _v_result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+	push	OFFSET ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -452,7 +451,7 @@ $LN9@TEST_Subtr:
 	push	2
 	mov	ecx, DWORD PTR _no$[ebp]
 	push	ecx
-	push	OFFSET ??_C@_1DC@CHIHAOMH@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_@
+	push	OFFSET ??_C@_1CK@GKBMOEHL@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@
 	call	_FormatTestLabel
 	add	esp, 12					; 0000000cH
 	push	eax
@@ -461,7 +460,7 @@ $LN9@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 168  :     TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_X_X (%d.%d)", no, 3), (w_result = ep->Subtruct_X_X(u, v, &w)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_Subtruct_X_Xの復帰コードが期待通りではない(%d)", w_result));
+; 168  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_X (%d.%d)", no, 3), (w_result = ep->Subtruct_X_X(u, v, &w)) == PMC_STATUS_OK, FormatTestMesssage(L"Subtruct_X_Xの復帰コードが期待通りではない(%d)", w_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w$[ebp]
@@ -485,7 +484,7 @@ $LN10@TEST_Subtr:
 $LN11@TEST_Subtr:
 	mov	edx, DWORD PTR _w_result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EI@OAJPEDPG@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_@
+	push	OFFSET ??_C@_1EA@DIDCJOFM@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAX?$AAn?$PP?$KJ?$AA0@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -494,7 +493,7 @@ $LN11@TEST_Subtr:
 	push	3
 	mov	ecx, DWORD PTR _no$[ebp]
 	push	ecx
-	push	OFFSET ??_C@_1DC@CHIHAOMH@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_@
+	push	OFFSET ??_C@_1CK@GKBMOEHL@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@
 	call	_FormatTestLabel
 	add	esp, 12					; 0000000cH
 	push	eax
@@ -503,7 +502,7 @@ $LN11@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 169  :     TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_X_X (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_z_buf, sizeof(actual_z_buf), &actual_z_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+; 169  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_X (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_z_buf, sizeof(actual_z_buf), &actual_z_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _actual_z_buf_size$[ebp]
@@ -528,7 +527,7 @@ $LN12@TEST_Subtr:
 $LN13@TEST_Subtr:
 	mov	edx, DWORD PTR _result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@
+	push	OFFSET ??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -537,7 +536,7 @@ $LN13@TEST_Subtr:
 	push	4
 	mov	ecx, DWORD PTR _no$[ebp]
 	push	ecx
-	push	OFFSET ??_C@_1DC@CHIHAOMH@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_@
+	push	OFFSET ??_C@_1CK@GKBMOEHL@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@
 	call	_FormatTestLabel
 	add	esp, 12					; 0000000cH
 	push	eax
@@ -546,7 +545,7 @@ $LN13@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 170  :     TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_X_X (%d.%d)", no, 5), _EQUALS_MEMORY(actual_z_buf, actual_z_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
+; 170  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_X (%d.%d)", no, 5), _EQUALS_MEMORY(actual_z_buf, actual_z_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
 
 	mov	eax, DWORD PTR _desired_w_buf_size$[ebp]
 	push	eax
@@ -571,7 +570,7 @@ $LN15@TEST_Subtr:
 	push	5
 	mov	edx, DWORD PTR _no$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1DC@CHIHAOMH@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_@
+	push	OFFSET ??_C@_1CK@GKBMOEHL@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAX?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@
 	call	_FormatTestLabel
 	add	esp, 12					; 0000000cH
 	push	eax
@@ -773,7 +772,7 @@ _TEST_Subtruct_X_UX PROC				; COMDAT
 ; 140  :     PMC_STATUS_CODE u_result;
 ; 141  :     PMC_STATUS_CODE v_result;
 ; 142  :     PMC_STATUS_CODE w_result;
-; 143  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+; 143  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _u$[ebp]
@@ -797,7 +796,7 @@ $LN6@TEST_Subtr:
 $LN7@TEST_Subtr:
 	mov	edx, DWORD PTR _u_result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+	push	OFFSET ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -815,7 +814,7 @@ $LN7@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 144  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 2), (v_result = ep->uint.FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+; 144  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 2), (v_result = ep->uint.FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _v$[ebp]
@@ -839,7 +838,7 @@ $LN8@TEST_Subtr:
 $LN9@TEST_Subtr:
 	mov	edx, DWORD PTR _v_result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+	push	OFFSET ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -899,7 +898,7 @@ $LN11@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 146  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_z_buf, sizeof(actual_z_buf), &actual_z_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+; 146  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_z_buf, sizeof(actual_z_buf), &actual_z_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _actual_z_buf_size$[ebp]
@@ -924,7 +923,7 @@ $LN12@TEST_Subtr:
 $LN13@TEST_Subtr:
 	mov	edx, DWORD PTR _result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@
+	push	OFFSET ??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -1163,7 +1162,7 @@ _TEST_Subtruct_X_L PROC					; COMDAT
 ; 119  :     PMC_STATUS_CODE result;
 ; 120  :     PMC_STATUS_CODE u_result;
 ; 121  :     PMC_STATUS_CODE w_result;
-; 122  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_L (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+; 122  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_L (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _u$[ebp]
@@ -1187,7 +1186,7 @@ $LN5@TEST_Subtr:
 $LN6@TEST_Subtr:
 	mov	edx, DWORD PTR _u_result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+	push	OFFSET ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -1249,7 +1248,7 @@ $LN8@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 124  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_L (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+; 124  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_L (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _actual_w_buf_size$[ebp]
@@ -1274,7 +1273,7 @@ $LN9@TEST_Subtr:
 $LN10@TEST_Subtr:
 	mov	edx, DWORD PTR _result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@
+	push	OFFSET ??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -1490,7 +1489,7 @@ _TEST_Subtruct_X_I PROC					; COMDAT
 ; 100  :     PMC_STATUS_CODE result;
 ; 101  :     PMC_STATUS_CODE u_result;
 ; 102  :     PMC_STATUS_CODE w_result;
-; 103  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_I (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+; 103  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_I (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _u$[ebp]
@@ -1514,7 +1513,7 @@ $LN5@TEST_Subtr:
 $LN6@TEST_Subtr:
 	mov	edx, DWORD PTR _u_result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+	push	OFFSET ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -1574,7 +1573,7 @@ $LN8@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 105  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_I (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+; 105  :     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_I (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _actual_w_buf_size$[ebp]
@@ -1599,7 +1598,7 @@ $LN9@TEST_Subtr:
 $LN10@TEST_Subtr:
 	mov	edx, DWORD PTR _result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@
+	push	OFFSET ??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -1821,7 +1820,7 @@ _TEST_Subtruct_UX_X PROC				; COMDAT
 ; 78   :     PMC_STATUS_CODE u_result;
 ; 79   :     PMC_STATUS_CODE v_result;
 ; 80   :     PMC_STATUS_CODE w_result;
-; 81   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 1), (u_result = ep->uint.FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+; 81   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 1), (u_result = ep->uint.FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _u$[ebp]
@@ -1845,7 +1844,7 @@ $LN6@TEST_Subtr:
 $LN7@TEST_Subtr:
 	mov	edx, DWORD PTR _u_result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+	push	OFFSET ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -1863,7 +1862,7 @@ $LN7@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 82   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+; 82   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _v$[ebp]
@@ -1887,7 +1886,7 @@ $LN8@TEST_Subtr:
 $LN9@TEST_Subtr:
 	mov	edx, DWORD PTR _v_result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+	push	OFFSET ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -1947,7 +1946,7 @@ $LN11@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 84   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+; 84   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _actual_w_buf_size$[ebp]
@@ -1972,7 +1971,7 @@ $LN12@TEST_Subtr:
 $LN13@TEST_Subtr:
 	mov	edx, DWORD PTR _result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@
+	push	OFFSET ??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -2211,7 +2210,7 @@ _TEST_Subtruct_L_X PROC					; COMDAT
 ; 57   :     PMC_STATUS_CODE result;
 ; 58   :     PMC_STATUS_CODE v_result;
 ; 59   :     PMC_STATUS_CODE w_result;
-; 60   :     TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_L_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+; 60   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_L_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _v$[ebp]
@@ -2235,7 +2234,7 @@ $LN5@TEST_Subtr:
 $LN6@TEST_Subtr:
 	mov	edx, DWORD PTR _v_result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+	push	OFFSET ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -2244,7 +2243,7 @@ $LN6@TEST_Subtr:
 	push	1
 	mov	ecx, DWORD PTR _no$[ebp]
 	push	ecx
-	push	OFFSET ??_C@_1DC@DBOKOPKF@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_@
+	push	OFFSET ??_C@_1CK@HMHBAFBJ@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@
 	call	_FormatTestLabel
 	add	esp, 12					; 0000000cH
 	push	eax
@@ -2253,7 +2252,7 @@ $LN6@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 61   :     TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_L_X (%d.%d)", no, 2), (w_result = ep->Subtruct_L_X(u, v, &w)) == PMC_STATUS_OK, FormatTestMesssage(L"Subtruct_L_Xの復帰コードが期待通りではない(%d)", w_result));
+; 61   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_L_X (%d.%d)", no, 2), (w_result = ep->Subtruct_L_X(u, v, &w)) == PMC_STATUS_OK, FormatTestMesssage(L"Subtruct_L_Xの復帰コードが期待通りではない(%d)", w_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w$[ebp]
@@ -2288,7 +2287,7 @@ $LN8@TEST_Subtr:
 	push	2
 	mov	edx, DWORD PTR _no$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1DC@DBOKOPKF@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_@
+	push	OFFSET ??_C@_1CK@HMHBAFBJ@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@
 	call	_FormatTestLabel
 	add	esp, 12					; 0000000cH
 	push	eax
@@ -2297,7 +2296,7 @@ $LN8@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 62   :     TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_L_X (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+; 62   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_L_X (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _actual_w_buf_size$[ebp]
@@ -2322,7 +2321,7 @@ $LN9@TEST_Subtr:
 $LN10@TEST_Subtr:
 	mov	edx, DWORD PTR _result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@
+	push	OFFSET ??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -2331,7 +2330,7 @@ $LN10@TEST_Subtr:
 	push	3
 	mov	ecx, DWORD PTR _no$[ebp]
 	push	ecx
-	push	OFFSET ??_C@_1DC@DBOKOPKF@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_@
+	push	OFFSET ??_C@_1CK@HMHBAFBJ@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@
 	call	_FormatTestLabel
 	add	esp, 12					; 0000000cH
 	push	eax
@@ -2340,7 +2339,7 @@ $LN10@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 63   :     TEST_Assert(env, FormatTestLabel(L"PMC_Subtruct_L_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_w_buf, actual_w_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
+; 63   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_L_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_w_buf, actual_w_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
 
 	mov	eax, DWORD PTR _desired_w_buf_size$[ebp]
 	push	eax
@@ -2365,7 +2364,7 @@ $LN12@TEST_Subtr:
 	push	4
 	mov	edx, DWORD PTR _no$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1DC@DBOKOPKF@?$AAP?$AAM?$AAC?$AA_?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_@
+	push	OFFSET ??_C@_1CK@HMHBAFBJ@?$AAS?$AAu?$AAb?$AAt?$AAr?$AAu?$AAc?$AAt?$AA_?$AAL?$AA_?$AAX?$AA?5?$AA?$CI?$AA?$CF@
 	call	_FormatTestLabel
 	add	esp, 12					; 0000000cH
 	push	eax
@@ -2538,7 +2537,7 @@ _TEST_Subtruct_I_X PROC					; COMDAT
 ; 38   :     PMC_STATUS_CODE result;
 ; 39   :     PMC_STATUS_CODE v_result;
 ; 40   :     PMC_STATUS_CODE w_result;
-; 41   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_I_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+; 41   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_I_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _v$[ebp]
@@ -2562,7 +2561,7 @@ $LN5@TEST_Subtr:
 $LN6@TEST_Subtr:
 	mov	edx, DWORD PTR _v_result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EK@HDEICNAJ@?$AAP?$AAM?$AAC?$AA_?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr@
+	push	OFFSET ??_C@_1EC@NPMCAPKO@?$AAF?$AAr?$AAo?$AAm?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
@@ -2622,7 +2621,7 @@ $LN8@TEST_Subtr:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 43   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_I_X (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+; 43   :     TEST_Assert(env, FormatTestLabel(L"Subtruct_I_X (%d.%d)", no, 3), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _actual_w_buf_size$[ebp]
@@ -2647,7 +2646,7 @@ $LN9@TEST_Subtr:
 $LN10@TEST_Subtr:
 	mov	edx, DWORD PTR _result$[ebp]
 	push	edx
-	push	OFFSET ??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@
+	push	OFFSET ??_C@_1DO@DOHJEMND@?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy?$AAn?$PP?$KJ?$AA0?$PP?$LD@
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
