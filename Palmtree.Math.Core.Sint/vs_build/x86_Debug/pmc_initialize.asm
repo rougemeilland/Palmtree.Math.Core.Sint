@@ -10,7 +10,9 @@ INCLUDELIB MSVCRTD
 INCLUDELIB OLDNAMES
 
 _DATA	SEGMENT
-COMM	_ep_uint:BYTE:0118H
+COMM	_ep_uint:BYTE:0114H
+COMM	_uint_number_zero:DWORD
+COMM	_uint_number_one:DWORD
 _DATA	ENDS
 msvcjmc	SEGMENT
 __7B7A869E_ctype@h DB 01H
@@ -42,7 +44,6 @@ EXTRN	_PMC_GetStatisticsInfo@4:PROC
 EXTRN	_PMC_From_I@8:PROC
 EXTRN	_PMC_From_L@12:PROC
 EXTRN	_PMC_Dispose@4:PROC
-EXTRN	_PMC_GetNumberType_X@8:PROC
 EXTRN	_PMC_GetConstantValue_I@8:PROC
 EXTRN	_PMC_FromByteArray@12:PROC
 EXTRN	_PMC_ToByteArray@16:PROC
@@ -71,12 +72,22 @@ EXTRN	_PMC_Multiply_X_I@12:PROC
 EXTRN	_PMC_Multiply_X_L@16:PROC
 EXTRN	_PMC_Multiply_X_UX@12:PROC
 EXTRN	_PMC_Multiply_X_X@12:PROC
+EXTRN	_PMC_DivRem_I_X@16:PROC
+EXTRN	_PMC_DivRem_L_X@20:PROC
+EXTRN	_PMC_DivRem_UX_X@16:PROC
+EXTRN	_PMC_DivRem_X_I@16:PROC
+EXTRN	_PMC_DivRem_X_L@20:PROC
+EXTRN	_PMC_DivRem_X_UX@16:PROC
+EXTRN	_PMC_DivRem_X_X@16:PROC
+EXTRN	@_RTC_CheckStackVars@8:PROC
 EXTRN	@__CheckForDebuggerJustMyCode@4:PROC
+EXTRN	@__security_check_cookie@4:PROC
 EXTRN	__RTC_CheckEsp:PROC
 EXTRN	__RTC_InitBase:PROC
 EXTRN	__RTC_Shutdown:PROC
+EXTRN	___security_cookie:DWORD
 _BSS	SEGMENT
-_entry_points DB 019cH DUP (?)
+_entry_points DB 01b0H DUP (?)
 _hLib_UINT DD	01H DUP (?)
 _fp_PMC_UINT_Initialize DD 01H DUP (?)
 _initialized DD	01H DUP (?)
@@ -107,6 +118,218 @@ __JustMyCode_Default PROC				; COMDAT
 	pop	ebp
 	ret	0
 __JustMyCode_Default ENDP
+_TEXT	ENDS
+; Function compile flags: /Odtp /RTCsu /ZI
+; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_initialize.c
+;	COMDAT _SelfCheck
+_TEXT	SEGMENT
+_handle$ = -44						; size = 4
+_nh$ = -32						; size = 24
+__$ArrayPad$ = -4					; size = 4
+_SelfCheck PROC						; COMDAT
+
+; 79   : {
+
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 240				; 000000f0H
+	push	ebx
+	push	esi
+	push	edi
+	lea	edi, DWORD PTR [ebp-240]
+	mov	ecx, 60					; 0000003cH
+	mov	eax, -858993460				; ccccccccH
+	rep stosd
+	mov	eax, DWORD PTR ___security_cookie
+	xor	eax, ebp
+	mov	DWORD PTR __$ArrayPad$[ebp], eax
+	mov	ecx, OFFSET __A52C17B2_pmc_initialize@c
+	call	@__CheckForDebuggerJustMyCode@4
+
+; 80   :     NUMBER_HEADER nh;
+; 81   :     PMC_HANDLE_SINT handle = (PMC_HANDLE_SINT)&nh;
+
+	lea	eax, DWORD PTR _nh$[ebp]
+	mov	DWORD PTR _handle$[ebp], eax
+
+; 82   :     _ZERO_MEMORY_BYTE(&nh, sizeof(nh));
+
+	push	24					; 00000018H
+	lea	eax, DWORD PTR _nh$[ebp]
+	push	eax
+	call	__ZERO_MEMORY_BYTE
+	add	esp, 8
+
+; 83   :     nh.IS_EVEN = TRUE;
+
+	mov	eax, DWORD PTR _nh$[ebp]
+	or	eax, 8
+	mov	DWORD PTR _nh$[ebp], eax
+
+; 84   :     if (!handle->FLAGS.IS_EVEN)
+
+	mov	eax, DWORD PTR _handle$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	shr	ecx, 3
+	and	ecx, 1
+	jne	SHORT $LN2@SelfCheck
+
+; 85   :         return (FALSE);
+
+	xor	eax, eax
+	jmp	$LN1@SelfCheck
+$LN2@SelfCheck:
+
+; 86   :     _ZERO_MEMORY_BYTE(&nh, sizeof(nh));
+
+	push	24					; 00000018H
+	lea	eax, DWORD PTR _nh$[ebp]
+	push	eax
+	call	__ZERO_MEMORY_BYTE
+	add	esp, 8
+
+; 87   :     nh.IS_MINUS_ONE = TRUE;
+
+	mov	eax, DWORD PTR _nh$[ebp]
+	or	eax, 4
+	mov	DWORD PTR _nh$[ebp], eax
+
+; 88   :     if (!handle->FLAGS.IS_MINUS_ONE)
+
+	mov	eax, DWORD PTR _handle$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	shr	ecx, 2
+	and	ecx, 1
+	jne	SHORT $LN3@SelfCheck
+
+; 89   :         return (FALSE);
+
+	xor	eax, eax
+	jmp	SHORT $LN1@SelfCheck
+$LN3@SelfCheck:
+
+; 90   :     _ZERO_MEMORY_BYTE(&nh, sizeof(nh));
+
+	push	24					; 00000018H
+	lea	eax, DWORD PTR _nh$[ebp]
+	push	eax
+	call	__ZERO_MEMORY_BYTE
+	add	esp, 8
+
+; 91   :     nh.IS_ONE = TRUE;
+
+	mov	eax, DWORD PTR _nh$[ebp]
+	or	eax, 2
+	mov	DWORD PTR _nh$[ebp], eax
+
+; 92   :     if (!handle->FLAGS.IS_ONE)
+
+	mov	eax, DWORD PTR _handle$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	shr	ecx, 1
+	and	ecx, 1
+	jne	SHORT $LN4@SelfCheck
+
+; 93   :         return (FALSE);
+
+	xor	eax, eax
+	jmp	SHORT $LN1@SelfCheck
+$LN4@SelfCheck:
+
+; 94   :     _ZERO_MEMORY_BYTE(&nh, sizeof(nh));
+
+	push	24					; 00000018H
+	lea	eax, DWORD PTR _nh$[ebp]
+	push	eax
+	call	__ZERO_MEMORY_BYTE
+	add	esp, 8
+
+; 95   :     nh.IS_POWER_OF_TWO = TRUE;
+
+	mov	eax, DWORD PTR _nh$[ebp]
+	or	eax, 16					; 00000010H
+	mov	DWORD PTR _nh$[ebp], eax
+
+; 96   :     if (!handle->FLAGS.IS_POWER_OF_TWO)
+
+	mov	eax, DWORD PTR _handle$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	shr	ecx, 4
+	and	ecx, 1
+	jne	SHORT $LN5@SelfCheck
+
+; 97   :         return (FALSE);
+
+	xor	eax, eax
+	jmp	SHORT $LN1@SelfCheck
+$LN5@SelfCheck:
+
+; 98   :     _ZERO_MEMORY_BYTE(&nh, sizeof(nh));
+
+	push	24					; 00000018H
+	lea	eax, DWORD PTR _nh$[ebp]
+	push	eax
+	call	__ZERO_MEMORY_BYTE
+	add	esp, 8
+
+; 99   :     nh.IS_ZERO = TRUE;
+
+	mov	eax, DWORD PTR _nh$[ebp]
+	or	eax, 1
+	mov	DWORD PTR _nh$[ebp], eax
+
+; 100  :     if (!handle->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _handle$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	jne	SHORT $LN6@SelfCheck
+
+; 101  :         return (FALSE);
+
+	xor	eax, eax
+	jmp	SHORT $LN1@SelfCheck
+$LN6@SelfCheck:
+
+; 102  :     return(TRUE);
+
+	mov	eax, 1
+$LN1@SelfCheck:
+
+; 103  : }
+
+	push	edx
+	mov	ecx, ebp
+	push	eax
+	lea	edx, DWORD PTR $LN10@SelfCheck
+	call	@_RTC_CheckStackVars@8
+	pop	eax
+	pop	edx
+	pop	edi
+	pop	esi
+	pop	ebx
+	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
+	xor	ecx, ebp
+	call	@__security_check_cookie@4
+	add	esp, 240				; 000000f0H
+	cmp	ebp, esp
+	call	__RTC_CheckEsp
+	mov	esp, ebp
+	pop	ebp
+	ret	0
+	npad	1
+$LN10@SelfCheck:
+	DD	1
+	DD	$LN9@SelfCheck
+$LN9@SelfCheck:
+	DD	-32					; ffffffe0H
+	DD	24					; 00000018H
+	DD	$LN8@SelfCheck
+$LN8@SelfCheck:
+	DB	110					; 0000006eH
+	DB	104					; 00000068H
+	DB	0
+_SelfCheck ENDP
 _TEXT	ENDS
 ; Function compile flags: /Odtp /RTCsu /ZI
 ; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_initialize.c
@@ -227,13 +450,12 @@ _CopyUINTEntryPointStructure PROC			; COMDAT
 ; 43   : #ifdef _M_IX86
 ; 44   :     if (sizeof(*s) % sizeof(_UINT64_T) == 0)
 
-	mov	eax, 1
-	test	eax, eax
+	xor	eax, eax
 	je	SHORT $LN2@CopyUINTEn
 
 ; 45   :         _COPY_MEMORY_32((_UINT32_T*)d, (_UINT32_T*)s, sizeof(*s) / sizeof(_UINT32_T));
 
-	push	70					; 00000046H
+	push	69					; 00000045H
 	mov	eax, DWORD PTR _s$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _d$[ebp]
@@ -246,7 +468,7 @@ $LN2@CopyUINTEn:
 ; 46   :     else
 ; 47   :         _COPY_MEMORY_BYTE(d, s, sizeof(*s));
 
-	push	280					; 00000118H
+	push	276					; 00000114H
 	mov	eax, DWORD PTR _s$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _d$[ebp]
@@ -277,6 +499,49 @@ $LN1@CopyUINTEn:
 	pop	ebp
 	ret	0
 _CopyUINTEntryPointStructure ENDP
+_TEXT	ENDS
+; Function compile flags: /Odtp /RTCsu /ZI
+; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.uint\palmtree.math.core.uint\pmc_inline_func.h
+;	COMDAT __ZERO_MEMORY_BYTE
+_TEXT	SEGMENT
+_d$ = 8							; size = 4
+_count$ = 12						; size = 4
+__ZERO_MEMORY_BYTE PROC					; COMDAT
+
+; 88   :     {
+
+	push	ebp
+	mov	ebp, esp
+	sub	esp, 192				; 000000c0H
+	push	ebx
+	push	esi
+	push	edi
+	lea	edi, DWORD PTR [ebp-192]
+	mov	ecx, 48					; 00000030H
+	mov	eax, -858993460				; ccccccccH
+	rep stosd
+	mov	ecx, OFFSET __8CA3E54E_pmc_inline_func@h
+	call	@__CheckForDebuggerJustMyCode@4
+
+; 89   :         __stosb(d, 0, count);
+
+	mov	edi, DWORD PTR _d$[ebp]
+	xor	al, al
+	mov	ecx, DWORD PTR _count$[ebp]
+	rep stosb
+
+; 90   :     }
+
+	pop	edi
+	pop	esi
+	pop	ebx
+	add	esp, 192				; 000000c0H
+	cmp	ebp, esp
+	call	__RTC_CheckEsp
+	mov	esp, ebp
+	pop	ebp
+	ret	0
+__ZERO_MEMORY_BYTE ENDP
 _TEXT	ENDS
 ; Function compile flags: /Odtp /RTCsu /ZI
 ; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.uint\palmtree.math.core.uint\pmc_inline_func.h
@@ -374,7 +639,7 @@ _ep$ = -8						; size = 4
 _config$ = 8						; size = 4
 _PMC_SINT_Initialize@4 PROC				; COMDAT
 
-; 79   : {
+; 106  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -389,28 +654,28 @@ _PMC_SINT_Initialize@4 PROC				; COMDAT
 	mov	ecx, OFFSET __A52C17B2_pmc_initialize@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 80   :     if (hLib_UINT == NULL)
+; 107  :     if (hLib_UINT == NULL)
 
 	cmp	DWORD PTR _hLib_UINT, 0
 	jne	SHORT $LN2@PMC_SINT_I
 
-; 81   :         LoadUINTLIbrary();
+; 108  :         LoadUINTLIbrary();
 
 	call	_LoadUINTLIbrary
 $LN2@PMC_SINT_I:
 
-; 82   :     if (fp_PMC_UINT_Initialize == NULL)
+; 109  :     if (fp_PMC_UINT_Initialize == NULL)
 
 	cmp	DWORD PTR _fp_PMC_UINT_Initialize, 0
 	jne	SHORT $LN3@PMC_SINT_I
 
-; 83   :         return (NULL);
+; 110  :         return (NULL);
 
 	xor	eax, eax
 	jmp	$LN1@PMC_SINT_I
 $LN3@PMC_SINT_I:
 
-; 84   :     PMC_UINT_ENTRY_POINTS* ep = (*fp_PMC_UINT_Initialize)(config);
+; 111  :     PMC_UINT_ENTRY_POINTS* ep = (*fp_PMC_UINT_Initialize)(config);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _config$[ebp]
@@ -420,25 +685,38 @@ $LN3@PMC_SINT_I:
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _ep$[ebp], eax
 
-; 85   :     if (ep == NULL)
+; 112  :     if (ep == NULL)
 
 	cmp	DWORD PTR _ep$[ebp], 0
 	jne	SHORT $LN4@PMC_SINT_I
 
-; 86   :         return (NULL);
+; 113  :         return (NULL);
 
 	xor	eax, eax
 	jmp	$LN1@PMC_SINT_I
 $LN4@PMC_SINT_I:
 
-; 87   : 
-; 88   :     if (!initialized)
+; 114  : 
+; 115  :     if (!initialized)
 
 	cmp	DWORD PTR _initialized, 0
 	jne	$LN5@PMC_SINT_I
 
-; 89   :     {
-; 90   :         CopyUINTEntryPointStructure(&ep_uint, ep);
+; 116  :     {
+; 117  :         if (!SelfCheck())
+
+	call	_SelfCheck
+	test	eax, eax
+	jne	SHORT $LN6@PMC_SINT_I
+
+; 118  :             return (NULL);
+
+	xor	eax, eax
+	jmp	$LN1@PMC_SINT_I
+$LN6@PMC_SINT_I:
+
+; 119  : 
+; 120  :         CopyUINTEntryPointStructure(&ep_uint, ep);
 
 	mov	eax, DWORD PTR _ep$[ebp]
 	push	eax
@@ -446,7 +724,7 @@ $LN4@PMC_SINT_I:
 	call	_CopyUINTEntryPointStructure
 	add	esp, 8
 
-; 91   :         CopyUINTEntryPointStructure(&entry_points.uint, ep);
+; 121  :         CopyUINTEntryPointStructure(&entry_points.UINT_ENTRY_POINTS, ep);
 
 	mov	eax, DWORD PTR _ep$[ebp]
 	push	eax
@@ -454,211 +732,230 @@ $LN4@PMC_SINT_I:
 	call	_CopyUINTEntryPointStructure
 	add	esp, 8
 
-; 92   : 
-; 93   :         if (Initialize_Memory() != PMC_STATUS_OK)
+; 122  : 
+; 123  :         if (Initialize_Memory() != PMC_STATUS_OK)
 
 	call	_Initialize_Memory
 	test	eax, eax
-	je	SHORT $LN6@PMC_SINT_I
+	je	SHORT $LN7@PMC_SINT_I
 
-; 94   :             return (NULL);
+; 124  :             return (NULL);
 
 	xor	eax, eax
 	jmp	$LN1@PMC_SINT_I
-$LN6@PMC_SINT_I:
+$LN7@PMC_SINT_I:
 
-; 95   : 
-; 96   :         entry_points.GetStatisticsInfo = PMC_GetStatisticsInfo;
+; 125  : 
+; 126  :         entry_points.GetStatisticsInfo = PMC_GetStatisticsInfo;
 
-	mov	DWORD PTR _entry_points+280, OFFSET _PMC_GetStatisticsInfo@4
+	mov	DWORD PTR _entry_points+276, OFFSET _PMC_GetStatisticsInfo@4
 
-; 97   :         entry_points.From_I = PMC_From_I;
+; 127  :         entry_points.From_I = PMC_From_I;
 
-	mov	DWORD PTR _entry_points+284, OFFSET _PMC_From_I@8
+	mov	DWORD PTR _entry_points+280, OFFSET _PMC_From_I@8
 
-; 98   :         entry_points.From_L = PMC_From_L;
+; 128  :         entry_points.From_L = PMC_From_L;
 
-	mov	DWORD PTR _entry_points+288, OFFSET _PMC_From_L@12
+	mov	DWORD PTR _entry_points+284, OFFSET _PMC_From_L@12
 
-; 99   :         entry_points.FromByteArray = PMC_FromByteArray;
+; 129  :         entry_points.FromByteArray = PMC_FromByteArray;
 
-	mov	DWORD PTR _entry_points+304, OFFSET _PMC_FromByteArray@12
+	mov	DWORD PTR _entry_points+296, OFFSET _PMC_FromByteArray@12
 
-; 100  :         entry_points.Dispose = PMC_Dispose;
+; 130  :         entry_points.Dispose = PMC_Dispose;
 
-	mov	DWORD PTR _entry_points+292, OFFSET _PMC_Dispose@4
+	mov	DWORD PTR _entry_points+288, OFFSET _PMC_Dispose@4
 
-; 101  :         entry_points.To_X_I = PMC_To_X_I;
+; 131  :         entry_points.To_X_I = PMC_To_X_I;
 
-	mov	DWORD PTR _entry_points+316, OFFSET _PMC_To_X_I@8
+	mov	DWORD PTR _entry_points+308, OFFSET _PMC_To_X_I@8
 
-; 102  :         entry_points.To_X_L = PMC_To_X_L;
+; 132  :         entry_points.To_X_L = PMC_To_X_L;
 
-	mov	DWORD PTR _entry_points+320, OFFSET _PMC_To_X_L@8
+	mov	DWORD PTR _entry_points+312, OFFSET _PMC_To_X_L@8
 
-; 103  :         entry_points.ToByteArray = PMC_ToByteArray;
+; 133  :         entry_points.ToByteArray = PMC_ToByteArray;
 
-	mov	DWORD PTR _entry_points+308, OFFSET _PMC_ToByteArray@16
+	mov	DWORD PTR _entry_points+300, OFFSET _PMC_ToByteArray@16
 
-; 104  :         /*
-; 105  :         entry_points.ToString = PMC_ToString;
-; 106  :         entry_points.TryParse = PMC_TryParse;
-; 107  :         */
-; 108  :         entry_points.Add_I_X = PMC_Add_I_X;
+; 134  :         /*
+; 135  :         entry_points.ToString = PMC_ToString;
+; 136  :         entry_points.TryParse = PMC_TryParse;
+; 137  :         */
+; 138  :         entry_points.Add_I_X = PMC_Add_I_X;
 
-	mov	DWORD PTR _entry_points+328, OFFSET _PMC_Add_I_X@12
+	mov	DWORD PTR _entry_points+320, OFFSET _PMC_Add_I_X@12
 
-; 109  :         entry_points.Add_L_X = PMC_Add_L_X;
+; 139  :         entry_points.Add_L_X = PMC_Add_L_X;
 
-	mov	DWORD PTR _entry_points+332, OFFSET _PMC_Add_L_X@16
+	mov	DWORD PTR _entry_points+324, OFFSET _PMC_Add_L_X@16
 
-; 110  :         entry_points.Add_UX_X = PMC_Add_UX_X;
+; 140  :         entry_points.Add_UX_X = PMC_Add_UX_X;
 
-	mov	DWORD PTR _entry_points+336, OFFSET _PMC_Add_UX_X@12
+	mov	DWORD PTR _entry_points+328, OFFSET _PMC_Add_UX_X@12
 
-; 111  :         entry_points.Add_X_I = PMC_Add_X_I;
+; 141  :         entry_points.Add_X_I = PMC_Add_X_I;
 
-	mov	DWORD PTR _entry_points+340, OFFSET _PMC_Add_X_I@12
+	mov	DWORD PTR _entry_points+332, OFFSET _PMC_Add_X_I@12
 
-; 112  :         entry_points.Add_X_L = PMC_Add_X_L;
+; 142  :         entry_points.Add_X_L = PMC_Add_X_L;
 
-	mov	DWORD PTR _entry_points+344, OFFSET _PMC_Add_X_L@16
+	mov	DWORD PTR _entry_points+336, OFFSET _PMC_Add_X_L@16
 
-; 113  :         entry_points.Add_X_UX = PMC_Add_X_UX;
+; 143  :         entry_points.Add_X_UX = PMC_Add_X_UX;
 
-	mov	DWORD PTR _entry_points+348, OFFSET _PMC_Add_X_UX@12
+	mov	DWORD PTR _entry_points+340, OFFSET _PMC_Add_X_UX@12
 
-; 114  :         entry_points.Add_X_X = PMC_Add_X_X;
+; 144  :         entry_points.Add_X_X = PMC_Add_X_X;
 
-	mov	DWORD PTR _entry_points+352, OFFSET _PMC_Add_X_X@12
+	mov	DWORD PTR _entry_points+344, OFFSET _PMC_Add_X_X@12
 
-; 115  :         entry_points.Subtruct_I_X = PMC_Subtruct_I_X;
+; 145  :         entry_points.Subtruct_I_X = PMC_Subtruct_I_X;
 
-	mov	DWORD PTR _entry_points+356, OFFSET _PMC_Subtruct_I_X@12
+	mov	DWORD PTR _entry_points+348, OFFSET _PMC_Subtruct_I_X@12
 
-; 116  :         entry_points.Subtruct_L_X = PMC_Subtruct_L_X;
+; 146  :         entry_points.Subtruct_L_X = PMC_Subtruct_L_X;
 
-	mov	DWORD PTR _entry_points+360, OFFSET _PMC_Subtruct_L_X@16
+	mov	DWORD PTR _entry_points+352, OFFSET _PMC_Subtruct_L_X@16
 
-; 117  :         entry_points.Subtruct_UX_X = PMC_Subtruct_UX_X;
+; 147  :         entry_points.Subtruct_UX_X = PMC_Subtruct_UX_X;
 
-	mov	DWORD PTR _entry_points+364, OFFSET _PMC_Subtruct_UX_X@12
+	mov	DWORD PTR _entry_points+356, OFFSET _PMC_Subtruct_UX_X@12
 
-; 118  :         entry_points.Subtruct_X_I = PMC_Subtruct_X_I;
+; 148  :         entry_points.Subtruct_X_I = PMC_Subtruct_X_I;
 
-	mov	DWORD PTR _entry_points+368, OFFSET _PMC_Subtruct_X_I@12
+	mov	DWORD PTR _entry_points+360, OFFSET _PMC_Subtruct_X_I@12
 
-; 119  :         entry_points.Subtruct_X_L = PMC_Subtruct_X_L;
+; 149  :         entry_points.Subtruct_X_L = PMC_Subtruct_X_L;
 
-	mov	DWORD PTR _entry_points+372, OFFSET _PMC_Subtruct_X_L@16
+	mov	DWORD PTR _entry_points+364, OFFSET _PMC_Subtruct_X_L@16
 
-; 120  :         entry_points.Subtruct_X_UX = PMC_Subtruct_X_UX;
+; 150  :         entry_points.Subtruct_X_UX = PMC_Subtruct_X_UX;
 
-	mov	DWORD PTR _entry_points+376, OFFSET _PMC_Subtruct_X_UX@12
+	mov	DWORD PTR _entry_points+368, OFFSET _PMC_Subtruct_X_UX@12
 
-; 121  :         entry_points.Subtruct_X_X = PMC_Subtruct_X_X;
+; 151  :         entry_points.Subtruct_X_X = PMC_Subtruct_X_X;
 
-	mov	DWORD PTR _entry_points+380, OFFSET _PMC_Subtruct_X_X@12
+	mov	DWORD PTR _entry_points+372, OFFSET _PMC_Subtruct_X_X@12
 
-; 122  :         entry_points.Multiply_I_X = PMC_Multiply_I_X;
+; 152  :         entry_points.Multiply_I_X = PMC_Multiply_I_X;
 
-	mov	DWORD PTR _entry_points+384, OFFSET _PMC_Multiply_I_X@12
+	mov	DWORD PTR _entry_points+376, OFFSET _PMC_Multiply_I_X@12
 
-; 123  :         entry_points.Multiply_L_X = PMC_Multiply_L_X;
+; 153  :         entry_points.Multiply_L_X = PMC_Multiply_L_X;
 
-	mov	DWORD PTR _entry_points+388, OFFSET _PMC_Multiply_L_X@16
-
-; 124  :         entry_points.Multiply_UX_X = PMC_Multiply_UX_X;
-
-	mov	DWORD PTR _entry_points+392, OFFSET _PMC_Multiply_UX_X@12
-
-; 125  :         entry_points.Multiply_X_I = PMC_Multiply_X_I;
-
-	mov	DWORD PTR _entry_points+396, OFFSET _PMC_Multiply_X_I@12
-
-; 126  :         entry_points.Multiply_X_L = PMC_Multiply_X_L;
-
-	mov	DWORD PTR _entry_points+400, OFFSET _PMC_Multiply_X_L@16
-
-; 127  :         entry_points.Multiply_X_UX = PMC_Multiply_X_UX;
-
-	mov	DWORD PTR _entry_points+404, OFFSET _PMC_Multiply_X_UX@12
-
-; 128  :         entry_points.Multiply_X_X = PMC_Multiply_X_X;
-
-	mov	DWORD PTR _entry_points+408, OFFSET _PMC_Multiply_X_X@12
-
-; 129  :         /*
-; 130  :         entry_points.DivRem_I_X = PMC_DivRem_I_X;
-; 131  :         entry_points.DivRem_L_X = PMC_DivRem_L_X;
-; 132  :         entry_points.DivRem_X_I = PMC_DivRem_X_I;
-; 133  :         entry_points.DivRem_X_L = PMC_DivRem_X_L;
-; 134  :         entry_points.DivRem_X_X = PMC_DivRem_X_X;
-; 135  :         entry_points.RightShift_X_I = PMC_RightShift_X_I;
-; 136  :         entry_points.LeftShift_X_I = PMC_LeftShift_X_I;
-; 137  :         entry_points.BitwiseAnd_I_X = PMC_BitwiseAnd_I_X;
-; 138  :         entry_points.BitwiseAnd_L_X = PMC_BitwiseAnd_L_X;
-; 139  :         entry_points.BitwiseAnd_X_I = PMC_BitwiseAnd_X_I;
-; 140  :         entry_points.BitwiseAnd_X_L = PMC_BitwiseAnd_X_L;
-; 141  :         entry_points.BitwiseAnd_X_X = PMC_BitwiseAnd_X_X;
-; 142  :         entry_points.BitwiseOr_I_X = PMC_BitwiseOr_I_X;
-; 143  :         entry_points.BitwiseOr_L_X = PMC_BitwiseOr_L_X;
-; 144  :         entry_points.BitwiseOr_X_I = PMC_BitwiseOr_X_I;
-; 145  :         entry_points.BitwiseOr_X_L = PMC_BitwiseOr_X_L;
-; 146  :         entry_points.BitwiseOr_X_X = PMC_BitwiseOr_X_X;
-; 147  :         entry_points.ExclusiveOr_I_X = PMC_ExclusiveOr_I_X;
-; 148  :         entry_points.ExclusiveOr_L_X = PMC_ExclusiveOr_L_X;
-; 149  :         entry_points.ExclusiveOr_X_I = PMC_ExclusiveOr_X_I;
-; 150  :         entry_points.ExclusiveOr_X_L = PMC_ExclusiveOr_X_L;
-; 151  :         entry_points.ExclusiveOr_X_X = PMC_ExclusiveOr_X_X;
-; 152  :         entry_points.Compare_I_X = PMC_Compare_I_X;
-; 153  :         entry_points.Compare_L_X = PMC_Compare_L_X;
-; 154  :         entry_points.Compare_X_I = PMC_Compare_X_I;
-; 155  :         entry_points.Compare_X_L = PMC_Compare_X_L;
-; 156  :         entry_points.Compare_X_X = PMC_Compare_X_X;
-; 157  :         entry_points.Equals_I_X = PMC_Equals_I_X;
-; 158  :         entry_points.Equals_L_X = PMC_Equals_L_X;
-; 159  :         entry_points.Equals_X_I = PMC_Equals_X_I;
-; 160  :         entry_points.Equals_X_L = PMC_Equals_X_L;
-; 161  :         entry_points.Equals_X_X = PMC_Equals_X_X;
-; 162  :         entry_points.GreatestCommonDivisor_I_X = PMC_GreatestCommonDivisor_I_X;
-; 163  :         entry_points.GreatestCommonDivisor_L_X = PMC_GreatestCommonDivisor_L_X;
-; 164  :         entry_points.GreatestCommonDivisor_X_I = PMC_GreatestCommonDivisor_X_I;
-; 165  :         entry_points.GreatestCommonDivisor_X_L = PMC_GreatestCommonDivisor_X_L;
-; 166  :         entry_points.GreatestCommonDivisor_X_X = PMC_GreatestCommonDivisor_X_X;
-; 167  :         entry_points.Pow_X_I = PMC_Pow_X_I;
-; 168  :         entry_points.ModPow_X_X_X = PMC_ModPow_X_X_X;
-; 169  :         */
-; 170  :         entry_points.GetNumberType_X = PMC_GetNumberType_X;
-
-	mov	DWORD PTR _entry_points+296, OFFSET _PMC_GetNumberType_X@8
-
-; 171  :         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
-
-	mov	DWORD PTR _entry_points+300, OFFSET _PMC_GetConstantValue_I@8
-
-; 172  :         entry_points.Clone_X = PMC_Clone_X;
-
-	mov	DWORD PTR _entry_points+312, OFFSET _PMC_Clone_X@8
-
-; 173  :         entry_points.Negate_X = PMC_Negate_X;
-
-	mov	DWORD PTR _entry_points+324, OFFSET _PMC_Negate_X@8
-
-; 174  : 
-; 175  :         initialized = TRUE;
+	mov	DWORD PTR _entry_points+380, OFFSET _PMC_Multiply_L_X@16
+
+; 154  :         entry_points.Multiply_UX_X = PMC_Multiply_UX_X;
+
+	mov	DWORD PTR _entry_points+384, OFFSET _PMC_Multiply_UX_X@12
+
+; 155  :         entry_points.Multiply_X_I = PMC_Multiply_X_I;
+
+	mov	DWORD PTR _entry_points+388, OFFSET _PMC_Multiply_X_I@12
+
+; 156  :         entry_points.Multiply_X_L = PMC_Multiply_X_L;
+
+	mov	DWORD PTR _entry_points+392, OFFSET _PMC_Multiply_X_L@16
+
+; 157  :         entry_points.Multiply_X_UX = PMC_Multiply_X_UX;
+
+	mov	DWORD PTR _entry_points+396, OFFSET _PMC_Multiply_X_UX@12
+
+; 158  :         entry_points.Multiply_X_X = PMC_Multiply_X_X;
+
+	mov	DWORD PTR _entry_points+400, OFFSET _PMC_Multiply_X_X@12
+
+; 159  :         entry_points.DivRem_I_X = PMC_DivRem_I_X;
+
+	mov	DWORD PTR _entry_points+404, OFFSET _PMC_DivRem_I_X@16
+
+; 160  :         entry_points.DivRem_L_X = PMC_DivRem_L_X;
+
+	mov	DWORD PTR _entry_points+408, OFFSET _PMC_DivRem_L_X@20
+
+; 161  :         entry_points.DivRem_UX_X = PMC_DivRem_UX_X;
+
+	mov	DWORD PTR _entry_points+412, OFFSET _PMC_DivRem_UX_X@16
+
+; 162  :         entry_points.DivRem_X_I = PMC_DivRem_X_I;
+
+	mov	DWORD PTR _entry_points+416, OFFSET _PMC_DivRem_X_I@16
+
+; 163  :         entry_points.DivRem_X_L = PMC_DivRem_X_L;
+
+	mov	DWORD PTR _entry_points+420, OFFSET _PMC_DivRem_X_L@20
+
+; 164  :         entry_points.DivRem_X_UX = PMC_DivRem_X_UX;
+
+	mov	DWORD PTR _entry_points+424, OFFSET _PMC_DivRem_X_UX@16
+
+; 165  :         entry_points.DivRem_X_X = PMC_DivRem_X_X;
+
+	mov	DWORD PTR _entry_points+428, OFFSET _PMC_DivRem_X_X@16
+
+; 166  :         /*
+; 167  :         entry_points.RightShift_X_I = PMC_RightShift_X_I;
+; 168  :         entry_points.LeftShift_X_I = PMC_LeftShift_X_I;
+; 169  :         entry_points.BitwiseAnd_I_X = PMC_BitwiseAnd_I_X;
+; 170  :         entry_points.BitwiseAnd_L_X = PMC_BitwiseAnd_L_X;
+; 171  :         entry_points.BitwiseAnd_X_I = PMC_BitwiseAnd_X_I;
+; 172  :         entry_points.BitwiseAnd_X_L = PMC_BitwiseAnd_X_L;
+; 173  :         entry_points.BitwiseAnd_X_X = PMC_BitwiseAnd_X_X;
+; 174  :         entry_points.BitwiseOr_I_X = PMC_BitwiseOr_I_X;
+; 175  :         entry_points.BitwiseOr_L_X = PMC_BitwiseOr_L_X;
+; 176  :         entry_points.BitwiseOr_X_I = PMC_BitwiseOr_X_I;
+; 177  :         entry_points.BitwiseOr_X_L = PMC_BitwiseOr_X_L;
+; 178  :         entry_points.BitwiseOr_X_X = PMC_BitwiseOr_X_X;
+; 179  :         entry_points.ExclusiveOr_I_X = PMC_ExclusiveOr_I_X;
+; 180  :         entry_points.ExclusiveOr_L_X = PMC_ExclusiveOr_L_X;
+; 181  :         entry_points.ExclusiveOr_X_I = PMC_ExclusiveOr_X_I;
+; 182  :         entry_points.ExclusiveOr_X_L = PMC_ExclusiveOr_X_L;
+; 183  :         entry_points.ExclusiveOr_X_X = PMC_ExclusiveOr_X_X;
+; 184  :         entry_points.Compare_I_X = PMC_Compare_I_X;
+; 185  :         entry_points.Compare_L_X = PMC_Compare_L_X;
+; 186  :         entry_points.Compare_X_I = PMC_Compare_X_I;
+; 187  :         entry_points.Compare_X_L = PMC_Compare_X_L;
+; 188  :         entry_points.Compare_X_X = PMC_Compare_X_X;
+; 189  :         entry_points.Equals_I_X = PMC_Equals_I_X;
+; 190  :         entry_points.Equals_L_X = PMC_Equals_L_X;
+; 191  :         entry_points.Equals_X_I = PMC_Equals_X_I;
+; 192  :         entry_points.Equals_X_L = PMC_Equals_X_L;
+; 193  :         entry_points.Equals_X_X = PMC_Equals_X_X;
+; 194  :         entry_points.GreatestCommonDivisor_I_X = PMC_GreatestCommonDivisor_I_X;
+; 195  :         entry_points.GreatestCommonDivisor_L_X = PMC_GreatestCommonDivisor_L_X;
+; 196  :         entry_points.GreatestCommonDivisor_X_I = PMC_GreatestCommonDivisor_X_I;
+; 197  :         entry_points.GreatestCommonDivisor_X_L = PMC_GreatestCommonDivisor_X_L;
+; 198  :         entry_points.GreatestCommonDivisor_X_X = PMC_GreatestCommonDivisor_X_X;
+; 199  :         entry_points.Pow_X_I = PMC_Pow_X_I;
+; 200  :         entry_points.ModPow_X_X_X = PMC_ModPow_X_X_X;
+; 201  :         */
+; 202  :         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
+
+	mov	DWORD PTR _entry_points+292, OFFSET _PMC_GetConstantValue_I@8
+
+; 203  :         entry_points.Clone_X = PMC_Clone_X;
+
+	mov	DWORD PTR _entry_points+304, OFFSET _PMC_Clone_X@8
+
+; 204  :         entry_points.Negate_X = PMC_Negate_X;
+
+	mov	DWORD PTR _entry_points+316, OFFSET _PMC_Negate_X@8
+
+; 205  : 
+; 206  :         initialized = TRUE;
 
 	mov	DWORD PTR _initialized, 1
 $LN5@PMC_SINT_I:
 
-; 176  :     }
-; 177  : 
-; 178  :     return (&entry_points);
+; 207  :     }
+; 208  : 
+; 209  :     return (&entry_points);
 
 	mov	eax, OFFSET _entry_points
 $LN1@PMC_SINT_I:
 
-; 179  : }
+; 210  : }
 
 	pop	edi
 	pop	esi

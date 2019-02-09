@@ -8,7 +8,7 @@ PUBLIC	PMC_Negate_X
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$PMC_Negate_X DD imagerel $LN14@PMC_Negate
-	DD	imagerel $LN14@PMC_Negate+88
+	DD	imagerel $LN14@PMC_Negate+89
 	DD	imagerel $unwind$PMC_Negate_X
 ;	COMDAT xdata
 xdata	SEGMENT

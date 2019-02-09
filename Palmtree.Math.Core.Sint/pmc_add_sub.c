@@ -30,6 +30,12 @@
 
 static PMC_STATUS_CODE AddU_X_I_Imp(char sign, PMC_HANDLE_UINT u, _UINT32_T v, NUMBER_HEADER** w)
 {
+#ifdef _DEBUG
+    if (u->FLAGS.IS_ZERO)
+        return (PMC_STATUS_INTERNAL_ERROR);
+    if (v == 0)
+        return (PMC_STATUS_INTERNAL_ERROR);
+#endif
     PMC_STATUS_CODE result;
     PMC_HANDLE_UINT w_abs;
     if ((result = ep_uint.Add_X_I(u, v, &w_abs)) != PMC_STATUS_OK)
@@ -44,6 +50,12 @@ static PMC_STATUS_CODE AddU_X_I_Imp(char sign, PMC_HANDLE_UINT u, _UINT32_T v, N
 
 static PMC_STATUS_CODE AddU_X_L_Imp(char sign, PMC_HANDLE_UINT u, _UINT64_T v, NUMBER_HEADER** w)
 {
+#ifdef _DEBUG
+    if (u->FLAGS.IS_ZERO)
+        return (PMC_STATUS_INTERNAL_ERROR);
+    if (v == 0)
+        return (PMC_STATUS_INTERNAL_ERROR);
+#endif
     PMC_STATUS_CODE result;
     PMC_HANDLE_UINT w_abs;
     if ((result = ep_uint.Add_X_L(u, v, &w_abs)) != PMC_STATUS_OK)
@@ -58,6 +70,12 @@ static PMC_STATUS_CODE AddU_X_L_Imp(char sign, PMC_HANDLE_UINT u, _UINT64_T v, N
 
 static PMC_STATUS_CODE AddU_X_X_Imp(char sign, PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, NUMBER_HEADER** w)
 {
+#ifdef _DEBUG
+    if (u->FLAGS.IS_ZERO)
+        return (PMC_STATUS_INTERNAL_ERROR);
+    if (v->FLAGS.IS_ZERO)
+        return (PMC_STATUS_INTERNAL_ERROR);
+#endif
     PMC_STATUS_CODE result;
     PMC_HANDLE_UINT w_abs;
     if ((result = ep_uint.Add_X_X(u, v, &w_abs)) != PMC_STATUS_OK)
@@ -72,6 +90,12 @@ static PMC_STATUS_CODE AddU_X_X_Imp(char sign, PMC_HANDLE_UINT u, PMC_HANDLE_UIN
 
 static PMC_STATUS_CODE SubtructU_X_I_Imp(char sign, PMC_HANDLE_UINT u, _UINT32_T v, NUMBER_HEADER** w)
 {
+#ifdef _DEBUG
+    if (u->FLAGS.IS_ZERO)
+        return (PMC_STATUS_INTERNAL_ERROR);
+    if (v == 0)
+        return (PMC_STATUS_INTERNAL_ERROR);
+#endif
     PMC_STATUS_CODE result;
     _INT32_T c;
     if ((result = ep_uint.Compare_X_I(u, v, &c)) != PMC_STATUS_OK)
@@ -119,6 +143,12 @@ static PMC_STATUS_CODE SubtructU_X_I_Imp(char sign, PMC_HANDLE_UINT u, _UINT32_T
 
 static PMC_STATUS_CODE SubtructU_X_L_Imp(char sign, PMC_HANDLE_UINT u, _UINT64_T v, NUMBER_HEADER** w)
 {
+#ifdef _DEBUG
+    if (u->FLAGS.IS_ZERO)
+        return (PMC_STATUS_INTERNAL_ERROR);
+    if (v == 0)
+        return (PMC_STATUS_INTERNAL_ERROR);
+#endif
     PMC_STATUS_CODE result;
     _INT32_T c;
     if ((result = ep_uint.Compare_X_L(u, v, &c)) != PMC_STATUS_OK)
@@ -166,6 +196,12 @@ static PMC_STATUS_CODE SubtructU_X_L_Imp(char sign, PMC_HANDLE_UINT u, _UINT64_T
 
 static PMC_STATUS_CODE SubtructU_X_X_Imp(char sign, PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, NUMBER_HEADER** w)
 {
+#ifdef _DEBUG
+    if (u->FLAGS.IS_ZERO)
+        return (PMC_STATUS_INTERNAL_ERROR);
+    if (v->FLAGS.IS_ZERO)
+        return (PMC_STATUS_INTERNAL_ERROR);
+#endif
     PMC_STATUS_CODE result;
     _INT32_T c;
     if ((result = ep_uint.Compare_X_X(u, v, &c)) != PMC_STATUS_OK)
@@ -409,10 +445,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Add_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PM
     NUMBER_HEADER* nw;
     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
         return (result);
-    char u_is_zero;
-    if ((result = IsZero_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
-        return (result);
-    if (u_is_zero)
+    if (u->FLAGS.IS_ZERO)
     {
         // u == 0 �̏ꍇ
 
@@ -674,14 +707,11 @@ PMC_STATUS_CODE __PMC_CALL PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PM
     NUMBER_HEADER* nw;
     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
         return (result);
-    char v_is_zero;
-    if ((result = IsZero_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
-        return (result);
     if (nu->SIGN == 0)
     {
         // u == 0 �̏ꍇ
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
             // v == 0 �̏ꍇ
 
@@ -696,9 +726,6 @@ PMC_STATUS_CODE __PMC_CALL PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PM
             PMC_HANDLE_UINT new_v;
             if ((result = ep_uint.Clone_X(v, &new_v)) != PMC_STATUS_OK)
                 return (result);
-            PMC_NUMBER_TYPE_CODE type;
-            if ((result = ep_uint.GetNumberType_X(new_v, &type)) != PMC_STATUS_OK)
-                return (result);
             if ((result = AllocateNumber(&nw, 1, new_v)) != PMC_STATUS_OK)
             {
                 ep_uint.Dispose(new_v);
@@ -710,7 +737,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PM
     {
         // u > 0 �̏ꍇ
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
             // v == 0 �̏ꍇ
 
@@ -731,7 +758,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PM
     {
         // u < 0 �̏ꍇ
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
             // v == 0 �̏ꍇ
 
@@ -1054,10 +1081,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Subtruct_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT 
     NUMBER_HEADER* nw;
     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
         return (result);
-    char u_is_zero;
-    if ((result = IsZero_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
-        return (result);
-    if (u_is_zero)
+    if (u->FLAGS.IS_ZERO)
     {
         // u == 0 �̏ꍇ
 
@@ -1319,14 +1343,11 @@ PMC_STATUS_CODE __PMC_CALL PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT 
     NUMBER_HEADER* nw;
     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
         return (result);
-    char v_is_zero;
-    if ((result = IsZero_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
-        return (result);
     if (nu->SIGN == 0)
     {
         // u == 0 �̏ꍇ
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
             // v == 0 �̏ꍇ
 
@@ -1353,7 +1374,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT 
     {
         // u > 0 �̏ꍇ
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
             // v == 0 �̏ꍇ
 
@@ -1375,7 +1396,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT 
     {
         // u < 0 �̏ꍇ
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
             // v == 0 �̏ꍇ
 

@@ -9,6 +9,10 @@
 INCLUDELIB MSVCRTD
 INCLUDELIB OLDNAMES
 
+_DATA	SEGMENT
+COMM	_uint_number_zero:DWORD
+COMM	_uint_number_one:DWORD
+_DATA	ENDS
 msvcjmc	SEGMENT
 __7B7A869E_ctype@h DB 01H
 __457DD326_basetsd@h DB 01H
@@ -35,7 +39,6 @@ PUBLIC	_PMC_Multiply_X_X@12
 PUBLIC	__JustMyCode_Default
 EXTRN	_AllocateNumber:PROC
 EXTRN	_CheckNumber:PROC
-EXTRN	_IsZero_UINT:PROC
 EXTRN	@_RTC_CheckStackVars@8:PROC
 EXTRN	@__CheckForDebuggerJustMyCode@4:PROC
 EXTRN	@__security_check_cookie@4:PROC
@@ -76,7 +79,7 @@ _v$ = 16						; size = 4
 _w$ = 20						; size = 4
 _MultiplyU_X_X_Imp PROC					; COMDAT
 
-; 60   : {
+; 72   : {
 
 	push	ebp
 	mov	ebp, esp
@@ -94,9 +97,37 @@ _MultiplyU_X_X_Imp PROC					; COMDAT
 	mov	ecx, OFFSET __6265BA8B_pmc_multiply@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 61   :     PMC_STATUS_CODE result;
-; 62   :     PMC_HANDLE_UINT w_abs;
-; 63   :     if ((result = ep_uint.Multiply_X_X(u, v, &w_abs)) != PMC_STATUS_OK)
+; 73   : #ifdef _DEBUG
+; 74   :     if (u->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _u$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN2@MultiplyU_
+
+; 75   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	SHORT $LN1@MultiplyU_
+$LN2@MultiplyU_:
+
+; 76   :     if (v->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _v$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN3@MultiplyU_
+
+; 77   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	SHORT $LN1@MultiplyU_
+$LN3@MultiplyU_:
+
+; 78   : #endif
+; 79   :     PMC_STATUS_CODE result;
+; 80   :     PMC_HANDLE_UINT w_abs;
+; 81   :     if ((result = ep_uint.Multiply_X_X(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w_abs$[ebp]
@@ -105,20 +136,20 @@ _MultiplyU_X_X_Imp PROC					; COMDAT
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+120
+	call	DWORD PTR _ep_uint+116
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN2@MultiplyU_
+	je	SHORT $LN4@MultiplyU_
 
-; 64   :         return (result);
+; 82   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@MultiplyU_
-$LN2@MultiplyU_:
+$LN4@MultiplyU_:
 
-; 65   :     if ((result = AllocateNumber(w, w_sign, w_abs)) != PMC_STATUS_OK)
+; 83   :     if ((result = AllocateNumber(w, w_sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _w_abs$[ebp]
 	push	eax
@@ -130,10 +161,10 @@ $LN2@MultiplyU_:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN3@MultiplyU_
+	je	SHORT $LN5@MultiplyU_
 
-; 66   :     {
-; 67   :         ep_uint.Dispose(w_abs);
+; 84   :     {
+; 85   :         ep_uint.Dispose(w_abs);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _w_abs$[ebp]
@@ -142,24 +173,24 @@ $LN2@MultiplyU_:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 68   :         return (result);
+; 86   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@MultiplyU_
-$LN3@MultiplyU_:
+$LN5@MultiplyU_:
 
-; 69   :     }
-; 70   :     return (PMC_STATUS_OK);
+; 87   :     }
+; 88   :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@MultiplyU_:
 
-; 71   : }
+; 89   : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN7@MultiplyU_
+	lea	edx, DWORD PTR $LN9@MultiplyU_
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -175,15 +206,14 @@ $LN1@MultiplyU_:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-	npad	2
-$LN7@MultiplyU_:
+$LN9@MultiplyU_:
 	DD	1
-	DD	$LN6@MultiplyU_
-$LN6@MultiplyU_:
+	DD	$LN8@MultiplyU_
+$LN8@MultiplyU_:
 	DD	-24					; ffffffe8H
 	DD	4
-	DD	$LN5@MultiplyU_
-$LN5@MultiplyU_:
+	DD	$LN7@MultiplyU_
+$LN7@MultiplyU_:
 	DB	119					; 00000077H
 	DB	95					; 0000005fH
 	DB	97					; 00000061H
@@ -205,7 +235,7 @@ _v$ = 16						; size = 8
 _w$ = 24						; size = 4
 _MultiplyU_X_L_Imp PROC					; COMDAT
 
-; 46   : {
+; 52   : {
 
 	push	ebp
 	mov	ebp, esp
@@ -223,9 +253,36 @@ _MultiplyU_X_L_Imp PROC					; COMDAT
 	mov	ecx, OFFSET __6265BA8B_pmc_multiply@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 47   :     PMC_STATUS_CODE result;
-; 48   :     PMC_HANDLE_UINT w_abs;
-; 49   :     if ((result = ep_uint.Multiply_X_L(u, v, &w_abs)) != PMC_STATUS_OK)
+; 53   : #ifdef _DEBUG
+; 54   :     if (u->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _u$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN2@MultiplyU_
+
+; 55   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	SHORT $LN1@MultiplyU_
+$LN2@MultiplyU_:
+
+; 56   :     if (v == 0)
+
+	mov	eax, DWORD PTR _v$[ebp]
+	or	eax, DWORD PTR _v$[ebp+4]
+	jne	SHORT $LN3@MultiplyU_
+
+; 57   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	SHORT $LN1@MultiplyU_
+$LN3@MultiplyU_:
+
+; 58   : #endif
+; 59   :     PMC_STATUS_CODE result;
+; 60   :     PMC_HANDLE_UINT w_abs;
+; 61   :     if ((result = ep_uint.Multiply_X_L(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w_abs$[ebp]
@@ -236,20 +293,20 @@ _MultiplyU_X_L_Imp PROC					; COMDAT
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+116
+	call	DWORD PTR _ep_uint+112
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN2@MultiplyU_
+	je	SHORT $LN4@MultiplyU_
 
-; 50   :         return (result);
+; 62   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@MultiplyU_
-$LN2@MultiplyU_:
+$LN4@MultiplyU_:
 
-; 51   :     if ((result = AllocateNumber(w, w_sign, w_abs)) != PMC_STATUS_OK)
+; 63   :     if ((result = AllocateNumber(w, w_sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _w_abs$[ebp]
 	push	eax
@@ -261,10 +318,10 @@ $LN2@MultiplyU_:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN3@MultiplyU_
+	je	SHORT $LN5@MultiplyU_
 
-; 52   :     {
-; 53   :         ep_uint.Dispose(w_abs);
+; 64   :     {
+; 65   :         ep_uint.Dispose(w_abs);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _w_abs$[ebp]
@@ -273,24 +330,24 @@ $LN2@MultiplyU_:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 54   :         return (result);
+; 66   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@MultiplyU_
-$LN3@MultiplyU_:
+$LN5@MultiplyU_:
 
-; 55   :     }
-; 56   :     return (PMC_STATUS_OK);
+; 67   :     }
+; 68   :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@MultiplyU_:
 
-; 57   : }
+; 69   : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN7@MultiplyU_
+	lea	edx, DWORD PTR $LN9@MultiplyU_
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -307,14 +364,14 @@ $LN1@MultiplyU_:
 	pop	ebp
 	ret	0
 	npad	2
-$LN7@MultiplyU_:
+$LN9@MultiplyU_:
 	DD	1
-	DD	$LN6@MultiplyU_
-$LN6@MultiplyU_:
+	DD	$LN8@MultiplyU_
+$LN8@MultiplyU_:
 	DD	-24					; ffffffe8H
 	DD	4
-	DD	$LN5@MultiplyU_
-$LN5@MultiplyU_:
+	DD	$LN7@MultiplyU_
+$LN7@MultiplyU_:
 	DB	119					; 00000077H
 	DB	95					; 0000005fH
 	DB	97					; 00000061H
@@ -354,9 +411,35 @@ _MultiplyU_X_I_Imp PROC					; COMDAT
 	mov	ecx, OFFSET __6265BA8B_pmc_multiply@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 33   :     PMC_STATUS_CODE result;
-; 34   :     PMC_HANDLE_UINT w_abs;
-; 35   :     if ((result = ep_uint.Multiply_X_I(u, v, &w_abs)) != PMC_STATUS_OK)
+; 33   : #ifdef _DEBUG
+; 34   :     if (u->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _u$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN2@MultiplyU_
+
+; 35   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	SHORT $LN1@MultiplyU_
+$LN2@MultiplyU_:
+
+; 36   :     if (v == 0)
+
+	cmp	DWORD PTR _v$[ebp], 0
+	jne	SHORT $LN3@MultiplyU_
+
+; 37   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	SHORT $LN1@MultiplyU_
+$LN3@MultiplyU_:
+
+; 38   : #endif
+; 39   :     PMC_STATUS_CODE result;
+; 40   :     PMC_HANDLE_UINT w_abs;
+; 41   :     if ((result = ep_uint.Multiply_X_I(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w_abs$[ebp]
@@ -365,20 +448,20 @@ _MultiplyU_X_I_Imp PROC					; COMDAT
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+112
+	call	DWORD PTR _ep_uint+108
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN2@MultiplyU_
+	je	SHORT $LN4@MultiplyU_
 
-; 36   :         return (result);
+; 42   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@MultiplyU_
-$LN2@MultiplyU_:
+$LN4@MultiplyU_:
 
-; 37   :     if ((result = AllocateNumber(w, w_sign, w_abs)) != PMC_STATUS_OK)
+; 43   :     if ((result = AllocateNumber(w, w_sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _w_abs$[ebp]
 	push	eax
@@ -390,10 +473,10 @@ $LN2@MultiplyU_:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN3@MultiplyU_
+	je	SHORT $LN5@MultiplyU_
 
-; 38   :     {
-; 39   :         ep_uint.Dispose(w_abs);
+; 44   :     {
+; 45   :         ep_uint.Dispose(w_abs);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _w_abs$[ebp]
@@ -402,24 +485,24 @@ $LN2@MultiplyU_:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 40   :         return (result);
+; 46   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@MultiplyU_
-$LN3@MultiplyU_:
+$LN5@MultiplyU_:
 
-; 41   :     }
-; 42   :     return (PMC_STATUS_OK);
+; 47   :     }
+; 48   :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@MultiplyU_:
 
-; 43   : }
+; 49   : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN7@MultiplyU_
+	lea	edx, DWORD PTR $LN9@MultiplyU_
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -435,15 +518,14 @@ $LN1@MultiplyU_:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-	npad	2
-$LN7@MultiplyU_:
+$LN9@MultiplyU_:
 	DD	1
-	DD	$LN6@MultiplyU_
-$LN6@MultiplyU_:
+	DD	$LN8@MultiplyU_
+$LN8@MultiplyU_:
 	DD	-24					; ffffffe8H
 	DD	4
-	DD	$LN5@MultiplyU_
-$LN5@MultiplyU_:
+	DD	$LN7@MultiplyU_
+$LN7@MultiplyU_:
 	DB	119					; 00000077H
 	DB	95					; 0000005fH
 	DB	97					; 00000061H
@@ -683,7 +765,7 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Multiply_X_X@12 PROC				; COMDAT
 
-; 425  : {
+; 437  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -701,52 +783,52 @@ _PMC_Multiply_X_X@12 PROC				; COMDAT
 	mov	ecx, OFFSET __6265BA8B_pmc_multiply@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 426  :     if (u == NULL)
+; 438  :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Multip
 
-; 427  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 439  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN2@PMC_Multip:
 
-; 428  :     if (v == NULL)
+; 440  :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN3@PMC_Multip
 
-; 429  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 441  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN3@PMC_Multip:
 
-; 430  :     if (w == NULL)
+; 442  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN4@PMC_Multip
 
-; 431  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 443  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN4@PMC_Multip:
 
-; 432  :     PMC_STATUS_CODE result;
-; 433  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 444  :     PMC_STATUS_CODE result;
+; 445  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	eax, DWORD PTR _u$[ebp]
 	mov	DWORD PTR _nu$[ebp], eax
 
-; 434  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 446  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	eax, DWORD PTR _v$[ebp]
 	mov	DWORD PTR _nv$[ebp], eax
 
-; 435  :     NUMBER_HEADER* nw;
-; 436  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 447  :     NUMBER_HEADER* nw;
+; 448  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nu$[ebp]
 	push	eax
@@ -756,13 +838,13 @@ $LN4@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN5@PMC_Multip
 
-; 437  :         return (result);
+; 449  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Multip
 $LN5@PMC_Multip:
 
-; 438  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 450  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nv$[ebp]
 	push	eax
@@ -772,79 +854,79 @@ $LN5@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Multip
 
-; 439  :         return (result);
+; 451  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Multip
 $LN6@PMC_Multip:
 
-; 440  :     if (nu->SIGN == 0)
+; 452  :     if (nu->SIGN == 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN7@PMC_Multip
 
-; 441  :     {
-; 442  :         // u == 0 の場合
-; 443  : 
-; 444  :         // 0 を返す
-; 445  :         nw = &number_zero;
+; 453  :     {
+; 454  :         // u == 0 の場合
+; 455  : 
+; 456  :         // 0 を返す
+; 457  :         nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 446  :     }
+; 458  :     }
 
 	jmp	$LN8@PMC_Multip
 $LN7@PMC_Multip:
 
-; 447  :     else if (nu->SIGN > 0)
+; 459  :     else if (nu->SIGN > 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN9@PMC_Multip
 
-; 448  :     {
-; 449  :         // u > 0 の場合
-; 450  : 
-; 451  :         if (nv->SIGN == 0)
+; 460  :     {
+; 461  :         // u > 0 の場合
+; 462  : 
+; 463  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN11@PMC_Multip
 
-; 452  :         {
-; 453  :             // v == 0 の場合
-; 454  : 
-; 455  :             // 0 を返す
-; 456  :             nw = &number_zero;
+; 464  :         {
+; 465  :             // v == 0 の場合
+; 466  : 
+; 467  :             // 0 を返す
+; 468  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 457  :         }
+; 469  :         }
 
 	jmp	SHORT $LN12@PMC_Multip
 $LN11@PMC_Multip:
 
-; 458  :         else
-; 459  :         {
-; 460  :             // v != 0 の場合
-; 461  : 
-; 462  :             // abs(u) * v を返す
-; 463  :             if ((result = MultiplyU_X_X_Imp(nv->SIGN, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 470  :         else
+; 471  :         {
+; 472  :             // v != 0 の場合
+; 473  : 
+; 474  :             // abs(u) * v を返す
+; 475  :             if ((result = MultiplyU_X_X_Imp(nv->SIGN, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	movzx	eax, BYTE PTR [edx+12]
+	movzx	eax, BYTE PTR [edx+16]
 	push	eax
 	call	_MultiplyU_X_X_Imp
 	add	esp, 16					; 00000010H
@@ -852,59 +934,59 @@ $LN11@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN12@PMC_Multip
 
-; 464  :                 return (result);
+; 476  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
 $LN12@PMC_Multip:
 
-; 465  :         }
-; 466  :     }
+; 477  :         }
+; 478  :     }
 
 	jmp	SHORT $LN8@PMC_Multip
 $LN9@PMC_Multip:
 
-; 467  :     else
-; 468  :     {
-; 469  :         // u < 0 の場合
-; 470  : 
-; 471  :         if (nv->SIGN == 0)
+; 479  :     else
+; 480  :     {
+; 481  :         // u < 0 の場合
+; 482  : 
+; 483  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN14@PMC_Multip
 
-; 472  :         {
-; 473  :             // v == 0 の場合
-; 474  : 
-; 475  :             // 0 を返す
-; 476  :             nw = &number_zero;
+; 484  :         {
+; 485  :             // v == 0 の場合
+; 486  : 
+; 487  :             // 0 を返す
+; 488  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 477  :         }
+; 489  :         }
 
 	jmp	SHORT $LN8@PMC_Multip
 $LN14@PMC_Multip:
 
-; 478  :         else
-; 479  :         {
-; 480  :             // v != 0 の場合
-; 481  : 
-; 482  :             // -abs(u) * v を返す
-; 483  :             if ((result = MultiplyU_X_X_Imp(-nv->SIGN, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 490  :         else
+; 491  :         {
+; 492  :             // v != 0 の場合
+; 493  : 
+; 494  :             // -abs(u) * v を返す
+; 495  :             if ((result = MultiplyU_X_X_Imp(-nv->SIGN, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	movsx	eax, BYTE PTR [edx+12]
+	movsx	eax, BYTE PTR [edx+16]
 	neg	eax
 	push	eax
 	call	_MultiplyU_X_X_Imp
@@ -913,26 +995,26 @@ $LN14@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN8@PMC_Multip
 
-; 484  :                 return (result);
+; 496  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
 $LN8@PMC_Multip:
 
-; 485  :         }
-; 486  :     }
-; 487  :     *w = (PMC_HANDLE_SINT)nw;
+; 497  :         }
+; 498  :     }
+; 499  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 488  :     return (PMC_STATUS_OK);
+; 500  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Multip:
 
-; 489  : }
+; 501  : }
 
 	push	edx
 	mov	ecx, ebp
@@ -971,7 +1053,6 @@ _TEXT	ENDS
 ; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_multiply.c
 ;	COMDAT _PMC_Multiply_X_UX@12
 _TEXT	SEGMENT
-_v_is_zero$ = -45					; size = 1
 _nw$ = -36						; size = 4
 _nu$ = -24						; size = 4
 _result$ = -12						; size = 4
@@ -981,16 +1062,16 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Multiply_X_UX@12 PROC				; COMDAT
 
-; 377  : {
+; 392  : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 244				; 000000f4H
+	sub	esp, 232				; 000000e8H
 	push	ebx
 	push	esi
 	push	edi
-	lea	edi, DWORD PTR [ebp-244]
-	mov	ecx, 61					; 0000003dH
+	lea	edi, DWORD PTR [ebp-232]
+	mov	ecx, 58					; 0000003aH
 	mov	eax, -858993460				; ccccccccH
 	rep stosd
 	mov	eax, DWORD PTR ___security_cookie
@@ -999,47 +1080,47 @@ _PMC_Multiply_X_UX@12 PROC				; COMDAT
 	mov	ecx, OFFSET __6265BA8B_pmc_multiply@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 378  :     if (u == NULL)
+; 393  :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Multip
 
-; 379  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 394  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN2@PMC_Multip:
 
-; 380  :     if (v == NULL)
+; 395  :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN3@PMC_Multip
 
-; 381  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 396  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN3@PMC_Multip:
 
-; 382  :     if (w == NULL)
+; 397  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN4@PMC_Multip
 
-; 383  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 398  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
-	jmp	$LN1@PMC_Multip
+	jmp	SHORT $LN1@PMC_Multip
 $LN4@PMC_Multip:
 
-; 384  :     PMC_STATUS_CODE result;
-; 385  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 399  :     PMC_STATUS_CODE result;
+; 400  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	eax, DWORD PTR _u$[ebp]
 	mov	DWORD PTR _nu$[ebp], eax
 
-; 386  :     NUMBER_HEADER* nw;
-; 387  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 401  :     NUMBER_HEADER* nw;
+; 402  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nu$[ebp]
 	push	eax
@@ -1049,123 +1130,105 @@ $LN4@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN5@PMC_Multip
 
-; 388  :         return (result);
+; 403  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
 $LN5@PMC_Multip:
 
-; 389  :     char v_is_zero;
-; 390  :     if ((result = IsZero_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
-
-	lea	eax, DWORD PTR _v_is_zero$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _v$[ebp]
-	push	ecx
-	call	_IsZero_UINT
-	add	esp, 8
-	mov	DWORD PTR _result$[ebp], eax
-	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN6@PMC_Multip
-
-; 391  :         return (result);
-
-	mov	eax, DWORD PTR _result$[ebp]
-	jmp	SHORT $LN1@PMC_Multip
-$LN6@PMC_Multip:
-
-; 392  :     if (nu->SIGN == 0)
+; 404  :     if (nu->SIGN == 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
-	jne	SHORT $LN7@PMC_Multip
+	jne	SHORT $LN6@PMC_Multip
 
-; 393  :     {
-; 394  :         // u == 0 の場合
-; 395  : 
-; 396  :         // 0 を返す
-; 397  :         nw = &number_zero;
-
-	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
-
-; 398  :     }
-
-	jmp	SHORT $LN8@PMC_Multip
-$LN7@PMC_Multip:
-
-; 399  :     else
-; 400  :     {
-; 401  :         // u != 0 の場合
-; 402  : 
-; 403  :         if (v_is_zero)
-
-	movsx	eax, BYTE PTR _v_is_zero$[ebp]
-	test	eax, eax
-	je	SHORT $LN9@PMC_Multip
-
-; 404  :         {
-; 405  :             // v == 0 の場合
-; 406  : 
-; 407  :             // 0 を返す
-; 408  :             nw = &number_zero;
+; 405  :     {
+; 406  :         // u == 0 の場合
+; 407  : 
+; 408  :         // 0 を返す
+; 409  :         nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 409  :         }
+; 410  :     }
 
-	jmp	SHORT $LN8@PMC_Multip
-$LN9@PMC_Multip:
+	jmp	SHORT $LN7@PMC_Multip
+$LN6@PMC_Multip:
 
-; 410  :         else
-; 411  :         {
-; 412  :             // v > 0 の場合
-; 413  : 
-; 414  :             // u * v を返す
-; 415  :             if ((result = MultiplyU_X_X_Imp(nu->SIGN, nu->ABS, v, &nw)) != PMC_STATUS_OK)
+; 411  :     else
+; 412  :     {
+; 413  :         // u != 0 の場合
+; 414  : 
+; 415  :         if (v->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _v$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN8@PMC_Multip
+
+; 416  :         {
+; 417  :             // v == 0 の場合
+; 418  : 
+; 419  :             // 0 を返す
+; 420  :             nw = &number_zero;
+
+	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
+
+; 421  :         }
+
+	jmp	SHORT $LN7@PMC_Multip
+$LN8@PMC_Multip:
+
+; 422  :         else
+; 423  :         {
+; 424  :             // v > 0 の場合
+; 425  : 
+; 426  :             // u * v を返す
+; 427  :             if ((result = MultiplyU_X_X_Imp(nu->SIGN, nu->ABS, v, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	mov	ecx, DWORD PTR _nu$[ebp]
-	movzx	edx, BYTE PTR [ecx+12]
+	movzx	edx, BYTE PTR [ecx+16]
 	push	edx
 	call	_MultiplyU_X_X_Imp
 	add	esp, 16					; 00000010H
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN8@PMC_Multip
+	je	SHORT $LN7@PMC_Multip
 
-; 416  :                 return (result);
+; 428  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
-$LN8@PMC_Multip:
+$LN7@PMC_Multip:
 
-; 417  :         }
-; 418  : 
-; 419  :     }
-; 420  :     *w = (PMC_HANDLE_SINT)nw;
+; 429  :         }
+; 430  : 
+; 431  :     }
+; 432  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 421  :     return (PMC_STATUS_OK);
+; 433  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Multip:
 
-; 422  : }
+; 434  : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN16@PMC_Multip
+	lea	edx, DWORD PTR $LN14@PMC_Multip
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -1175,35 +1238,20 @@ $LN1@PMC_Multip:
 	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
 	xor	ecx, ebp
 	call	@__security_check_cookie@4
-	add	esp, 244				; 000000f4H
+	add	esp, 232				; 000000e8H
 	cmp	ebp, esp
 	call	__RTC_CheckEsp
 	mov	esp, ebp
 	pop	ebp
 	ret	12					; 0000000cH
-	npad	1
-$LN16@PMC_Multip:
-	DD	2
-	DD	$LN15@PMC_Multip
-$LN15@PMC_Multip:
+$LN14@PMC_Multip:
+	DD	1
+	DD	$LN13@PMC_Multip
+$LN13@PMC_Multip:
 	DD	-36					; ffffffdcH
 	DD	4
-	DD	$LN13@PMC_Multip
-	DD	-45					; ffffffd3H
-	DD	1
-	DD	$LN14@PMC_Multip
-$LN14@PMC_Multip:
-	DB	118					; 00000076H
-	DB	95					; 0000005fH
-	DB	105					; 00000069H
-	DB	115					; 00000073H
-	DB	95					; 0000005fH
-	DB	122					; 0000007aH
-	DB	101					; 00000065H
-	DB	114					; 00000072H
-	DB	111					; 0000006fH
-	DB	0
-$LN13@PMC_Multip:
+	DD	$LN12@PMC_Multip
+$LN12@PMC_Multip:
 	DB	110					; 0000006eH
 	DB	119					; 00000077H
 	DB	0
@@ -1224,7 +1272,7 @@ _v$ = 12						; size = 8
 _w$ = 20						; size = 4
 _PMC_Multiply_X_L@16 PROC				; COMDAT
 
-; 313  : {
+; 328  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -1242,36 +1290,36 @@ _PMC_Multiply_X_L@16 PROC				; COMDAT
 	mov	ecx, OFFSET __6265BA8B_pmc_multiply@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 314  :     if (u == NULL)
+; 329  :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Multip
 
-; 315  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 330  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN2@PMC_Multip:
 
-; 316  :     if (w == NULL)
+; 331  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Multip
 
-; 317  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 332  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN3@PMC_Multip:
 
-; 318  :     PMC_STATUS_CODE result;
-; 319  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 333  :     PMC_STATUS_CODE result;
+; 334  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	eax, DWORD PTR _u$[ebp]
 	mov	DWORD PTR _nu$[ebp], eax
 
-; 320  :     NUMBER_HEADER* nw;
-; 321  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 335  :     NUMBER_HEADER* nw;
+; 336  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nu$[ebp]
 	push	eax
@@ -1281,14 +1329,14 @@ $LN3@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Multip
 
-; 322  :         return (result);
+; 337  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Multip
 $LN4@PMC_Multip:
 
-; 323  :     char v_sign;
-; 324  :     _UINT64_T v_abs = GET_ABS_64(v, &v_sign);
+; 338  :     char v_sign;
+; 339  :     _UINT64_T v_abs = GET_ABS_64(v, &v_sign);
 
 	lea	eax, DWORD PTR _v_sign$[ebp]
 	push	eax
@@ -1301,61 +1349,61 @@ $LN4@PMC_Multip:
 	mov	DWORD PTR _v_abs$[ebp], eax
 	mov	DWORD PTR _v_abs$[ebp+4], edx
 
-; 325  :     if (nu->SIGN == 0)
+; 340  :     if (nu->SIGN == 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN5@PMC_Multip
 
-; 326  :     {
-; 327  :         // u == 0 の場合
-; 328  : 
-; 329  :         // 0 を返す
-; 330  :         nw = &number_zero;
+; 341  :     {
+; 342  :         // u == 0 の場合
+; 343  : 
+; 344  :         // 0 を返す
+; 345  :         nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 331  :     }
+; 346  :     }
 
 	jmp	$LN6@PMC_Multip
 $LN5@PMC_Multip:
 
-; 332  :     else if (nu->SIGN > 0)
+; 347  :     else if (nu->SIGN > 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN7@PMC_Multip
 
-; 333  :     {
-; 334  :         // u > 0 の場合
-; 335  : 
-; 336  :         if (v_sign == 0)
+; 348  :     {
+; 349  :         // u > 0 の場合
+; 350  : 
+; 351  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN9@PMC_Multip
 
-; 337  :         {
-; 338  :             // v == 0 の場合
-; 339  : 
-; 340  :             // 0 を返す
-; 341  :             nw = &number_zero;
+; 352  :         {
+; 353  :             // v == 0 の場合
+; 354  : 
+; 355  :             // 0 を返す
+; 356  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 342  :         }
+; 357  :         }
 
 	jmp	SHORT $LN10@PMC_Multip
 $LN9@PMC_Multip:
 
-; 343  :         else
-; 344  :         {
-; 345  :             // v != 0 の場合
-; 346  : 
-; 347  :             // abs(u) * abs(v) を返す
-; 348  :             if ((result = MultiplyU_X_L_Imp(v_sign, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 358  :         else
+; 359  :         {
+; 360  :             // v != 0 の場合
+; 361  : 
+; 362  :             // abs(u) * abs(v) を返す
+; 363  :             if ((result = MultiplyU_X_L_Imp(v_sign, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -1364,7 +1412,7 @@ $LN9@PMC_Multip:
 	mov	edx, DWORD PTR _v_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	movzx	edx, BYTE PTR _v_sign$[ebp]
 	push	edx
@@ -1374,47 +1422,47 @@ $LN9@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN10@PMC_Multip
 
-; 349  :                 return (result);
+; 364  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
 $LN10@PMC_Multip:
 
-; 350  :         }
-; 351  :     }
+; 365  :         }
+; 366  :     }
 
 	jmp	SHORT $LN6@PMC_Multip
 $LN7@PMC_Multip:
 
-; 352  :     else
-; 353  :     {
-; 354  :         // u < 0 の場合
-; 355  : 
-; 356  :         if (v_sign == 0)
+; 367  :     else
+; 368  :     {
+; 369  :         // u < 0 の場合
+; 370  : 
+; 371  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN12@PMC_Multip
 
-; 357  :         {
-; 358  :             // v == 0 の場合
-; 359  : 
-; 360  :             // 0 を返す
-; 361  :             nw = &number_zero;
+; 372  :         {
+; 373  :             // v == 0 の場合
+; 374  : 
+; 375  :             // 0 を返す
+; 376  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 362  :         }
+; 377  :         }
 
 	jmp	SHORT $LN6@PMC_Multip
 $LN12@PMC_Multip:
 
-; 363  :         else
-; 364  :         {
-; 365  :             // v != 0 の場合
-; 366  : 
-; 367  :             // -abs(u) * abs(v) を返す
-; 368  :             if ((result = MultiplyU_X_L_Imp(-v_sign, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 378  :         else
+; 379  :         {
+; 380  :             // v != 0 の場合
+; 381  : 
+; 382  :             // -abs(u) * abs(v) を返す
+; 383  :             if ((result = MultiplyU_X_L_Imp(-v_sign, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -1423,7 +1471,7 @@ $LN12@PMC_Multip:
 	mov	edx, DWORD PTR _v_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	movsx	edx, BYTE PTR _v_sign$[ebp]
 	neg	edx
@@ -1434,26 +1482,26 @@ $LN12@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Multip
 
-; 369  :                 return (result);
+; 384  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
 $LN6@PMC_Multip:
 
-; 370  :         }
-; 371  :     }
-; 372  :     *w = (PMC_HANDLE_SINT)nw;
+; 385  :         }
+; 386  :     }
+; 387  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 373  :     return (PMC_STATUS_OK);
+; 388  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Multip:
 
-; 374  : }
+; 389  : }
 
 	push	edx
 	mov	ecx, ebp
@@ -1514,7 +1562,7 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Multiply_X_I@12 PROC				; COMDAT
 
-; 249  : {
+; 264  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -1532,36 +1580,36 @@ _PMC_Multiply_X_I@12 PROC				; COMDAT
 	mov	ecx, OFFSET __6265BA8B_pmc_multiply@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 250  :     if (u == NULL)
+; 265  :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Multip
 
-; 251  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 266  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN2@PMC_Multip:
 
-; 252  :     if (w == NULL)
+; 267  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Multip
 
-; 253  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 268  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN3@PMC_Multip:
 
-; 254  :     PMC_STATUS_CODE result;
-; 255  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 269  :     PMC_STATUS_CODE result;
+; 270  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	eax, DWORD PTR _u$[ebp]
 	mov	DWORD PTR _nu$[ebp], eax
 
-; 256  :     NUMBER_HEADER* nw;
-; 257  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 271  :     NUMBER_HEADER* nw;
+; 272  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nu$[ebp]
 	push	eax
@@ -1571,14 +1619,14 @@ $LN3@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Multip
 
-; 258  :         return (result);
+; 273  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Multip
 $LN4@PMC_Multip:
 
-; 259  :     char v_sign;
-; 260  :     _UINT32_T v_abs = GET_ABS_32(v, &v_sign);
+; 274  :     char v_sign;
+; 275  :     _UINT32_T v_abs = GET_ABS_32(v, &v_sign);
 
 	lea	eax, DWORD PTR _v_sign$[ebp]
 	push	eax
@@ -1588,68 +1636,68 @@ $LN4@PMC_Multip:
 	add	esp, 8
 	mov	DWORD PTR _v_abs$[ebp], eax
 
-; 261  :     if (nu->SIGN == 0)
+; 276  :     if (nu->SIGN == 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN5@PMC_Multip
 
-; 262  :     {
-; 263  :         // u == 0 の場合
-; 264  : 
-; 265  :         // 0 を返す
-; 266  :         nw = &number_zero;
+; 277  :     {
+; 278  :         // u == 0 の場合
+; 279  : 
+; 280  :         // 0 を返す
+; 281  :         nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 267  :     }
+; 282  :     }
 
 	jmp	$LN6@PMC_Multip
 $LN5@PMC_Multip:
 
-; 268  :     else if (nu->SIGN > 0)
+; 283  :     else if (nu->SIGN > 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN7@PMC_Multip
 
-; 269  :     {
-; 270  :         // u > 0 の場合
-; 271  : 
-; 272  :         if (v_sign == 0)
+; 284  :     {
+; 285  :         // u > 0 の場合
+; 286  : 
+; 287  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN9@PMC_Multip
 
-; 273  :         {
-; 274  :             // v == 0 の場合
-; 275  : 
-; 276  :             // 0 を返す
-; 277  :             nw = &number_zero;
+; 288  :         {
+; 289  :             // v == 0 の場合
+; 290  : 
+; 291  :             // 0 を返す
+; 292  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 278  :         }
+; 293  :         }
 
 	jmp	SHORT $LN10@PMC_Multip
 $LN9@PMC_Multip:
 
-; 279  :         else
-; 280  :         {
-; 281  :             // v != 0 の場合
-; 282  : 
-; 283  :             // abs(u) * abs(v) を返す
-; 284  :             if ((result = MultiplyU_X_I_Imp(v_sign, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 294  :         else
+; 295  :         {
+; 296  :             // v != 0 の場合
+; 297  : 
+; 298  :             // abs(u) * abs(v) を返す
+; 299  :             if ((result = MultiplyU_X_I_Imp(v_sign, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	movzx	ecx, BYTE PTR _v_sign$[ebp]
 	push	ecx
@@ -1659,54 +1707,54 @@ $LN9@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN10@PMC_Multip
 
-; 285  :                 return (result);
+; 300  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
 $LN10@PMC_Multip:
 
-; 286  :         }
-; 287  :     }
+; 301  :         }
+; 302  :     }
 
 	jmp	SHORT $LN6@PMC_Multip
 $LN7@PMC_Multip:
 
-; 288  :     else
-; 289  :     {
-; 290  :         // u < 0 の場合
-; 291  : 
-; 292  :         if (v_sign == 0)
+; 303  :     else
+; 304  :     {
+; 305  :         // u < 0 の場合
+; 306  : 
+; 307  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN12@PMC_Multip
 
-; 293  :         {
-; 294  :             // v == 0 の場合
-; 295  : 
-; 296  :             // 0 を返す
-; 297  :             nw = &number_zero;
+; 308  :         {
+; 309  :             // v == 0 の場合
+; 310  : 
+; 311  :             // 0 を返す
+; 312  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 298  :         }
+; 313  :         }
 
 	jmp	SHORT $LN6@PMC_Multip
 $LN12@PMC_Multip:
 
-; 299  :         else
-; 300  :         {
-; 301  :             // v != 0 の場合
-; 302  : 
-; 303  :             // -abs(u) * abs(v) を返す
-; 304  :             if ((result = MultiplyU_X_I_Imp(-v_sign, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 314  :         else
+; 315  :         {
+; 316  :             // v != 0 の場合
+; 317  : 
+; 318  :             // -abs(u) * abs(v) を返す
+; 319  :             if ((result = MultiplyU_X_I_Imp(-v_sign, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	movsx	ecx, BYTE PTR _v_sign$[ebp]
 	neg	ecx
@@ -1717,26 +1765,26 @@ $LN12@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Multip
 
-; 305  :                 return (result);
+; 320  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
 $LN6@PMC_Multip:
 
-; 306  :         }
-; 307  :     }
-; 308  :     *w = (PMC_HANDLE_SINT)nw;
+; 321  :         }
+; 322  :     }
+; 323  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 309  :     return (PMC_STATUS_OK);
+; 324  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Multip:
 
-; 310  : }
+; 325  : }
 
 	push	edx
 	mov	ecx, ebp
@@ -1786,7 +1834,6 @@ _TEXT	ENDS
 ; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_multiply.c
 ;	COMDAT _PMC_Multiply_UX_X@12
 _TEXT	SEGMENT
-_u_is_zero$ = -45					; size = 1
 _nw$ = -36						; size = 4
 _nv$ = -24						; size = 4
 _result$ = -12						; size = 4
@@ -1796,16 +1843,16 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Multiply_UX_X@12 PROC				; COMDAT
 
-; 202  : {
+; 220  : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 244				; 000000f4H
+	sub	esp, 232				; 000000e8H
 	push	ebx
 	push	esi
 	push	edi
-	lea	edi, DWORD PTR [ebp-244]
-	mov	ecx, 61					; 0000003dH
+	lea	edi, DWORD PTR [ebp-232]
+	mov	ecx, 58					; 0000003aH
 	mov	eax, -858993460				; ccccccccH
 	rep stosd
 	mov	eax, DWORD PTR ___security_cookie
@@ -1814,47 +1861,47 @@ _PMC_Multiply_UX_X@12 PROC				; COMDAT
 	mov	ecx, OFFSET __6265BA8B_pmc_multiply@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 203  :     if (u == NULL)
+; 221  :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Multip
 
-; 204  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 222  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN2@PMC_Multip:
 
-; 205  :     if (v == NULL)
+; 223  :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN3@PMC_Multip
 
-; 206  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 224  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN3@PMC_Multip:
 
-; 207  :     if (w == NULL)
+; 225  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN4@PMC_Multip
 
-; 208  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 226  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
-	jmp	$LN1@PMC_Multip
+	jmp	SHORT $LN1@PMC_Multip
 $LN4@PMC_Multip:
 
-; 209  :     PMC_STATUS_CODE result;
-; 210  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 227  :     PMC_STATUS_CODE result;
+; 228  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	eax, DWORD PTR _v$[ebp]
 	mov	DWORD PTR _nv$[ebp], eax
 
-; 211  :     NUMBER_HEADER* nw;
-; 212  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 229  :     NUMBER_HEADER* nw;
+; 230  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nv$[ebp]
 	push	eax
@@ -1864,122 +1911,104 @@ $LN4@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN5@PMC_Multip
 
-; 213  :         return (result);
+; 231  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
 $LN5@PMC_Multip:
 
-; 214  :     char u_is_zero;
-; 215  :     if ((result = IsZero_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
+; 232  :     if (u->FLAGS.IS_ZERO)
 
-	lea	eax, DWORD PTR _u_is_zero$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _u$[ebp]
-	push	ecx
-	call	_IsZero_UINT
-	add	esp, 8
-	mov	DWORD PTR _result$[ebp], eax
-	cmp	DWORD PTR _result$[ebp], 0
+	mov	eax, DWORD PTR _u$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
 	je	SHORT $LN6@PMC_Multip
 
-; 216  :         return (result);
+; 233  :     {
+; 234  :         // u == 0 の場合
+; 235  : 
+; 236  :         // 0 を返す
+; 237  :         nw = &number_zero;
 
-	mov	eax, DWORD PTR _result$[ebp]
-	jmp	SHORT $LN1@PMC_Multip
+	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
+
+; 238  :     }
+
+	jmp	SHORT $LN7@PMC_Multip
 $LN6@PMC_Multip:
 
-; 217  :     if (u_is_zero)
-
-	movsx	eax, BYTE PTR _u_is_zero$[ebp]
-	test	eax, eax
-	je	SHORT $LN7@PMC_Multip
-
-; 218  :     {
-; 219  :         // u == 0 の場合
-; 220  : 
-; 221  :         // 0 を返す
-; 222  :         nw = &number_zero;
-
-	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
-
-; 223  :     }
-
-	jmp	SHORT $LN8@PMC_Multip
-$LN7@PMC_Multip:
-
-; 224  :     else
-; 225  :     {
-; 226  :         // u > 0 の場合
-; 227  : 
-; 228  :         if (nv->SIGN == 0)
+; 239  :     else
+; 240  :     {
+; 241  :         // u > 0 の場合
+; 242  : 
+; 243  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
-	jne	SHORT $LN9@PMC_Multip
+	jne	SHORT $LN8@PMC_Multip
 
-; 229  :         {
-; 230  :             // v == 0 の場合
-; 231  : 
-; 232  :             // 0 を返す
-; 233  :             nw = &number_zero;
+; 244  :         {
+; 245  :             // v == 0 の場合
+; 246  : 
+; 247  :             // 0 を返す
+; 248  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 234  :         }
+; 249  :         }
 
-	jmp	SHORT $LN8@PMC_Multip
-$LN9@PMC_Multip:
+	jmp	SHORT $LN7@PMC_Multip
+$LN8@PMC_Multip:
 
-; 235  :         else
-; 236  :         {
-; 237  :             // u != 0 の場合
-; 238  : 
-; 239  :             // abs(u) * v を返す
-; 240  :             if ((result = MultiplyU_X_X_Imp(nv->SIGN, nv->ABS, u, &nw)) != PMC_STATUS_OK)
+; 250  :         else
+; 251  :         {
+; 252  :             // u != 0 の場合
+; 253  : 
+; 254  :             // abs(u) * v を返す
+; 255  :             if ((result = MultiplyU_X_X_Imp(nv->SIGN, nv->ABS, u, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	movzx	edx, BYTE PTR [ecx+12]
+	movzx	edx, BYTE PTR [ecx+16]
 	push	edx
 	call	_MultiplyU_X_X_Imp
 	add	esp, 16					; 00000010H
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN8@PMC_Multip
+	je	SHORT $LN7@PMC_Multip
 
-; 241  :                 return (result);
+; 256  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
-$LN8@PMC_Multip:
+$LN7@PMC_Multip:
 
-; 242  :         }
-; 243  :     }
-; 244  :     *w = (PMC_HANDLE_SINT)nw;
+; 257  :         }
+; 258  :     }
+; 259  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 245  :     return (PMC_STATUS_OK);
+; 260  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Multip:
 
-; 246  : }
+; 261  : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN16@PMC_Multip
+	lea	edx, DWORD PTR $LN14@PMC_Multip
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -1989,35 +2018,20 @@ $LN1@PMC_Multip:
 	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
 	xor	ecx, ebp
 	call	@__security_check_cookie@4
-	add	esp, 244				; 000000f4H
+	add	esp, 232				; 000000e8H
 	cmp	ebp, esp
 	call	__RTC_CheckEsp
 	mov	esp, ebp
 	pop	ebp
 	ret	12					; 0000000cH
-	npad	1
-$LN16@PMC_Multip:
-	DD	2
-	DD	$LN15@PMC_Multip
-$LN15@PMC_Multip:
+$LN14@PMC_Multip:
+	DD	1
+	DD	$LN13@PMC_Multip
+$LN13@PMC_Multip:
 	DD	-36					; ffffffdcH
 	DD	4
-	DD	$LN13@PMC_Multip
-	DD	-45					; ffffffd3H
-	DD	1
-	DD	$LN14@PMC_Multip
-$LN14@PMC_Multip:
-	DB	117					; 00000075H
-	DB	95					; 0000005fH
-	DB	105					; 00000069H
-	DB	115					; 00000073H
-	DB	95					; 0000005fH
-	DB	122					; 0000007aH
-	DB	101					; 00000065H
-	DB	114					; 00000072H
-	DB	111					; 0000006fH
-	DB	0
-$LN13@PMC_Multip:
+	DD	$LN12@PMC_Multip
+$LN12@PMC_Multip:
 	DB	110					; 0000006eH
 	DB	119					; 00000077H
 	DB	0
@@ -2038,7 +2052,7 @@ _v$ = 16						; size = 4
 _w$ = 20						; size = 4
 _PMC_Multiply_L_X@16 PROC				; COMDAT
 
-; 138  : {
+; 156  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -2056,36 +2070,36 @@ _PMC_Multiply_L_X@16 PROC				; COMDAT
 	mov	ecx, OFFSET __6265BA8B_pmc_multiply@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 139  :     if (v == NULL)
+; 157  :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN2@PMC_Multip
 
-; 140  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 158  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN2@PMC_Multip:
 
-; 141  :     if (w == NULL)
+; 159  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Multip
 
-; 142  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 160  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN3@PMC_Multip:
 
-; 143  :     PMC_STATUS_CODE result;
-; 144  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 161  :     PMC_STATUS_CODE result;
+; 162  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	eax, DWORD PTR _v$[ebp]
 	mov	DWORD PTR _nv$[ebp], eax
 
-; 145  :     NUMBER_HEADER* nw;
-; 146  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 163  :     NUMBER_HEADER* nw;
+; 164  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nv$[ebp]
 	push	eax
@@ -2095,14 +2109,14 @@ $LN3@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Multip
 
-; 147  :         return (result);
+; 165  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Multip
 $LN4@PMC_Multip:
 
-; 148  :     char u_sign;
-; 149  :     _UINT64_T u_abs = GET_ABS_64(u, &u_sign);
+; 166  :     char u_sign;
+; 167  :     _UINT64_T u_abs = GET_ABS_64(u, &u_sign);
 
 	lea	eax, DWORD PTR _u_sign$[ebp]
 	push	eax
@@ -2115,60 +2129,60 @@ $LN4@PMC_Multip:
 	mov	DWORD PTR _u_abs$[ebp], eax
 	mov	DWORD PTR _u_abs$[ebp+4], edx
 
-; 150  :     if (u_sign == 0)
+; 168  :     if (u_sign == 0)
 
 	movsx	eax, BYTE PTR _u_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Multip
 
-; 151  :     {
-; 152  :         // u == 0 の場合
-; 153  : 
-; 154  :         // 0 を返す
-; 155  :         nw = &number_zero;
+; 169  :     {
+; 170  :         // u == 0 の場合
+; 171  : 
+; 172  :         // 0 を返す
+; 173  :         nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 156  :     }
+; 174  :     }
 
 	jmp	$LN6@PMC_Multip
 $LN5@PMC_Multip:
 
-; 157  :     else if (u_sign > 0)
+; 175  :     else if (u_sign > 0)
 
 	movsx	eax, BYTE PTR _u_sign$[ebp]
 	test	eax, eax
 	jle	SHORT $LN7@PMC_Multip
 
-; 158  :     {
-; 159  :         // u > 0 の場合
-; 160  : 
-; 161  :         if (nv->SIGN == 0)
+; 176  :     {
+; 177  :         // u > 0 の場合
+; 178  : 
+; 179  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN9@PMC_Multip
 
-; 162  :         {
-; 163  :             // v == 0 の場合
-; 164  : 
-; 165  :             // 0 を返す
-; 166  :             nw = &number_zero;
+; 180  :         {
+; 181  :             // v == 0 の場合
+; 182  : 
+; 183  :             // 0 を返す
+; 184  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 167  :         }
+; 185  :         }
 
 	jmp	SHORT $LN10@PMC_Multip
 $LN9@PMC_Multip:
 
-; 168  :         else
-; 169  :         {
-; 170  :             // v != 0 の場合
-; 171  : 
-; 172  :             // abs(u) * v を返す
-; 173  :             if ((result = MultiplyU_X_L_Imp(nv->SIGN, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 186  :         else
+; 187  :         {
+; 188  :             // v != 0 の場合
+; 189  : 
+; 190  :             // abs(u) * v を返す
+; 191  :             if ((result = MultiplyU_X_L_Imp(nv->SIGN, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -2177,10 +2191,10 @@ $LN9@PMC_Multip:
 	mov	edx, DWORD PTR _u_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nv$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	movzx	eax, BYTE PTR [edx+12]
+	movzx	eax, BYTE PTR [edx+16]
 	push	eax
 	call	_MultiplyU_X_L_Imp
 	add	esp, 20					; 00000014H
@@ -2188,48 +2202,48 @@ $LN9@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN10@PMC_Multip
 
-; 174  :                 return (result);
+; 192  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
 $LN10@PMC_Multip:
 
-; 175  :         }
-; 176  :     }
+; 193  :         }
+; 194  :     }
 
 	jmp	SHORT $LN6@PMC_Multip
 $LN7@PMC_Multip:
 
-; 177  :     else
-; 178  :     {
-; 179  :         // u < 0 の場合
-; 180  : 
-; 181  :         if (nv->SIGN == 0)
+; 195  :     else
+; 196  :     {
+; 197  :         // u < 0 の場合
+; 198  : 
+; 199  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN12@PMC_Multip
 
-; 182  :         {
-; 183  :             // v == 0 の場合
-; 184  : 
-; 185  :             // 0 を返す
-; 186  :             nw = &number_zero;
+; 200  :         {
+; 201  :             // v == 0 の場合
+; 202  : 
+; 203  :             // 0 を返す
+; 204  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 187  :         }
+; 205  :         }
 
 	jmp	SHORT $LN6@PMC_Multip
 $LN12@PMC_Multip:
 
-; 188  :         else
-; 189  :         {
-; 190  :             // v != 0 の場合
-; 191  : 
-; 192  :             // -abs(u) * v を返す
-; 193  :             if ((result = MultiplyU_X_L_Imp(-nv->SIGN, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 206  :         else
+; 207  :         {
+; 208  :             // v != 0 の場合
+; 209  : 
+; 210  :             // -abs(u) * v を返す
+; 211  :             if ((result = MultiplyU_X_L_Imp(-nv->SIGN, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -2238,10 +2252,10 @@ $LN12@PMC_Multip:
 	mov	edx, DWORD PTR _u_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nv$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	movsx	eax, BYTE PTR [edx+12]
+	movsx	eax, BYTE PTR [edx+16]
 	neg	eax
 	push	eax
 	call	_MultiplyU_X_L_Imp
@@ -2250,26 +2264,26 @@ $LN12@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Multip
 
-; 194  :                 return (result);
+; 212  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
 $LN6@PMC_Multip:
 
-; 195  :         }
-; 196  :     }
-; 197  :     *w = (PMC_HANDLE_SINT)nw;
+; 213  :         }
+; 214  :     }
+; 215  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 198  :     return (PMC_STATUS_OK);
+; 216  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Multip:
 
-; 199  : }
+; 217  : }
 
 	push	edx
 	mov	ecx, ebp
@@ -2329,7 +2343,7 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Multiply_I_X@12 PROC				; COMDAT
 
-; 74   : {
+; 92   : {
 
 	push	ebp
 	mov	ebp, esp
@@ -2347,36 +2361,36 @@ _PMC_Multiply_I_X@12 PROC				; COMDAT
 	mov	ecx, OFFSET __6265BA8B_pmc_multiply@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 75   :     if (v == NULL)
+; 93   :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN2@PMC_Multip
 
-; 76   :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 94   :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN2@PMC_Multip:
 
-; 77   :     if (w == NULL)
+; 95   :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Multip
 
-; 78   :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 96   :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Multip
 $LN3@PMC_Multip:
 
-; 79   :     PMC_STATUS_CODE result;
-; 80   :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 97   :     PMC_STATUS_CODE result;
+; 98   :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	eax, DWORD PTR _v$[ebp]
 	mov	DWORD PTR _nv$[ebp], eax
 
-; 81   :     NUMBER_HEADER* nw;
-; 82   :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 99   :     NUMBER_HEADER* nw;
+; 100  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nv$[ebp]
 	push	eax
@@ -2386,14 +2400,14 @@ $LN3@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Multip
 
-; 83   :         return (result);
+; 101  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Multip
 $LN4@PMC_Multip:
 
-; 84   :     char u_sign;
-; 85   :     _UINT32_T u_abs = GET_ABS_32(u, &u_sign);
+; 102  :     char u_sign;
+; 103  :     _UINT32_T u_abs = GET_ABS_32(u, &u_sign);
 
 	lea	eax, DWORD PTR _u_sign$[ebp]
 	push	eax
@@ -2403,70 +2417,70 @@ $LN4@PMC_Multip:
 	add	esp, 8
 	mov	DWORD PTR _u_abs$[ebp], eax
 
-; 86   :     if (u_sign == 0)
+; 104  :     if (u_sign == 0)
 
 	movsx	eax, BYTE PTR _u_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Multip
 
-; 87   :     {
-; 88   :         // u == 0 の場合
-; 89   : 
-; 90   :         // 0 を返す
-; 91   :         nw = &number_zero;
+; 105  :     {
+; 106  :         // u == 0 の場合
+; 107  : 
+; 108  :         // 0 を返す
+; 109  :         nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 92   :     }
+; 110  :     }
 
 	jmp	$LN6@PMC_Multip
 $LN5@PMC_Multip:
 
-; 93   :     else if (u_sign > 0)
+; 111  :     else if (u_sign > 0)
 
 	movsx	eax, BYTE PTR _u_sign$[ebp]
 	test	eax, eax
 	jle	SHORT $LN7@PMC_Multip
 
-; 94   :     {
-; 95   :         // u > 0 の場合
-; 96   : 
-; 97   :         if (nv->SIGN == 0)
+; 112  :     {
+; 113  :         // u > 0 の場合
+; 114  : 
+; 115  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN9@PMC_Multip
 
-; 98   :         {
-; 99   :             // v == 0 の場合
-; 100  : 
-; 101  :             // 0 を返す
-; 102  :             nw = &number_zero;
+; 116  :         {
+; 117  :             // v == 0 の場合
+; 118  : 
+; 119  :             // 0 を返す
+; 120  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 103  :         }
+; 121  :         }
 
 	jmp	SHORT $LN10@PMC_Multip
 $LN9@PMC_Multip:
 
-; 104  :         else
-; 105  :         {
-; 106  :             // v != 0 の場合
-; 107  : 
-; 108  :             // abs(u) * v を返す
-; 109  :             if ((result = MultiplyU_X_I_Imp(nv->SIGN, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 122  :         else
+; 123  :         {
+; 124  :             // v != 0 の場合
+; 125  : 
+; 126  :             // abs(u) * v を返す
+; 127  :             if ((result = MultiplyU_X_I_Imp(nv->SIGN, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	movzx	edx, BYTE PTR [ecx+12]
+	movzx	edx, BYTE PTR [ecx+16]
 	push	edx
 	call	_MultiplyU_X_I_Imp
 	add	esp, 16					; 00000010H
@@ -2474,58 +2488,58 @@ $LN9@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN10@PMC_Multip
 
-; 110  :                 return (result);
+; 128  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
 $LN10@PMC_Multip:
 
-; 111  :         }
-; 112  :     }
+; 129  :         }
+; 130  :     }
 
 	jmp	SHORT $LN6@PMC_Multip
 $LN7@PMC_Multip:
 
-; 113  :     else
-; 114  :     {
-; 115  :         // u < 0 の場合
-; 116  : 
-; 117  :         if (nv->SIGN == 0)
+; 131  :     else
+; 132  :     {
+; 133  :         // u < 0 の場合
+; 134  : 
+; 135  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN12@PMC_Multip
 
-; 118  :         {
-; 119  :             // v == 0 の場合
-; 120  : 
-; 121  :             // 0 を返す
-; 122  :             nw = &number_zero;
+; 136  :         {
+; 137  :             // v == 0 の場合
+; 138  : 
+; 139  :             // 0 を返す
+; 140  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 123  :         }
+; 141  :         }
 
 	jmp	SHORT $LN6@PMC_Multip
 $LN12@PMC_Multip:
 
-; 124  :         else
-; 125  :         {
-; 126  :             // v != 0 の場合
-; 127  : 
-; 128  :             // -abs(u) * v を返す
-; 129  :             if ((result = MultiplyU_X_I_Imp(-nv->SIGN, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 142  :         else
+; 143  :         {
+; 144  :             // v != 0 の場合
+; 145  : 
+; 146  :             // -abs(u) * v を返す
+; 147  :             if ((result = MultiplyU_X_I_Imp(-nv->SIGN, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	movsx	edx, BYTE PTR [ecx+12]
+	movsx	edx, BYTE PTR [ecx+16]
 	neg	edx
 	push	edx
 	call	_MultiplyU_X_I_Imp
@@ -2534,26 +2548,26 @@ $LN12@PMC_Multip:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Multip
 
-; 130  :                 return (result);
+; 148  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Multip
 $LN6@PMC_Multip:
 
-; 131  :         }
-; 132  :     }
-; 133  :     *w = (PMC_HANDLE_SINT)nw;
+; 149  :         }
+; 150  :     }
+; 151  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 134  :     return (PMC_STATUS_OK);
+; 152  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Multip:
 
-; 135  : }
+; 153  : }
 
 	push	edx
 	mov	ecx, ebp

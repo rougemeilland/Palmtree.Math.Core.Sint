@@ -56,12 +56,13 @@
     <Compile Include="StringExtensions.cs" />
     <Compile Include="TestPatternBase.cs" />
     <Compile Include="TestTerm.cs" />
+    <Compile Include="TEST_Remainder.cs" />
+    <Compile Include="TEST_DivRem.cs" />
     <Compile Include="TEST_Multiply.cs" />
     <Compile Include="TEST_Add.cs" />
     <Compile Include="TEST_Negate.cs" />
     <Compile Include="TEST_Clone.cs" />
     <Compile Include="TEST_From.cs" />
-    <Compile Include="TEST_GetNumberType.cs" />
     <Compile Include="TEST_Subtruct.cs" />
     <Compile Include="TEST_To.cs" />
   </ItemGroup>

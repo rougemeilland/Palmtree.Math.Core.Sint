@@ -21,9 +21,9 @@ PMC_To_X_I:
 	jne	.L1
 	movq	.refptr.ep_uint(%rip), %rax
 	leaq	44(%rsp), %rdx
-	movzbl	16(%rbx), %edi
-	movq	8(%rbx), %rcx
-	call	*96(%rax)
+	movzbl	24(%rbx), %edi
+	movq	16(%rbx), %rcx
+	call	*88(%rax)
 	testl	%eax, %eax
 	jne	.L1
 	testb	%dil, %dil
@@ -80,9 +80,9 @@ PMC_To_X_L:
 	jne	.L10
 	movq	.refptr.ep_uint(%rip), %rax
 	leaq	40(%rsp), %rdx
-	movzbl	16(%rbx), %edi
-	movq	8(%rbx), %rcx
-	call	*104(%rax)
+	movzbl	24(%rbx), %edi
+	movq	16(%rbx), %rcx
+	call	*96(%rax)
 	testl	%eax, %eax
 	jne	.L10
 	testb	%dil, %dil
@@ -118,6 +118,8 @@ PMC_To_X_L:
 	movl	$-2, %eax
 	jmp	.L10
 	.seh_endproc
+	.comm	uint_number_one, 8, 3
+	.comm	uint_number_zero, 8, 3
 	.ident	"GCC: (x86_64-win32-seh-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	CheckNumber;	.scl	2;	.type	32;	.endef
 	.section	.rdata$.refptr.ep_uint, "dr"

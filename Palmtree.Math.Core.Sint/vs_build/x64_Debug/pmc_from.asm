@@ -5,6 +5,10 @@ include listing.inc
 INCLUDELIB MSVCRTD
 INCLUDELIB OLDNAMES
 
+_DATA	SEGMENT
+COMM	uint_number_zero:QWORD
+COMM	uint_number_one:QWORD
+_DATA	ENDS
 msvcjmc	SEGMENT
 __7B7A869E_ctype@h DB 01H
 __457DD326_basetsd@h DB 01H

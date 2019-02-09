@@ -9,6 +9,10 @@
 INCLUDELIB MSVCRTD
 INCLUDELIB OLDNAMES
 
+_DATA	SEGMENT
+COMM	_uint_number_zero:DWORD
+COMM	_uint_number_one:DWORD
+_DATA	ENDS
 msvcjmc	SEGMENT
 __7B7A869E_ctype@h DB 01H
 __457DD326_basetsd@h DB 01H
@@ -240,7 +244,7 @@ _buffer2$ = 16						; size = 4
 _count2$ = 20						; size = 4
 __EQUALS_MEMORY PROC					; COMDAT
 
-; 95   : {
+; 109  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -255,25 +259,25 @@ __EQUALS_MEMORY PROC					; COMDAT
 	mov	ecx, OFFSET __059414E1_pmc_sint_debug@h
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 96   :     if (count1 != count2)
+; 110  :     if (count1 != count2)
 
 	mov	eax, DWORD PTR _count1$[ebp]
 	cmp	eax, DWORD PTR _count2$[ebp]
 	je	SHORT $LN2@EQUALS_MEM
 
-; 97   :         return (-1);
+; 111  :         return (-1);
 
 	or	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN2@EQUALS_MEM:
 
-; 98   :     while (count1 > 0)
+; 112  :     while (count1 > 0)
 
 	cmp	DWORD PTR _count1$[ebp], 0
 	jbe	SHORT $LN3@EQUALS_MEM
 
-; 99   :     {
-; 100  :         if (*buffer1 != *buffer2)
+; 113  :     {
+; 114  :         if (*buffer1 != *buffer2)
 
 	mov	eax, DWORD PTR _buffer1$[ebp]
 	movzx	ecx, BYTE PTR [eax]
@@ -282,41 +286,41 @@ $LN2@EQUALS_MEM:
 	cmp	ecx, eax
 	je	SHORT $LN5@EQUALS_MEM
 
-; 101  :             return (-1);
+; 115  :             return (-1);
 
 	or	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN5@EQUALS_MEM:
 
-; 102  :         ++buffer1;
+; 116  :         ++buffer1;
 
 	mov	eax, DWORD PTR _buffer1$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _buffer1$[ebp], eax
 
-; 103  :         ++buffer2;
+; 117  :         ++buffer2;
 
 	mov	eax, DWORD PTR _buffer2$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _buffer2$[ebp], eax
 
-; 104  :         --count1;
+; 118  :         --count1;
 
 	mov	eax, DWORD PTR _count1$[ebp]
 	sub	eax, 1
 	mov	DWORD PTR _count1$[ebp], eax
 
-; 105  :     }
+; 119  :     }
 
 	jmp	SHORT $LN2@EQUALS_MEM
 $LN3@EQUALS_MEM:
 
-; 106  :     return (0);
+; 120  :     return (0);
 
 	xor	eax, eax
 $LN1@EQUALS_MEM:
 
-; 107  : }
+; 121  : }
 
 	pop	edi
 	pop	esi
@@ -396,7 +400,7 @@ _TEST_Multiply_X_X PROC					; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+304]
+	mov	ecx, DWORD PTR [eax+296]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -438,7 +442,7 @@ $LN7@TEST_Multi:
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+304]
+	mov	ecx, DWORD PTR [eax+296]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -480,7 +484,7 @@ $LN9@TEST_Multi:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+408]
+	mov	ecx, DWORD PTR [eax+400]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -523,7 +527,7 @@ $LN11@TEST_Multi:
 	mov	edx, DWORD PTR _w$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+308]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -600,7 +604,7 @@ $LN15@TEST_Multi:
 	mov	eax, DWORD PTR _w$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -617,7 +621,7 @@ $LN2@TEST_Multi:
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -634,7 +638,7 @@ $LN3@TEST_Multi:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -792,7 +796,7 @@ _TEST_Multiply_X_UX PROC				; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+304]
+	mov	ecx, DWORD PTR [eax+296]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -824,7 +828,7 @@ $LN7@TEST_Multi:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 144  :     TEST_Assert(env, FormatTestLabel(L"Multiply_X_UX (%d.%d)", no, 2), (v_result = ep->uint.FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+; 144  :     TEST_Assert(env, FormatTestLabel(L"Multiply_X_UX (%d.%d)", no, 2), (v_result = ep->UINT_ENTRY_POINTS.FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _v$[ebp]
@@ -834,7 +838,7 @@ $LN7@TEST_Multi:
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+28]
+	mov	ecx, DWORD PTR [eax+24]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -876,7 +880,7 @@ $LN9@TEST_Multi:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+404]
+	mov	ecx, DWORD PTR [eax+396]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -919,7 +923,7 @@ $LN11@TEST_Multi:
 	mov	edx, DWORD PTR _w$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+308]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -996,7 +1000,7 @@ $LN15@TEST_Multi:
 	mov	eax, DWORD PTR _w$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1007,7 +1011,7 @@ $LN2@TEST_Multi:
 	cmp	DWORD PTR _v_result$[ebp], 0
 	jne	SHORT $LN3@TEST_Multi
 
-; 151  :         ep->uint.Dispose(v);
+; 151  :         ep->UINT_ENTRY_POINTS.Dispose(v);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _v$[ebp]
@@ -1030,7 +1034,7 @@ $LN3@TEST_Multi:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1182,7 +1186,7 @@ _TEST_Multiply_X_L PROC					; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+304]
+	mov	ecx, DWORD PTR [eax+296]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1226,7 +1230,7 @@ $LN6@TEST_Multi:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+400]
+	mov	edx, DWORD PTR [ecx+392]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1269,7 +1273,7 @@ $LN8@TEST_Multi:
 	mov	edx, DWORD PTR _w$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+308]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1346,7 +1350,7 @@ $LN12@TEST_Multi:
 	mov	eax, DWORD PTR _w$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1363,7 +1367,7 @@ $LN2@TEST_Multi:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1509,7 +1513,7 @@ _TEST_Multiply_X_I PROC					; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+304]
+	mov	ecx, DWORD PTR [eax+296]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1551,7 +1555,7 @@ $LN6@TEST_Multi:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+396]
+	mov	ecx, DWORD PTR [eax+388]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1594,7 +1598,7 @@ $LN8@TEST_Multi:
 	mov	edx, DWORD PTR _w$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+308]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1671,7 +1675,7 @@ $LN12@TEST_Multi:
 	mov	eax, DWORD PTR _w$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1688,7 +1692,7 @@ $LN2@TEST_Multi:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1830,7 +1834,7 @@ _TEST_Multiply_UX_X PROC				; COMDAT
 ; 78   :     PMC_STATUS_CODE u_result;
 ; 79   :     PMC_STATUS_CODE v_result;
 ; 80   :     PMC_STATUS_CODE w_result;
-; 81   :     TEST_Assert(env, FormatTestLabel(L"Multiply_UX_X (%d.%d)", no, 1), (u_result = ep->uint.FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+; 81   :     TEST_Assert(env, FormatTestLabel(L"Multiply_UX_X (%d.%d)", no, 1), (u_result = ep->UINT_ENTRY_POINTS.FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _u$[ebp]
@@ -1840,7 +1844,7 @@ _TEST_Multiply_UX_X PROC				; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+28]
+	mov	ecx, DWORD PTR [eax+24]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1882,7 +1886,7 @@ $LN7@TEST_Multi:
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+304]
+	mov	ecx, DWORD PTR [eax+296]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1924,7 +1928,7 @@ $LN9@TEST_Multi:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+392]
+	mov	ecx, DWORD PTR [eax+384]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1967,7 +1971,7 @@ $LN11@TEST_Multi:
 	mov	edx, DWORD PTR _w$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+308]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2044,7 +2048,7 @@ $LN15@TEST_Multi:
 	mov	eax, DWORD PTR _w$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2061,7 +2065,7 @@ $LN2@TEST_Multi:
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2072,7 +2076,7 @@ $LN3@TEST_Multi:
 	cmp	DWORD PTR _u_result$[ebp], 0
 	jne	SHORT $LN1@TEST_Multi
 
-; 91   :         ep->uint.Dispose(u);
+; 91   :         ep->UINT_ENTRY_POINTS.Dispose(u);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _u$[ebp]
@@ -2230,7 +2234,7 @@ _TEST_Multiply_L_X PROC					; COMDAT
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+304]
+	mov	ecx, DWORD PTR [eax+296]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2274,7 +2278,7 @@ $LN6@TEST_Multi:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+388]
+	mov	edx, DWORD PTR [ecx+380]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2317,7 +2321,7 @@ $LN8@TEST_Multi:
 	mov	edx, DWORD PTR _w$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+308]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2394,7 +2398,7 @@ $LN12@TEST_Multi:
 	mov	eax, DWORD PTR _w$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2411,7 +2415,7 @@ $LN2@TEST_Multi:
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2557,7 +2561,7 @@ _TEST_Multiply_I_X PROC					; COMDAT
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+304]
+	mov	ecx, DWORD PTR [eax+296]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2599,7 +2603,7 @@ $LN6@TEST_Multi:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+384]
+	mov	ecx, DWORD PTR [eax+376]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2642,7 +2646,7 @@ $LN8@TEST_Multi:
 	mov	edx, DWORD PTR _w$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+308]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2719,7 +2723,7 @@ $LN12@TEST_Multi:
 	mov	eax, DWORD PTR _w$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2736,7 +2740,7 @@ $LN2@TEST_Multi:
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+288]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp

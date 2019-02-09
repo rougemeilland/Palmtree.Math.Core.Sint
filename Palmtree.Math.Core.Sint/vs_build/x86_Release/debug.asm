@@ -9,5 +9,8 @@
 INCLUDELIB OLDNAMES
 
 EXTRN	@__security_check_cookie@4:PROC
+COMM	_uint_number_zero:DWORD
+COMM	_uint_number_one:DWORD
+_DATA	ENDS
 PUBLIC	_DoDebug@4
 END

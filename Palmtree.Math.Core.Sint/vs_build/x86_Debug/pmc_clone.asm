@@ -9,6 +9,10 @@
 INCLUDELIB MSVCRTD
 INCLUDELIB OLDNAMES
 
+_DATA	SEGMENT
+COMM	_uint_number_zero:DWORD
+COMM	_uint_number_one:DWORD
+_DATA	ENDS
 msvcjmc	SEGMENT
 __7B7A869E_ctype@h DB 01H
 __457DD326_basetsd@h DB 01H
@@ -132,8 +136,7 @@ $LN4@PMC_Clone_:
 ; 41   :     if (nx->IS_ZERO)
 
 	mov	eax, DWORD PTR _nx$[ebp]
-	mov	ecx, DWORD PTR [eax+16]
-	shr	ecx, 1
+	mov	ecx, DWORD PTR [eax]
 	and	ecx, 1
 	je	SHORT $LN5@PMC_Clone_
 
@@ -215,7 +218,7 @@ $LN1@PMC_Clone_:
 	mov	esp, ebp
 	pop	ebp
 	ret	8
-	npad	2
+	npad	1
 $LN12@PMC_Clone_:
 	DD	1
 	DD	$LN11@PMC_Clone_

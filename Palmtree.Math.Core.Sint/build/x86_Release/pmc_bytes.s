@@ -31,7 +31,7 @@ LFB83:
 	leal	39(%esp), %ecx
 	movl	%ecx, 8(%esp)
 	movl	%edx, (%esp)
-	call	*_ep_uint+36
+	call	*_ep_uint+32
 	.cfi_def_cfa_offset 48
 	subl	$16, %esp
 	.cfi_def_cfa_offset 64
@@ -124,11 +124,11 @@ LFB84:
 	movl	%eax, 12(%esp)
 	movl	52(%esp), %eax
 	movl	%eax, 8(%esp)
-	movl	8(%ebx), %eax
+	movl	12(%ebx), %eax
 	movl	%eax, 4(%esp)
-	movsbl	12(%ebx), %eax
+	movsbl	16(%ebx), %eax
 	movl	%eax, (%esp)
-	call	*_ep_uint+40
+	call	*_ep_uint+36
 	.cfi_def_cfa_offset 28
 	subl	$20, %esp
 	.cfi_def_cfa_offset 48
@@ -146,6 +146,8 @@ L11:
 	jmp	L9
 	.cfi_endproc
 LFE84:
+	.comm	_uint_number_one, 4, 2
+	.comm	_uint_number_zero, 4, 2
 	.ident	"GCC: (i686-win32-dwarf-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	_AllocateNumber;	.scl	2;	.type	32;	.endef
 	.def	_CheckNumber;	.scl	2;	.type	32;	.endef

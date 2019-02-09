@@ -48758,14 +48758,14 @@ __extension__ typedef unsigned long long uintmax_t;
 
 
 #pragma region マクロの定義
-# 76 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 70 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 #pragma endregion
 
 
 #pragma region 型の定義
-# 89 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 83 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 
-# 89 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 83 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 typedef int16_t _INT16_T;
 typedef int32_t _INT32_T;
 typedef int64_t _INT64_T;
@@ -48785,35 +48785,48 @@ typedef struct __tag_PMC_CONFIGURATION_INFO
 
 typedef int PMC_STATUS_CODE;
 
-typedef int PMC_NUMBER_TYPE_CODE;
-
 typedef int PMC_CONSTANT_VALUE_CODE;
 
 typedef int PMC_NUMBER_STYLE_CODE;
 
-struct __tag_PMC_HANDLE_UINT
+union __tag_PMC_HANDLE_UINT
 {
+    const struct __tag_UINT_FLAGS
+    {
+        unsigned IS_ZERO : 1;
+        unsigned IS_ONE : 1;
+        unsigned IS_EVEN : 1;
+        unsigned IS_POWER_OF_TWO : 1;
+    } FLAGS;
 
-    _UINT32_T dummy;
+    _UINT32_T __dummy;
 
 
 
 
 
 };
-typedef struct __tag_PMC_HANDLE_UINT* PMC_HANDLE_UINT;
+typedef union __tag_PMC_HANDLE_UINT* PMC_HANDLE_UINT;
 
-struct __tag_PMC_HANDLE_SINT
+union __tag_PMC_HANDLE_SINT
 {
+    const struct __tag_SINT_FLAGS
+    {
+        unsigned IS_ZERO : 1;
+        unsigned IS_ONE : 1;
+        unsigned IS_MINUS_ONE : 1;
+        unsigned IS_EVEN : 1;
+        unsigned IS_POWER_OF_TWO : 1;
+    } FLAGS;
 
-    _UINT32_T dummy;
+    _UINT32_T __dummy;
 
 
 
 
 
 };
-typedef struct __tag_PMC_HANDLE_SINT* PMC_HANDLE_SINT;
+typedef union __tag_PMC_HANDLE_SINT* PMC_HANDLE_SINT;
 
 typedef struct __tag_PMC_STATISTICS_INFO
 {
@@ -48853,9 +48866,6 @@ typedef struct __tag_PMC_UINT_ENTRY_POINTS
 
 
     void (__attribute__((__stdcall__)) * Dispose)(PMC_HANDLE_UINT p);
-
-
-    PMC_STATUS_CODE (__attribute__((__stdcall__)) * GetNumberType_X)(PMC_HANDLE_UINT x, PMC_NUMBER_TYPE_CODE* o);
 
 
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * GetConstantValue_I)(PMC_CONSTANT_VALUE_CODE type, PMC_HANDLE_UINT* o);
@@ -48966,7 +48976,7 @@ typedef struct __tag_PMC_UINT_ENTRY_POINTS
 typedef struct __tag_PMC_SINT_ENTRY_POINTS
 {
 
-    PMC_UINT_ENTRY_POINTS uint;
+    PMC_UINT_ENTRY_POINTS UINT_ENTRY_POINTS;
 
 
     void (__attribute__((__stdcall__)) * GetStatisticsInfo)(PMC_STATISTICS_INFO* statistics_info);
@@ -48979,9 +48989,6 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
 
 
     void (__attribute__((__stdcall__)) * Dispose)(PMC_HANDLE_SINT p);
-
-
-    PMC_STATUS_CODE (__attribute__((__stdcall__)) * GetNumberType_X)(PMC_HANDLE_SINT x, PMC_NUMBER_TYPE_CODE* o);
 
 
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * GetConstantValue_I)(PMC_CONSTANT_VALUE_CODE type, PMC_HANDLE_SINT* o);
@@ -48999,7 +49006,7 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
 
 
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Negate_X)(PMC_HANDLE_SINT x, PMC_HANDLE_SINT* o);
-# 331 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 332 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Add_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Add_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Add_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
@@ -49025,7 +49032,16 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Multiply_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-# 418 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+
+
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_UINT* r);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* q, _INT32_T* r);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+# 422 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 } PMC_SINT_ENTRY_POINTS;
 #pragma endregion
 
@@ -49092,16 +49108,19 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
 #pragma region 型の定義
     typedef struct __tag_NUMBER_HEADER
     {
-        _UINT32_T SIGNATURE1;
-        _UINT32_T SIGNATURE2;
-        PMC_HANDLE_UINT ABS;
-        char SIGN;
-        unsigned IS_STATIC : 1;
         unsigned IS_ZERO : 1;
         unsigned IS_ONE : 1;
         unsigned IS_MINUS_ONE : 1;
         unsigned IS_EVEN : 1;
         unsigned IS_POWER_OF_TWO : 1;
+
+        _UINT32_T SIGNATURE1;
+        _UINT32_T SIGNATURE2;
+
+        PMC_HANDLE_UINT ABS;
+        char SIGN;
+
+        unsigned IS_STATIC : 1;
     } NUMBER_HEADER;
 #pragma endregion
 
@@ -49120,6 +49139,12 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern NUMBER_HEADER number_minus_one;
 
 
+    PMC_HANDLE_UINT uint_number_zero;
+
+
+    PMC_HANDLE_UINT uint_number_one;
+
+
     extern PMC_STATISTICS_INFO statistics_info;
 
     extern BOOL AllocateHeapArea();
@@ -49128,7 +49153,6 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern void DeallocateNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE CheckNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE DuplicateNumber(NUMBER_HEADER* x, NUMBER_HEADER** op);
-    extern PMC_STATUS_CODE IsZero_UINT(PMC_HANDLE_UINT x, char* is_zero);
     extern PMC_STATUS_CODE Negate_Imp(NUMBER_HEADER* x, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_I_Imp(char x_sign, _UINT32_T x_abs, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_L_Imp(char x_sign, _UINT64_T x_abs, NUMBER_HEADER** o);
@@ -49147,8 +49171,6 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_From_L(_INT64_T x, PMC_HANDLE_SINT* o);
 
     extern void __attribute__((__stdcall__)) PMC_Dispose(PMC_HANDLE_SINT p);
-
-    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_GetNumberType_X(PMC_HANDLE_SINT x, PMC_NUMBER_TYPE_CODE* o);
 
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_GetConstantValue_I(PMC_CONSTANT_VALUE_CODE type, PMC_HANDLE_SINT* o);
 
@@ -49190,7 +49212,15 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Multiply_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-# 195 "../pmc_sint_internal.h"
+
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_UINT* r);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* q, _INT32_T* r);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+# 209 "../pmc_sint_internal.h"
 #pragma endregion
 
 
@@ -88293,6 +88323,12 @@ _wrpkru (unsigned int __key)
 
 static PMC_STATUS_CODE AddU_X_I_Imp(char sign, PMC_HANDLE_UINT u, _UINT32_T v, NUMBER_HEADER** w)
 {
+
+    if (u->FLAGS.IS_ZERO)
+        return ((-256));
+    if (v == 0)
+        return ((-256));
+
     PMC_STATUS_CODE result;
     PMC_HANDLE_UINT w_abs;
     if ((result = ep_uint.Add_X_I(u, v, &w_abs)) != (0))
@@ -88307,6 +88343,12 @@ static PMC_STATUS_CODE AddU_X_I_Imp(char sign, PMC_HANDLE_UINT u, _UINT32_T v, N
 
 static PMC_STATUS_CODE AddU_X_L_Imp(char sign, PMC_HANDLE_UINT u, _UINT64_T v, NUMBER_HEADER** w)
 {
+
+    if (u->FLAGS.IS_ZERO)
+        return ((-256));
+    if (v == 0)
+        return ((-256));
+
     PMC_STATUS_CODE result;
     PMC_HANDLE_UINT w_abs;
     if ((result = ep_uint.Add_X_L(u, v, &w_abs)) != (0))
@@ -88321,6 +88363,12 @@ static PMC_STATUS_CODE AddU_X_L_Imp(char sign, PMC_HANDLE_UINT u, _UINT64_T v, N
 
 static PMC_STATUS_CODE AddU_X_X_Imp(char sign, PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, NUMBER_HEADER** w)
 {
+
+    if (u->FLAGS.IS_ZERO)
+        return ((-256));
+    if (v->FLAGS.IS_ZERO)
+        return ((-256));
+
     PMC_STATUS_CODE result;
     PMC_HANDLE_UINT w_abs;
     if ((result = ep_uint.Add_X_X(u, v, &w_abs)) != (0))
@@ -88335,6 +88383,12 @@ static PMC_STATUS_CODE AddU_X_X_Imp(char sign, PMC_HANDLE_UINT u, PMC_HANDLE_UIN
 
 static PMC_STATUS_CODE SubtructU_X_I_Imp(char sign, PMC_HANDLE_UINT u, _UINT32_T v, NUMBER_HEADER** w)
 {
+
+    if (u->FLAGS.IS_ZERO)
+        return ((-256));
+    if (v == 0)
+        return ((-256));
+
     PMC_STATUS_CODE result;
     _INT32_T c;
     if ((result = ep_uint.Compare_X_I(u, v, &c)) != (0))
@@ -88382,6 +88436,12 @@ static PMC_STATUS_CODE SubtructU_X_I_Imp(char sign, PMC_HANDLE_UINT u, _UINT32_T
 
 static PMC_STATUS_CODE SubtructU_X_L_Imp(char sign, PMC_HANDLE_UINT u, _UINT64_T v, NUMBER_HEADER** w)
 {
+
+    if (u->FLAGS.IS_ZERO)
+        return ((-256));
+    if (v == 0)
+        return ((-256));
+
     PMC_STATUS_CODE result;
     _INT32_T c;
     if ((result = ep_uint.Compare_X_L(u, v, &c)) != (0))
@@ -88429,6 +88489,12 @@ static PMC_STATUS_CODE SubtructU_X_L_Imp(char sign, PMC_HANDLE_UINT u, _UINT64_T
 
 static PMC_STATUS_CODE SubtructU_X_X_Imp(char sign, PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, NUMBER_HEADER** w)
 {
+
+    if (u->FLAGS.IS_ZERO)
+        return ((-256));
+    if (v->FLAGS.IS_ZERO)
+        return ((-256));
+
     PMC_STATUS_CODE result;
     _INT32_T c;
     if ((result = ep_uint.Compare_X_X(u, v, &c)) != (0))
@@ -88474,15 +88540,15 @@ static PMC_STATUS_CODE SubtructU_X_X_Imp(char sign, PMC_HANDLE_UINT u, PMC_HANDL
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (v == 
-# 213 "../pmc_add_sub.c" 3 4
+# 249 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 213 "../pmc_add_sub.c"
+# 249 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 215 "../pmc_add_sub.c" 3 4
+# 251 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 215 "../pmc_add_sub.c"
+# 251 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -88577,15 +88643,15 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_I_X(_INT32_T u, PMC_HANDLE_
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (v == 
-# 308 "../pmc_add_sub.c" 3 4
+# 344 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 308 "../pmc_add_sub.c"
+# 344 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 310 "../pmc_add_sub.c" 3 4
+# 346 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 310 "../pmc_add_sub.c"
+# 346 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -88680,15 +88746,15 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_L_X(_INT64_T u, PMC_HANDLE_
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (v == 
-# 403 "../pmc_add_sub.c" 3 4
+# 439 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 403 "../pmc_add_sub.c"
+# 439 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 405 "../pmc_add_sub.c" 3 4
+# 441 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 405 "../pmc_add_sub.c"
+# 441 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -88696,10 +88762,7 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_UX_X(PMC_HANDLE_UINT u, PMC
     NUMBER_HEADER* nw;
     if ((result = CheckNumber(nv)) != (0))
         return (result);
-    char u_is_zero;
-    if ((result = IsZero_UINT(u, &u_is_zero)) != (0))
-        return (result);
-    if (u_is_zero)
+    if (u->FLAGS.IS_ZERO)
     {
 
 
@@ -88761,15 +88824,15 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_UX_X(PMC_HANDLE_UINT u, PMC
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 476 "../pmc_add_sub.c" 3 4
+# 509 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 476 "../pmc_add_sub.c"
+# 509 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 478 "../pmc_add_sub.c" 3 4
+# 511 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 478 "../pmc_add_sub.c"
+# 511 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -88864,15 +88927,15 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_X_I(PMC_HANDLE_SINT u, _INT
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 571 "../pmc_add_sub.c" 3 4
+# 604 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 571 "../pmc_add_sub.c"
+# 604 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 573 "../pmc_add_sub.c" 3 4
+# 606 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 573 "../pmc_add_sub.c"
+# 606 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -88967,21 +89030,21 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_X_L(PMC_HANDLE_SINT u, _INT
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 666 "../pmc_add_sub.c" 3 4
+# 699 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 666 "../pmc_add_sub.c"
+# 699 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (v == 
-# 668 "../pmc_add_sub.c" 3 4
+# 701 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 668 "../pmc_add_sub.c"
+# 701 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 670 "../pmc_add_sub.c" 3 4
+# 703 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 670 "../pmc_add_sub.c"
+# 703 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -88989,14 +89052,11 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC
     NUMBER_HEADER* nw;
     if ((result = CheckNumber(nu)) != (0))
         return (result);
-    char v_is_zero;
-    if ((result = IsZero_UINT(v, &v_is_zero)) != (0))
-        return (result);
     if (nu->SIGN == 0)
     {
 
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
 
 
@@ -89011,9 +89071,6 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC
             PMC_HANDLE_UINT new_v;
             if ((result = ep_uint.Clone_X(v, &new_v)) != (0))
                 return (result);
-            PMC_NUMBER_TYPE_CODE type;
-            if ((result = ep_uint.GetNumberType_X(new_v, &type)) != (0))
-                return (result);
             if ((result = AllocateNumber(&nw, 1, new_v)) != (0))
             {
                 ep_uint.Dispose(new_v);
@@ -89025,7 +89082,7 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC
     {
 
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
 
 
@@ -89046,7 +89103,7 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC
     {
 
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
 
 
@@ -89071,21 +89128,21 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 758 "../pmc_add_sub.c" 3 4
+# 785 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 758 "../pmc_add_sub.c"
+# 785 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (v == 
-# 760 "../pmc_add_sub.c" 3 4
+# 787 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 760 "../pmc_add_sub.c"
+# 787 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 762 "../pmc_add_sub.c" 3 4
+# 789 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 762 "../pmc_add_sub.c"
+# 789 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -89181,15 +89238,15 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Add_X_X(PMC_HANDLE_SINT u, PMC_
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (v == 
-# 856 "../pmc_add_sub.c" 3 4
+# 883 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 856 "../pmc_add_sub.c"
+# 883 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 858 "../pmc_add_sub.c" 3 4
+# 885 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 858 "../pmc_add_sub.c"
+# 885 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -89284,15 +89341,15 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_I_X(_INT32_T u, PMC_HA
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (v == 
-# 951 "../pmc_add_sub.c" 3 4
+# 978 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 951 "../pmc_add_sub.c"
+# 978 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 953 "../pmc_add_sub.c" 3 4
+# 980 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 953 "../pmc_add_sub.c"
+# 980 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -89387,21 +89444,21 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_L_X(_INT64_T u, PMC_HA
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 1046 "../pmc_add_sub.c" 3 4
+# 1073 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1046 "../pmc_add_sub.c"
+# 1073 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (v == 
-# 1048 "../pmc_add_sub.c" 3 4
+# 1075 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1048 "../pmc_add_sub.c"
+# 1075 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 1050 "../pmc_add_sub.c" 3 4
+# 1077 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1050 "../pmc_add_sub.c"
+# 1077 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -89409,10 +89466,7 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_UX_X(PMC_HANDLE_UINT u
     NUMBER_HEADER* nw;
     if ((result = CheckNumber(nv)) != (0))
         return (result);
-    char u_is_zero;
-    if ((result = IsZero_UINT(u, &u_is_zero)) != (0))
-        return (result);
-    if (u_is_zero)
+    if (u->FLAGS.IS_ZERO)
     {
 
 
@@ -89474,15 +89528,15 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_UX_X(PMC_HANDLE_UINT u
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 1121 "../pmc_add_sub.c" 3 4
+# 1145 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1121 "../pmc_add_sub.c"
+# 1145 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 1123 "../pmc_add_sub.c" 3 4
+# 1147 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1123 "../pmc_add_sub.c"
+# 1147 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -89577,15 +89631,15 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_I(PMC_HANDLE_SINT u,
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 1216 "../pmc_add_sub.c" 3 4
+# 1240 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1216 "../pmc_add_sub.c"
+# 1240 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 1218 "../pmc_add_sub.c" 3 4
+# 1242 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1218 "../pmc_add_sub.c"
+# 1242 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -89680,21 +89734,21 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_L(PMC_HANDLE_SINT u,
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 1311 "../pmc_add_sub.c" 3 4
+# 1335 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1311 "../pmc_add_sub.c"
+# 1335 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (v == 
-# 1313 "../pmc_add_sub.c" 3 4
+# 1337 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1313 "../pmc_add_sub.c"
+# 1337 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 1315 "../pmc_add_sub.c" 3 4
+# 1339 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1315 "../pmc_add_sub.c"
+# 1339 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;
@@ -89702,14 +89756,11 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_UX(PMC_HANDLE_SINT u
     NUMBER_HEADER* nw;
     if ((result = CheckNumber(nu)) != (0))
         return (result);
-    char v_is_zero;
-    if ((result = IsZero_UINT(v, &v_is_zero)) != (0))
-        return (result);
     if (nu->SIGN == 0)
     {
 
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
 
 
@@ -89736,7 +89787,7 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_UX(PMC_HANDLE_SINT u
     {
 
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
 
 
@@ -89758,7 +89809,7 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_UX(PMC_HANDLE_SINT u
     {
 
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
 
 
@@ -89782,21 +89833,21 @@ PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_UX(PMC_HANDLE_SINT u
 PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Subtruct_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w)
 {
     if (u == 
-# 1401 "../pmc_add_sub.c" 3 4
+# 1422 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1401 "../pmc_add_sub.c"
+# 1422 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (v == 
-# 1403 "../pmc_add_sub.c" 3 4
+# 1424 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1403 "../pmc_add_sub.c"
+# 1424 "../pmc_add_sub.c"
                 )
         return ((-1));
     if (w == 
-# 1405 "../pmc_add_sub.c" 3 4
+# 1426 "../pmc_add_sub.c" 3 4
             ((void *)0)
-# 1405 "../pmc_add_sub.c"
+# 1426 "../pmc_add_sub.c"
                 )
         return ((-1));
     PMC_STATUS_CODE result;

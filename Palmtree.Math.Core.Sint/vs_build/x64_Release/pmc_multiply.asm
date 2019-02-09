@@ -14,97 +14,133 @@ PUBLIC	PMC_Multiply_X_L
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$MultiplyU_X_X_Imp DD imagerel MultiplyU_X_X_Imp
-	DD	imagerel MultiplyU_X_X_Imp+53
+	DD	imagerel MultiplyU_X_X_Imp+57
 	DD	imagerel $unwind$MultiplyU_X_X_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$1$MultiplyU_X_X_Imp DD imagerel MultiplyU_X_X_Imp+53
-	DD	imagerel MultiplyU_X_X_Imp+159
-	DD	imagerel $chain$1$MultiplyU_X_X_Imp
+$pdata$0$MultiplyU_X_X_Imp DD imagerel MultiplyU_X_X_Imp+57
+	DD	imagerel MultiplyU_X_X_Imp+117
+	DD	imagerel $chain$0$MultiplyU_X_X_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$2$MultiplyU_X_X_Imp DD imagerel MultiplyU_X_X_Imp+159
-	DD	imagerel MultiplyU_X_X_Imp+170
+$pdata$2$MultiplyU_X_X_Imp DD imagerel MultiplyU_X_X_Imp+117
+	DD	imagerel MultiplyU_X_X_Imp+167
 	DD	imagerel $chain$2$MultiplyU_X_X_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
+$pdata$4$MultiplyU_X_X_Imp DD imagerel MultiplyU_X_X_Imp+167
+	DD	imagerel MultiplyU_X_X_Imp+182
+	DD	imagerel $chain$4$MultiplyU_X_X_Imp
+pdata	ENDS
+;	COMDAT pdata
+pdata	SEGMENT
+$pdata$5$MultiplyU_X_X_Imp DD imagerel MultiplyU_X_X_Imp+182
+	DD	imagerel MultiplyU_X_X_Imp+193
+	DD	imagerel $chain$5$MultiplyU_X_X_Imp
+pdata	ENDS
+;	COMDAT pdata
+pdata	SEGMENT
 $pdata$MultiplyU_X_L_Imp DD imagerel MultiplyU_X_L_Imp
-	DD	imagerel MultiplyU_X_L_Imp+53
+	DD	imagerel MultiplyU_X_L_Imp+57
 	DD	imagerel $unwind$MultiplyU_X_L_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$1$MultiplyU_X_L_Imp DD imagerel MultiplyU_X_L_Imp+53
-	DD	imagerel MultiplyU_X_L_Imp+159
-	DD	imagerel $chain$1$MultiplyU_X_L_Imp
+$pdata$0$MultiplyU_X_L_Imp DD imagerel MultiplyU_X_L_Imp+57
+	DD	imagerel MultiplyU_X_L_Imp+117
+	DD	imagerel $chain$0$MultiplyU_X_L_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$2$MultiplyU_X_L_Imp DD imagerel MultiplyU_X_L_Imp+159
-	DD	imagerel MultiplyU_X_L_Imp+170
+$pdata$2$MultiplyU_X_L_Imp DD imagerel MultiplyU_X_L_Imp+117
+	DD	imagerel MultiplyU_X_L_Imp+167
 	DD	imagerel $chain$2$MultiplyU_X_L_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
+$pdata$4$MultiplyU_X_L_Imp DD imagerel MultiplyU_X_L_Imp+167
+	DD	imagerel MultiplyU_X_L_Imp+182
+	DD	imagerel $chain$4$MultiplyU_X_L_Imp
+pdata	ENDS
+;	COMDAT pdata
+pdata	SEGMENT
+$pdata$5$MultiplyU_X_L_Imp DD imagerel MultiplyU_X_L_Imp+182
+	DD	imagerel MultiplyU_X_L_Imp+193
+	DD	imagerel $chain$5$MultiplyU_X_L_Imp
+pdata	ENDS
+;	COMDAT pdata
+pdata	SEGMENT
 $pdata$MultiplyU_X_I_Imp DD imagerel MultiplyU_X_I_Imp
-	DD	imagerel MultiplyU_X_I_Imp+52
+	DD	imagerel MultiplyU_X_I_Imp+56
 	DD	imagerel $unwind$MultiplyU_X_I_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$1$MultiplyU_X_I_Imp DD imagerel MultiplyU_X_I_Imp+52
-	DD	imagerel MultiplyU_X_I_Imp+158
-	DD	imagerel $chain$1$MultiplyU_X_I_Imp
+$pdata$0$MultiplyU_X_I_Imp DD imagerel MultiplyU_X_I_Imp+56
+	DD	imagerel MultiplyU_X_I_Imp+116
+	DD	imagerel $chain$0$MultiplyU_X_I_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$2$MultiplyU_X_I_Imp DD imagerel MultiplyU_X_I_Imp+158
-	DD	imagerel MultiplyU_X_I_Imp+169
+$pdata$2$MultiplyU_X_I_Imp DD imagerel MultiplyU_X_I_Imp+116
+	DD	imagerel MultiplyU_X_I_Imp+166
 	DD	imagerel $chain$2$MultiplyU_X_I_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
+$pdata$4$MultiplyU_X_I_Imp DD imagerel MultiplyU_X_I_Imp+166
+	DD	imagerel MultiplyU_X_I_Imp+181
+	DD	imagerel $chain$4$MultiplyU_X_I_Imp
+pdata	ENDS
+;	COMDAT pdata
+pdata	SEGMENT
+$pdata$5$MultiplyU_X_I_Imp DD imagerel MultiplyU_X_I_Imp+181
+	DD	imagerel MultiplyU_X_I_Imp+192
+	DD	imagerel $chain$5$MultiplyU_X_I_Imp
+pdata	ENDS
+;	COMDAT pdata
+pdata	SEGMENT
 $pdata$PMC_Multiply_I_X DD imagerel $LN36@PMC_Multip
-	DD	imagerel $LN36@PMC_Multip+193
+	DD	imagerel $LN36@PMC_Multip+194
 	DD	imagerel $unwind$PMC_Multiply_I_X
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$PMC_Multiply_UX_X DD imagerel $LN25@PMC_Multip
-	DD	imagerel $LN25@PMC_Multip+217
+$pdata$PMC_Multiply_UX_X DD imagerel $LN21@PMC_Multip
+	DD	imagerel $LN21@PMC_Multip+135
 	DD	imagerel $unwind$PMC_Multiply_UX_X
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$PMC_Multiply_L_X DD imagerel $LN36@PMC_Multip
-	DD	imagerel $LN36@PMC_Multip+202
+	DD	imagerel $LN36@PMC_Multip+203
 	DD	imagerel $unwind$PMC_Multiply_L_X
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$PMC_Multiply_X_UX DD imagerel $LN25@PMC_Multip
-	DD	imagerel $LN25@PMC_Multip+222
+$pdata$PMC_Multiply_X_UX DD imagerel $LN21@PMC_Multip
+	DD	imagerel $LN21@PMC_Multip+135
 	DD	imagerel $unwind$PMC_Multiply_X_UX
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$PMC_Multiply_X_X DD imagerel $LN32@PMC_Multip
-	DD	imagerel $LN32@PMC_Multip+216
+	DD	imagerel $LN32@PMC_Multip+218
 	DD	imagerel $unwind$PMC_Multiply_X_X
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$PMC_Multiply_X_I DD imagerel $LN34@PMC_Multip
-	DD	imagerel $LN34@PMC_Multip+211
+	DD	imagerel $LN34@PMC_Multip+212
 	DD	imagerel $unwind$PMC_Multiply_X_I
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$PMC_Multiply_X_L DD imagerel $LN34@PMC_Multip
-	DD	imagerel $LN34@PMC_Multip+223
+	DD	imagerel $LN34@PMC_Multip+224
 	DD	imagerel $unwind$PMC_Multiply_X_L
 ;	COMDAT xdata
 xdata	SEGMENT
@@ -123,10 +159,8 @@ $unwind$PMC_Multiply_X_X DD 020601H
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$unwind$PMC_Multiply_X_UX DD 060f01H
-	DD	08640fH
-	DD	07340fH
-	DD	0700b320fH
+$unwind$PMC_Multiply_X_UX DD 020601H
+	DD	030023206H
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
@@ -135,10 +169,8 @@ $unwind$PMC_Multiply_L_X DD 020601H
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$unwind$PMC_Multiply_UX_X DD 060f01H
-	DD	08640fH
-	DD	07340fH
-	DD	0700b320fH
+$unwind$PMC_Multiply_UX_X DD 020601H
+	DD	030023206H
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
@@ -147,67 +179,112 @@ $unwind$PMC_Multiply_I_X DD 020601H
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$chain$2$MultiplyU_X_I_Imp DD 021H
+$chain$5$MultiplyU_X_I_Imp DD 021H
 	DD	imagerel MultiplyU_X_I_Imp
-	DD	imagerel MultiplyU_X_I_Imp+52
+	DD	imagerel MultiplyU_X_I_Imp+56
 	DD	imagerel $unwind$MultiplyU_X_I_Imp
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$chain$1$MultiplyU_X_I_Imp DD 040e21H
-	DD	09740eH
+$chain$4$MultiplyU_X_I_Imp DD 020021H
+	DD	083400H
+	DD	imagerel MultiplyU_X_I_Imp
+	DD	imagerel MultiplyU_X_I_Imp+56
+	DD	imagerel $unwind$MultiplyU_X_I_Imp
+xdata	ENDS
+;	COMDAT xdata
+xdata	SEGMENT
+$chain$2$MultiplyU_X_I_Imp DD 020021H
+	DD	083400H
+	DD	imagerel MultiplyU_X_I_Imp
+	DD	imagerel MultiplyU_X_I_Imp+56
+	DD	imagerel $unwind$MultiplyU_X_I_Imp
+xdata	ENDS
+;	COMDAT xdata
+xdata	SEGMENT
+$chain$0$MultiplyU_X_I_Imp DD 020521H
 	DD	083405H
 	DD	imagerel MultiplyU_X_I_Imp
-	DD	imagerel MultiplyU_X_I_Imp+52
+	DD	imagerel MultiplyU_X_I_Imp+56
 	DD	imagerel $unwind$MultiplyU_X_I_Imp
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
 $unwind$MultiplyU_X_I_Imp DD 040a01H
-	DD	0a540aH
-	DD	06006520aH
+	DD	09640aH
+	DD	07006520aH
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$chain$2$MultiplyU_X_L_Imp DD 021H
+$chain$5$MultiplyU_X_L_Imp DD 021H
 	DD	imagerel MultiplyU_X_L_Imp
-	DD	imagerel MultiplyU_X_L_Imp+53
+	DD	imagerel MultiplyU_X_L_Imp+57
 	DD	imagerel $unwind$MultiplyU_X_L_Imp
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$chain$1$MultiplyU_X_L_Imp DD 040e21H
-	DD	09740eH
+$chain$4$MultiplyU_X_L_Imp DD 020021H
+	DD	083400H
+	DD	imagerel MultiplyU_X_L_Imp
+	DD	imagerel MultiplyU_X_L_Imp+57
+	DD	imagerel $unwind$MultiplyU_X_L_Imp
+xdata	ENDS
+;	COMDAT xdata
+xdata	SEGMENT
+$chain$2$MultiplyU_X_L_Imp DD 020021H
+	DD	083400H
+	DD	imagerel MultiplyU_X_L_Imp
+	DD	imagerel MultiplyU_X_L_Imp+57
+	DD	imagerel $unwind$MultiplyU_X_L_Imp
+xdata	ENDS
+;	COMDAT xdata
+xdata	SEGMENT
+$chain$0$MultiplyU_X_L_Imp DD 020521H
 	DD	083405H
 	DD	imagerel MultiplyU_X_L_Imp
-	DD	imagerel MultiplyU_X_L_Imp+53
+	DD	imagerel MultiplyU_X_L_Imp+57
 	DD	imagerel $unwind$MultiplyU_X_L_Imp
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
 $unwind$MultiplyU_X_L_Imp DD 040a01H
-	DD	0a540aH
-	DD	06006520aH
+	DD	09640aH
+	DD	07006520aH
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$chain$2$MultiplyU_X_X_Imp DD 021H
+$chain$5$MultiplyU_X_X_Imp DD 021H
 	DD	imagerel MultiplyU_X_X_Imp
-	DD	imagerel MultiplyU_X_X_Imp+53
+	DD	imagerel MultiplyU_X_X_Imp+57
 	DD	imagerel $unwind$MultiplyU_X_X_Imp
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$chain$1$MultiplyU_X_X_Imp DD 040e21H
-	DD	09740eH
+$chain$4$MultiplyU_X_X_Imp DD 020021H
+	DD	083400H
+	DD	imagerel MultiplyU_X_X_Imp
+	DD	imagerel MultiplyU_X_X_Imp+57
+	DD	imagerel $unwind$MultiplyU_X_X_Imp
+xdata	ENDS
+;	COMDAT xdata
+xdata	SEGMENT
+$chain$2$MultiplyU_X_X_Imp DD 020021H
+	DD	083400H
+	DD	imagerel MultiplyU_X_X_Imp
+	DD	imagerel MultiplyU_X_X_Imp+57
+	DD	imagerel $unwind$MultiplyU_X_X_Imp
+xdata	ENDS
+;	COMDAT xdata
+xdata	SEGMENT
+$chain$0$MultiplyU_X_X_Imp DD 020521H
 	DD	083405H
 	DD	imagerel MultiplyU_X_X_Imp
-	DD	imagerel MultiplyU_X_X_Imp+53
+	DD	imagerel MultiplyU_X_X_Imp+57
 	DD	imagerel $unwind$MultiplyU_X_X_Imp
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
 $unwind$MultiplyU_X_X_Imp DD 040a01H
-	DD	0a540aH
-	DD	06006520aH
+	DD	09640aH
+	DD	07006520aH
 END

@@ -29,7 +29,7 @@ LFB83:
 	testl	%eax, %eax
 	jne	L1
 	movl	$_number_zero, %eax
-	testb	$2, 16(%ebx)
+	testb	$1, (%ebx)
 	je	L9
 L3:
 	movl	%eax, (%edi)
@@ -69,6 +69,8 @@ L4:
 	jmp	L1
 	.cfi_endproc
 LFE83:
+	.comm	_uint_number_one, 4, 2
+	.comm	_uint_number_zero, 4, 2
 	.ident	"GCC: (i686-win32-dwarf-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	_CheckNumber;	.scl	2;	.type	32;	.endef
 	.def	_DuplicateNumber;	.scl	2;	.type	32;	.endef

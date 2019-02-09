@@ -78,7 +78,7 @@ void TEST_Subtruct_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, i
     PMC_STATUS_CODE u_result;
     PMC_STATUS_CODE v_result;
     PMC_STATUS_CODE w_result;
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 1), (u_result = ep->uint.FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 1), (u_result = ep->UINT_ENTRY_POINTS.FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 3), (w_result = ep->Subtruct_UX_X(u, v, &w)) == PMC_STATUS_OK, FormatTestMesssage(L"Subtruct_UX_Xの復帰コードが期待通りではない(%d)", w_result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_UX_X (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_w_buf, sizeof(actual_w_buf), &actual_w_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
@@ -88,7 +88,7 @@ void TEST_Subtruct_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, i
     if (v_result == PMC_STATUS_OK)
         ep->Dispose(v);
     if (u_result == PMC_STATUS_OK)
-        ep->uint.Dispose(u);
+        ep->UINT_ENTRY_POINTS.Dispose(u);
 }
 
 void TEST_Subtruct_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, __int32 v, unsigned char*desired_w_buf, size_t desired_w_buf_size)
@@ -141,14 +141,14 @@ void TEST_Subtruct_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, i
     PMC_STATUS_CODE v_result;
     PMC_STATUS_CODE w_result;
     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
-    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 2), (v_result = ep->uint.FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+    TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 2), (v_result = ep->UINT_ENTRY_POINTS.FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 3), (w_result = ep->Subtruct_X_UX(u, v, &w)) == PMC_STATUS_OK, FormatTestMesssage(L"Subtruct_X_UXの復帰コードが期待通りではない(%d)", w_result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 4), (result = ep->ToByteArray(w, actual_z_buf, sizeof(actual_z_buf), &actual_z_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
     TEST_Assert(env, FormatTestLabel(L"Subtruct_X_UX (%d.%d)", no, 5), _EQUALS_MEMORY(actual_z_buf, actual_z_buf_size, desired_w_buf, desired_w_buf_size) == 0, L"データの内容が一致しない");
     if (w_result == PMC_STATUS_OK)
         ep->Dispose(w);
     if (v_result == PMC_STATUS_OK)
-        ep->uint.Dispose(v);
+        ep->UINT_ENTRY_POINTS.Dispose(v);
     if (u_result == PMC_STATUS_OK)
         ep->Dispose(u);
 }

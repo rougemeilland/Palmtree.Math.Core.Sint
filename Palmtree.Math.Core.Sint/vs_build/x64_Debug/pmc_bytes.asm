@@ -5,6 +5,10 @@ include listing.inc
 INCLUDELIB MSVCRTD
 INCLUDELIB OLDNAMES
 
+_DATA	SEGMENT
+COMM	uint_number_zero:QWORD
+COMM	uint_number_one:QWORD
+_DATA	ENDS
 msvcjmc	SEGMENT
 __7B7A869E_ctype@h DB 01H
 __457DD326_basetsd@h DB 01H
@@ -180,10 +184,10 @@ $LN3@PMC_ToByte:
 	mov	r9, QWORD PTR buffer_size$[rbp]
 	mov	r8, QWORD PTR buffer$[rbp]
 	mov	rax, QWORD PTR np$[rbp]
-	mov	rdx, QWORD PTR [rax+8]
+	mov	rdx, QWORD PTR [rax+16]
 	mov	rax, QWORD PTR np$[rbp]
-	movzx	ecx, BYTE PTR [rax+16]
-	call	QWORD PTR ep_uint+80
+	movzx	ecx, BYTE PTR [rax+24]
+	call	QWORD PTR ep_uint+72
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@PMC_ToByte
@@ -284,7 +288,7 @@ $LN4@PMC_FromBy:
 	lea	r8, QWORD PTR o_sign$[rbp]
 	mov	rdx, QWORD PTR count$[rbp]
 	mov	rcx, QWORD PTR buffer$[rbp]
-	call	QWORD PTR ep_uint+72
+	call	QWORD PTR ep_uint+64
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@PMC_FromBy

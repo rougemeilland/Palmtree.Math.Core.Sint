@@ -30,6 +30,12 @@
 
 static PMC_STATUS_CODE MultiplyU_X_I_Imp(char w_sign, PMC_HANDLE_UINT u, _UINT32_T v, NUMBER_HEADER** w)
 {
+#ifdef _DEBUG
+    if (u->FLAGS.IS_ZERO)
+        return (PMC_STATUS_INTERNAL_ERROR);
+    if (v == 0)
+        return (PMC_STATUS_INTERNAL_ERROR);
+#endif
     PMC_STATUS_CODE result;
     PMC_HANDLE_UINT w_abs;
     if ((result = ep_uint.Multiply_X_I(u, v, &w_abs)) != PMC_STATUS_OK)
@@ -44,6 +50,12 @@ static PMC_STATUS_CODE MultiplyU_X_I_Imp(char w_sign, PMC_HANDLE_UINT u, _UINT32
 
 static PMC_STATUS_CODE MultiplyU_X_L_Imp(char w_sign, PMC_HANDLE_UINT u, _UINT64_T v, NUMBER_HEADER** w)
 {
+#ifdef _DEBUG
+    if (u->FLAGS.IS_ZERO)
+        return (PMC_STATUS_INTERNAL_ERROR);
+    if (v == 0)
+        return (PMC_STATUS_INTERNAL_ERROR);
+#endif
     PMC_STATUS_CODE result;
     PMC_HANDLE_UINT w_abs;
     if ((result = ep_uint.Multiply_X_L(u, v, &w_abs)) != PMC_STATUS_OK)
@@ -58,6 +70,12 @@ static PMC_STATUS_CODE MultiplyU_X_L_Imp(char w_sign, PMC_HANDLE_UINT u, _UINT64
 
 static PMC_STATUS_CODE MultiplyU_X_X_Imp(char w_sign, PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, NUMBER_HEADER** w)
 {
+#ifdef _DEBUG
+    if (u->FLAGS.IS_ZERO)
+        return (PMC_STATUS_INTERNAL_ERROR);
+    if (v->FLAGS.IS_ZERO)
+        return (PMC_STATUS_INTERNAL_ERROR);
+#endif
     PMC_STATUS_CODE result;
     PMC_HANDLE_UINT w_abs;
     if ((result = ep_uint.Multiply_X_X(u, v, &w_abs)) != PMC_STATUS_OK)
@@ -211,10 +229,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Multiply_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT 
     NUMBER_HEADER* nw;
     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
         return (result);
-    char u_is_zero;
-    if ((result = IsZero_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
-        return (result);
-    if (u_is_zero)
+    if (u->FLAGS.IS_ZERO)
     {
         // u == 0 の場合
 
@@ -386,9 +401,6 @@ PMC_STATUS_CODE __PMC_CALL PMC_Multiply_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT 
     NUMBER_HEADER* nw;
     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
         return (result);
-    char v_is_zero;
-    if ((result = IsZero_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
-        return (result);
     if (nu->SIGN == 0)
     {
         // u == 0 の場合
@@ -400,7 +412,7 @@ PMC_STATUS_CODE __PMC_CALL PMC_Multiply_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT 
     {
         // u != 0 の場合
 
-        if (v_is_zero)
+        if (v->FLAGS.IS_ZERO)
         {
             // v == 0 の場合
 

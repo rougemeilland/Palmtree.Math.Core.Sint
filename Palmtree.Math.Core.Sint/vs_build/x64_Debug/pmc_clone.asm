@@ -5,6 +5,10 @@ include listing.inc
 INCLUDELIB MSVCRTD
 INCLUDELIB OLDNAMES
 
+_DATA	SEGMENT
+COMM	uint_number_zero:QWORD
+COMM	uint_number_one:QWORD
+_DATA	ENDS
 msvcjmc	SEGMENT
 __7B7A869E_ctype@h DB 01H
 __457DD326_basetsd@h DB 01H
@@ -35,7 +39,7 @@ EXTRN	__security_cookie:QWORD
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$PMC_Clone_X DD imagerel $LN10
-	DD	imagerel $LN10+298
+	DD	imagerel $LN10+295
 	DD	imagerel $unwind$PMC_Clone_X
 pdata	ENDS
 ;	COMDAT rtc$TMZ
@@ -154,8 +158,7 @@ $LN4@PMC_Clone_:
 ; 41   :     if (nx->IS_ZERO)
 
 	mov	rax, QWORD PTR nx$[rbp]
-	mov	eax, DWORD PTR [rax+20]
-	shr	eax, 1
+	mov	eax, DWORD PTR [rax]
 	and	eax, 1
 	test	eax, eax
 	je	SHORT $LN5@PMC_Clone_

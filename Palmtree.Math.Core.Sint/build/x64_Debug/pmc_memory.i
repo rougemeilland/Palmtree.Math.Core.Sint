@@ -87540,14 +87540,14 @@ __extension__ typedef unsigned long long uintmax_t;
 
 
 #pragma region マクロの定義
-# 76 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 70 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 #pragma endregion
 
 
 #pragma region 型の定義
-# 89 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 83 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 
-# 89 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 83 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 typedef int16_t _INT16_T;
 typedef int32_t _INT32_T;
 typedef int64_t _INT64_T;
@@ -87567,35 +87567,48 @@ typedef struct __tag_PMC_CONFIGURATION_INFO
 
 typedef int PMC_STATUS_CODE;
 
-typedef int PMC_NUMBER_TYPE_CODE;
-
 typedef int PMC_CONSTANT_VALUE_CODE;
 
 typedef int PMC_NUMBER_STYLE_CODE;
 
-struct __tag_PMC_HANDLE_UINT
+union __tag_PMC_HANDLE_UINT
 {
+    const struct __tag_UINT_FLAGS
+    {
+        unsigned IS_ZERO : 1;
+        unsigned IS_ONE : 1;
+        unsigned IS_EVEN : 1;
+        unsigned IS_POWER_OF_TWO : 1;
+    } FLAGS;
 
 
 
-    _UINT64_T dummy;
+    _UINT64_T __dummy;
 
 
 
 };
-typedef struct __tag_PMC_HANDLE_UINT* PMC_HANDLE_UINT;
+typedef union __tag_PMC_HANDLE_UINT* PMC_HANDLE_UINT;
 
-struct __tag_PMC_HANDLE_SINT
+union __tag_PMC_HANDLE_SINT
 {
+    const struct __tag_SINT_FLAGS
+    {
+        unsigned IS_ZERO : 1;
+        unsigned IS_ONE : 1;
+        unsigned IS_MINUS_ONE : 1;
+        unsigned IS_EVEN : 1;
+        unsigned IS_POWER_OF_TWO : 1;
+    } FLAGS;
 
 
 
-    _UINT64_T dummy;
+    _UINT64_T __dummy;
 
 
 
 };
-typedef struct __tag_PMC_HANDLE_SINT* PMC_HANDLE_SINT;
+typedef union __tag_PMC_HANDLE_SINT* PMC_HANDLE_SINT;
 
 typedef struct __tag_PMC_STATISTICS_INFO
 {
@@ -87635,9 +87648,6 @@ typedef struct __tag_PMC_UINT_ENTRY_POINTS
 
 
     void ( * Dispose)(PMC_HANDLE_UINT p);
-
-
-    PMC_STATUS_CODE ( * GetNumberType_X)(PMC_HANDLE_UINT x, PMC_NUMBER_TYPE_CODE* o);
 
 
     PMC_STATUS_CODE ( * GetConstantValue_I)(PMC_CONSTANT_VALUE_CODE type, PMC_HANDLE_UINT* o);
@@ -87748,7 +87758,7 @@ typedef struct __tag_PMC_UINT_ENTRY_POINTS
 typedef struct __tag_PMC_SINT_ENTRY_POINTS
 {
 
-    PMC_UINT_ENTRY_POINTS uint;
+    PMC_UINT_ENTRY_POINTS UINT_ENTRY_POINTS;
 
 
     void ( * GetStatisticsInfo)(PMC_STATISTICS_INFO* statistics_info);
@@ -87761,9 +87771,6 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
 
 
     void ( * Dispose)(PMC_HANDLE_SINT p);
-
-
-    PMC_STATUS_CODE ( * GetNumberType_X)(PMC_HANDLE_SINT x, PMC_NUMBER_TYPE_CODE* o);
 
 
     PMC_STATUS_CODE ( * GetConstantValue_I)(PMC_CONSTANT_VALUE_CODE type, PMC_HANDLE_SINT* o);
@@ -87781,7 +87788,7 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
 
 
     PMC_STATUS_CODE ( * Negate_X)(PMC_HANDLE_SINT x, PMC_HANDLE_SINT* o);
-# 331 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 332 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
     PMC_STATUS_CODE ( * Add_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE ( * Add_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE ( * Add_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
@@ -87807,7 +87814,16 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
     PMC_STATUS_CODE ( * Multiply_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE ( * Multiply_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     PMC_STATUS_CODE ( * Multiply_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-# 418 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+
+
+    PMC_STATUS_CODE ( * DivRem_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+    PMC_STATUS_CODE ( * DivRem_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+    PMC_STATUS_CODE ( * DivRem_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_UINT* r);
+    PMC_STATUS_CODE ( * DivRem_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* q, _INT32_T* r);
+    PMC_STATUS_CODE ( * DivRem_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
+    PMC_STATUS_CODE ( * DivRem_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+    PMC_STATUS_CODE ( * DivRem_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+# 422 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 } PMC_SINT_ENTRY_POINTS;
 #pragma endregion
 
@@ -87876,16 +87892,19 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
 #pragma region 型の定義
     typedef struct __tag_NUMBER_HEADER
     {
-        _UINT32_T SIGNATURE1;
-        _UINT32_T SIGNATURE2;
-        PMC_HANDLE_UINT ABS;
-        char SIGN;
-        unsigned IS_STATIC : 1;
         unsigned IS_ZERO : 1;
         unsigned IS_ONE : 1;
         unsigned IS_MINUS_ONE : 1;
         unsigned IS_EVEN : 1;
         unsigned IS_POWER_OF_TWO : 1;
+
+        _UINT32_T SIGNATURE1;
+        _UINT32_T SIGNATURE2;
+
+        PMC_HANDLE_UINT ABS;
+        char SIGN;
+
+        unsigned IS_STATIC : 1;
     } NUMBER_HEADER;
 #pragma endregion
 
@@ -87904,6 +87923,12 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern NUMBER_HEADER number_minus_one;
 
 
+    PMC_HANDLE_UINT uint_number_zero;
+
+
+    PMC_HANDLE_UINT uint_number_one;
+
+
     extern PMC_STATISTICS_INFO statistics_info;
 
     extern BOOL AllocateHeapArea();
@@ -87912,7 +87937,6 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern void DeallocateNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE CheckNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE DuplicateNumber(NUMBER_HEADER* x, NUMBER_HEADER** op);
-    extern PMC_STATUS_CODE IsZero_UINT(PMC_HANDLE_UINT x, char* is_zero);
     extern PMC_STATUS_CODE Negate_Imp(NUMBER_HEADER* x, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_I_Imp(char x_sign, _UINT32_T x_abs, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_L_Imp(char x_sign, _UINT64_T x_abs, NUMBER_HEADER** o);
@@ -87931,8 +87955,6 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern PMC_STATUS_CODE PMC_From_L(_INT64_T x, PMC_HANDLE_SINT* o);
 
     extern void PMC_Dispose(PMC_HANDLE_SINT p);
-
-    extern PMC_STATUS_CODE PMC_GetNumberType_X(PMC_HANDLE_SINT x, PMC_NUMBER_TYPE_CODE* o);
 
     extern PMC_STATUS_CODE PMC_GetConstantValue_I(PMC_CONSTANT_VALUE_CODE type, PMC_HANDLE_SINT* o);
 
@@ -87974,7 +87996,15 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern PMC_STATUS_CODE PMC_Multiply_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE PMC_Multiply_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE PMC_Multiply_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-# 195 "../pmc_sint_internal.h"
+
+    extern PMC_STATUS_CODE PMC_DivRem_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+    extern PMC_STATUS_CODE PMC_DivRem_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+    extern PMC_STATUS_CODE PMC_DivRem_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_UINT* r);
+    extern PMC_STATUS_CODE PMC_DivRem_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* q, _INT32_T* r);
+    extern PMC_STATUS_CODE PMC_DivRem_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
+    extern PMC_STATUS_CODE PMC_DivRem_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+    extern PMC_STATUS_CODE PMC_DivRem_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+# 209 "../pmc_sint_internal.h"
 #pragma endregion
 
 
@@ -89623,29 +89653,34 @@ HANDLE hLocalHeap;
 NUMBER_HEADER number_zero;
 NUMBER_HEADER number_one;
 NUMBER_HEADER number_minus_one;
+PMC_HANDLE_UINT uint_number_zero;
+PMC_HANDLE_UINT uint_number_one;
 #pragma endregion
 
 
 __inline static void ClearNumberHeader(NUMBER_HEADER* p)
 {
 
-    if (sizeof(*p) == sizeof(_UINT64_T) * 3)
+    if (sizeof(*p) == sizeof(_UINT64_T) * 4)
     {
         _UINT64_T* __p = (_UINT64_T*)p;
         __p[0] = 0;
         __p[1] = 0;
         __p[2] = 0;
+        __p[3] = 0;
     }
     else
     {
 
-        if (sizeof(*p) == sizeof(_UINT32_T) * 4)
+        if (sizeof(*p) == sizeof(_UINT32_T) * 6)
         {
             _UINT32_T* __p = (_UINT32_T*)p;
             __p[0] = 0;
             __p[1] = 0;
             __p[2] = 0;
             __p[3] = 0;
+            __p[4] = 0;
+            __p[5] = 0;
         }
 
         else if (sizeof(*p) % sizeof(_UINT64_T) == 0)
@@ -89665,23 +89700,26 @@ __inline static void ClearNumberHeader(NUMBER_HEADER* p)
 __inline static void FillNumberHeader(NUMBER_HEADER* p)
 {
 
-    if (sizeof(*p) == sizeof(_UINT64_T) * 3)
+    if (sizeof(*p) == sizeof(_UINT64_T) * 4)
     {
         _UINT64_T* __p = (_UINT64_T*)p;
         __p[0] = (0xcccccccccccccccc);
         __p[1] = (0xcccccccccccccccc);
         __p[2] = (0xcccccccccccccccc);
+        __p[3] = (0xcccccccccccccccc);
     }
     else
     {
 
-        if (sizeof(*p) == sizeof(_UINT32_T) * 4)
+        if (sizeof(*p) == sizeof(_UINT32_T) * 6)
         {
             _UINT32_T* __p = (_UINT32_T*)p;
             __p[0] = (_UINT32_T)(0xcccccccccccccccc);
             __p[1] = (_UINT32_T)(0xcccccccccccccccc);
             __p[2] = (_UINT32_T)(0xcccccccccccccccc);
             __p[3] = (_UINT32_T)(0xcccccccccccccccc);
+            __p[4] = (_UINT32_T)(0xcccccccccccccccc);
+            __p[5] = (_UINT32_T)(0xcccccccccccccccc);
         }
 
         else if (sizeof(*p) % sizeof(_UINT64_T) == 0)
@@ -89700,21 +89738,16 @@ __inline static void FillNumberHeader(NUMBER_HEADER* p)
 
 static PMC_STATUS_CODE InitializeNumber(NUMBER_HEADER* p, char sign, PMC_HANDLE_UINT abs)
 {
-    PMC_STATUS_CODE result;
     ClearNumberHeader(p);
     p->SIGNATURE1 = (((_UINT32_T)'I' << 24) | ((_UINT32_T)'c' << 16) | ((_UINT32_T)'M' << 8) | (_UINT32_T)'p');
     p->SIGNATURE2 = (((_UINT32_T)'t' << 24) | ((_UINT32_T)'N' << 16) | ((_UINT32_T)'I' << 8) | (_UINT32_T)'s');
     p->SIGN = sign;
     p->ABS = abs;
-
-    PMC_NUMBER_TYPE_CODE type;
-    if ((result = ep_uint.GetNumberType_X(abs, &type)) != (0))
-        return (result);
-    p->IS_EVEN = (type & (0x0008)) != 0;
-    p->IS_MINUS_ONE = sign < 0 && (type & (0x0002)) != 0;
-    p->IS_ONE = sign > 0 && (type & (0x0002)) != 0;
-    p->IS_POWER_OF_TWO = sign > 0 && (type & (0x0010)) != 0;
-    p->IS_ZERO = (type & (0x0001)) != 0;
+    p->IS_EVEN = abs->FLAGS.IS_EVEN;
+    p->IS_MINUS_ONE = sign < 0 && abs->FLAGS.IS_ONE;
+    p->IS_ONE = sign > 0 && abs->FLAGS.IS_ONE;
+    p->IS_POWER_OF_TWO = sign > 0 && abs->FLAGS.IS_POWER_OF_TWO;
+    p->IS_ZERO = abs->FLAGS.IS_ZERO;
 
     if (sign != 0 && p->IS_ZERO)
         return ((-256));
@@ -89736,9 +89769,9 @@ PMC_STATUS_CODE AttatchNumber(NUMBER_HEADER* p, char sign, PMC_HANDLE_UINT abs)
     if (result != (0))
         return (result);
     p->IS_STATIC = 
-# 159 "../pmc_memory.c" 3
+# 162 "../pmc_memory.c" 3
                   1
-# 159 "../pmc_memory.c"
+# 162 "../pmc_memory.c"
                       ;
     return ((0));
 }
@@ -89746,23 +89779,23 @@ PMC_STATUS_CODE AttatchNumber(NUMBER_HEADER* p, char sign, PMC_HANDLE_UINT abs)
 PMC_STATUS_CODE AllocateNumber(NUMBER_HEADER** pp, char sign, PMC_HANDLE_UINT abs)
 {
     NUMBER_HEADER* p = (NUMBER_HEADER*)HeapAlloc(hLocalHeap, 
-# 165 "../pmc_memory.c" 3
+# 168 "../pmc_memory.c" 3
                                                             0x00000008
-# 165 "../pmc_memory.c"
+# 168 "../pmc_memory.c"
                                                                             , sizeof(NUMBER_HEADER));
     if (p == 
-# 166 "../pmc_memory.c" 3 4
+# 169 "../pmc_memory.c" 3 4
             ((void *)0)
-# 166 "../pmc_memory.c"
+# 169 "../pmc_memory.c"
                 )
         return ((-5));
     PMC_STATUS_CODE result = InitializeNumber(p, sign, abs);
     if (result != (0))
         return (result);
     p->IS_STATIC = 
-# 171 "../pmc_memory.c" 3
+# 174 "../pmc_memory.c" 3
                   0
-# 171 "../pmc_memory.c"
+# 174 "../pmc_memory.c"
                        ;
     *pp = p;
     return ((0));
@@ -89771,9 +89804,9 @@ PMC_STATUS_CODE AllocateNumber(NUMBER_HEADER** pp, char sign, PMC_HANDLE_UINT ab
 void DetatchNumber(NUMBER_HEADER* p)
 {
     if (p == 
-# 178 "../pmc_memory.c" 3 4
+# 181 "../pmc_memory.c" 3 4
             ((void *)0) 
-# 178 "../pmc_memory.c"
+# 181 "../pmc_memory.c"
                  || !p->IS_STATIC)
         return;
     CleanUpNumber(p);
@@ -89782,9 +89815,9 @@ void DetatchNumber(NUMBER_HEADER* p)
 void DeallocateNumber(NUMBER_HEADER* p)
 {
     if (p == 
-# 185 "../pmc_memory.c" 3 4
+# 188 "../pmc_memory.c" 3 4
             ((void *)0) 
-# 185 "../pmc_memory.c"
+# 188 "../pmc_memory.c"
                  || p->IS_STATIC)
         return;
     CleanUpNumber(p);
@@ -89896,45 +89929,34 @@ PMC_STATUS_CODE Initialize_Memory(void)
     PMC_STATUS_CODE result = (0);
 
     BOOL number_unsigned_zero_ok = 
-# 295 "../pmc_memory.c" 3
+# 298 "../pmc_memory.c" 3
                                   1
-# 295 "../pmc_memory.c"
+# 298 "../pmc_memory.c"
                                       ;
     BOOL number_unsigned_one_ok = 
-# 296 "../pmc_memory.c" 3
+# 299 "../pmc_memory.c" 3
                                  1
-# 296 "../pmc_memory.c"
+# 299 "../pmc_memory.c"
                                      ;
     BOOL number_zero_ok = 
-# 297 "../pmc_memory.c" 3
+# 300 "../pmc_memory.c" 3
                          1
-# 297 "../pmc_memory.c"
+# 300 "../pmc_memory.c"
                              ;
     BOOL number_one_ok = 
-# 298 "../pmc_memory.c" 3
+# 301 "../pmc_memory.c" 3
                         1
-# 298 "../pmc_memory.c"
+# 301 "../pmc_memory.c"
                             ;
     BOOL number_minus_one_ok = 
-# 299 "../pmc_memory.c" 3
+# 302 "../pmc_memory.c" 3
                               1
-# 299 "../pmc_memory.c"
-                                  ;
-
-    PMC_HANDLE_UINT unsigned_zero = 
-# 301 "../pmc_memory.c" 3 4
-                                   ((void *)0)
-# 301 "../pmc_memory.c"
-                                       ;
-    PMC_HANDLE_UINT unsigned_one = 
-# 302 "../pmc_memory.c" 3 4
-                                  ((void *)0)
 # 302 "../pmc_memory.c"
-                                      ;
+                                  ;
 
     if (result == (0))
     {
-        if ((result = ep_uint.GetConstantValue_I((1), &unsigned_zero)) == (0))
+        if ((result = ep_uint.GetConstantValue_I((1), &uint_number_zero)) == (0))
             number_unsigned_zero_ok = 
 # 307 "../pmc_memory.c" 3
                                      1
@@ -89944,7 +89966,7 @@ PMC_STATUS_CODE Initialize_Memory(void)
 
     if (result == (0))
     {
-        if ((result = ep_uint.GetConstantValue_I((2), &unsigned_one)) == (0))
+        if ((result = ep_uint.GetConstantValue_I((2), &uint_number_one)) == (0))
             number_unsigned_one_ok = 
 # 313 "../pmc_memory.c" 3
                                     1
@@ -89954,7 +89976,7 @@ PMC_STATUS_CODE Initialize_Memory(void)
 
     if (result == (0))
     {
-        if ((result = AttatchNumber(&number_zero, 0, unsigned_zero)) == (0))
+        if ((result = AttatchNumber(&number_zero, 0, uint_number_zero)) == (0))
             number_zero_ok = 
 # 319 "../pmc_memory.c" 3
                             1
@@ -89964,7 +89986,7 @@ PMC_STATUS_CODE Initialize_Memory(void)
 
     if (result == (0))
     {
-        if ((result = AttatchNumber(&number_one, 1, unsigned_one)) == (0))
+        if ((result = AttatchNumber(&number_one, 1, uint_number_one)) == (0))
             number_one_ok = 
 # 325 "../pmc_memory.c" 3
                            1
@@ -89974,7 +89996,7 @@ PMC_STATUS_CODE Initialize_Memory(void)
 
     if (result == (0))
     {
-        if ((result = AttatchNumber(&number_minus_one, -1, unsigned_one)) == (0))
+        if ((result = AttatchNumber(&number_minus_one, -1, uint_number_one)) == (0))
             number_minus_one_ok = 
 # 331 "../pmc_memory.c" 3
                                  1

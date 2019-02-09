@@ -1,3 +1,5 @@
 	.file	"TEST_op_Subtruct.c"
 	.text
+	.comm	_uint_number_one, 4, 2
+	.comm	_uint_number_zero, 4, 2
 	.ident	"GCC: (i686-win32-dwarf-rev0, Built by MinGW-W64 project) 8.1.0"

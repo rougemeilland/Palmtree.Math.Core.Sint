@@ -12,6 +12,10 @@ INCLUDELIB OLDNAMES
 PUBLIC	_test_total_count
 PUBLIC	_test_ok_count
 PUBLIC	___DEBUG_LOG
+_DATA	SEGMENT
+COMM	_uint_number_zero:DWORD
+COMM	_uint_number_one:DWORD
+_DATA	ENDS
 _BSS	SEGMENT
 _test_total_count DD 01H DUP (?)
 _test_ok_count DD 01H DUP (?)
@@ -460,11 +464,11 @@ $LN2@DoDebug:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 94   :              ep->uint.PROCESSOR_FEATURE_POPCNT,
-; 95   :              ep->uint.PROCESSOR_FEATURE_ADX,
-; 96   :              ep->uint.PROCESSOR_FEATURE_BMI1,
-; 97   :              ep->uint.PROCESSOR_FEATURE_BMI2,
-; 98   :              ep->uint.PROCESSOR_FEATURE_ABM);
+; 94   :              ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_POPCNT,
+; 95   :              ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_ADX,
+; 96   :              ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_BMI1,
+; 97   :              ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_BMI2,
+; 98   :              ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_ABM);
 ; 99   : 
 ; 100  :     //CalculateCriticalDataOfDivision(env);
 ; 101  :     DoTest(env, ep);

@@ -17,12 +17,12 @@ PMC_SINT_Initialize:
 	.seh_pushreg	%rsi
 	pushq	%rbx
 	.seh_pushreg	%rbx
-	subq	$32, %rsp
-	.seh_stackalloc	32
+	subq	$64, %rsp
+	.seh_stackalloc	64
 	.seh_endprologue
 	cmpq	$0, hLib_UINT(%rip)
 	movq	%rcx, %rbx
-	je	.L12
+	je	.L14
 .L2:
 	movq	fp_PMC_UINT_Initialize(%rip), %rax
 	testq	%rax, %rax
@@ -31,32 +31,76 @@ PMC_SINT_Initialize:
 	movq	%rbx, %rcx
 	call	*%rax
 	testq	%rax, %rax
+	movq	%rax, %rdx
 	je	.L6
-	movl	initialized(%rip), %edx
+	movl	initialized(%rip), %eax
 	leaq	entry_points(%rip), %rbx
-	testl	%edx, %edx
-	je	.L13
+	testl	%eax, %eax
+	je	.L15
 .L1:
 	movq	%rbx, %rax
-	addq	$32, %rsp
+	addq	$64, %rsp
 	popq	%rbx
 	popq	%rsi
 	popq	%rdi
 	ret
 	.p2align 4,,10
-.L13:
+.L15:
+	leaq	32(%rsp), %r8
+	movl	$32, %r9d
+	xorl	%eax, %eax
+	movq	%r8, %rdi
+	movq	%r9, %rcx
+/APP
+ # 1445 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h" 1
+	rep stosb
+ # 0 "" 2
+/NO_APP
+	orb	$8, 32(%rsp)
+	movq	%r8, %rdi
+	movq	%r9, %rcx
+/APP
+ # 1445 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h" 1
+	rep stosb
+ # 0 "" 2
+/NO_APP
+	orb	$4, 32(%rsp)
+	movq	%r8, %rdi
+	movq	%r9, %rcx
+/APP
+ # 1445 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h" 1
+	rep stosb
+ # 0 "" 2
+/NO_APP
+	orb	$2, 32(%rsp)
+	movq	%r8, %rdi
+	movq	%r9, %rcx
+/APP
+ # 1445 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h" 1
+	rep stosb
+ # 0 "" 2
+/NO_APP
+	orb	$16, 32(%rsp)
+	movq	%r8, %rdi
+	movq	%r9, %rcx
+/APP
+ # 1445 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h" 1
+	rep stosb
+ # 0 "" 2
+/NO_APP
 	leaq	ep_uint(%rip), %rdi
-	movl	$70, %edx
-	movq	%rax, %rsi
-	movq	%rdx, %rcx
+	movl	$69, %eax
+	movq	%rdx, %rsi
+	orb	$1, 32(%rsp)
+	movq	%rax, %rcx
 /APP
  # 952 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h" 1
 	rep movsq
  # 0 "" 2
 /NO_APP
 	movq	%rbx, %rdi
-	movq	%rax, %rsi
-	movq	%rdx, %rcx
+	movq	%rdx, %rsi
+	movq	%rax, %rcx
 /APP
  # 952 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h" 1
 	rep movsq
@@ -66,85 +110,97 @@ PMC_SINT_Initialize:
 	testl	%eax, %eax
 	jne	.L6
 	movq	.refptr.PMC_GetStatisticsInfo(%rip), %rax
-	movq	%rax, 560+entry_points(%rip)
+	movq	%rax, 552+entry_points(%rip)
 	movq	.refptr.PMC_From_I(%rip), %rax
-	movq	%rax, 568+entry_points(%rip)
+	movq	%rax, 560+entry_points(%rip)
 	movq	.refptr.PMC_From_L(%rip), %rax
-	movq	%rax, 576+entry_points(%rip)
+	movq	%rax, 568+entry_points(%rip)
 	movq	.refptr.PMC_FromByteArray(%rip), %rax
-	movq	%rax, 608+entry_points(%rip)
-	movq	.refptr.PMC_Dispose(%rip), %rax
-	movq	%rax, 584+entry_points(%rip)
-	movq	.refptr.PMC_To_X_I(%rip), %rax
-	movq	%rax, 632+entry_points(%rip)
-	movq	.refptr.PMC_To_X_L(%rip), %rax
-	movq	%rax, 640+entry_points(%rip)
-	movq	.refptr.PMC_ToByteArray(%rip), %rax
-	movq	%rax, 616+entry_points(%rip)
-	movq	.refptr.PMC_Add_I_X(%rip), %rax
-	movq	%rax, 656+entry_points(%rip)
-	movq	.refptr.PMC_Add_L_X(%rip), %rax
-	movq	%rax, 664+entry_points(%rip)
-	movq	.refptr.PMC_Add_UX_X(%rip), %rax
-	movq	%rax, 672+entry_points(%rip)
-	movq	.refptr.PMC_Add_X_I(%rip), %rax
-	movq	%rax, 680+entry_points(%rip)
-	movq	.refptr.PMC_Add_X_L(%rip), %rax
-	movq	%rax, 688+entry_points(%rip)
-	movq	.refptr.PMC_Add_X_UX(%rip), %rax
-	movq	%rax, 696+entry_points(%rip)
-	movq	.refptr.PMC_Add_X_X(%rip), %rax
-	movq	%rax, 704+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_I_X(%rip), %rax
-	movq	%rax, 712+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_L_X(%rip), %rax
-	movq	%rax, 720+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_UX_X(%rip), %rax
-	movq	%rax, 728+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_X_I(%rip), %rax
-	movq	%rax, 736+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_X_L(%rip), %rax
-	movq	%rax, 744+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_X_UX(%rip), %rax
-	movq	%rax, 752+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_X_X(%rip), %rax
-	movq	%rax, 760+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_I_X(%rip), %rax
-	movq	%rax, 768+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_L_X(%rip), %rax
-	movq	%rax, 776+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_UX_X(%rip), %rax
-	movq	%rax, 784+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_X_I(%rip), %rax
-	movq	%rax, 792+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_X_L(%rip), %rax
-	movq	%rax, 800+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_X_UX(%rip), %rax
-	movq	%rax, 808+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_X_X(%rip), %rax
-	movq	%rax, 816+entry_points(%rip)
-	movq	.refptr.PMC_GetNumberType_X(%rip), %rax
 	movq	%rax, 592+entry_points(%rip)
-	movq	.refptr.PMC_GetConstantValue_I(%rip), %rax
-	movq	%rax, 600+entry_points(%rip)
-	movq	.refptr.PMC_Clone_X(%rip), %rax
+	movq	.refptr.PMC_Dispose(%rip), %rax
+	movq	%rax, 576+entry_points(%rip)
+	movq	.refptr.PMC_To_X_I(%rip), %rax
+	movq	%rax, 616+entry_points(%rip)
+	movq	.refptr.PMC_To_X_L(%rip), %rax
 	movq	%rax, 624+entry_points(%rip)
-	movq	.refptr.PMC_Negate_X(%rip), %rax
-	movl	$1, initialized(%rip)
+	movq	.refptr.PMC_ToByteArray(%rip), %rax
+	movq	%rax, 600+entry_points(%rip)
+	movq	.refptr.PMC_Add_I_X(%rip), %rax
+	movq	%rax, 640+entry_points(%rip)
+	movq	.refptr.PMC_Add_L_X(%rip), %rax
 	movq	%rax, 648+entry_points(%rip)
+	movq	.refptr.PMC_Add_UX_X(%rip), %rax
+	movq	%rax, 656+entry_points(%rip)
+	movq	.refptr.PMC_Add_X_I(%rip), %rax
+	movq	%rax, 664+entry_points(%rip)
+	movq	.refptr.PMC_Add_X_L(%rip), %rax
+	movq	%rax, 672+entry_points(%rip)
+	movq	.refptr.PMC_Add_X_UX(%rip), %rax
+	movq	%rax, 680+entry_points(%rip)
+	movq	.refptr.PMC_Add_X_X(%rip), %rax
+	movq	%rax, 688+entry_points(%rip)
+	movq	.refptr.PMC_Subtruct_I_X(%rip), %rax
+	movq	%rax, 696+entry_points(%rip)
+	movq	.refptr.PMC_Subtruct_L_X(%rip), %rax
+	movq	%rax, 704+entry_points(%rip)
+	movq	.refptr.PMC_Subtruct_UX_X(%rip), %rax
+	movq	%rax, 712+entry_points(%rip)
+	movq	.refptr.PMC_Subtruct_X_I(%rip), %rax
+	movq	%rax, 720+entry_points(%rip)
+	movq	.refptr.PMC_Subtruct_X_L(%rip), %rax
+	movq	%rax, 728+entry_points(%rip)
+	movq	.refptr.PMC_Subtruct_X_UX(%rip), %rax
+	movq	%rax, 736+entry_points(%rip)
+	movq	.refptr.PMC_Subtruct_X_X(%rip), %rax
+	movq	%rax, 744+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_I_X(%rip), %rax
+	movq	%rax, 752+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_L_X(%rip), %rax
+	movq	%rax, 760+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_UX_X(%rip), %rax
+	movq	%rax, 768+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_X_I(%rip), %rax
+	movq	%rax, 776+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_X_L(%rip), %rax
+	movq	%rax, 784+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_X_UX(%rip), %rax
+	movq	%rax, 792+entry_points(%rip)
+	movq	.refptr.PMC_Multiply_X_X(%rip), %rax
+	movq	%rax, 800+entry_points(%rip)
+	movq	.refptr.PMC_DivRem_I_X(%rip), %rax
+	movq	%rax, 808+entry_points(%rip)
+	movq	.refptr.PMC_DivRem_L_X(%rip), %rax
+	movq	%rax, 816+entry_points(%rip)
+	movq	.refptr.PMC_DivRem_UX_X(%rip), %rax
+	movq	%rax, 824+entry_points(%rip)
+	movq	.refptr.PMC_DivRem_X_I(%rip), %rax
+	movl	$1, initialized(%rip)
+	movq	%rax, 832+entry_points(%rip)
+	movq	.refptr.PMC_DivRem_X_L(%rip), %rax
+	movq	%rax, 840+entry_points(%rip)
+	movq	.refptr.PMC_DivRem_X_UX(%rip), %rax
+	movq	%rax, 848+entry_points(%rip)
+	movq	.refptr.PMC_DivRem_X_X(%rip), %rax
+	movq	%rax, 856+entry_points(%rip)
+	movq	.refptr.PMC_GetConstantValue_I(%rip), %rax
+	movq	%rax, 584+entry_points(%rip)
+	movq	.refptr.PMC_Clone_X(%rip), %rax
+	movq	%rax, 608+entry_points(%rip)
+	movq	.refptr.PMC_Negate_X(%rip), %rax
+	movq	%rax, 632+entry_points(%rip)
 	movq	%rbx, %rax
-	addq	$32, %rsp
+	addq	$64, %rsp
 	popq	%rbx
 	popq	%rsi
 	popq	%rdi
 	ret
 	.p2align 4,,10
-.L12:
+.L14:
 	leaq	.LC0(%rip), %rcx
 	call	*__imp_LoadLibraryA(%rip)
 	testq	%rax, %rax
 	movq	%rax, hLib_UINT(%rip)
-	je	.L14
+	je	.L16
 	leaq	.LC1(%rip), %rdx
 	movq	%rax, %rcx
 	call	*__imp_GetProcAddress(%rip)
@@ -159,13 +215,13 @@ PMC_SINT_Initialize:
 .L6:
 	xorl	%ebx, %ebx
 	movq	%rbx, %rax
-	addq	$32, %rsp
+	addq	$64, %rsp
 	popq	%rbx
 	popq	%rsi
 	popq	%rdi
 	ret
 	.p2align 4,,10
-.L14:
+.L16:
 	movq	$0, fp_PMC_UINT_Initialize(%rip)
 	xorl	%ebx, %ebx
 	jmp	.L1
@@ -173,8 +229,10 @@ PMC_SINT_Initialize:
 .lcomm initialized,4,4
 .lcomm fp_PMC_UINT_Initialize,8,8
 .lcomm hLib_UINT,8,8
-.lcomm entry_points,824,32
-	.comm	ep_uint, 560, 5
+.lcomm entry_points,864,32
+	.comm	ep_uint, 552, 5
+	.comm	uint_number_one, 8, 3
+	.comm	uint_number_zero, 8, 3
 	.ident	"GCC: (x86_64-win32-seh-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	Initialize_Memory;	.scl	2;	.type	32;	.endef
 	.section .drectve
@@ -194,11 +252,41 @@ PMC_SINT_Initialize:
 	.linkonce	discard
 .refptr.PMC_GetConstantValue_I:
 	.quad	PMC_GetConstantValue_I
-	.section	.rdata$.refptr.PMC_GetNumberType_X, "dr"
-	.globl	.refptr.PMC_GetNumberType_X
+	.section	.rdata$.refptr.PMC_DivRem_X_X, "dr"
+	.globl	.refptr.PMC_DivRem_X_X
 	.linkonce	discard
-.refptr.PMC_GetNumberType_X:
-	.quad	PMC_GetNumberType_X
+.refptr.PMC_DivRem_X_X:
+	.quad	PMC_DivRem_X_X
+	.section	.rdata$.refptr.PMC_DivRem_X_UX, "dr"
+	.globl	.refptr.PMC_DivRem_X_UX
+	.linkonce	discard
+.refptr.PMC_DivRem_X_UX:
+	.quad	PMC_DivRem_X_UX
+	.section	.rdata$.refptr.PMC_DivRem_X_L, "dr"
+	.globl	.refptr.PMC_DivRem_X_L
+	.linkonce	discard
+.refptr.PMC_DivRem_X_L:
+	.quad	PMC_DivRem_X_L
+	.section	.rdata$.refptr.PMC_DivRem_X_I, "dr"
+	.globl	.refptr.PMC_DivRem_X_I
+	.linkonce	discard
+.refptr.PMC_DivRem_X_I:
+	.quad	PMC_DivRem_X_I
+	.section	.rdata$.refptr.PMC_DivRem_UX_X, "dr"
+	.globl	.refptr.PMC_DivRem_UX_X
+	.linkonce	discard
+.refptr.PMC_DivRem_UX_X:
+	.quad	PMC_DivRem_UX_X
+	.section	.rdata$.refptr.PMC_DivRem_L_X, "dr"
+	.globl	.refptr.PMC_DivRem_L_X
+	.linkonce	discard
+.refptr.PMC_DivRem_L_X:
+	.quad	PMC_DivRem_L_X
+	.section	.rdata$.refptr.PMC_DivRem_I_X, "dr"
+	.globl	.refptr.PMC_DivRem_I_X
+	.linkonce	discard
+.refptr.PMC_DivRem_I_X:
+	.quad	PMC_DivRem_I_X
 	.section	.rdata$.refptr.PMC_Multiply_X_X, "dr"
 	.globl	.refptr.PMC_Multiply_X_X
 	.linkonce	discard

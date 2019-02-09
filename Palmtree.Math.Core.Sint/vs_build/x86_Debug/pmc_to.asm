@@ -9,6 +9,10 @@
 INCLUDELIB MSVCRTD
 INCLUDELIB OLDNAMES
 
+_DATA	SEGMENT
+COMM	_uint_number_zero:DWORD
+COMM	_uint_number_one:DWORD
+_DATA	ENDS
 msvcjmc	SEGMENT
 __7B7A869E_ctype@h DB 01H
 __457DD326_basetsd@h DB 01H
@@ -110,7 +114,7 @@ $LN2@PMC_To_X_L:
 ; 63   :     char p_sign = np->SIGN;
 
 	mov	eax, DWORD PTR _np$[ebp]
-	mov	cl, BYTE PTR [eax+12]
+	mov	cl, BYTE PTR [eax+16]
 	mov	BYTE PTR _p_sign$[ebp], cl
 
 ; 64   :     _UINT64_T p_abs;
@@ -120,9 +124,9 @@ $LN2@PMC_To_X_L:
 	lea	eax, DWORD PTR _p_abs$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _np$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
-	call	DWORD PTR _ep_uint+52
+	call	DWORD PTR _ep_uint+48
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -312,7 +316,7 @@ $LN2@PMC_To_X_I:
 ; 36   :     char p_sign = np->SIGN;
 
 	mov	eax, DWORD PTR _np$[ebp]
-	mov	cl, BYTE PTR [eax+12]
+	mov	cl, BYTE PTR [eax+16]
 	mov	BYTE PTR _p_sign$[ebp], cl
 
 ; 37   :     _UINT32_T p_abs;
@@ -322,9 +326,9 @@ $LN2@PMC_To_X_I:
 	lea	eax, DWORD PTR _p_abs$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _np$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
-	call	DWORD PTR _ep_uint+48
+	call	DWORD PTR _ep_uint+44
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax

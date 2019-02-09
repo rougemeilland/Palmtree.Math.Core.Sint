@@ -75,6 +75,33 @@ static void LoadUINTLIbrary()
     return;
 }
 
+static BOOL SelfCheck()
+{
+    NUMBER_HEADER nh;
+    PMC_HANDLE_SINT handle = (PMC_HANDLE_SINT)&nh;
+    _ZERO_MEMORY_BYTE(&nh, sizeof(nh));
+    nh.IS_EVEN = TRUE;
+    if (!handle->FLAGS.IS_EVEN)
+        return (FALSE);
+    _ZERO_MEMORY_BYTE(&nh, sizeof(nh));
+    nh.IS_MINUS_ONE = TRUE;
+    if (!handle->FLAGS.IS_MINUS_ONE)
+        return (FALSE);
+    _ZERO_MEMORY_BYTE(&nh, sizeof(nh));
+    nh.IS_ONE = TRUE;
+    if (!handle->FLAGS.IS_ONE)
+        return (FALSE);
+    _ZERO_MEMORY_BYTE(&nh, sizeof(nh));
+    nh.IS_POWER_OF_TWO = TRUE;
+    if (!handle->FLAGS.IS_POWER_OF_TWO)
+        return (FALSE);
+    _ZERO_MEMORY_BYTE(&nh, sizeof(nh));
+    nh.IS_ZERO = TRUE;
+    if (!handle->FLAGS.IS_ZERO)
+        return (FALSE);
+    return(TRUE);
+}
+
 PMC_EXPORT PMC_SINT_ENTRY_POINTS* __PMC_CALL PMC_SINT_Initialize(PMC_CONFIGURATION_INFO* config)
 {
     if (hLib_UINT == NULL)
@@ -87,8 +114,11 @@ PMC_EXPORT PMC_SINT_ENTRY_POINTS* __PMC_CALL PMC_SINT_Initialize(PMC_CONFIGURATI
 
     if (!initialized)
     {
+        if (!SelfCheck())
+            return (NULL);
+
         CopyUINTEntryPointStructure(&ep_uint, ep);
-        CopyUINTEntryPointStructure(&entry_points.uint, ep);
+        CopyUINTEntryPointStructure(&entry_points.UINT_ENTRY_POINTS, ep);
 
         if (Initialize_Memory() != PMC_STATUS_OK)
             return (NULL);
@@ -126,12 +156,14 @@ PMC_EXPORT PMC_SINT_ENTRY_POINTS* __PMC_CALL PMC_SINT_Initialize(PMC_CONFIGURATI
         entry_points.Multiply_X_L = PMC_Multiply_X_L;
         entry_points.Multiply_X_UX = PMC_Multiply_X_UX;
         entry_points.Multiply_X_X = PMC_Multiply_X_X;
-        /*
         entry_points.DivRem_I_X = PMC_DivRem_I_X;
         entry_points.DivRem_L_X = PMC_DivRem_L_X;
+        entry_points.DivRem_UX_X = PMC_DivRem_UX_X;
         entry_points.DivRem_X_I = PMC_DivRem_X_I;
         entry_points.DivRem_X_L = PMC_DivRem_X_L;
+        entry_points.DivRem_X_UX = PMC_DivRem_X_UX;
         entry_points.DivRem_X_X = PMC_DivRem_X_X;
+        /*
         entry_points.RightShift_X_I = PMC_RightShift_X_I;
         entry_points.LeftShift_X_I = PMC_LeftShift_X_I;
         entry_points.BitwiseAnd_I_X = PMC_BitwiseAnd_I_X;
@@ -167,7 +199,6 @@ PMC_EXPORT PMC_SINT_ENTRY_POINTS* __PMC_CALL PMC_SINT_Initialize(PMC_CONFIGURATI
         entry_points.Pow_X_I = PMC_Pow_X_I;
         entry_points.ModPow_X_X_X = PMC_ModPow_X_X_X;
         */
-        entry_points.GetNumberType_X = PMC_GetNumberType_X;
         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
         entry_points.Clone_X = PMC_Clone_X;
         entry_points.Negate_X = PMC_Negate_X;

@@ -9,6 +9,8 @@ LFB83:
 	ret	$4
 	.cfi_endproc
 LFE83:
+	.comm	_uint_number_one, 4, 2
+	.comm	_uint_number_zero, 4, 2
 	.ident	"GCC: (i686-win32-dwarf-rev0, Built by MinGW-W64 project) 8.1.0"
 	.section .drectve
 	.ascii " -export:\"DoDebug@4\""

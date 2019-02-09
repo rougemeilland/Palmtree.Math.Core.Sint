@@ -19,7 +19,7 @@ MultiplyU_X_I_Imp:
 	movq	%rdx, %rcx
 	movl	%r8d, %edx
 	leaq	56(%rsp), %r8
-	call	*224(%rsi)
+	call	*216(%rsi)
 	testl	%eax, %eax
 	je	.L7
 .L1:
@@ -65,7 +65,7 @@ MultiplyU_X_L_Imp:
 	movq	%rdx, %rcx
 	movq	%r8, %rdx
 	leaq	56(%rsp), %r8
-	call	*232(%rsi)
+	call	*224(%rsi)
 	testl	%eax, %eax
 	je	.L13
 .L8:
@@ -111,7 +111,7 @@ MultiplyU_X_X_Imp:
 	movq	%rdx, %rcx
 	movq	%r8, %rdx
 	leaq	56(%rsp), %r8
-	call	*240(%rsi)
+	call	*232(%rsi)
 	testl	%eax, %eax
 	je	.L19
 .L14:
@@ -169,7 +169,7 @@ PMC_Multiply_I_X:
 	testl	%ebp, %ebp
 	jg	.L38
 	je	.L28
-	movzbl	16(%rbx), %ecx
+	movzbl	24(%rbx), %ecx
 	movl	%ebp, %r8d
 	movl	$-2147483648, %eax
 	negl	%r8d
@@ -178,7 +178,7 @@ PMC_Multiply_I_X:
 	movq	.refptr.number_zero(%rip), %rax
 	testb	%cl, %cl
 	je	.L23
-	movq	8(%rbx), %rdx
+	movq	16(%rbx), %rdx
 	leaq	40(%rsp), %r9
 	negl	%ecx
 	movsbl	%cl, %ecx
@@ -200,11 +200,11 @@ PMC_Multiply_I_X:
 	ret
 	.p2align 4,,10
 .L38:
-	movsbl	16(%rbx), %ecx
+	movsbl	24(%rbx), %ecx
 	movq	.refptr.number_zero(%rip), %rax
 	testb	%cl, %cl
 	je	.L23
-	movq	8(%rbx), %rdx
+	movq	16(%rbx), %rdx
 	leaq	40(%rsp), %r9
 	movl	%ebp, %r8d
 	call	MultiplyU_X_I_Imp
@@ -254,7 +254,7 @@ PMC_Multiply_L_X:
 	testq	%rbp, %rbp
 	jg	.L57
 	je	.L47
-	movzbl	16(%rbx), %ecx
+	movzbl	24(%rbx), %ecx
 	movq	%rbp, %r8
 	movabsq	$-9223372036854775808, %rax
 	negq	%r8
@@ -263,7 +263,7 @@ PMC_Multiply_L_X:
 	cmove	%rbp, %r8
 	testb	%cl, %cl
 	je	.L42
-	movq	8(%rbx), %rdx
+	movq	16(%rbx), %rdx
 	leaq	40(%rsp), %r9
 	negl	%ecx
 	movsbl	%cl, %ecx
@@ -285,11 +285,11 @@ PMC_Multiply_L_X:
 	ret
 	.p2align 4,,10
 .L57:
-	movsbl	16(%rbx), %ecx
+	movsbl	24(%rbx), %ecx
 	movq	.refptr.number_zero(%rip), %rax
 	testb	%cl, %cl
 	je	.L42
-	movq	8(%rbx), %rdx
+	movq	16(%rbx), %rdx
 	leaq	40(%rsp), %r9
 	movq	%rbp, %r8
 	call	MultiplyU_X_L_Imp
@@ -324,47 +324,32 @@ PMC_Multiply_UX_X:
 	subq	$56, %rsp
 	.seh_stackalloc	56
 	.seh_endprologue
-	movq	%rdx, %rsi
+	movq	%rdx, %rbx
 	testq	%r8, %r8
 	movq	%rcx, %rdi
 	sete	%dl
-	testq	%rsi, %rsi
+	testq	%rbx, %rbx
 	movq	%r8, %rbp
 	sete	%al
 	orb	%al, %dl
 	jne	.L61
 	testq	%rcx, %rcx
 	je	.L61
-	movq	%rsi, %rcx
+	movq	%rbx, %rcx
 	call	CheckNumber
 	testl	%eax, %eax
-	movl	%eax, %ebx
-	je	.L66
-.L58:
-	movl	%ebx, %eax
-	addq	$56, %rsp
-	popq	%rbx
-	popq	%rsi
-	popq	%rdi
-	popq	%rbp
-	ret
-	.p2align 4,,10
-.L66:
-	leaq	39(%rsp), %rdx
-	movq	%rdi, %rcx
-	call	IsZero_UINT
-	testl	%eax, %eax
-	movl	%eax, %ebx
+	movl	%eax, %esi
 	jne	.L58
-	cmpb	$0, 39(%rsp)
+	testb	$1, (%rdi)
 	jne	.L62
-	movsbl	16(%rsi), %ecx
+	movsbl	24(%rbx), %ecx
 	movq	.refptr.number_zero(%rip), %rax
 	testb	%cl, %cl
-	jne	.L67
+	jne	.L66
 .L60:
 	movq	%rax, 0(%rbp)
-	movl	%ebx, %eax
+.L58:
+	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
 	popq	%rsi
@@ -376,8 +361,8 @@ PMC_Multiply_UX_X:
 	movq	.refptr.number_zero(%rip), %rax
 	jmp	.L60
 	.p2align 4,,10
-.L67:
-	movq	8(%rsi), %rdx
+.L66:
+	movq	16(%rbx), %rdx
 	leaq	40(%rsp), %r9
 	movq	%rdi, %r8
 	call	MultiplyU_X_X_Imp
@@ -387,11 +372,11 @@ PMC_Multiply_UX_X:
 	jmp	.L60
 	.p2align 4,,10
 .L64:
-	movl	%eax, %ebx
+	movl	%eax, %esi
 	jmp	.L58
 	.p2align 4,,10
 .L61:
-	movl	$-1, %ebx
+	movl	$-1, %esi
 	jmp	.L58
 	.seh_endproc
 	.p2align 4,,15
@@ -414,36 +399,36 @@ PMC_Multiply_X_I:
 	movq	%rcx, %rbx
 	movl	%edx, %ebp
 	movq	%r8, %rdi
-	je	.L75
+	je	.L74
 	testq	%r8, %r8
-	je	.L75
+	je	.L74
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %esi
-	jne	.L68
+	jne	.L67
 	testl	%ebp, %ebp
-	movzbl	16(%rbx), %eax
-	jg	.L88
-	je	.L81
+	movzbl	24(%rbx), %eax
+	jg	.L87
+	je	.L80
 	cmpl	$-2147483648, %ebp
-	je	.L89
+	je	.L88
 	testb	%al, %al
-	je	.L81
+	je	.L80
 	negl	%ebp
 	testb	%al, %al
-	jle	.L82
-.L87:
+	jle	.L81
+.L86:
 	movl	$-1, %ecx
-	jmp	.L73
+	jmp	.L72
 	.p2align 4,,10
-.L88:
+.L87:
 	testb	%al, %al
-	jne	.L90
-.L81:
+	jne	.L89
+.L80:
 	movq	.refptr.number_zero(%rip), %rax
-.L71:
+.L70:
 	movq	%rax, (%rdi)
-.L68:
+.L67:
 	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -452,35 +437,35 @@ PMC_Multiply_X_I:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L90:
+.L89:
 	movl	$1, %ecx
-	jle	.L87
-.L73:
-	movq	8(%rbx), %rdx
+	jle	.L86
+.L72:
+	movq	16(%rbx), %rdx
 	leaq	40(%rsp), %r9
 	movl	%ebp, %r8d
 	call	MultiplyU_X_I_Imp
 	testl	%eax, %eax
-	jne	.L84
+	jne	.L83
 	movq	40(%rsp), %rax
-	jmp	.L71
+	jmp	.L70
 	.p2align 4,,10
-.L89:
+.L88:
 	testb	%al, %al
-	je	.L81
+	je	.L80
 	movl	$-1, %ecx
-	jg	.L73
-.L82:
+	jg	.L72
+.L81:
 	movl	$1, %ecx
-	jmp	.L73
+	jmp	.L72
 	.p2align 4,,10
-.L84:
+.L83:
 	movl	%eax, %esi
-	jmp	.L68
+	jmp	.L67
 	.p2align 4,,10
-.L75:
+.L74:
 	movl	$-1, %esi
-	jmp	.L68
+	jmp	.L67
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Multiply_X_L
@@ -502,37 +487,37 @@ PMC_Multiply_X_L:
 	movq	%rcx, %rbx
 	movq	%rdx, %rbp
 	movq	%r8, %rdi
-	je	.L98
+	je	.L97
 	testq	%r8, %r8
-	je	.L98
+	je	.L97
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %esi
-	jne	.L91
+	jne	.L90
 	testq	%rbp, %rbp
-	movzbl	16(%rbx), %eax
-	jg	.L111
-	je	.L104
+	movzbl	24(%rbx), %eax
+	jg	.L110
+	je	.L103
 	movabsq	$-9223372036854775808, %rdx
 	cmpq	%rdx, %rbp
-	je	.L112
+	je	.L111
 	testb	%al, %al
-	je	.L104
+	je	.L103
 	negq	%rbp
 	testb	%al, %al
-	jle	.L105
-.L110:
+	jle	.L104
+.L109:
 	movl	$-1, %ecx
-	jmp	.L96
+	jmp	.L95
 	.p2align 4,,10
-.L111:
+.L110:
 	testb	%al, %al
-	jne	.L113
-.L104:
+	jne	.L112
+.L103:
 	movq	.refptr.number_zero(%rip), %rax
-.L94:
+.L93:
 	movq	%rax, (%rdi)
-.L91:
+.L90:
 	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -541,35 +526,35 @@ PMC_Multiply_X_L:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L113:
+.L112:
 	movl	$1, %ecx
-	jle	.L110
-.L96:
-	movq	8(%rbx), %rdx
+	jle	.L109
+.L95:
+	movq	16(%rbx), %rdx
 	leaq	40(%rsp), %r9
 	movq	%rbp, %r8
 	call	MultiplyU_X_L_Imp
 	testl	%eax, %eax
-	jne	.L107
+	jne	.L106
 	movq	40(%rsp), %rax
-	jmp	.L94
+	jmp	.L93
 	.p2align 4,,10
-.L112:
+.L111:
 	testb	%al, %al
-	je	.L104
+	je	.L103
 	movl	$-1, %ecx
-	jg	.L96
-.L105:
+	jg	.L95
+.L104:
 	movl	$1, %ecx
-	jmp	.L96
+	jmp	.L95
 	.p2align 4,,10
-.L107:
+.L106:
 	movl	%eax, %esi
-	jmp	.L91
+	jmp	.L90
 	.p2align 4,,10
-.L98:
+.L97:
 	movl	$-1, %esi
-	jmp	.L91
+	jmp	.L90
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Multiply_X_UX
@@ -587,53 +572,29 @@ PMC_Multiply_X_UX:
 	subq	$56, %rsp
 	.seh_stackalloc	56
 	.seh_endprologue
-	movq	%rdx, %rdi
+	movq	%rdx, %rbp
 	testq	%r8, %r8
-	movq	%rcx, %rsi
+	movq	%rcx, %rbx
 	sete	%dl
-	testq	%rdi, %rdi
-	movq	%r8, %rbp
+	testq	%rbp, %rbp
+	movq	%r8, %rdi
 	sete	%al
 	orb	%al, %dl
-	jne	.L117
+	jne	.L116
 	testq	%rcx, %rcx
-	je	.L117
+	je	.L116
 	call	CheckNumber
 	testl	%eax, %eax
-	movl	%eax, %ebx
-	je	.L121
-.L114:
-	movl	%ebx, %eax
-	addq	$56, %rsp
-	popq	%rbx
-	popq	%rsi
-	popq	%rdi
-	popq	%rbp
-	ret
-	.p2align 4,,10
-.L121:
-	leaq	39(%rsp), %rdx
-	movq	%rdi, %rcx
-	call	IsZero_UINT
-	testl	%eax, %eax
-	movl	%eax, %ebx
-	jne	.L114
-	movsbl	16(%rsi), %ecx
+	movl	%eax, %esi
+	jne	.L113
+	movsbl	24(%rbx), %ecx
 	movq	.refptr.number_zero(%rip), %rax
 	testb	%cl, %cl
-	je	.L116
-	cmpb	$0, 39(%rsp)
-	jne	.L116
-	movq	8(%rsi), %rdx
-	leaq	40(%rsp), %r9
-	movq	%rdi, %r8
-	call	MultiplyU_X_X_Imp
-	testl	%eax, %eax
 	jne	.L120
-	movq	40(%rsp), %rax
-.L116:
-	movq	%rax, 0(%rbp)
-	movl	%ebx, %eax
+.L115:
+	movq	%rax, (%rdi)
+.L113:
+	movl	%esi, %eax
 	addq	$56, %rsp
 	popq	%rbx
 	popq	%rsi
@@ -642,12 +603,24 @@ PMC_Multiply_X_UX:
 	ret
 	.p2align 4,,10
 .L120:
-	movl	%eax, %ebx
-	jmp	.L114
+	testb	$1, 0(%rbp)
+	jne	.L115
+	movq	16(%rbx), %rdx
+	leaq	40(%rsp), %r9
+	movq	%rbp, %r8
+	call	MultiplyU_X_X_Imp
+	testl	%eax, %eax
+	jne	.L119
+	movq	40(%rsp), %rax
+	jmp	.L115
 	.p2align 4,,10
-.L117:
-	movl	$-1, %ebx
-	jmp	.L114
+.L119:
+	movl	%eax, %esi
+	jmp	.L113
+	.p2align 4,,10
+.L116:
+	movl	$-1, %esi
+	jmp	.L113
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_Multiply_X_X
@@ -673,14 +646,14 @@ PMC_Multiply_X_X:
 	movq	%r8, %rbp
 	sete	%al
 	orb	%al, %dl
-	jne	.L126
+	jne	.L125
 	testq	%rcx, %rcx
-	je	.L126
+	je	.L125
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %ebx
-	je	.L137
-.L122:
+	je	.L136
+.L121:
 	movl	%ebx, %eax
 	addq	$56, %rsp
 	popq	%rbx
@@ -689,20 +662,20 @@ PMC_Multiply_X_X:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L137:
+.L136:
 	movq	%rdi, %rcx
 	call	CheckNumber
 	testl	%eax, %eax
 	movl	%eax, %ebx
-	jne	.L122
-	cmpb	$0, 16(%rsi)
-	je	.L127
-	movsbl	16(%rdi), %ecx
+	jne	.L121
+	cmpb	$0, 24(%rsi)
+	je	.L126
+	movsbl	24(%rdi), %ecx
 	movq	.refptr.number_zero(%rip), %rax
-	jle	.L125
+	jle	.L124
 	testb	%cl, %cl
-	jne	.L138
-.L124:
+	jne	.L137
+.L123:
 	movq	%rax, 0(%rbp)
 	movl	%ebx, %eax
 	addq	$56, %rsp
@@ -712,41 +685,42 @@ PMC_Multiply_X_X:
 	popq	%rbp
 	ret
 	.p2align 4,,10
-.L127:
+.L126:
 	movq	.refptr.number_zero(%rip), %rax
-	jmp	.L124
+	jmp	.L123
 	.p2align 4,,10
-.L125:
+.L124:
 	testb	%cl, %cl
-	je	.L124
-	movq	8(%rsi), %rdx
+	je	.L123
+	movq	16(%rsi), %rdx
 	negl	%ecx
 	movsbl	%cl, %ecx
-.L136:
-	movq	8(%rdi), %r8
+.L135:
+	movq	16(%rdi), %r8
 	leaq	40(%rsp), %r9
 	call	MultiplyU_X_X_Imp
 	testl	%eax, %eax
-	jne	.L131
+	jne	.L130
 	movq	40(%rsp), %rax
-	jmp	.L124
+	jmp	.L123
 	.p2align 4,,10
-.L138:
-	movq	8(%rsi), %rdx
-	jmp	.L136
+.L137:
+	movq	16(%rsi), %rdx
+	jmp	.L135
 	.p2align 4,,10
-.L126:
+.L125:
 	movl	$-1, %ebx
-	jmp	.L122
+	jmp	.L121
 	.p2align 4,,10
-.L131:
+.L130:
 	movl	%eax, %ebx
-	jmp	.L122
+	jmp	.L121
 	.seh_endproc
+	.comm	uint_number_one, 8, 3
+	.comm	uint_number_zero, 8, 3
 	.ident	"GCC: (x86_64-win32-seh-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	AllocateNumber;	.scl	2;	.type	32;	.endef
 	.def	CheckNumber;	.scl	2;	.type	32;	.endef
-	.def	IsZero_UINT;	.scl	2;	.type	32;	.endef
 	.section	.rdata$.refptr.number_zero, "dr"
 	.globl	.refptr.number_zero
 	.linkonce	discard

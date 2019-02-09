@@ -5,5 +5,8 @@ include listing.inc
 INCLUDELIB OLDNAMES
 
 EXTRN	__security_check_cookie:PROC
+COMM	uint_number_zero:QWORD
+COMM	uint_number_one:QWORD
+_DATA	ENDS
 PUBLIC	DoDebug
 END

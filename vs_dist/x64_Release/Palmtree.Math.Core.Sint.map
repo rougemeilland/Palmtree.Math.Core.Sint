@@ -1,26 +1,26 @@
  Palmtree.Math.Core.Sint
 
- Timestamp is 5c5d8728 (Fri Feb  8 22:42:00 2019)
+ Timestamp is 5c5ec777 (Sat Feb  9 21:28:39 2019)
 
  Preferred load address is 0000000180000000
 
  Start         Length     Name                   Class
- 0001:00000000 00003190H .text$mn                CODE
- 0001:00003190 00000012H .text$mn$00             CODE
+ 0001:00000000 00003ba0H .text$mn                CODE
+ 0001:00003ba0 00000012H .text$mn$00             CODE
  0002:00000000 00000080H .idata$5                DATA
  0002:00000080 00000010H .00cfg                  DATA
  0002:00000090 00000000H .gfids$y                DATA
  0002:00000090 000001c0H .rdata                  DATA
  0002:00000250 000001e0H .rdata$zzzdbg           DATA
- 0002:00000430 000002e0H .xdata                  DATA
- 0002:00000710 00000074H .edata                  DATA
- 0002:00000784 00000014H .idata$2                DATA
- 0002:00000798 00000018H .idata$3                DATA
- 0002:000007b0 00000080H .idata$4                DATA
- 0002:00000830 00000132H .idata$6                DATA
+ 0002:00000430 00000600H .xdata                  DATA
+ 0002:00000a30 00000074H .edata                  DATA
+ 0002:00000aa4 00000014H .idata$2                DATA
+ 0002:00000ab8 00000018H .idata$3                DATA
+ 0002:00000ad0 00000080H .idata$4                DATA
+ 0002:00000b50 00000132H .idata$6                DATA
  0003:00000000 00000020H .data                   DATA
- 0003:00000020 00000b70H .bss                    DATA
- 0004:00000000 000003d8H .pdata                  DATA
+ 0003:00000020 00000b98H .bss                    DATA
+ 0004:00000000 0000072cH .pdata                  DATA
  0005:00000000 000000a0H .rsrc$01                DATA
  0005:000000a0 000004a0H .rsrc$02                DATA
 
@@ -44,50 +44,57 @@
  0001:00000000       DoDebug                    0000000180001000 f   debug.obj
  0001:00000000       _guard_check_icall_nop     0000000180001000 f   MSVCRT:guard_support.obj
  0001:00000010       DllMain                    0000000180001010 f   dllmain.obj
- 0001:00000610       PMC_Add_I_X                0000000180001610 f   pmc_add_sub.obj
- 0001:00000750       PMC_Add_L_X                0000000180001750 f   pmc_add_sub.obj
- 0001:000008a0       PMC_Add_UX_X               00000001800018a0 f   pmc_add_sub.obj
- 0001:00000a70       PMC_Add_X_I                0000000180001a70 f   pmc_add_sub.obj
- 0001:00000b90       PMC_Add_X_L                0000000180001b90 f   pmc_add_sub.obj
- 0001:00000cc0       PMC_Add_X_UX               0000000180001cc0 f   pmc_add_sub.obj
- 0001:00000ec0       PMC_Add_X_X                0000000180001ec0 f   pmc_add_sub.obj
- 0001:00000ff0       PMC_Subtruct_I_X           0000000180001ff0 f   pmc_add_sub.obj
- 0001:00001130       PMC_Subtruct_L_X           0000000180002130 f   pmc_add_sub.obj
- 0001:00001280       PMC_Subtruct_UX_X          0000000180002280 f   pmc_add_sub.obj
- 0001:00001460       PMC_Subtruct_X_I           0000000180002460 f   pmc_add_sub.obj
- 0001:00001580       PMC_Subtruct_X_L           0000000180002580 f   pmc_add_sub.obj
- 0001:000016b0       PMC_Subtruct_X_UX          00000001800026b0 f   pmc_add_sub.obj
- 0001:000018a0       PMC_Subtruct_X_X           00000001800028a0 f   pmc_add_sub.obj
- 0001:000019d0       PMC_FromByteArray          00000001800029d0 f   pmc_bytes.obj
- 0001:00001a90       PMC_ToByteArray            0000000180002a90 f   pmc_bytes.obj
- 0001:00001ae0       PMC_Clone_X                0000000180002ae0 f   pmc_clone.obj
- 0001:00001b50       From_I_Imp                 0000000180002b50 f   pmc_from.obj
- 0001:00001bf0       From_L_Imp                 0000000180002bf0 f   pmc_from.obj
- 0001:00001c90       PMC_From_I                 0000000180002c90 f   pmc_from.obj
- 0001:00001d60       PMC_From_L                 0000000180002d60 f   pmc_from.obj
- 0001:00001e30       PMC_GetNumberType_X        0000000180002e30 f   pmc_getnumbertype.obj
- 0001:00001ea0       PMC_SINT_Initialize        0000000180002ea0 f   pmc_initialize.obj
- 0001:00002310       AllocateNumber             0000000180003310 f   pmc_memory.obj
- 0001:00002380       DuplicateNumber            0000000180003380 f   pmc_memory.obj
- 0001:00002460       Negate_Imp                 0000000180003460 f   pmc_memory.obj
- 0001:00002560       PMC_GetConstantValue_I     0000000180003560 f   pmc_memory.obj
- 0001:000025a0       PMC_Dispose                00000001800035a0 f   pmc_memory.obj
- 0001:00002800       PMC_Multiply_I_X           0000000180003800 f   pmc_multiply.obj
- 0001:000028d0       PMC_Multiply_L_X           00000001800038d0 f   pmc_multiply.obj
- 0001:000029a0       PMC_Multiply_UX_X          00000001800039a0 f   pmc_multiply.obj
- 0001:00002a80       PMC_Multiply_X_I           0000000180003a80 f   pmc_multiply.obj
- 0001:00002b60       PMC_Multiply_X_L           0000000180003b60 f   pmc_multiply.obj
- 0001:00002c40       PMC_Multiply_X_UX          0000000180003c40 f   pmc_multiply.obj
- 0001:00002d20       PMC_Multiply_X_X           0000000180003d20 f   pmc_multiply.obj
- 0001:00002e00       PMC_Negate_X               0000000180003e00 f   pmc_negate.obj
- 0001:00002e60       PMC_GetStatisticsInfo      0000000180003e60 f   pmc_statistics.obj
- 0001:00002e70       PMC_To_X_I                 0000000180003e70 f   pmc_to.obj
- 0001:00002f10       PMC_To_X_L                 0000000180003f10 f   pmc_to.obj
- 0001:00002fe0       __security_check_cookie    0000000180003fe0 f   MSVCRT:amdsecgs.obj
- 0001:00003004       __raise_securityfailure    0000000180004004 f   MSVCRT:gs_report.obj
- 0001:00003038       __report_gsfailure         0000000180004038 f   MSVCRT:gs_report.obj
- 0001:0000317d       IsProcessorFeaturePresent  000000018000417d f   kernel32:KERNEL32.dll
- 0001:000031a0       _guard_dispatch_icall_nop  00000001800041a0 f   MSVCRT:guard_dispatch.obj
+ 0001:00000650       PMC_Add_I_X                0000000180001650 f   pmc_add_sub.obj
+ 0001:00000790       PMC_Add_L_X                0000000180001790 f   pmc_add_sub.obj
+ 0001:000008e0       PMC_Add_UX_X               00000001800018e0 f   pmc_add_sub.obj
+ 0001:00000a50       PMC_Add_X_I                0000000180001a50 f   pmc_add_sub.obj
+ 0001:00000b70       PMC_Add_X_L                0000000180001b70 f   pmc_add_sub.obj
+ 0001:00000ca0       PMC_Add_X_UX               0000000180001ca0 f   pmc_add_sub.obj
+ 0001:00000e20       PMC_Add_X_X                0000000180001e20 f   pmc_add_sub.obj
+ 0001:00000f50       PMC_Subtruct_I_X           0000000180001f50 f   pmc_add_sub.obj
+ 0001:00001090       PMC_Subtruct_L_X           0000000180002090 f   pmc_add_sub.obj
+ 0001:000011e0       PMC_Subtruct_UX_X          00000001800021e0 f   pmc_add_sub.obj
+ 0001:00001360       PMC_Subtruct_X_I           0000000180002360 f   pmc_add_sub.obj
+ 0001:00001480       PMC_Subtruct_X_L           0000000180002480 f   pmc_add_sub.obj
+ 0001:000015b0       PMC_Subtruct_X_UX          00000001800025b0 f   pmc_add_sub.obj
+ 0001:00001730       PMC_Subtruct_X_X           0000000180002730 f   pmc_add_sub.obj
+ 0001:00001860       PMC_FromByteArray          0000000180002860 f   pmc_bytes.obj
+ 0001:00001930       PMC_ToByteArray            0000000180002930 f   pmc_bytes.obj
+ 0001:00001980       PMC_Clone_X                0000000180002980 f   pmc_clone.obj
+ 0001:000019f0       PMC_DivRem_I_X             00000001800029f0 f   pmc_divrem.obj
+ 0001:00001b90       PMC_DivRem_L_X             0000000180002b90 f   pmc_divrem.obj
+ 0001:00001d40       PMC_DivRem_UX_X            0000000180002d40 f   pmc_divrem.obj
+ 0001:00001e90       PMC_DivRem_X_I             0000000180002e90 f   pmc_divrem.obj
+ 0001:00002000       PMC_DivRem_X_L             0000000180003000 f   pmc_divrem.obj
+ 0001:00002180       PMC_DivRem_X_UX            0000000180003180 f   pmc_divrem.obj
+ 0001:00002350       PMC_DivRem_X_X             0000000180003350 f   pmc_divrem.obj
+ 0001:00002550       From_I_Imp                 0000000180003550 f   pmc_from.obj
+ 0001:000025f0       From_L_Imp                 00000001800035f0 f   pmc_from.obj
+ 0001:00002690       PMC_From_I                 0000000180003690 f   pmc_from.obj
+ 0001:00002780       PMC_From_L                 0000000180003780 f   pmc_from.obj
+ 0001:00002870       PMC_SINT_Initialize        0000000180003870 f   pmc_initialize.obj
+ 0001:00002d40       AllocateNumber             0000000180003d40 f   pmc_memory.obj
+ 0001:00002dc0       DeallocateNumber           0000000180003dc0 f   pmc_memory.obj
+ 0001:00002dc0       PMC_Dispose                0000000180003dc0 f   pmc_memory.obj
+ 0001:00002e10       DuplicateNumber            0000000180003e10 f   pmc_memory.obj
+ 0001:00002ef0       Negate_Imp                 0000000180003ef0 f   pmc_memory.obj
+ 0001:00003010       PMC_GetConstantValue_I     0000000180004010 f   pmc_memory.obj
+ 0001:000032b0       PMC_Multiply_I_X           00000001800042b0 f   pmc_multiply.obj
+ 0001:00003380       PMC_Multiply_L_X           0000000180004380 f   pmc_multiply.obj
+ 0001:00003450       PMC_Multiply_UX_X          0000000180004450 f   pmc_multiply.obj
+ 0001:000034e0       PMC_Multiply_X_I           00000001800044e0 f   pmc_multiply.obj
+ 0001:000035c0       PMC_Multiply_X_L           00000001800045c0 f   pmc_multiply.obj
+ 0001:000036a0       PMC_Multiply_X_UX          00000001800046a0 f   pmc_multiply.obj
+ 0001:00003730       PMC_Multiply_X_X           0000000180004730 f   pmc_multiply.obj
+ 0001:00003810       PMC_Negate_X               0000000180004810 f   pmc_negate.obj
+ 0001:00003870       PMC_GetStatisticsInfo      0000000180004870 f   pmc_statistics.obj
+ 0001:00003880       PMC_To_X_I                 0000000180004880 f   pmc_to.obj
+ 0001:00003920       PMC_To_X_L                 0000000180004920 f   pmc_to.obj
+ 0001:000039f0       __security_check_cookie    00000001800049f0 f   MSVCRT:amdsecgs.obj
+ 0001:00003a14       __raise_securityfailure    0000000180004a14 f   MSVCRT:gs_report.obj
+ 0001:00003a48       __report_gsfailure         0000000180004a48 f   MSVCRT:gs_report.obj
+ 0001:00003b8d       IsProcessorFeaturePresent  0000000180004b8d f   kernel32:KERNEL32.dll
+ 0001:00003bb0       _guard_dispatch_icall_nop  0000000180004bb0 f   MSVCRT:guard_dispatch.obj
  0002:00000000       __imp_LoadLibraryA         0000000180005000     kernel32:KERNEL32.dll
  0002:00000008       __imp_GetProcAddress       0000000180005008     kernel32:KERNEL32.dll
  0002:00000010       __imp_FreeLibrary          0000000180005010     kernel32:KERNEL32.dll
@@ -109,15 +116,17 @@
  0002:000000a0       ??_C@_0BM@ONKLCLPJ@Palmtree?4Math?4Core?4Uint?4dll@ 00000001800050a0     pmc_initialize.obj
  0002:000000c0       ??_C@_0BE@LMKJAMNH@PMC_UINT_Initialize@ 00000001800050c0     pmc_initialize.obj
  0002:00000150       _load_config_used          0000000180005150     MSVCRT:loadcfg.obj
- 0002:00000784       __IMPORT_DESCRIPTOR_KERNEL32 0000000180005784     kernel32:KERNEL32.dll
- 0002:00000798       __NULL_IMPORT_DESCRIPTOR   0000000180005798     kernel32:KERNEL32.dll
+ 0002:00000aa4       __IMPORT_DESCRIPTOR_KERNEL32 0000000180005aa4     kernel32:KERNEL32.dll
+ 0002:00000ab8       __NULL_IMPORT_DESCRIPTOR   0000000180005ab8     kernel32:KERNEL32.dll
  0003:00000000       __security_cookie_complement 0000000180006000     MSVCRT:gs_cookie.obj
  0003:00000008       __security_cookie          0000000180006008     MSVCRT:gs_cookie.obj
- 0003:000008e0       hLocalHeap                 00000001800068e0     <common>
- 0003:00000900       number_one                 0000000180006900     <common>
- 0003:00000920       number_minus_one           0000000180006920     <common>
- 0003:00000940       number_zero                0000000180006940     <common>
- 0003:00000960       ep_uint                    0000000180006960     <common>
+ 0003:00000908       hLocalHeap                 0000000180006908     <common>
+ 0003:00000920       number_one                 0000000180006920     <common>
+ 0003:00000940       number_minus_one           0000000180006940     <common>
+ 0003:00000960       number_zero                0000000180006960     <common>
+ 0003:00000980       ep_uint                    0000000180006980     <common>
+ 0003:00000ba8       uint_number_one            0000000180006ba8     <common>
+ 0003:00000bb0       uint_number_zero           0000000180006bb0     <common>
 
  entry point at        0001:00000010
 
@@ -134,200 +143,344 @@
  0000:ffff6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
  0000:ffff6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
  0000:ffff6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:ffff6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:ffff6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
+ 0000:ffff6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
  0000:ffff6000       .debug$S                   0000000180000000     Palmtree.Math.Core.Sint.exp
  0000:ffff6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:ffff6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:ffff6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
- 0000:ffff6000       .debug$S                   0000000180000000     kernel32:KERNEL32.dll
  0001:00000080       AddU_X_I_Imp               0000000180001080 f   pmc_add_sub.obj
- 0001:00000130       AddU_X_L_Imp               0000000180001130 f   pmc_add_sub.obj
- 0001:000001e0       AddU_X_X_Imp               00000001800011e0 f   pmc_add_sub.obj
- 0001:00000290       SubtructU_X_I_Imp          0000000180001290 f   pmc_add_sub.obj
- 0001:000003c0       SubtructU_X_L_Imp          00000001800013c0 f   pmc_add_sub.obj
- 0001:000004f0       SubtructU_X_X_Imp          00000001800014f0 f   pmc_add_sub.obj
- 0001:00002230       InitializeNumber           0000000180003230 f   pmc_memory.obj
- 0001:000025f0       MultiplyU_X_I_Imp          00000001800035f0 f   pmc_multiply.obj
- 0001:000026a0       MultiplyU_X_L_Imp          00000001800036a0 f   pmc_multiply.obj
- 0001:00002750       MultiplyU_X_X_Imp          0000000180003750 f   pmc_multiply.obj
- 0001:00002fd0       $$000000                   0000000180003fd0     MSVCRT:amdsecgs.obj
- 0001:0000310c       capture_previous_context   000000018000410c f   MSVCRT:gs_report.obj
- 0001:00003190       $$000000                   0000000180004190     MSVCRT:guard_dispatch.obj
+ 0001:00000140       AddU_X_L_Imp               0000000180001140 f   pmc_add_sub.obj
+ 0001:00000210       AddU_X_X_Imp               0000000180001210 f   pmc_add_sub.obj
+ 0001:000002e0       SubtructU_X_I_Imp          00000001800012e0 f   pmc_add_sub.obj
+ 0001:00000410       SubtructU_X_L_Imp          0000000180001410 f   pmc_add_sub.obj
+ 0001:00000530       SubtructU_X_X_Imp          0000000180001530 f   pmc_add_sub.obj
+ 0001:00002c90       InitializeNumber           0000000180003c90 f   pmc_memory.obj
+ 0001:00003050       MultiplyU_X_I_Imp          0000000180004050 f   pmc_multiply.obj
+ 0001:00003110       MultiplyU_X_L_Imp          0000000180004110 f   pmc_multiply.obj
+ 0001:000031e0       MultiplyU_X_X_Imp          00000001800041e0 f   pmc_multiply.obj
+ 0001:000039e0       $$000000                   00000001800049e0     MSVCRT:amdsecgs.obj
+ 0001:00003b1c       capture_previous_context   0000000180004b1c f   MSVCRT:gs_report.obj
+ 0001:00003ba0       $$000000                   0000000180004ba0     MSVCRT:guard_dispatch.obj
  0002:00000090       GS_ExceptionPointers       0000000180005090     MSVCRT:gs_report.obj
  0002:00000430       $unwind$DllMain            0000000180005430     dllmain.obj
  0002:00000438       $unwind$AddU_X_X_Imp       0000000180005438     pmc_add_sub.obj
- 0002:00000438       $unwind$AddU_X_I_Imp       0000000180005438     pmc_add_sub.obj
  0002:00000438       $unwind$MultiplyU_X_L_Imp  0000000180005438     pmc_multiply.obj
+ 0002:00000438       $unwind$AddU_X_L_Imp       0000000180005438     pmc_add_sub.obj
+ 0002:00000438       $unwind$AddU_X_I_Imp       0000000180005438     pmc_add_sub.obj
  0002:00000438       $unwind$MultiplyU_X_I_Imp  0000000180005438     pmc_multiply.obj
  0002:00000438       $unwind$MultiplyU_X_X_Imp  0000000180005438     pmc_multiply.obj
- 0002:00000438       $unwind$AddU_X_L_Imp       0000000180005438     pmc_add_sub.obj
- 0002:00000444       $chain$1$AddU_X_I_Imp      0000000180005444     pmc_add_sub.obj
- 0002:0000045c       $chain$2$AddU_X_I_Imp      000000018000545c     pmc_add_sub.obj
- 0002:0000046c       $chain$1$AddU_X_L_Imp      000000018000546c     pmc_add_sub.obj
- 0002:00000484       $chain$2$AddU_X_L_Imp      0000000180005484     pmc_add_sub.obj
- 0002:00000494       $chain$1$AddU_X_X_Imp      0000000180005494     pmc_add_sub.obj
- 0002:000004ac       $chain$2$AddU_X_X_Imp      00000001800054ac     pmc_add_sub.obj
- 0002:000004bc       $unwind$SubtructU_X_I_Imp  00000001800054bc     pmc_add_sub.obj
- 0002:000004bc       $unwind$SubtructU_X_L_Imp  00000001800054bc     pmc_add_sub.obj
- 0002:000004d0       $unwind$SubtructU_X_X_Imp  00000001800054d0     pmc_add_sub.obj
- 0002:000004e4       $unwind$PMC_To_X_L         00000001800054e4     pmc_to.obj
- 0002:000004e4       $unwind$PMC_Multiply_X_L   00000001800054e4     pmc_multiply.obj
- 0002:000004e4       $unwind$PMC_Clone_X        00000001800054e4     pmc_clone.obj
- 0002:000004e4       $unwind$PMC_Multiply_I_X   00000001800054e4     pmc_multiply.obj
- 0002:000004e4       $unwind$PMC_Subtruct_X_X   00000001800054e4     pmc_add_sub.obj
- 0002:000004e4       $unwind$PMC_Multiply_X_X   00000001800054e4     pmc_multiply.obj
- 0002:000004e4       $unwind$__raise_securityfailure 00000001800054e4     MSVCRT:gs_report.obj
- 0002:000004e4       $unwind$PMC_Add_I_X        00000001800054e4     pmc_add_sub.obj
- 0002:000004e4       $unwind$PMC_To_X_I         00000001800054e4     pmc_to.obj
- 0002:000004e4       $unwind$PMC_Negate_X       00000001800054e4     pmc_negate.obj
- 0002:000004e4       $unwind$PMC_Add_L_X        00000001800054e4     pmc_add_sub.obj
- 0002:000004e4       $unwind$PMC_Add_X_I        00000001800054e4     pmc_add_sub.obj
- 0002:000004e4       $unwind$PMC_Add_X_L        00000001800054e4     pmc_add_sub.obj
- 0002:000004e4       $unwind$PMC_Subtruct_X_L   00000001800054e4     pmc_add_sub.obj
- 0002:000004e4       $unwind$PMC_Add_X_X        00000001800054e4     pmc_add_sub.obj
- 0002:000004e4       $unwind$PMC_Multiply_L_X   00000001800054e4     pmc_multiply.obj
- 0002:000004e4       $unwind$PMC_Subtruct_I_X   00000001800054e4     pmc_add_sub.obj
- 0002:000004e4       $unwind$PMC_Subtruct_L_X   00000001800054e4     pmc_add_sub.obj
- 0002:000004e4       $unwind$PMC_Subtruct_X_I   00000001800054e4     pmc_add_sub.obj
- 0002:000004e4       $unwind$PMC_Multiply_X_I   00000001800054e4     pmc_multiply.obj
- 0002:000004ec       $unwind$PMC_Add_UX_X       00000001800054ec     pmc_add_sub.obj
- 0002:000004ec       $unwind$InitializeNumber   00000001800054ec     pmc_memory.obj
- 0002:000004fc       $unwind$PMC_Add_X_UX       00000001800054fc     pmc_add_sub.obj
- 0002:000004fc       $unwind$PMC_From_L         00000001800054fc     pmc_from.obj
- 0002:000004fc       $unwind$PMC_Multiply_UX_X  00000001800054fc     pmc_multiply.obj
- 0002:000004fc       $unwind$PMC_Subtruct_UX_X  00000001800054fc     pmc_add_sub.obj
- 0002:000004fc       $unwind$PMC_Subtruct_X_UX  00000001800054fc     pmc_add_sub.obj
- 0002:000004fc       $unwind$PMC_Multiply_X_UX  00000001800054fc     pmc_multiply.obj
- 0002:0000050c       $unwind$PMC_FromByteArray  000000018000550c     pmc_bytes.obj
- 0002:00000514       $chain$2$PMC_FromByteArray 0000000180005514     pmc_bytes.obj
- 0002:00000530       $chain$3$PMC_FromByteArray 0000000180005530     pmc_bytes.obj
- 0002:00000530       $chain$5$PMC_FromByteArray 0000000180005530     pmc_bytes.obj
- 0002:00000540       $chain$4$PMC_FromByteArray 0000000180005540     pmc_bytes.obj
- 0002:0000055c       $unwind$PMC_ToByteArray    000000018000555c     pmc_bytes.obj
- 0002:00000564       $unwind$From_I_Imp         0000000180005564     pmc_from.obj
- 0002:00000564       $unwind$AllocateNumber     0000000180005564     pmc_memory.obj
- 0002:00000564       $unwind$From_L_Imp         0000000180005564     pmc_from.obj
- 0002:00000578       $unwind$PMC_From_I         0000000180005578     pmc_from.obj
- 0002:00000588       $unwind$PMC_SINT_Initialize 0000000180005588     pmc_initialize.obj
- 0002:00000590       $chain$0$PMC_SINT_Initialize 0000000180005590     pmc_initialize.obj
- 0002:000005a4       $chain$1$PMC_SINT_Initialize 00000001800055a4     pmc_initialize.obj
- 0002:000005b4       $unwind$DuplicateNumber    00000001800055b4     pmc_memory.obj
- 0002:000005c0       $unwind$Negate_Imp         00000001800055c0     pmc_memory.obj
- 0002:000005cc       $chain$1$Negate_Imp        00000001800055cc     pmc_memory.obj
- 0002:000005e4       $chain$2$Negate_Imp        00000001800055e4     pmc_memory.obj
- 0002:000005f4       $unwind$PMC_Dispose        00000001800055f4     pmc_memory.obj
- 0002:000005fc       $chain$1$MultiplyU_X_I_Imp 00000001800055fc     pmc_multiply.obj
- 0002:00000614       $chain$2$MultiplyU_X_I_Imp 0000000180005614     pmc_multiply.obj
- 0002:00000624       $chain$1$MultiplyU_X_L_Imp 0000000180005624     pmc_multiply.obj
- 0002:0000063c       $chain$2$MultiplyU_X_L_Imp 000000018000563c     pmc_multiply.obj
- 0002:0000064c       $chain$1$MultiplyU_X_X_Imp 000000018000564c     pmc_multiply.obj
- 0002:00000664       $chain$2$MultiplyU_X_X_Imp 0000000180005664     pmc_multiply.obj
- 0002:00000674       $chain$0$PMC_To_X_I        0000000180005674     pmc_to.obj
- 0002:00000688       $chain$4$PMC_To_X_I        0000000180005688     pmc_to.obj
- 0002:00000688       $chain$6$PMC_To_X_I        0000000180005688     pmc_to.obj
- 0002:00000688       $chain$2$PMC_To_X_I        0000000180005688     pmc_to.obj
- 0002:0000069c       $chain$7$PMC_To_X_I        000000018000569c     pmc_to.obj
- 0002:000006ac       $chain$0$PMC_To_X_L        00000001800056ac     pmc_to.obj
- 0002:000006c0       $chain$2$PMC_To_X_L        00000001800056c0     pmc_to.obj
- 0002:000006c0       $chain$6$PMC_To_X_L        00000001800056c0     pmc_to.obj
- 0002:000006c0       $chain$4$PMC_To_X_L        00000001800056c0     pmc_to.obj
- 0002:000006d4       $chain$7$PMC_To_X_L        00000001800056d4     pmc_to.obj
- 0002:000006e8       $xdatasym                  00000001800056e8     MSVCRT:amdsecgs.obj
- 0002:000006ec       $unwind$__report_gsfailure 00000001800056ec     MSVCRT:gs_report.obj
- 0002:000006f4       $unwind$capture_previous_context 00000001800056f4     MSVCRT:gs_report.obj
- 0002:00000700       $xdatasym                  0000000180005700     MSVCRT:guard_dispatch.obj
- 0002:00000710       .edata                     0000000180005710     Palmtree.Math.Core.Sint.exp
- 0002:00000738       rgpv                       0000000180005738     Palmtree.Math.Core.Sint.exp
- 0002:00000740       rgszName                   0000000180005740     Palmtree.Math.Core.Sint.exp
- 0002:00000748       rgwOrd                     0000000180005748     Palmtree.Math.Core.Sint.exp
- 0002:0000074c       szName                     000000018000574c     Palmtree.Math.Core.Sint.exp
- 0002:00000768       $N00001                    0000000180005768     Palmtree.Math.Core.Sint.exp
- 0002:00000770       $N00002                    0000000180005770     Palmtree.Math.Core.Sint.exp
- 0002:00000894       .idata$6                   0000000180005894     kernel32:KERNEL32.dll
+ 0002:00000444       $chain$0$AddU_X_I_Imp      0000000180005444     pmc_add_sub.obj
+ 0002:00000458       $chain$2$AddU_X_I_Imp      0000000180005458     pmc_add_sub.obj
+ 0002:00000458       $chain$4$AddU_X_I_Imp      0000000180005458     pmc_add_sub.obj
+ 0002:0000046c       $chain$5$AddU_X_I_Imp      000000018000546c     pmc_add_sub.obj
+ 0002:0000047c       $chain$0$AddU_X_L_Imp      000000018000547c     pmc_add_sub.obj
+ 0002:00000490       $chain$4$AddU_X_L_Imp      0000000180005490     pmc_add_sub.obj
+ 0002:00000490       $chain$2$AddU_X_L_Imp      0000000180005490     pmc_add_sub.obj
+ 0002:000004a4       $chain$5$AddU_X_L_Imp      00000001800054a4     pmc_add_sub.obj
+ 0002:000004b4       $chain$0$AddU_X_X_Imp      00000001800054b4     pmc_add_sub.obj
+ 0002:000004c8       $chain$2$AddU_X_X_Imp      00000001800054c8     pmc_add_sub.obj
+ 0002:000004c8       $chain$4$AddU_X_X_Imp      00000001800054c8     pmc_add_sub.obj
+ 0002:000004dc       $chain$5$AddU_X_X_Imp      00000001800054dc     pmc_add_sub.obj
+ 0002:000004ec       $unwind$SubtructU_X_L_Imp  00000001800054ec     pmc_add_sub.obj
+ 0002:000004ec       $unwind$SubtructU_X_I_Imp  00000001800054ec     pmc_add_sub.obj
+ 0002:00000500       $unwind$SubtructU_X_X_Imp  0000000180005500     pmc_add_sub.obj
+ 0002:00000514       $unwind$PMC_Clone_X        0000000180005514     pmc_clone.obj
+ 0002:00000514       $unwind$PMC_To_X_L         0000000180005514     pmc_to.obj
+ 0002:00000514       $unwind$PMC_Negate_X       0000000180005514     pmc_negate.obj
+ 0002:00000514       $unwind$PMC_Subtruct_L_X   0000000180005514     pmc_add_sub.obj
+ 0002:00000514       $unwind$PMC_Subtruct_X_I   0000000180005514     pmc_add_sub.obj
+ 0002:00000514       $unwind$PMC_Subtruct_I_X   0000000180005514     pmc_add_sub.obj
+ 0002:00000514       $unwind$PMC_Multiply_X_L   0000000180005514     pmc_multiply.obj
+ 0002:00000514       $unwind$PMC_Subtruct_X_L   0000000180005514     pmc_add_sub.obj
+ 0002:00000514       $unwind$PMC_Multiply_I_X   0000000180005514     pmc_multiply.obj
+ 0002:00000514       $unwind$PMC_Subtruct_X_X   0000000180005514     pmc_add_sub.obj
+ 0002:00000514       $unwind$PMC_Multiply_X_I   0000000180005514     pmc_multiply.obj
+ 0002:00000514       $unwind$PMC_Multiply_UX_X  0000000180005514     pmc_multiply.obj
+ 0002:00000514       $unwind$PMC_Multiply_X_X   0000000180005514     pmc_multiply.obj
+ 0002:00000514       $unwind$PMC_To_X_I         0000000180005514     pmc_to.obj
+ 0002:00000514       $unwind$PMC_Multiply_L_X   0000000180005514     pmc_multiply.obj
+ 0002:00000514       $unwind$__raise_securityfailure 0000000180005514     MSVCRT:gs_report.obj
+ 0002:00000514       $unwind$PMC_Add_I_X        0000000180005514     pmc_add_sub.obj
+ 0002:00000514       $unwind$PMC_Add_L_X        0000000180005514     pmc_add_sub.obj
+ 0002:00000514       $unwind$PMC_Add_X_I        0000000180005514     pmc_add_sub.obj
+ 0002:00000514       $unwind$PMC_Add_X_L        0000000180005514     pmc_add_sub.obj
+ 0002:00000514       $unwind$PMC_Add_X_X        0000000180005514     pmc_add_sub.obj
+ 0002:00000514       $unwind$PMC_Multiply_X_UX  0000000180005514     pmc_multiply.obj
+ 0002:0000051c       $unwind$PMC_Add_UX_X       000000018000551c     pmc_add_sub.obj
+ 0002:0000051c       $unwind$PMC_Add_X_UX       000000018000551c     pmc_add_sub.obj
+ 0002:0000051c       $unwind$PMC_Subtruct_X_UX  000000018000551c     pmc_add_sub.obj
+ 0002:0000051c       $unwind$PMC_FromByteArray  000000018000551c     pmc_bytes.obj
+ 0002:0000051c       $unwind$PMC_Subtruct_UX_X  000000018000551c     pmc_add_sub.obj
+ 0002:00000524       $chain$0$PMC_Add_UX_X      0000000180005524     pmc_add_sub.obj
+ 0002:00000538       $chain$6$PMC_Add_UX_X      0000000180005538     pmc_add_sub.obj
+ 0002:00000538       $chain$10$PMC_Add_UX_X     0000000180005538     pmc_add_sub.obj
+ 0002:00000538       $chain$4$PMC_Add_UX_X      0000000180005538     pmc_add_sub.obj
+ 0002:00000538       $chain$2$PMC_Add_UX_X      0000000180005538     pmc_add_sub.obj
+ 0002:00000538       $chain$8$PMC_Add_UX_X      0000000180005538     pmc_add_sub.obj
+ 0002:0000054c       $chain$11$PMC_Add_UX_X     000000018000554c     pmc_add_sub.obj
+ 0002:0000055c       $chain$0$PMC_Add_X_UX      000000018000555c     pmc_add_sub.obj
+ 0002:00000570       $chain$6$PMC_Add_X_UX      0000000180005570     pmc_add_sub.obj
+ 0002:00000570       $chain$4$PMC_Add_X_UX      0000000180005570     pmc_add_sub.obj
+ 0002:00000570       $chain$8$PMC_Add_X_UX      0000000180005570     pmc_add_sub.obj
+ 0002:00000570       $chain$10$PMC_Add_X_UX     0000000180005570     pmc_add_sub.obj
+ 0002:00000570       $chain$2$PMC_Add_X_UX      0000000180005570     pmc_add_sub.obj
+ 0002:00000584       $chain$11$PMC_Add_X_UX     0000000180005584     pmc_add_sub.obj
+ 0002:00000594       $chain$0$PMC_Subtruct_UX_X 0000000180005594     pmc_add_sub.obj
+ 0002:000005a8       $chain$8$PMC_Subtruct_UX_X 00000001800055a8     pmc_add_sub.obj
+ 0002:000005a8       $chain$4$PMC_Subtruct_UX_X 00000001800055a8     pmc_add_sub.obj
+ 0002:000005a8       $chain$10$PMC_Subtruct_UX_X 00000001800055a8     pmc_add_sub.obj
+ 0002:000005a8       $chain$2$PMC_Subtruct_UX_X 00000001800055a8     pmc_add_sub.obj
+ 0002:000005a8       $chain$6$PMC_Subtruct_UX_X 00000001800055a8     pmc_add_sub.obj
+ 0002:000005bc       $chain$11$PMC_Subtruct_UX_X 00000001800055bc     pmc_add_sub.obj
+ 0002:000005cc       $chain$0$PMC_Subtruct_X_UX 00000001800055cc     pmc_add_sub.obj
+ 0002:000005e0       $chain$2$PMC_Subtruct_X_UX 00000001800055e0     pmc_add_sub.obj
+ 0002:000005e0       $chain$10$PMC_Subtruct_X_UX 00000001800055e0     pmc_add_sub.obj
+ 0002:000005e0       $chain$6$PMC_Subtruct_X_UX 00000001800055e0     pmc_add_sub.obj
+ 0002:000005e0       $chain$4$PMC_Subtruct_X_UX 00000001800055e0     pmc_add_sub.obj
+ 0002:000005e0       $chain$8$PMC_Subtruct_X_UX 00000001800055e0     pmc_add_sub.obj
+ 0002:000005f4       $chain$11$PMC_Subtruct_X_UX 00000001800055f4     pmc_add_sub.obj
+ 0002:00000604       $chain$1$PMC_FromByteArray 0000000180005604     pmc_bytes.obj
+ 0002:0000061c       $chain$2$PMC_FromByteArray 000000018000561c     pmc_bytes.obj
+ 0002:0000061c       $chain$4$PMC_FromByteArray 000000018000561c     pmc_bytes.obj
+ 0002:0000062c       $chain$3$PMC_FromByteArray 000000018000562c     pmc_bytes.obj
+ 0002:00000644       $unwind$PMC_ToByteArray    0000000180005644     pmc_bytes.obj
+ 0002:0000064c       $unwind$PMC_DivRem_L_X     000000018000564c     pmc_divrem.obj
+ 0002:0000064c       $unwind$PMC_DivRem_I_X     000000018000564c     pmc_divrem.obj
+ 0002:00000658       $chain$2$PMC_DivRem_I_X    0000000180005658     pmc_divrem.obj
+ 0002:00000674       $chain$4$PMC_DivRem_I_X    0000000180005674     pmc_divrem.obj
+ 0002:00000690       $chain$5$PMC_DivRem_I_X    0000000180005690     pmc_divrem.obj
+ 0002:000006a0       $chain$2$PMC_DivRem_L_X    00000001800056a0     pmc_divrem.obj
+ 0002:000006bc       $chain$4$PMC_DivRem_L_X    00000001800056bc     pmc_divrem.obj
+ 0002:000006d8       $chain$5$PMC_DivRem_L_X    00000001800056d8     pmc_divrem.obj
+ 0002:000006e8       $unwind$PMC_DivRem_UX_X    00000001800056e8     pmc_divrem.obj
+ 0002:000006f4       $chain$0$PMC_DivRem_UX_X   00000001800056f4     pmc_divrem.obj
+ 0002:00000708       $chain$2$PMC_DivRem_UX_X   0000000180005708     pmc_divrem.obj
+ 0002:00000708       $chain$4$PMC_DivRem_UX_X   0000000180005708     pmc_divrem.obj
+ 0002:00000708       $chain$6$PMC_DivRem_UX_X   0000000180005708     pmc_divrem.obj
+ 0002:0000071c       $chain$7$PMC_DivRem_UX_X   000000018000571c     pmc_divrem.obj
+ 0002:0000072c       $unwind$PMC_DivRem_X_I     000000018000572c     pmc_divrem.obj
+ 0002:0000072c       $unwind$PMC_DivRem_X_L     000000018000572c     pmc_divrem.obj
+ 0002:00000738       $chain$1$PMC_DivRem_X_I    0000000180005738     pmc_divrem.obj
+ 0002:00000750       $chain$3$PMC_DivRem_X_I    0000000180005750     pmc_divrem.obj
+ 0002:00000768       $chain$4$PMC_DivRem_X_I    0000000180005768     pmc_divrem.obj
+ 0002:00000778       $chain$1$PMC_DivRem_X_L    0000000180005778     pmc_divrem.obj
+ 0002:00000790       $chain$3$PMC_DivRem_X_L    0000000180005790     pmc_divrem.obj
+ 0002:000007a8       $chain$4$PMC_DivRem_X_L    00000001800057a8     pmc_divrem.obj
+ 0002:000007b8       $unwind$PMC_DivRem_X_UX    00000001800057b8     pmc_divrem.obj
+ 0002:000007b8       $unwind$PMC_DivRem_X_X     00000001800057b8     pmc_divrem.obj
+ 0002:000007c4       $chain$2$PMC_DivRem_X_UX   00000001800057c4     pmc_divrem.obj
+ 0002:000007e0       $chain$4$PMC_DivRem_X_UX   00000001800057e0     pmc_divrem.obj
+ 0002:000007fc       $chain$5$PMC_DivRem_X_UX   00000001800057fc     pmc_divrem.obj
+ 0002:0000080c       $chain$2$PMC_DivRem_X_X    000000018000580c     pmc_divrem.obj
+ 0002:00000828       $chain$4$PMC_DivRem_X_X    0000000180005828     pmc_divrem.obj
+ 0002:00000844       $chain$5$PMC_DivRem_X_X    0000000180005844     pmc_divrem.obj
+ 0002:00000854       $unwind$From_L_Imp         0000000180005854     pmc_from.obj
+ 0002:00000854       $unwind$From_I_Imp         0000000180005854     pmc_from.obj
+ 0002:00000854       $unwind$AllocateNumber     0000000180005854     pmc_memory.obj
+ 0002:00000864       $unwind$PMC_From_I         0000000180005864     pmc_from.obj
+ 0002:00000870       $unwind$PMC_From_L         0000000180005870     pmc_from.obj
+ 0002:00000870       $unwind$DuplicateNumber    0000000180005870     pmc_memory.obj
+ 0002:0000087c       $unwind$PMC_SINT_Initialize 000000018000587c     pmc_initialize.obj
+ 0002:00000884       $chain$0$PMC_SINT_Initialize 0000000180005884     pmc_initialize.obj
+ 0002:00000898       $chain$1$PMC_SINT_Initialize 0000000180005898     pmc_initialize.obj
+ 0002:000008a8       $unwind$PMC_Dispose        00000001800058a8     pmc_memory.obj
+ 0002:000008a8       $unwind$DeallocateNumber   00000001800058a8     pmc_memory.obj
+ 0002:000008b0       $unwind$Negate_Imp         00000001800058b0     pmc_memory.obj
+ 0002:000008bc       $chain$0$Negate_Imp        00000001800058bc     pmc_memory.obj
+ 0002:000008d0       $chain$2$Negate_Imp        00000001800058d0     pmc_memory.obj
+ 0002:000008d0       $chain$4$Negate_Imp        00000001800058d0     pmc_memory.obj
+ 0002:000008e4       $chain$5$Negate_Imp        00000001800058e4     pmc_memory.obj
+ 0002:000008f4       $chain$0$MultiplyU_X_I_Imp 00000001800058f4     pmc_multiply.obj
+ 0002:00000908       $chain$4$MultiplyU_X_I_Imp 0000000180005908     pmc_multiply.obj
+ 0002:00000908       $chain$2$MultiplyU_X_I_Imp 0000000180005908     pmc_multiply.obj
+ 0002:0000091c       $chain$5$MultiplyU_X_I_Imp 000000018000591c     pmc_multiply.obj
+ 0002:0000092c       $chain$0$MultiplyU_X_L_Imp 000000018000592c     pmc_multiply.obj
+ 0002:00000940       $chain$2$MultiplyU_X_L_Imp 0000000180005940     pmc_multiply.obj
+ 0002:00000940       $chain$4$MultiplyU_X_L_Imp 0000000180005940     pmc_multiply.obj
+ 0002:00000954       $chain$5$MultiplyU_X_L_Imp 0000000180005954     pmc_multiply.obj
+ 0002:00000964       $chain$0$MultiplyU_X_X_Imp 0000000180005964     pmc_multiply.obj
+ 0002:00000978       $chain$2$MultiplyU_X_X_Imp 0000000180005978     pmc_multiply.obj
+ 0002:00000978       $chain$4$MultiplyU_X_X_Imp 0000000180005978     pmc_multiply.obj
+ 0002:0000098c       $chain$5$MultiplyU_X_X_Imp 000000018000598c     pmc_multiply.obj
+ 0002:0000099c       $chain$0$PMC_To_X_I        000000018000599c     pmc_to.obj
+ 0002:000009b0       $chain$2$PMC_To_X_I        00000001800059b0     pmc_to.obj
+ 0002:000009b0       $chain$4$PMC_To_X_I        00000001800059b0     pmc_to.obj
+ 0002:000009b0       $chain$6$PMC_To_X_I        00000001800059b0     pmc_to.obj
+ 0002:000009c4       $chain$7$PMC_To_X_I        00000001800059c4     pmc_to.obj
+ 0002:000009d4       $chain$0$PMC_To_X_L        00000001800059d4     pmc_to.obj
+ 0002:000009e8       $chain$6$PMC_To_X_L        00000001800059e8     pmc_to.obj
+ 0002:000009e8       $chain$4$PMC_To_X_L        00000001800059e8     pmc_to.obj
+ 0002:000009e8       $chain$2$PMC_To_X_L        00000001800059e8     pmc_to.obj
+ 0002:000009fc       $chain$7$PMC_To_X_L        00000001800059fc     pmc_to.obj
+ 0002:00000a10       $xdatasym                  0000000180005a10     MSVCRT:amdsecgs.obj
+ 0002:00000a14       $unwind$__report_gsfailure 0000000180005a14     MSVCRT:gs_report.obj
+ 0002:00000a1c       $unwind$capture_previous_context 0000000180005a1c     MSVCRT:gs_report.obj
+ 0002:00000a28       $xdatasym                  0000000180005a28     MSVCRT:guard_dispatch.obj
+ 0002:00000a30       .edata                     0000000180005a30     Palmtree.Math.Core.Sint.exp
+ 0002:00000a58       rgpv                       0000000180005a58     Palmtree.Math.Core.Sint.exp
+ 0002:00000a60       rgszName                   0000000180005a60     Palmtree.Math.Core.Sint.exp
+ 0002:00000a68       rgwOrd                     0000000180005a68     Palmtree.Math.Core.Sint.exp
+ 0002:00000a6c       szName                     0000000180005a6c     Palmtree.Math.Core.Sint.exp
+ 0002:00000a88       $N00001                    0000000180005a88     Palmtree.Math.Core.Sint.exp
+ 0002:00000a90       $N00002                    0000000180005a90     Palmtree.Math.Core.Sint.exp
+ 0002:00000bb4       .idata$6                   0000000180005bb4     kernel32:KERNEL32.dll
  0003:00000020       GS_ExceptionRecord         0000000180006020     MSVCRT:gs_report.obj
  0003:000000c0       GS_ContextRecord           00000001800060c0     MSVCRT:gs_report.obj
  0003:00000590       entry_points               0000000180006590     pmc_initialize.obj
- 0003:000008c8       initialized                00000001800068c8     pmc_initialize.obj
- 0003:000008d0       hLib_UINT                  00000001800068d0     pmc_initialize.obj
- 0003:000008d8       fp_PMC_UINT_Initialize     00000001800068d8     pmc_initialize.obj
+ 0003:000008f0       initialized                00000001800068f0     pmc_initialize.obj
+ 0003:000008f8       hLib_UINT                  00000001800068f8     pmc_initialize.obj
+ 0003:00000900       fp_PMC_UINT_Initialize     0000000180006900     pmc_initialize.obj
  0004:0000000c       $pdata$__report_gsfailure  000000018000700c     MSVCRT:gs_report.obj
  0004:00000018       $pdata$capture_previous_context 0000000180007018     MSVCRT:gs_report.obj
  0004:00000024       $pdata$__raise_securityfailure 0000000180007024     MSVCRT:gs_report.obj
  0004:00000030       $pdata$DllMain             0000000180007030     dllmain.obj
  0004:0000003c       $pdata$PMC_Subtruct_X_X    000000018000703c     pmc_add_sub.obj
  0004:00000048       $pdata$PMC_Subtruct_X_UX   0000000180007048     pmc_add_sub.obj
- 0004:00000054       $pdata$PMC_Subtruct_X_L    0000000180007054     pmc_add_sub.obj
- 0004:00000060       $pdata$PMC_Subtruct_X_I    0000000180007060     pmc_add_sub.obj
- 0004:0000006c       $pdata$PMC_Subtruct_UX_X   000000018000706c     pmc_add_sub.obj
- 0004:00000078       $pdata$PMC_Subtruct_L_X    0000000180007078     pmc_add_sub.obj
- 0004:00000084       $pdata$PMC_Subtruct_I_X    0000000180007084     pmc_add_sub.obj
- 0004:00000090       $pdata$PMC_Add_X_X         0000000180007090     pmc_add_sub.obj
- 0004:0000009c       $pdata$PMC_Add_X_UX        000000018000709c     pmc_add_sub.obj
- 0004:000000a8       $pdata$PMC_Add_X_L         00000001800070a8     pmc_add_sub.obj
- 0004:000000b4       $pdata$PMC_Add_X_I         00000001800070b4     pmc_add_sub.obj
- 0004:000000c0       $pdata$PMC_Add_UX_X        00000001800070c0     pmc_add_sub.obj
- 0004:000000cc       $pdata$PMC_Add_L_X         00000001800070cc     pmc_add_sub.obj
- 0004:000000d8       $pdata$PMC_Add_I_X         00000001800070d8     pmc_add_sub.obj
- 0004:000000e4       $pdata$SubtructU_X_X_Imp   00000001800070e4     pmc_add_sub.obj
- 0004:000000f0       $pdata$SubtructU_X_L_Imp   00000001800070f0     pmc_add_sub.obj
- 0004:000000fc       $pdata$SubtructU_X_I_Imp   00000001800070fc     pmc_add_sub.obj
- 0004:00000108       $pdata$AddU_X_X_Imp        0000000180007108     pmc_add_sub.obj
- 0004:00000114       $pdata$1$AddU_X_X_Imp      0000000180007114     pmc_add_sub.obj
- 0004:00000120       $pdata$2$AddU_X_X_Imp      0000000180007120     pmc_add_sub.obj
- 0004:0000012c       $pdata$AddU_X_L_Imp        000000018000712c     pmc_add_sub.obj
- 0004:00000138       $pdata$1$AddU_X_L_Imp      0000000180007138     pmc_add_sub.obj
- 0004:00000144       $pdata$2$AddU_X_L_Imp      0000000180007144     pmc_add_sub.obj
- 0004:00000150       $pdata$AddU_X_I_Imp        0000000180007150     pmc_add_sub.obj
- 0004:0000015c       $pdata$1$AddU_X_I_Imp      000000018000715c     pmc_add_sub.obj
- 0004:00000168       $pdata$2$AddU_X_I_Imp      0000000180007168     pmc_add_sub.obj
- 0004:00000174       $pdata$PMC_ToByteArray     0000000180007174     pmc_bytes.obj
- 0004:00000180       $pdata$PMC_FromByteArray   0000000180007180     pmc_bytes.obj
- 0004:0000018c       $pdata$2$PMC_FromByteArray 000000018000718c     pmc_bytes.obj
- 0004:00000198       $pdata$3$PMC_FromByteArray 0000000180007198     pmc_bytes.obj
- 0004:000001a4       $pdata$4$PMC_FromByteArray 00000001800071a4     pmc_bytes.obj
- 0004:000001b0       $pdata$5$PMC_FromByteArray 00000001800071b0     pmc_bytes.obj
- 0004:000001bc       $pdata$PMC_Clone_X         00000001800071bc     pmc_clone.obj
- 0004:000001c8       $pdata$PMC_From_L          00000001800071c8     pmc_from.obj
- 0004:000001d4       $pdata$PMC_From_I          00000001800071d4     pmc_from.obj
- 0004:000001e0       $pdata$From_I_Imp          00000001800071e0     pmc_from.obj
- 0004:000001ec       $pdata$From_L_Imp          00000001800071ec     pmc_from.obj
- 0004:000001f8       $pdata$PMC_SINT_Initialize 00000001800071f8     pmc_initialize.obj
- 0004:00000204       $pdata$0$PMC_SINT_Initialize 0000000180007204     pmc_initialize.obj
- 0004:00000210       $pdata$1$PMC_SINT_Initialize 0000000180007210     pmc_initialize.obj
- 0004:0000021c       $pdata$InitializeNumber    000000018000721c     pmc_memory.obj
- 0004:00000228       $pdata$PMC_Dispose         0000000180007228     pmc_memory.obj
- 0004:00000234       $pdata$DuplicateNumber     0000000180007234     pmc_memory.obj
- 0004:00000240       $pdata$AllocateNumber      0000000180007240     pmc_memory.obj
- 0004:0000024c       $pdata$Negate_Imp          000000018000724c     pmc_memory.obj
- 0004:00000258       $pdata$1$Negate_Imp        0000000180007258     pmc_memory.obj
- 0004:00000264       $pdata$2$Negate_Imp        0000000180007264     pmc_memory.obj
- 0004:00000270       $pdata$MultiplyU_X_X_Imp   0000000180007270     pmc_multiply.obj
- 0004:0000027c       $pdata$1$MultiplyU_X_X_Imp 000000018000727c     pmc_multiply.obj
- 0004:00000288       $pdata$2$MultiplyU_X_X_Imp 0000000180007288     pmc_multiply.obj
- 0004:00000294       $pdata$MultiplyU_X_L_Imp   0000000180007294     pmc_multiply.obj
- 0004:000002a0       $pdata$1$MultiplyU_X_L_Imp 00000001800072a0     pmc_multiply.obj
- 0004:000002ac       $pdata$2$MultiplyU_X_L_Imp 00000001800072ac     pmc_multiply.obj
- 0004:000002b8       $pdata$MultiplyU_X_I_Imp   00000001800072b8     pmc_multiply.obj
- 0004:000002c4       $pdata$1$MultiplyU_X_I_Imp 00000001800072c4     pmc_multiply.obj
- 0004:000002d0       $pdata$2$MultiplyU_X_I_Imp 00000001800072d0     pmc_multiply.obj
- 0004:000002dc       $pdata$PMC_Multiply_I_X    00000001800072dc     pmc_multiply.obj
- 0004:000002e8       $pdata$PMC_Multiply_UX_X   00000001800072e8     pmc_multiply.obj
- 0004:000002f4       $pdata$PMC_Multiply_L_X    00000001800072f4     pmc_multiply.obj
- 0004:00000300       $pdata$PMC_Multiply_X_UX   0000000180007300     pmc_multiply.obj
- 0004:0000030c       $pdata$PMC_Multiply_X_X    000000018000730c     pmc_multiply.obj
- 0004:00000318       $pdata$PMC_Multiply_X_I    0000000180007318     pmc_multiply.obj
- 0004:00000324       $pdata$PMC_Multiply_X_L    0000000180007324     pmc_multiply.obj
- 0004:00000330       $pdata$PMC_Negate_X        0000000180007330     pmc_negate.obj
- 0004:0000033c       $pdata$PMC_To_X_L          000000018000733c     pmc_to.obj
- 0004:00000348       $pdata$0$PMC_To_X_L        0000000180007348     pmc_to.obj
- 0004:00000354       $pdata$2$PMC_To_X_L        0000000180007354     pmc_to.obj
- 0004:00000360       $pdata$4$PMC_To_X_L        0000000180007360     pmc_to.obj
- 0004:0000036c       $pdata$6$PMC_To_X_L        000000018000736c     pmc_to.obj
- 0004:00000378       $pdata$7$PMC_To_X_L        0000000180007378     pmc_to.obj
- 0004:00000384       $pdata$PMC_To_X_I          0000000180007384     pmc_to.obj
- 0004:00000390       $pdata$0$PMC_To_X_I        0000000180007390     pmc_to.obj
- 0004:0000039c       $pdata$2$PMC_To_X_I        000000018000739c     pmc_to.obj
- 0004:000003a8       $pdata$4$PMC_To_X_I        00000001800073a8     pmc_to.obj
- 0004:000003b4       $pdata$6$PMC_To_X_I        00000001800073b4     pmc_to.obj
- 0004:000003c0       $pdata$7$PMC_To_X_I        00000001800073c0     pmc_to.obj
+ 0004:00000054       $pdata$0$PMC_Subtruct_X_UX 0000000180007054     pmc_add_sub.obj
+ 0004:00000060       $pdata$2$PMC_Subtruct_X_UX 0000000180007060     pmc_add_sub.obj
+ 0004:0000006c       $pdata$4$PMC_Subtruct_X_UX 000000018000706c     pmc_add_sub.obj
+ 0004:00000078       $pdata$6$PMC_Subtruct_X_UX 0000000180007078     pmc_add_sub.obj
+ 0004:00000084       $pdata$8$PMC_Subtruct_X_UX 0000000180007084     pmc_add_sub.obj
+ 0004:00000090       $pdata$10$PMC_Subtruct_X_UX 0000000180007090     pmc_add_sub.obj
+ 0004:0000009c       $pdata$11$PMC_Subtruct_X_UX 000000018000709c     pmc_add_sub.obj
+ 0004:000000a8       $pdata$PMC_Subtruct_X_L    00000001800070a8     pmc_add_sub.obj
+ 0004:000000b4       $pdata$PMC_Subtruct_X_I    00000001800070b4     pmc_add_sub.obj
+ 0004:000000c0       $pdata$PMC_Subtruct_UX_X   00000001800070c0     pmc_add_sub.obj
+ 0004:000000cc       $pdata$0$PMC_Subtruct_UX_X 00000001800070cc     pmc_add_sub.obj
+ 0004:000000d8       $pdata$2$PMC_Subtruct_UX_X 00000001800070d8     pmc_add_sub.obj
+ 0004:000000e4       $pdata$4$PMC_Subtruct_UX_X 00000001800070e4     pmc_add_sub.obj
+ 0004:000000f0       $pdata$6$PMC_Subtruct_UX_X 00000001800070f0     pmc_add_sub.obj
+ 0004:000000fc       $pdata$8$PMC_Subtruct_UX_X 00000001800070fc     pmc_add_sub.obj
+ 0004:00000108       $pdata$10$PMC_Subtruct_UX_X 0000000180007108     pmc_add_sub.obj
+ 0004:00000114       $pdata$11$PMC_Subtruct_UX_X 0000000180007114     pmc_add_sub.obj
+ 0004:00000120       $pdata$PMC_Subtruct_L_X    0000000180007120     pmc_add_sub.obj
+ 0004:0000012c       $pdata$PMC_Subtruct_I_X    000000018000712c     pmc_add_sub.obj
+ 0004:00000138       $pdata$PMC_Add_X_X         0000000180007138     pmc_add_sub.obj
+ 0004:00000144       $pdata$PMC_Add_X_UX        0000000180007144     pmc_add_sub.obj
+ 0004:00000150       $pdata$0$PMC_Add_X_UX      0000000180007150     pmc_add_sub.obj
+ 0004:0000015c       $pdata$2$PMC_Add_X_UX      000000018000715c     pmc_add_sub.obj
+ 0004:00000168       $pdata$4$PMC_Add_X_UX      0000000180007168     pmc_add_sub.obj
+ 0004:00000174       $pdata$6$PMC_Add_X_UX      0000000180007174     pmc_add_sub.obj
+ 0004:00000180       $pdata$8$PMC_Add_X_UX      0000000180007180     pmc_add_sub.obj
+ 0004:0000018c       $pdata$10$PMC_Add_X_UX     000000018000718c     pmc_add_sub.obj
+ 0004:00000198       $pdata$11$PMC_Add_X_UX     0000000180007198     pmc_add_sub.obj
+ 0004:000001a4       $pdata$PMC_Add_X_L         00000001800071a4     pmc_add_sub.obj
+ 0004:000001b0       $pdata$PMC_Add_X_I         00000001800071b0     pmc_add_sub.obj
+ 0004:000001bc       $pdata$PMC_Add_UX_X        00000001800071bc     pmc_add_sub.obj
+ 0004:000001c8       $pdata$0$PMC_Add_UX_X      00000001800071c8     pmc_add_sub.obj
+ 0004:000001d4       $pdata$2$PMC_Add_UX_X      00000001800071d4     pmc_add_sub.obj
+ 0004:000001e0       $pdata$4$PMC_Add_UX_X      00000001800071e0     pmc_add_sub.obj
+ 0004:000001ec       $pdata$6$PMC_Add_UX_X      00000001800071ec     pmc_add_sub.obj
+ 0004:000001f8       $pdata$8$PMC_Add_UX_X      00000001800071f8     pmc_add_sub.obj
+ 0004:00000204       $pdata$10$PMC_Add_UX_X     0000000180007204     pmc_add_sub.obj
+ 0004:00000210       $pdata$11$PMC_Add_UX_X     0000000180007210     pmc_add_sub.obj
+ 0004:0000021c       $pdata$PMC_Add_L_X         000000018000721c     pmc_add_sub.obj
+ 0004:00000228       $pdata$PMC_Add_I_X         0000000180007228     pmc_add_sub.obj
+ 0004:00000234       $pdata$SubtructU_X_X_Imp   0000000180007234     pmc_add_sub.obj
+ 0004:00000240       $pdata$SubtructU_X_L_Imp   0000000180007240     pmc_add_sub.obj
+ 0004:0000024c       $pdata$SubtructU_X_I_Imp   000000018000724c     pmc_add_sub.obj
+ 0004:00000258       $pdata$AddU_X_X_Imp        0000000180007258     pmc_add_sub.obj
+ 0004:00000264       $pdata$0$AddU_X_X_Imp      0000000180007264     pmc_add_sub.obj
+ 0004:00000270       $pdata$2$AddU_X_X_Imp      0000000180007270     pmc_add_sub.obj
+ 0004:0000027c       $pdata$4$AddU_X_X_Imp      000000018000727c     pmc_add_sub.obj
+ 0004:00000288       $pdata$5$AddU_X_X_Imp      0000000180007288     pmc_add_sub.obj
+ 0004:00000294       $pdata$AddU_X_L_Imp        0000000180007294     pmc_add_sub.obj
+ 0004:000002a0       $pdata$0$AddU_X_L_Imp      00000001800072a0     pmc_add_sub.obj
+ 0004:000002ac       $pdata$2$AddU_X_L_Imp      00000001800072ac     pmc_add_sub.obj
+ 0004:000002b8       $pdata$4$AddU_X_L_Imp      00000001800072b8     pmc_add_sub.obj
+ 0004:000002c4       $pdata$5$AddU_X_L_Imp      00000001800072c4     pmc_add_sub.obj
+ 0004:000002d0       $pdata$AddU_X_I_Imp        00000001800072d0     pmc_add_sub.obj
+ 0004:000002dc       $pdata$0$AddU_X_I_Imp      00000001800072dc     pmc_add_sub.obj
+ 0004:000002e8       $pdata$2$AddU_X_I_Imp      00000001800072e8     pmc_add_sub.obj
+ 0004:000002f4       $pdata$4$AddU_X_I_Imp      00000001800072f4     pmc_add_sub.obj
+ 0004:00000300       $pdata$5$AddU_X_I_Imp      0000000180007300     pmc_add_sub.obj
+ 0004:0000030c       $pdata$PMC_ToByteArray     000000018000730c     pmc_bytes.obj
+ 0004:00000318       $pdata$PMC_FromByteArray   0000000180007318     pmc_bytes.obj
+ 0004:00000324       $pdata$1$PMC_FromByteArray 0000000180007324     pmc_bytes.obj
+ 0004:00000330       $pdata$2$PMC_FromByteArray 0000000180007330     pmc_bytes.obj
+ 0004:0000033c       $pdata$3$PMC_FromByteArray 000000018000733c     pmc_bytes.obj
+ 0004:00000348       $pdata$4$PMC_FromByteArray 0000000180007348     pmc_bytes.obj
+ 0004:00000354       $pdata$PMC_Clone_X         0000000180007354     pmc_clone.obj
+ 0004:00000360       $pdata$PMC_DivRem_X_X      0000000180007360     pmc_divrem.obj
+ 0004:0000036c       $pdata$2$PMC_DivRem_X_X    000000018000736c     pmc_divrem.obj
+ 0004:00000378       $pdata$4$PMC_DivRem_X_X    0000000180007378     pmc_divrem.obj
+ 0004:00000384       $pdata$5$PMC_DivRem_X_X    0000000180007384     pmc_divrem.obj
+ 0004:00000390       $pdata$PMC_DivRem_X_UX     0000000180007390     pmc_divrem.obj
+ 0004:0000039c       $pdata$2$PMC_DivRem_X_UX   000000018000739c     pmc_divrem.obj
+ 0004:000003a8       $pdata$4$PMC_DivRem_X_UX   00000001800073a8     pmc_divrem.obj
+ 0004:000003b4       $pdata$5$PMC_DivRem_X_UX   00000001800073b4     pmc_divrem.obj
+ 0004:000003c0       $pdata$PMC_DivRem_X_L      00000001800073c0     pmc_divrem.obj
+ 0004:000003cc       $pdata$1$PMC_DivRem_X_L    00000001800073cc     pmc_divrem.obj
+ 0004:000003d8       $pdata$3$PMC_DivRem_X_L    00000001800073d8     pmc_divrem.obj
+ 0004:000003e4       $pdata$4$PMC_DivRem_X_L    00000001800073e4     pmc_divrem.obj
+ 0004:000003f0       $pdata$PMC_DivRem_X_I      00000001800073f0     pmc_divrem.obj
+ 0004:000003fc       $pdata$1$PMC_DivRem_X_I    00000001800073fc     pmc_divrem.obj
+ 0004:00000408       $pdata$3$PMC_DivRem_X_I    0000000180007408     pmc_divrem.obj
+ 0004:00000414       $pdata$4$PMC_DivRem_X_I    0000000180007414     pmc_divrem.obj
+ 0004:00000420       $pdata$PMC_DivRem_UX_X     0000000180007420     pmc_divrem.obj
+ 0004:0000042c       $pdata$0$PMC_DivRem_UX_X   000000018000742c     pmc_divrem.obj
+ 0004:00000438       $pdata$2$PMC_DivRem_UX_X   0000000180007438     pmc_divrem.obj
+ 0004:00000444       $pdata$4$PMC_DivRem_UX_X   0000000180007444     pmc_divrem.obj
+ 0004:00000450       $pdata$6$PMC_DivRem_UX_X   0000000180007450     pmc_divrem.obj
+ 0004:0000045c       $pdata$7$PMC_DivRem_UX_X   000000018000745c     pmc_divrem.obj
+ 0004:00000468       $pdata$PMC_DivRem_L_X      0000000180007468     pmc_divrem.obj
+ 0004:00000474       $pdata$2$PMC_DivRem_L_X    0000000180007474     pmc_divrem.obj
+ 0004:00000480       $pdata$4$PMC_DivRem_L_X    0000000180007480     pmc_divrem.obj
+ 0004:0000048c       $pdata$5$PMC_DivRem_L_X    000000018000748c     pmc_divrem.obj
+ 0004:00000498       $pdata$PMC_DivRem_I_X      0000000180007498     pmc_divrem.obj
+ 0004:000004a4       $pdata$2$PMC_DivRem_I_X    00000001800074a4     pmc_divrem.obj
+ 0004:000004b0       $pdata$4$PMC_DivRem_I_X    00000001800074b0     pmc_divrem.obj
+ 0004:000004bc       $pdata$5$PMC_DivRem_I_X    00000001800074bc     pmc_divrem.obj
+ 0004:000004c8       $pdata$PMC_From_L          00000001800074c8     pmc_from.obj
+ 0004:000004d4       $pdata$PMC_From_I          00000001800074d4     pmc_from.obj
+ 0004:000004e0       $pdata$From_I_Imp          00000001800074e0     pmc_from.obj
+ 0004:000004ec       $pdata$From_L_Imp          00000001800074ec     pmc_from.obj
+ 0004:000004f8       $pdata$PMC_SINT_Initialize 00000001800074f8     pmc_initialize.obj
+ 0004:00000504       $pdata$0$PMC_SINT_Initialize 0000000180007504     pmc_initialize.obj
+ 0004:00000510       $pdata$1$PMC_SINT_Initialize 0000000180007510     pmc_initialize.obj
+ 0004:0000051c       $pdata$DeallocateNumber    000000018000751c     pmc_memory.obj
+ 0004:0000051c       $pdata$PMC_Dispose         000000018000751c     pmc_memory.obj
+ 0004:00000528       $pdata$DuplicateNumber     0000000180007528     pmc_memory.obj
+ 0004:00000534       $pdata$AllocateNumber      0000000180007534     pmc_memory.obj
+ 0004:00000540       $pdata$Negate_Imp          0000000180007540     pmc_memory.obj
+ 0004:0000054c       $pdata$0$Negate_Imp        000000018000754c     pmc_memory.obj
+ 0004:00000558       $pdata$2$Negate_Imp        0000000180007558     pmc_memory.obj
+ 0004:00000564       $pdata$4$Negate_Imp        0000000180007564     pmc_memory.obj
+ 0004:00000570       $pdata$5$Negate_Imp        0000000180007570     pmc_memory.obj
+ 0004:0000057c       $pdata$MultiplyU_X_X_Imp   000000018000757c     pmc_multiply.obj
+ 0004:00000588       $pdata$0$MultiplyU_X_X_Imp 0000000180007588     pmc_multiply.obj
+ 0004:00000594       $pdata$2$MultiplyU_X_X_Imp 0000000180007594     pmc_multiply.obj
+ 0004:000005a0       $pdata$4$MultiplyU_X_X_Imp 00000001800075a0     pmc_multiply.obj
+ 0004:000005ac       $pdata$5$MultiplyU_X_X_Imp 00000001800075ac     pmc_multiply.obj
+ 0004:000005b8       $pdata$MultiplyU_X_L_Imp   00000001800075b8     pmc_multiply.obj
+ 0004:000005c4       $pdata$0$MultiplyU_X_L_Imp 00000001800075c4     pmc_multiply.obj
+ 0004:000005d0       $pdata$2$MultiplyU_X_L_Imp 00000001800075d0     pmc_multiply.obj
+ 0004:000005dc       $pdata$4$MultiplyU_X_L_Imp 00000001800075dc     pmc_multiply.obj
+ 0004:000005e8       $pdata$5$MultiplyU_X_L_Imp 00000001800075e8     pmc_multiply.obj
+ 0004:000005f4       $pdata$MultiplyU_X_I_Imp   00000001800075f4     pmc_multiply.obj
+ 0004:00000600       $pdata$0$MultiplyU_X_I_Imp 0000000180007600     pmc_multiply.obj
+ 0004:0000060c       $pdata$2$MultiplyU_X_I_Imp 000000018000760c     pmc_multiply.obj
+ 0004:00000618       $pdata$4$MultiplyU_X_I_Imp 0000000180007618     pmc_multiply.obj
+ 0004:00000624       $pdata$5$MultiplyU_X_I_Imp 0000000180007624     pmc_multiply.obj
+ 0004:00000630       $pdata$PMC_Multiply_I_X    0000000180007630     pmc_multiply.obj
+ 0004:0000063c       $pdata$PMC_Multiply_UX_X   000000018000763c     pmc_multiply.obj
+ 0004:00000648       $pdata$PMC_Multiply_L_X    0000000180007648     pmc_multiply.obj
+ 0004:00000654       $pdata$PMC_Multiply_X_UX   0000000180007654     pmc_multiply.obj
+ 0004:00000660       $pdata$PMC_Multiply_X_X    0000000180007660     pmc_multiply.obj
+ 0004:0000066c       $pdata$PMC_Multiply_X_I    000000018000766c     pmc_multiply.obj
+ 0004:00000678       $pdata$PMC_Multiply_X_L    0000000180007678     pmc_multiply.obj
+ 0004:00000684       $pdata$PMC_Negate_X        0000000180007684     pmc_negate.obj
+ 0004:00000690       $pdata$PMC_To_X_L          0000000180007690     pmc_to.obj
+ 0004:0000069c       $pdata$0$PMC_To_X_L        000000018000769c     pmc_to.obj
+ 0004:000006a8       $pdata$2$PMC_To_X_L        00000001800076a8     pmc_to.obj
+ 0004:000006b4       $pdata$4$PMC_To_X_L        00000001800076b4     pmc_to.obj
+ 0004:000006c0       $pdata$6$PMC_To_X_L        00000001800076c0     pmc_to.obj
+ 0004:000006cc       $pdata$7$PMC_To_X_L        00000001800076cc     pmc_to.obj
+ 0004:000006d8       $pdata$PMC_To_X_I          00000001800076d8     pmc_to.obj
+ 0004:000006e4       $pdata$0$PMC_To_X_I        00000001800076e4     pmc_to.obj
+ 0004:000006f0       $pdata$2$PMC_To_X_I        00000001800076f0     pmc_to.obj
+ 0004:000006fc       $pdata$4$PMC_To_X_I        00000001800076fc     pmc_to.obj
+ 0004:00000708       $pdata$6$PMC_To_X_I        0000000180007708     pmc_to.obj
+ 0004:00000714       $pdata$7$PMC_To_X_I        0000000180007714     pmc_to.obj
  0005:000000a0       $R000000                   00000001800080a0     Palmtree.Math.Core.Sint.res
  0005:000003c0       $R000320                   00000001800083c0     Palmtree.Math.Core.Sint.res

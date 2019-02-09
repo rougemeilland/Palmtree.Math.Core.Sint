@@ -42,16 +42,19 @@ extern "C" {
 #pragma region 型の定義
     typedef struct __tag_NUMBER_HEADER
     {
-        _UINT32_T       SIGNATURE1;               // テーブルを識別するためのデータ1
-        _UINT32_T       SIGNATURE2;               // テーブルを識別するためのデータ2
-        PMC_HANDLE_UINT ABS;                      // 数値の絶対値を表すハンドル
-        char            SIGN;                     // 数値の符号を表す整数
-        unsigned        IS_STATIC : 1;            // 本構造体が静的に割り当てられていて解放不要ならばTRUE
         unsigned        IS_ZERO : 1;              // データが 0 なら TRUE
         unsigned        IS_ONE : 1;               // データが 1 なら TRUE
         unsigned        IS_MINUS_ONE : 1;         // データが -1 なら TRUE
         unsigned        IS_EVEN : 1;              // データが 偶数 なら TRUE
         unsigned        IS_POWER_OF_TWO : 1;      // データが 2 のべき乗なら TRUE
+
+        _UINT32_T       SIGNATURE1;               // テーブルを識別するためのデータ1
+        _UINT32_T       SIGNATURE2;               // テーブルを識別するためのデータ2
+
+        PMC_HANDLE_UINT ABS;                      // 数値の絶対値を表すハンドル
+        char            SIGN;                     // 数値の符号を表す整数
+
+        unsigned        IS_STATIC : 1;            // 本構造体が静的に割り当てられていて解放不要ならばTRUE
     } NUMBER_HEADER;
 #pragma endregion
 
@@ -69,6 +72,12 @@ extern "C" {
     // 整数 -1 のインスタンス
     extern NUMBER_HEADER number_minus_one;
 
+    // 符号なし整数 0 のインスタンス
+    PMC_HANDLE_UINT uint_number_zero;
+
+    // 符号なし整数 1 のインスタンス
+    PMC_HANDLE_UINT uint_number_one;
+
     // パフォーマンスカウンタ
     extern PMC_STATISTICS_INFO statistics_info;
 
@@ -78,7 +87,6 @@ extern "C" {
     extern void DeallocateNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE CheckNumber(NUMBER_HEADER* p);
     extern PMC_STATUS_CODE DuplicateNumber(NUMBER_HEADER* x, NUMBER_HEADER** op);
-    extern PMC_STATUS_CODE IsZero_UINT(PMC_HANDLE_UINT x, char* is_zero);
     extern PMC_STATUS_CODE Negate_Imp(NUMBER_HEADER* x, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_I_Imp(char x_sign, _UINT32_T x_abs, NUMBER_HEADER** o);
     extern PMC_STATUS_CODE From_L_Imp(char x_sign, _UINT64_T x_abs, NUMBER_HEADER** o);
@@ -97,8 +105,6 @@ extern "C" {
     extern PMC_STATUS_CODE __PMC_CALL PMC_From_L(_INT64_T x, PMC_HANDLE_SINT* o);
 
     extern void __PMC_CALL PMC_Dispose(PMC_HANDLE_SINT p);
-
-    extern PMC_STATUS_CODE __PMC_CALL PMC_GetNumberType_X(PMC_HANDLE_SINT x, PMC_NUMBER_TYPE_CODE* o);
 
     extern PMC_STATUS_CODE __PMC_CALL PMC_GetConstantValue_I(PMC_CONSTANT_VALUE_CODE type, PMC_HANDLE_SINT* o);
 
@@ -140,6 +146,14 @@ extern "C" {
     extern PMC_STATUS_CODE __PMC_CALL PMC_Multiply_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE __PMC_CALL PMC_Multiply_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE __PMC_CALL PMC_Multiply_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+
+    extern PMC_STATUS_CODE __PMC_CALL PMC_DivRem_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+    extern PMC_STATUS_CODE __PMC_CALL PMC_DivRem_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+    extern PMC_STATUS_CODE __PMC_CALL PMC_DivRem_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_UINT* r);
+    extern PMC_STATUS_CODE __PMC_CALL PMC_DivRem_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* q, _INT32_T* r);
+    extern PMC_STATUS_CODE __PMC_CALL PMC_DivRem_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
+    extern PMC_STATUS_CODE __PMC_CALL PMC_DivRem_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+    extern PMC_STATUS_CODE __PMC_CALL PMC_DivRem_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
 
     /*
     extern PMC_STATUS_CODE __PMC_CALL PMC_DivRem_I_X(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* q, _INT32_T* r);

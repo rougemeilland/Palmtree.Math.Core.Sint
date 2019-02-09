@@ -91,11 +91,11 @@ __declspec(dllexport) void __stdcall DoDebug(PMC_DEBUG_ENVIRONMENT *env)
     env->log(L"PLATFORM: %s\n", platform);
     env->log(L"COMPILER: %s\n", compiler);
     env->log(L"CPU-INFO: POPCNT=%d, ADX=%d, BMI1=%d, BMI2=%d, ABM=%d\n",
-             ep->uint.PROCESSOR_FEATURE_POPCNT,
-             ep->uint.PROCESSOR_FEATURE_ADX,
-             ep->uint.PROCESSOR_FEATURE_BMI1,
-             ep->uint.PROCESSOR_FEATURE_BMI2,
-             ep->uint.PROCESSOR_FEATURE_ABM);
+             ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_POPCNT,
+             ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_ADX,
+             ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_BMI1,
+             ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_BMI2,
+             ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_ABM);
 
     //CalculateCriticalDataOfDivision(env);
     DoTest(env, ep);

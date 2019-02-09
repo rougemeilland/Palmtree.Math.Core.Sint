@@ -9,6 +9,8 @@ PMC_GetStatisticsInfo:
 	movq	.refptr.ep_uint(%rip), %rax
 	rex.W jmp	*8(%rax)
 	.seh_endproc
+	.comm	uint_number_one, 8, 3
+	.comm	uint_number_zero, 8, 3
 	.ident	"GCC: (x86_64-win32-seh-rev0, Built by MinGW-W64 project) 8.1.0"
 	.section	.rdata$.refptr.ep_uint, "dr"
 	.globl	.refptr.ep_uint

@@ -9,6 +9,10 @@
 INCLUDELIB MSVCRTD
 INCLUDELIB OLDNAMES
 
+_DATA	SEGMENT
+COMM	_uint_number_zero:DWORD
+COMM	_uint_number_one:DWORD
+_DATA	ENDS
 msvcjmc	SEGMENT
 __7B7A869E_ctype@h DB 01H
 __457DD326_basetsd@h DB 01H
@@ -125,12 +129,12 @@ $LN3@PMC_ToByte:
 	mov	edx, DWORD PTR _buffer$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _np$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	mov	edx, DWORD PTR _np$[ebp]
-	movzx	eax, BYTE PTR [edx+12]
+	movzx	eax, BYTE PTR [edx+16]
 	push	eax
-	call	DWORD PTR _ep_uint+40
+	call	DWORD PTR _ep_uint+36
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -240,7 +244,7 @@ $LN4@PMC_FromBy:
 	push	edx
 	mov	eax, DWORD PTR _buffer$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+36
+	call	DWORD PTR _ep_uint+32
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax

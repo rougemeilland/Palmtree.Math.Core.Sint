@@ -8,6 +8,10 @@ INCLUDELIB OLDNAMES
 PUBLIC	test_total_count
 PUBLIC	test_ok_count
 PUBLIC	__DEBUG_LOG
+_DATA	SEGMENT
+COMM	uint_number_zero:QWORD
+COMM	uint_number_one:QWORD
+_DATA	ENDS
 _BSS	SEGMENT
 test_total_count DD 01H DUP (?)
 test_ok_count DD 01H DUP (?)
@@ -549,11 +553,11 @@ $LN2@DoDebug:
 	mov	rax, QWORD PTR env$[rbp]
 	call	QWORD PTR [rax]
 
-; 94   :              ep->uint.PROCESSOR_FEATURE_POPCNT,
-; 95   :              ep->uint.PROCESSOR_FEATURE_ADX,
-; 96   :              ep->uint.PROCESSOR_FEATURE_BMI1,
-; 97   :              ep->uint.PROCESSOR_FEATURE_BMI2,
-; 98   :              ep->uint.PROCESSOR_FEATURE_ABM);
+; 94   :              ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_POPCNT,
+; 95   :              ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_ADX,
+; 96   :              ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_BMI1,
+; 97   :              ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_BMI2,
+; 98   :              ep->UINT_ENTRY_POINTS.PROCESSOR_FEATURE_ABM);
 ; 99   : 
 ; 100  :     //CalculateCriticalDataOfDivision(env);
 ; 101  :     DoTest(env, ep);

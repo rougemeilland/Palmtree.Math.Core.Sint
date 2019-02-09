@@ -5,6 +5,10 @@ include listing.inc
 INCLUDELIB MSVCRTD
 INCLUDELIB OLDNAMES
 
+_DATA	SEGMENT
+COMM	uint_number_zero:QWORD
+COMM	uint_number_one:QWORD
+_DATA	ENDS
 msvcjmc	SEGMENT
 __7B7A869E_ctype@h DB 01H
 __457DD326_basetsd@h DB 01H
@@ -167,7 +171,7 @@ $LN2@PMC_To_X_L:
 ; 63   :     char p_sign = np->SIGN;
 
 	mov	rax, QWORD PTR np$[rbp]
-	movzx	eax, BYTE PTR [rax+16]
+	movzx	eax, BYTE PTR [rax+24]
 	mov	BYTE PTR p_sign$[rbp], al
 
 ; 64   :     _UINT64_T p_abs;
@@ -175,8 +179,8 @@ $LN2@PMC_To_X_L:
 
 	lea	rdx, QWORD PTR p_abs$[rbp]
 	mov	rax, QWORD PTR np$[rbp]
-	mov	rcx, QWORD PTR [rax+8]
-	call	QWORD PTR ep_uint+104
+	mov	rcx, QWORD PTR [rax+16]
+	call	QWORD PTR ep_uint+96
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN3@PMC_To_X_L
@@ -331,7 +335,7 @@ $LN2@PMC_To_X_I:
 ; 36   :     char p_sign = np->SIGN;
 
 	mov	rax, QWORD PTR np$[rbp]
-	movzx	eax, BYTE PTR [rax+16]
+	movzx	eax, BYTE PTR [rax+24]
 	mov	BYTE PTR p_sign$[rbp], al
 
 ; 37   :     _UINT32_T p_abs;
@@ -339,8 +343,8 @@ $LN2@PMC_To_X_I:
 
 	lea	rdx, QWORD PTR p_abs$[rbp]
 	mov	rax, QWORD PTR np$[rbp]
-	mov	rcx, QWORD PTR [rax+8]
-	call	QWORD PTR ep_uint+96
+	mov	rcx, QWORD PTR [rax+16]
+	call	QWORD PTR ep_uint+88
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN3@PMC_To_X_I

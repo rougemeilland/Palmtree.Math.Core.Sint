@@ -44,6 +44,8 @@ PMC_Negate_X:
 	movl	$-1, %eax
 	jmp	.L1
 	.seh_endproc
+	.comm	uint_number_one, 8, 3
+	.comm	uint_number_zero, 8, 3
 	.ident	"GCC: (x86_64-win32-seh-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	CheckNumber;	.scl	2;	.type	32;	.endef
 	.def	Negate_Imp;	.scl	2;	.type	32;	.endef

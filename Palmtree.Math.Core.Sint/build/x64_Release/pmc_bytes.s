@@ -24,7 +24,7 @@ PMC_FromByteArray:
 	movq	.refptr.ep_uint(%rip), %rsi
 	leaq	64(%rsp), %r9
 	leaq	63(%rsp), %r8
-	call	*72(%rsi)
+	call	*64(%rsi)
 	testl	%eax, %eax
 	je	.L6
 .L1:
@@ -86,13 +86,13 @@ PMC_ToByteArray:
 	call	CheckNumber
 	testl	%eax, %eax
 	jne	.L8
-	movq	8(%rbx), %rdx
+	movq	16(%rbx), %rdx
 	movq	%rbp, 32(%rsp)
 	movq	%rdi, %r9
 	movq	%rsi, %r8
 	movq	.refptr.ep_uint(%rip), %rax
-	movsbl	16(%rbx), %ecx
-	call	*80(%rax)
+	movsbl	24(%rbx), %ecx
+	call	*72(%rax)
 .L8:
 	addq	$56, %rsp
 	popq	%rbx
@@ -104,6 +104,8 @@ PMC_ToByteArray:
 	movl	$-1, %eax
 	jmp	.L8
 	.seh_endproc
+	.comm	uint_number_one, 8, 3
+	.comm	uint_number_zero, 8, 3
 	.ident	"GCC: (x86_64-win32-seh-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	AllocateNumber;	.scl	2;	.type	32;	.endef
 	.def	CheckNumber;	.scl	2;	.type	32;	.endef

@@ -44,29 +44,34 @@ HANDLE hLocalHeap;
 NUMBER_HEADER number_zero;
 NUMBER_HEADER number_one;
 NUMBER_HEADER number_minus_one;
+PMC_HANDLE_UINT uint_number_zero;
+PMC_HANDLE_UINT uint_number_one;
 #pragma endregion
 
 
 __inline static void ClearNumberHeader(NUMBER_HEADER* p)
 {
 #ifdef _M_IX64
-    if (sizeof(*p) == sizeof(_UINT64_T) * 3)
+    if (sizeof(*p) == sizeof(_UINT64_T) * 4)
     {
         _UINT64_T* __p = (_UINT64_T*)p;
         __p[0] = 0;
         __p[1] = 0;
         __p[2] = 0;
+        __p[3] = 0;
     }
     else
     {
 #endif
-        if (sizeof(*p) == sizeof(_UINT32_T) * 4)
+        if (sizeof(*p) == sizeof(_UINT32_T) * 6)
         {
             _UINT32_T* __p = (_UINT32_T*)p;
             __p[0] = 0;
             __p[1] = 0;
             __p[2] = 0;
             __p[3] = 0;
+            __p[4] = 0;
+            __p[5] = 0;
         }
 #ifdef _M_IX64
         else if (sizeof(*p) % sizeof(_UINT64_T) == 0)
@@ -86,23 +91,26 @@ __inline static void ClearNumberHeader(NUMBER_HEADER* p)
 __inline static void FillNumberHeader(NUMBER_HEADER* p)
 {
 #ifdef _M_IX64
-    if (sizeof(*p) == sizeof(_UINT64_T) * 3)
+    if (sizeof(*p) == sizeof(_UINT64_T) * 4)
     {
         _UINT64_T* __p = (_UINT64_T*)p;
         __p[0] = DEFAULT_MEMORY_DATA;
         __p[1] = DEFAULT_MEMORY_DATA;
         __p[2] = DEFAULT_MEMORY_DATA;
+        __p[3] = DEFAULT_MEMORY_DATA;
     }
     else
     {
 #endif
-        if (sizeof(*p) == sizeof(_UINT32_T) * 4)
+        if (sizeof(*p) == sizeof(_UINT32_T) * 6)
         {
             _UINT32_T* __p = (_UINT32_T*)p;
             __p[0] = (_UINT32_T)DEFAULT_MEMORY_DATA;
             __p[1] = (_UINT32_T)DEFAULT_MEMORY_DATA;
             __p[2] = (_UINT32_T)DEFAULT_MEMORY_DATA;
             __p[3] = (_UINT32_T)DEFAULT_MEMORY_DATA;
+            __p[4] = (_UINT32_T)DEFAULT_MEMORY_DATA;
+            __p[5] = (_UINT32_T)DEFAULT_MEMORY_DATA;
         }
 #ifdef _M_IX64
         else if (sizeof(*p) % sizeof(_UINT64_T) == 0)
@@ -121,21 +129,16 @@ __inline static void FillNumberHeader(NUMBER_HEADER* p)
 
 static PMC_STATUS_CODE InitializeNumber(NUMBER_HEADER* p, char sign, PMC_HANDLE_UINT abs)
 {
-    PMC_STATUS_CODE result;
     ClearNumberHeader(p);
     p->SIGNATURE1 = PMC_SIGNATURE;
     p->SIGNATURE2 = PMC_SINT_SIGNATURE;
     p->SIGN = sign;
     p->ABS = abs;
-
-    PMC_NUMBER_TYPE_CODE type;
-    if ((result = ep_uint.GetNumberType_X(abs, &type)) != PMC_STATUS_OK)
-        return (result);
-    p->IS_EVEN = (type & PMC_NUMBER_TYPE_IS_EVEN) != 0;
-    p->IS_MINUS_ONE = sign < 0 && (type & PMC_NUMBER_TYPE_IS_ONE) != 0;
-    p->IS_ONE = sign > 0 && (type & PMC_NUMBER_TYPE_IS_ONE) != 0;
-    p->IS_POWER_OF_TWO = sign > 0 && (type & PMC_NUMBER_TYPE_IS_POWER_OF_TWO) != 0;
-    p->IS_ZERO = (type & PMC_NUMBER_TYPE_IS_ZERO) != 0;
+    p->IS_EVEN = abs->FLAGS.IS_EVEN;
+    p->IS_MINUS_ONE = sign < 0 && abs->FLAGS.IS_ONE;
+    p->IS_ONE = sign > 0 && abs->FLAGS.IS_ONE;
+    p->IS_POWER_OF_TWO = sign > 0 && abs->FLAGS.IS_POWER_OF_TWO;
+    p->IS_ZERO = abs->FLAGS.IS_ZERO;
 
     if (sign != 0 && p->IS_ZERO)
         return (PMC_STATUS_INTERNAL_ERROR);
@@ -298,36 +301,33 @@ PMC_STATUS_CODE Initialize_Memory(void)
     BOOL number_one_ok = TRUE;
     BOOL number_minus_one_ok = TRUE;
 
-    PMC_HANDLE_UINT unsigned_zero = NULL;
-    PMC_HANDLE_UINT unsigned_one = NULL;
-
     if (result == PMC_STATUS_OK)
     {
-        if ((result = ep_uint.GetConstantValue_I(PMC_CONSTANT_ZERO, &unsigned_zero)) == PMC_STATUS_OK)
+        if ((result = ep_uint.GetConstantValue_I(PMC_CONSTANT_ZERO, &uint_number_zero)) == PMC_STATUS_OK)
             number_unsigned_zero_ok = TRUE;
     }
 
     if (result == PMC_STATUS_OK)
     {
-        if ((result = ep_uint.GetConstantValue_I(PMC_CONSTANT_ONE, &unsigned_one)) == PMC_STATUS_OK)
+        if ((result = ep_uint.GetConstantValue_I(PMC_CONSTANT_ONE, &uint_number_one)) == PMC_STATUS_OK)
             number_unsigned_one_ok = TRUE;
     }
 
     if (result == PMC_STATUS_OK)
     {
-        if ((result = AttatchNumber(&number_zero, 0, unsigned_zero)) == PMC_STATUS_OK)
+        if ((result = AttatchNumber(&number_zero, 0, uint_number_zero)) == PMC_STATUS_OK)
             number_zero_ok = TRUE;
     }
 
     if (result == PMC_STATUS_OK)
     {
-        if ((result = AttatchNumber(&number_one, 1, unsigned_one)) == PMC_STATUS_OK)
+        if ((result = AttatchNumber(&number_one, 1, uint_number_one)) == PMC_STATUS_OK)
             number_one_ok = TRUE;
     }
 
     if (result == PMC_STATUS_OK)
     {
-        if ((result = AttatchNumber(&number_minus_one, -1, unsigned_one)) == PMC_STATUS_OK)
+        if ((result = AttatchNumber(&number_minus_one, -1, uint_number_one)) == PMC_STATUS_OK)
             number_minus_one_ok = TRUE;
     }
 

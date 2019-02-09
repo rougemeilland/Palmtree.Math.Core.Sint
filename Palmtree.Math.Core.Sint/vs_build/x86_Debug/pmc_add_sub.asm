@@ -9,6 +9,10 @@
 INCLUDELIB MSVCRTD
 INCLUDELIB OLDNAMES
 
+_DATA	SEGMENT
+COMM	_uint_number_zero:DWORD
+COMM	_uint_number_one:DWORD
+_DATA	ENDS
 msvcjmc	SEGMENT
 __7B7A869E_ctype@h DB 01H
 __457DD326_basetsd@h DB 01H
@@ -43,7 +47,6 @@ PUBLIC	__JustMyCode_Default
 EXTRN	_AllocateNumber:PROC
 EXTRN	_CheckNumber:PROC
 EXTRN	_DuplicateNumber:PROC
-EXTRN	_IsZero_UINT:PROC
 EXTRN	_Negate_Imp:PROC
 EXTRN	_From_I_Imp:PROC
 EXTRN	_From_L_Imp:PROC
@@ -89,7 +92,7 @@ _v$ = 16						; size = 4
 _w$ = 20						; size = 4
 _SubtructU_X_X_Imp PROC					; COMDAT
 
-; 168  : {
+; 198  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -107,9 +110,37 @@ _SubtructU_X_X_Imp PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 169  :     PMC_STATUS_CODE result;
-; 170  :     _INT32_T c;
-; 171  :     if ((result = ep_uint.Compare_X_X(u, v, &c)) != PMC_STATUS_OK)
+; 199  : #ifdef _DEBUG
+; 200  :     if (u->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _u$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN2@SubtructU_
+
+; 201  :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	$LN1@SubtructU_
+$LN2@SubtructU_:
+
+; 202  :     if (v->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _v$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN3@SubtructU_
+
+; 203  :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	$LN1@SubtructU_
+$LN3@SubtructU_:
+
+; 204  : #endif
+; 205  :     PMC_STATUS_CODE result;
+; 206  :     _INT32_T c;
+; 207  :     if ((result = ep_uint.Compare_X_X(u, v, &c)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _c$[ebp]
@@ -118,30 +149,30 @@ _SubtructU_X_X_Imp PROC					; COMDAT
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+228
+	call	DWORD PTR _ep_uint+224
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN2@SubtructU_
+	je	SHORT $LN4@SubtructU_
 
-; 172  :         return (result);
+; 208  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@SubtructU_
-$LN2@SubtructU_:
+$LN4@SubtructU_:
 
-; 173  :     if (c > 0)
+; 209  :     if (c > 0)
 
 	cmp	DWORD PTR _c$[ebp], 0
-	jle	SHORT $LN3@SubtructU_
+	jle	SHORT $LN5@SubtructU_
 
-; 174  :     {
-; 175  :         // abs(u) > abs(v) ÇÃèÍçá
-; 176  : 
-; 177  :         // abs(u) - abs(v) Çï‘Ç∑
-; 178  :         PMC_HANDLE_UINT w_abs;
-; 179  :         if ((result = ep_uint.Subtruct_X_X(u, v, &w_abs)) != PMC_STATUS_OK)
+; 210  :     {
+; 211  :         // abs(u) > abs(v) ÇÃèÍçá
+; 212  : 
+; 213  :         // abs(u) - abs(v) Çï‘Ç∑
+; 214  :         PMC_HANDLE_UINT w_abs;
+; 215  :         if ((result = ep_uint.Subtruct_X_X(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w_abs$2[ebp]
@@ -150,20 +181,20 @@ $LN2@SubtructU_:
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+100
+	call	DWORD PTR _ep_uint+96
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN5@SubtructU_
+	je	SHORT $LN7@SubtructU_
 
-; 180  :             return (result);
+; 216  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@SubtructU_
-$LN5@SubtructU_:
+$LN7@SubtructU_:
 
-; 181  :         if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
+; 217  :         if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _w_abs$2[ebp]
 	push	eax
@@ -175,10 +206,10 @@ $LN5@SubtructU_:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN6@SubtructU_
+	je	SHORT $LN8@SubtructU_
 
-; 182  :         {
-; 183  :             ep_uint.Dispose(w_abs);
+; 218  :         {
+; 219  :             ep_uint.Dispose(w_abs);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _w_abs$2[ebp]
@@ -187,44 +218,44 @@ $LN5@SubtructU_:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 184  :             return (result);
+; 220  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@SubtructU_
-$LN6@SubtructU_:
+$LN8@SubtructU_:
 
-; 185  :         }
-; 186  :     }
+; 221  :         }
+; 222  :     }
 
-	jmp	SHORT $LN4@SubtructU_
-$LN3@SubtructU_:
+	jmp	SHORT $LN6@SubtructU_
+$LN5@SubtructU_:
 
-; 187  :     else if (c == 0)
+; 223  :     else if (c == 0)
 
 	cmp	DWORD PTR _c$[ebp], 0
-	jne	SHORT $LN7@SubtructU_
+	jne	SHORT $LN9@SubtructU_
 
-; 188  :     {
-; 189  :         // abs(u) == abs(v) ÇÃèÍçá
-; 190  : 
-; 191  :         // 0 Çï‘Ç∑
-; 192  :         *w = &number_zero;
+; 224  :     {
+; 225  :         // abs(u) == abs(v) ÇÃèÍçá
+; 226  : 
+; 227  :         // 0 Çï‘Ç∑
+; 228  :         *w = &number_zero;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	DWORD PTR [eax], OFFSET _number_zero
 
-; 193  :     }
+; 229  :     }
 
-	jmp	SHORT $LN4@SubtructU_
-$LN7@SubtructU_:
+	jmp	SHORT $LN6@SubtructU_
+$LN9@SubtructU_:
 
-; 194  :     else
-; 195  :     {
-; 196  :         // abs(u) < abs(v) ÇÃèÍçá
-; 197  : 
-; 198  :         // - (abs(v) - abs(u)) Çï‘Ç∑
-; 199  :         PMC_HANDLE_UINT w_abs;
-; 200  :         if ((result = ep_uint.Subtruct_X_X(v, u, &w_abs)) != PMC_STATUS_OK)
+; 230  :     else
+; 231  :     {
+; 232  :         // abs(u) < abs(v) ÇÃèÍçá
+; 233  : 
+; 234  :         // - (abs(v) - abs(u)) Çï‘Ç∑
+; 235  :         PMC_HANDLE_UINT w_abs;
+; 236  :         if ((result = ep_uint.Subtruct_X_X(v, u, &w_abs)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w_abs$1[ebp]
@@ -233,20 +264,20 @@ $LN7@SubtructU_:
 	push	ecx
 	mov	edx, DWORD PTR _v$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+100
+	call	DWORD PTR _ep_uint+96
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN9@SubtructU_
+	je	SHORT $LN11@SubtructU_
 
-; 201  :             return (result);
+; 237  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@SubtructU_
-$LN9@SubtructU_:
+$LN11@SubtructU_:
 
-; 202  :         if ((result = AllocateNumber(w, -sign, w_abs)) != PMC_STATUS_OK)
+; 238  :         if ((result = AllocateNumber(w, -sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _w_abs$1[ebp]
 	push	eax
@@ -259,10 +290,10 @@ $LN9@SubtructU_:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN4@SubtructU_
+	je	SHORT $LN6@SubtructU_
 
-; 203  :         {
-; 204  :             ep_uint.Dispose(w_abs);
+; 239  :         {
+; 240  :             ep_uint.Dispose(w_abs);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _w_abs$1[ebp]
@@ -271,25 +302,25 @@ $LN9@SubtructU_:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 205  :             return (result);
+; 241  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@SubtructU_
-$LN4@SubtructU_:
+$LN6@SubtructU_:
 
-; 206  :         }
-; 207  :     }
-; 208  :     return (PMC_STATUS_OK);
+; 242  :         }
+; 243  :     }
+; 244  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@SubtructU_:
 
-; 209  : }
+; 245  : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN16@SubtructU_
+	lea	edx, DWORD PTR $LN18@SubtructU_
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -306,34 +337,34 @@ $LN1@SubtructU_:
 	pop	ebp
 	ret	0
 	npad	1
-$LN16@SubtructU_:
+$LN18@SubtructU_:
 	DD	3
-	DD	$LN15@SubtructU_
-$LN15@SubtructU_:
+	DD	$LN17@SubtructU_
+$LN17@SubtructU_:
 	DD	-24					; ffffffe8H
 	DD	4
-	DD	$LN12@SubtructU_
+	DD	$LN14@SubtructU_
 	DD	-36					; ffffffdcH
 	DD	4
-	DD	$LN13@SubtructU_
+	DD	$LN15@SubtructU_
 	DD	-48					; ffffffd0H
 	DD	4
-	DD	$LN14@SubtructU_
+	DD	$LN16@SubtructU_
+$LN16@SubtructU_:
+	DB	119					; 00000077H
+	DB	95					; 0000005fH
+	DB	97					; 00000061H
+	DB	98					; 00000062H
+	DB	115					; 00000073H
+	DB	0
+$LN15@SubtructU_:
+	DB	119					; 00000077H
+	DB	95					; 0000005fH
+	DB	97					; 00000061H
+	DB	98					; 00000062H
+	DB	115					; 00000073H
+	DB	0
 $LN14@SubtructU_:
-	DB	119					; 00000077H
-	DB	95					; 0000005fH
-	DB	97					; 00000061H
-	DB	98					; 00000062H
-	DB	115					; 00000073H
-	DB	0
-$LN13@SubtructU_:
-	DB	119					; 00000077H
-	DB	95					; 0000005fH
-	DB	97					; 00000061H
-	DB	98					; 00000062H
-	DB	115					; 00000073H
-	DB	0
-$LN12@SubtructU_:
 	DB	99					; 00000063H
 	DB	0
 _SubtructU_X_X_Imp ENDP
@@ -354,7 +385,7 @@ _v$ = 16						; size = 8
 _w$ = 24						; size = 4
 _SubtructU_X_L_Imp PROC					; COMDAT
 
-; 121  : {
+; 145  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -372,9 +403,36 @@ _SubtructU_X_L_Imp PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 122  :     PMC_STATUS_CODE result;
-; 123  :     _INT32_T c;
-; 124  :     if ((result = ep_uint.Compare_X_L(u, v, &c)) != PMC_STATUS_OK)
+; 146  : #ifdef _DEBUG
+; 147  :     if (u->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _u$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN2@SubtructU_
+
+; 148  :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	$LN1@SubtructU_
+$LN2@SubtructU_:
+
+; 149  :     if (v == 0)
+
+	mov	eax, DWORD PTR _v$[ebp]
+	or	eax, DWORD PTR _v$[ebp+4]
+	jne	SHORT $LN3@SubtructU_
+
+; 150  :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	$LN1@SubtructU_
+$LN3@SubtructU_:
+
+; 151  : #endif
+; 152  :     PMC_STATUS_CODE result;
+; 153  :     _INT32_T c;
+; 154  :     if ((result = ep_uint.Compare_X_L(u, v, &c)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _c$[ebp]
@@ -385,30 +443,30 @@ _SubtructU_X_L_Imp PROC					; COMDAT
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+224
+	call	DWORD PTR _ep_uint+220
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN2@SubtructU_
+	je	SHORT $LN4@SubtructU_
 
-; 125  :         return (result);
+; 155  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@SubtructU_
-$LN2@SubtructU_:
+$LN4@SubtructU_:
 
-; 126  :     if (c > 0)
+; 156  :     if (c > 0)
 
 	cmp	DWORD PTR _c$[ebp], 0
-	jle	SHORT $LN3@SubtructU_
+	jle	SHORT $LN5@SubtructU_
 
-; 127  :     {
-; 128  :         // abs(u) > abs(v) ÇÃèÍçá
-; 129  : 
-; 130  :         // abs(u) - abs(v) Çï‘Ç∑
-; 131  :         PMC_HANDLE_UINT w_abs;
-; 132  :         if ((result = ep_uint.Subtruct_X_L(u, v, &w_abs)) != PMC_STATUS_OK)
+; 157  :     {
+; 158  :         // abs(u) > abs(v) ÇÃèÍçá
+; 159  : 
+; 160  :         // abs(u) - abs(v) Çï‘Ç∑
+; 161  :         PMC_HANDLE_UINT w_abs;
+; 162  :         if ((result = ep_uint.Subtruct_X_L(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w_abs$3[ebp]
@@ -419,20 +477,20 @@ $LN2@SubtructU_:
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+96
+	call	DWORD PTR _ep_uint+92
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN5@SubtructU_
+	je	SHORT $LN7@SubtructU_
 
-; 133  :             return (result);
+; 163  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@SubtructU_
-$LN5@SubtructU_:
+$LN7@SubtructU_:
 
-; 134  :         if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
+; 164  :         if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _w_abs$3[ebp]
 	push	eax
@@ -444,10 +502,10 @@ $LN5@SubtructU_:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN6@SubtructU_
+	je	SHORT $LN8@SubtructU_
 
-; 135  :         {
-; 136  :             ep_uint.Dispose(w_abs);
+; 165  :         {
+; 166  :             ep_uint.Dispose(w_abs);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _w_abs$3[ebp]
@@ -456,44 +514,44 @@ $LN5@SubtructU_:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 137  :             return (result);
+; 167  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@SubtructU_
-$LN6@SubtructU_:
+$LN8@SubtructU_:
 
-; 138  :         }
-; 139  :     }
+; 168  :         }
+; 169  :     }
 
-	jmp	$LN4@SubtructU_
-$LN3@SubtructU_:
+	jmp	$LN6@SubtructU_
+$LN5@SubtructU_:
 
-; 140  :     else if (c == 0)
+; 170  :     else if (c == 0)
 
 	cmp	DWORD PTR _c$[ebp], 0
-	jne	SHORT $LN7@SubtructU_
+	jne	SHORT $LN9@SubtructU_
 
-; 141  :     {
-; 142  :         // abs(u) == abs(v) ÇÃèÍçá
-; 143  : 
-; 144  :         // 0 Çï‘Ç∑
-; 145  :         *w = &number_zero;
+; 171  :     {
+; 172  :         // abs(u) == abs(v) ÇÃèÍçá
+; 173  : 
+; 174  :         // 0 Çï‘Ç∑
+; 175  :         *w = &number_zero;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	DWORD PTR [eax], OFFSET _number_zero
 
-; 146  :     }
+; 176  :     }
 
-	jmp	$LN4@SubtructU_
-$LN7@SubtructU_:
+	jmp	$LN6@SubtructU_
+$LN9@SubtructU_:
 
-; 147  :     else
-; 148  :     {
-; 149  :         // abs(u) < abs(v) ÇÃèÍçá
-; 150  : 
-; 151  :         // - (abs(v) - abs(u)) Çï‘Ç∑
-; 152  :         _UINT64_T t;
-; 153  :         if ((result = ep_uint.Subtruct_L_X(v, u, &t)) != PMC_STATUS_OK)
+; 177  :     else
+; 178  :     {
+; 179  :         // abs(u) < abs(v) ÇÃèÍçá
+; 180  : 
+; 181  :         // - (abs(v) - abs(u)) Çï‘Ç∑
+; 182  :         _UINT64_T t;
+; 183  :         if ((result = ep_uint.Subtruct_L_X(v, u, &t)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _t$2[ebp]
@@ -504,21 +562,21 @@ $LN7@SubtructU_:
 	push	edx
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+88
+	call	DWORD PTR _ep_uint+84
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN9@SubtructU_
+	je	SHORT $LN11@SubtructU_
 
-; 154  :             return (result);
+; 184  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@SubtructU_
-$LN9@SubtructU_:
+$LN11@SubtructU_:
 
-; 155  :         PMC_HANDLE_UINT w_abs;
-; 156  :         if ((result = ep_uint.From_L(t, &w_abs)) != PMC_STATUS_OK)
+; 185  :         PMC_HANDLE_UINT w_abs;
+; 186  :         if ((result = ep_uint.From_L(t, &w_abs)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w_abs$1[ebp]
@@ -532,15 +590,15 @@ $LN9@SubtructU_:
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN10@SubtructU_
+	je	SHORT $LN12@SubtructU_
 
-; 157  :             return (result);
+; 187  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@SubtructU_
-$LN10@SubtructU_:
+$LN12@SubtructU_:
 
-; 158  :         if ((result = AllocateNumber(w, -sign, w_abs)) != PMC_STATUS_OK)
+; 188  :         if ((result = AllocateNumber(w, -sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _w_abs$1[ebp]
 	push	eax
@@ -553,10 +611,10 @@ $LN10@SubtructU_:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN4@SubtructU_
+	je	SHORT $LN6@SubtructU_
 
-; 159  :         {
-; 160  :             ep_uint.Dispose(w_abs);
+; 189  :         {
+; 190  :             ep_uint.Dispose(w_abs);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _w_abs$1[ebp]
@@ -565,25 +623,25 @@ $LN10@SubtructU_:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 161  :             return (result);
+; 191  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@SubtructU_
-$LN4@SubtructU_:
+$LN6@SubtructU_:
 
-; 162  :         }
-; 163  :     }
-; 164  :     return (PMC_STATUS_OK);
+; 192  :         }
+; 193  :     }
+; 194  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@SubtructU_:
 
-; 165  : }
+; 195  : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN18@SubtructU_
+	lea	edx, DWORD PTR $LN20@SubtructU_
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -599,23 +657,33 @@ $LN1@SubtructU_:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-	npad	3
-$LN18@SubtructU_:
+	npad	1
+$LN20@SubtructU_:
 	DD	4
-	DD	$LN17@SubtructU_
-$LN17@SubtructU_:
+	DD	$LN19@SubtructU_
+$LN19@SubtructU_:
 	DD	-24					; ffffffe8H
 	DD	4
-	DD	$LN13@SubtructU_
+	DD	$LN15@SubtructU_
 	DD	-36					; ffffffdcH
 	DD	4
-	DD	$LN14@SubtructU_
+	DD	$LN16@SubtructU_
 	DD	-52					; ffffffccH
 	DD	8
-	DD	$LN15@SubtructU_
+	DD	$LN17@SubtructU_
 	DD	-64					; ffffffc0H
 	DD	4
-	DD	$LN16@SubtructU_
+	DD	$LN18@SubtructU_
+$LN18@SubtructU_:
+	DB	119					; 00000077H
+	DB	95					; 0000005fH
+	DB	97					; 00000061H
+	DB	98					; 00000062H
+	DB	115					; 00000073H
+	DB	0
+$LN17@SubtructU_:
+	DB	116					; 00000074H
+	DB	0
 $LN16@SubtructU_:
 	DB	119					; 00000077H
 	DB	95					; 0000005fH
@@ -624,16 +692,6 @@ $LN16@SubtructU_:
 	DB	115					; 00000073H
 	DB	0
 $LN15@SubtructU_:
-	DB	116					; 00000074H
-	DB	0
-$LN14@SubtructU_:
-	DB	119					; 00000077H
-	DB	95					; 0000005fH
-	DB	97					; 00000061H
-	DB	98					; 00000062H
-	DB	115					; 00000073H
-	DB	0
-$LN13@SubtructU_:
 	DB	99					; 00000063H
 	DB	0
 _SubtructU_X_L_Imp ENDP
@@ -654,7 +712,7 @@ _v$ = 16						; size = 4
 _w$ = 20						; size = 4
 _SubtructU_X_I_Imp PROC					; COMDAT
 
-; 74   : {
+; 92   : {
 
 	push	ebp
 	mov	ebp, esp
@@ -672,9 +730,35 @@ _SubtructU_X_I_Imp PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 75   :     PMC_STATUS_CODE result;
-; 76   :     _INT32_T c;
-; 77   :     if ((result = ep_uint.Compare_X_I(u, v, &c)) != PMC_STATUS_OK)
+; 93   : #ifdef _DEBUG
+; 94   :     if (u->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _u$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN2@SubtructU_
+
+; 95   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	$LN1@SubtructU_
+$LN2@SubtructU_:
+
+; 96   :     if (v == 0)
+
+	cmp	DWORD PTR _v$[ebp], 0
+	jne	SHORT $LN3@SubtructU_
+
+; 97   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	$LN1@SubtructU_
+$LN3@SubtructU_:
+
+; 98   : #endif
+; 99   :     PMC_STATUS_CODE result;
+; 100  :     _INT32_T c;
+; 101  :     if ((result = ep_uint.Compare_X_I(u, v, &c)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _c$[ebp]
@@ -683,30 +767,30 @@ _SubtructU_X_I_Imp PROC					; COMDAT
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+220
+	call	DWORD PTR _ep_uint+216
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN2@SubtructU_
+	je	SHORT $LN4@SubtructU_
 
-; 78   :         return (result);
+; 102  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@SubtructU_
-$LN2@SubtructU_:
+$LN4@SubtructU_:
 
-; 79   :     if (c > 0)
+; 103  :     if (c > 0)
 
 	cmp	DWORD PTR _c$[ebp], 0
-	jle	SHORT $LN3@SubtructU_
+	jle	SHORT $LN5@SubtructU_
 
-; 80   :     {
-; 81   :         // abs(u) > abs(v) ÇÃèÍçá
-; 82   : 
-; 83   :         // abs(u) - abs(v) Çï‘Ç∑
-; 84   :         PMC_HANDLE_UINT w_abs;
-; 85   :         if ((result = ep_uint.Subtruct_X_I(u, v, &w_abs)) != PMC_STATUS_OK)
+; 104  :     {
+; 105  :         // abs(u) > abs(v) ÇÃèÍçá
+; 106  : 
+; 107  :         // abs(u) - abs(v) Çï‘Ç∑
+; 108  :         PMC_HANDLE_UINT w_abs;
+; 109  :         if ((result = ep_uint.Subtruct_X_I(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w_abs$3[ebp]
@@ -715,20 +799,20 @@ $LN2@SubtructU_:
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+92
+	call	DWORD PTR _ep_uint+88
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN5@SubtructU_
+	je	SHORT $LN7@SubtructU_
 
-; 86   :             return (result);
+; 110  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@SubtructU_
-$LN5@SubtructU_:
+$LN7@SubtructU_:
 
-; 87   :         if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
+; 111  :         if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _w_abs$3[ebp]
 	push	eax
@@ -740,10 +824,10 @@ $LN5@SubtructU_:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN6@SubtructU_
+	je	SHORT $LN8@SubtructU_
 
-; 88   :         {
-; 89   :             ep_uint.Dispose(w_abs);
+; 112  :         {
+; 113  :             ep_uint.Dispose(w_abs);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _w_abs$3[ebp]
@@ -752,44 +836,44 @@ $LN5@SubtructU_:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 90   :             return (result);
+; 114  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@SubtructU_
-$LN6@SubtructU_:
+$LN8@SubtructU_:
 
-; 91   :         }
-; 92   :     }
+; 115  :         }
+; 116  :     }
 
-	jmp	$LN4@SubtructU_
-$LN3@SubtructU_:
+	jmp	$LN6@SubtructU_
+$LN5@SubtructU_:
 
-; 93   :     else if (c == 0)
+; 117  :     else if (c == 0)
 
 	cmp	DWORD PTR _c$[ebp], 0
-	jne	SHORT $LN7@SubtructU_
+	jne	SHORT $LN9@SubtructU_
 
-; 94   :     {
-; 95   :         // abs(u) == abs(v) ÇÃèÍçá
-; 96   : 
-; 97   :         // 0 Çï‘Ç∑
-; 98   :         *w = &number_zero;
+; 118  :     {
+; 119  :         // abs(u) == abs(v) ÇÃèÍçá
+; 120  : 
+; 121  :         // 0 Çï‘Ç∑
+; 122  :         *w = &number_zero;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	DWORD PTR [eax], OFFSET _number_zero
 
-; 99   :     }
+; 123  :     }
 
-	jmp	$LN4@SubtructU_
-$LN7@SubtructU_:
+	jmp	$LN6@SubtructU_
+$LN9@SubtructU_:
 
-; 100  :     else
-; 101  :     {
-; 102  :         // abs(u) < abs(v) ÇÃèÍçá
-; 103  : 
-; 104  :         // - (abs(v) - abs(u)) Çï‘Ç∑
-; 105  :         _UINT32_T t;
-; 106  :         if ((result = ep_uint.Subtruct_I_X(v, u, &t)) != PMC_STATUS_OK)
+; 124  :     else
+; 125  :     {
+; 126  :         // abs(u) < abs(v) ÇÃèÍçá
+; 127  : 
+; 128  :         // - (abs(v) - abs(u)) Çï‘Ç∑
+; 129  :         _UINT32_T t;
+; 130  :         if ((result = ep_uint.Subtruct_I_X(v, u, &t)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _t$2[ebp]
@@ -798,21 +882,21 @@ $LN7@SubtructU_:
 	push	ecx
 	mov	edx, DWORD PTR _v$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+84
+	call	DWORD PTR _ep_uint+80
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN9@SubtructU_
+	je	SHORT $LN11@SubtructU_
 
-; 107  :             return (result);
+; 131  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@SubtructU_
-$LN9@SubtructU_:
+$LN11@SubtructU_:
 
-; 108  :         PMC_HANDLE_UINT w_abs;
-; 109  :         if ((result = ep_uint.From_I(t, &w_abs)) != PMC_STATUS_OK)
+; 132  :         PMC_HANDLE_UINT w_abs;
+; 133  :         if ((result = ep_uint.From_I(t, &w_abs)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w_abs$1[ebp]
@@ -824,15 +908,15 @@ $LN9@SubtructU_:
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN10@SubtructU_
+	je	SHORT $LN12@SubtructU_
 
-; 110  :             return (result);
+; 134  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@SubtructU_
-$LN10@SubtructU_:
+$LN12@SubtructU_:
 
-; 111  :         if ((result = AllocateNumber(w, -sign, w_abs)) != PMC_STATUS_OK)
+; 135  :         if ((result = AllocateNumber(w, -sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _w_abs$1[ebp]
 	push	eax
@@ -845,10 +929,10 @@ $LN10@SubtructU_:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN4@SubtructU_
+	je	SHORT $LN6@SubtructU_
 
-; 112  :         {
-; 113  :             ep_uint.Dispose(w_abs);
+; 136  :         {
+; 137  :             ep_uint.Dispose(w_abs);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _w_abs$1[ebp]
@@ -857,25 +941,25 @@ $LN10@SubtructU_:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 114  :             return (result);
+; 138  :             return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@SubtructU_
-$LN4@SubtructU_:
+$LN6@SubtructU_:
 
-; 115  :         }
-; 116  :     }
-; 117  :     return (PMC_STATUS_OK);
+; 139  :         }
+; 140  :     }
+; 141  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@SubtructU_:
 
-; 118  : }
+; 142  : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN18@SubtructU_
+	lea	edx, DWORD PTR $LN20@SubtructU_
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -892,22 +976,32 @@ $LN1@SubtructU_:
 	pop	ebp
 	ret	0
 	npad	3
-$LN18@SubtructU_:
+$LN20@SubtructU_:
 	DD	4
-	DD	$LN17@SubtructU_
-$LN17@SubtructU_:
+	DD	$LN19@SubtructU_
+$LN19@SubtructU_:
 	DD	-24					; ffffffe8H
 	DD	4
-	DD	$LN13@SubtructU_
+	DD	$LN15@SubtructU_
 	DD	-36					; ffffffdcH
 	DD	4
-	DD	$LN14@SubtructU_
+	DD	$LN16@SubtructU_
 	DD	-48					; ffffffd0H
 	DD	4
-	DD	$LN15@SubtructU_
+	DD	$LN17@SubtructU_
 	DD	-60					; ffffffc4H
 	DD	4
-	DD	$LN16@SubtructU_
+	DD	$LN18@SubtructU_
+$LN18@SubtructU_:
+	DB	119					; 00000077H
+	DB	95					; 0000005fH
+	DB	97					; 00000061H
+	DB	98					; 00000062H
+	DB	115					; 00000073H
+	DB	0
+$LN17@SubtructU_:
+	DB	116					; 00000074H
+	DB	0
 $LN16@SubtructU_:
 	DB	119					; 00000077H
 	DB	95					; 0000005fH
@@ -916,16 +1010,6 @@ $LN16@SubtructU_:
 	DB	115					; 00000073H
 	DB	0
 $LN15@SubtructU_:
-	DB	116					; 00000074H
-	DB	0
-$LN14@SubtructU_:
-	DB	119					; 00000077H
-	DB	95					; 0000005fH
-	DB	97					; 00000061H
-	DB	98					; 00000062H
-	DB	115					; 00000073H
-	DB	0
-$LN13@SubtructU_:
 	DB	99					; 00000063H
 	DB	0
 _SubtructU_X_I_Imp ENDP
@@ -943,7 +1027,7 @@ _v$ = 16						; size = 4
 _w$ = 20						; size = 4
 _AddU_X_X_Imp PROC					; COMDAT
 
-; 60   : {
+; 72   : {
 
 	push	ebp
 	mov	ebp, esp
@@ -961,9 +1045,37 @@ _AddU_X_X_Imp PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 61   :     PMC_STATUS_CODE result;
-; 62   :     PMC_HANDLE_UINT w_abs;
-; 63   :     if ((result = ep_uint.Add_X_X(u, v, &w_abs)) != PMC_STATUS_OK)
+; 73   : #ifdef _DEBUG
+; 74   :     if (u->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _u$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN2@AddU_X_X_I
+
+; 75   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	SHORT $LN1@AddU_X_X_I
+$LN2@AddU_X_X_I:
+
+; 76   :     if (v->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _v$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN3@AddU_X_X_I
+
+; 77   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	SHORT $LN1@AddU_X_X_I
+$LN3@AddU_X_X_I:
+
+; 78   : #endif
+; 79   :     PMC_STATUS_CODE result;
+; 80   :     PMC_HANDLE_UINT w_abs;
+; 81   :     if ((result = ep_uint.Add_X_X(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w_abs$[ebp]
@@ -972,20 +1084,20 @@ _AddU_X_X_Imp PROC					; COMDAT
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+80
+	call	DWORD PTR _ep_uint+76
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN2@AddU_X_X_I
+	je	SHORT $LN4@AddU_X_X_I
 
-; 64   :         return (result);
+; 82   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@AddU_X_X_I
-$LN2@AddU_X_X_I:
+$LN4@AddU_X_X_I:
 
-; 65   :     if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
+; 83   :     if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _w_abs$[ebp]
 	push	eax
@@ -997,10 +1109,10 @@ $LN2@AddU_X_X_I:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN3@AddU_X_X_I
+	je	SHORT $LN5@AddU_X_X_I
 
-; 66   :     {
-; 67   :         ep_uint.Dispose(w_abs);
+; 84   :     {
+; 85   :         ep_uint.Dispose(w_abs);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _w_abs$[ebp]
@@ -1009,24 +1121,24 @@ $LN2@AddU_X_X_I:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 68   :         return (result);
+; 86   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@AddU_X_X_I
-$LN3@AddU_X_X_I:
+$LN5@AddU_X_X_I:
 
-; 69   :     }
-; 70   :     return (PMC_STATUS_OK);
+; 87   :     }
+; 88   :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@AddU_X_X_I:
 
-; 71   : }
+; 89   : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN7@AddU_X_X_I
+	lea	edx, DWORD PTR $LN9@AddU_X_X_I
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -1042,15 +1154,14 @@ $LN1@AddU_X_X_I:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-	npad	2
-$LN7@AddU_X_X_I:
+$LN9@AddU_X_X_I:
 	DD	1
-	DD	$LN6@AddU_X_X_I
-$LN6@AddU_X_X_I:
+	DD	$LN8@AddU_X_X_I
+$LN8@AddU_X_X_I:
 	DD	-24					; ffffffe8H
 	DD	4
-	DD	$LN5@AddU_X_X_I
-$LN5@AddU_X_X_I:
+	DD	$LN7@AddU_X_X_I
+$LN7@AddU_X_X_I:
 	DB	119					; 00000077H
 	DB	95					; 0000005fH
 	DB	97					; 00000061H
@@ -1072,7 +1183,7 @@ _v$ = 16						; size = 8
 _w$ = 24						; size = 4
 _AddU_X_L_Imp PROC					; COMDAT
 
-; 46   : {
+; 52   : {
 
 	push	ebp
 	mov	ebp, esp
@@ -1090,9 +1201,36 @@ _AddU_X_L_Imp PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 47   :     PMC_STATUS_CODE result;
-; 48   :     PMC_HANDLE_UINT w_abs;
-; 49   :     if ((result = ep_uint.Add_X_L(u, v, &w_abs)) != PMC_STATUS_OK)
+; 53   : #ifdef _DEBUG
+; 54   :     if (u->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _u$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN2@AddU_X_L_I
+
+; 55   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	SHORT $LN1@AddU_X_L_I
+$LN2@AddU_X_L_I:
+
+; 56   :     if (v == 0)
+
+	mov	eax, DWORD PTR _v$[ebp]
+	or	eax, DWORD PTR _v$[ebp+4]
+	jne	SHORT $LN3@AddU_X_L_I
+
+; 57   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	SHORT $LN1@AddU_X_L_I
+$LN3@AddU_X_L_I:
+
+; 58   : #endif
+; 59   :     PMC_STATUS_CODE result;
+; 60   :     PMC_HANDLE_UINT w_abs;
+; 61   :     if ((result = ep_uint.Add_X_L(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w_abs$[ebp]
@@ -1103,20 +1241,20 @@ _AddU_X_L_Imp PROC					; COMDAT
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+76
+	call	DWORD PTR _ep_uint+72
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN2@AddU_X_L_I
+	je	SHORT $LN4@AddU_X_L_I
 
-; 50   :         return (result);
+; 62   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@AddU_X_L_I
-$LN2@AddU_X_L_I:
+$LN4@AddU_X_L_I:
 
-; 51   :     if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
+; 63   :     if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _w_abs$[ebp]
 	push	eax
@@ -1128,10 +1266,10 @@ $LN2@AddU_X_L_I:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN3@AddU_X_L_I
+	je	SHORT $LN5@AddU_X_L_I
 
-; 52   :     {
-; 53   :         ep_uint.Dispose(w_abs);
+; 64   :     {
+; 65   :         ep_uint.Dispose(w_abs);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _w_abs$[ebp]
@@ -1140,24 +1278,24 @@ $LN2@AddU_X_L_I:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 54   :         return (result);
+; 66   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@AddU_X_L_I
-$LN3@AddU_X_L_I:
+$LN5@AddU_X_L_I:
 
-; 55   :     }
-; 56   :     return (PMC_STATUS_OK);
+; 67   :     }
+; 68   :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@AddU_X_L_I:
 
-; 57   : }
+; 69   : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN7@AddU_X_L_I
+	lea	edx, DWORD PTR $LN9@AddU_X_L_I
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -1174,14 +1312,14 @@ $LN1@AddU_X_L_I:
 	pop	ebp
 	ret	0
 	npad	2
-$LN7@AddU_X_L_I:
+$LN9@AddU_X_L_I:
 	DD	1
-	DD	$LN6@AddU_X_L_I
-$LN6@AddU_X_L_I:
+	DD	$LN8@AddU_X_L_I
+$LN8@AddU_X_L_I:
 	DD	-24					; ffffffe8H
 	DD	4
-	DD	$LN5@AddU_X_L_I
-$LN5@AddU_X_L_I:
+	DD	$LN7@AddU_X_L_I
+$LN7@AddU_X_L_I:
 	DB	119					; 00000077H
 	DB	95					; 0000005fH
 	DB	97					; 00000061H
@@ -1221,9 +1359,35 @@ _AddU_X_I_Imp PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 33   :     PMC_STATUS_CODE result;
-; 34   :     PMC_HANDLE_UINT w_abs;
-; 35   :     if ((result = ep_uint.Add_X_I(u, v, &w_abs)) != PMC_STATUS_OK)
+; 33   : #ifdef _DEBUG
+; 34   :     if (u->FLAGS.IS_ZERO)
+
+	mov	eax, DWORD PTR _u$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN2@AddU_X_I_I
+
+; 35   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	SHORT $LN1@AddU_X_I_I
+$LN2@AddU_X_I_I:
+
+; 36   :     if (v == 0)
+
+	cmp	DWORD PTR _v$[ebp], 0
+	jne	SHORT $LN3@AddU_X_I_I
+
+; 37   :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffff00H
+	jmp	SHORT $LN1@AddU_X_I_I
+$LN3@AddU_X_I_I:
+
+; 38   : #endif
+; 39   :     PMC_STATUS_CODE result;
+; 40   :     PMC_HANDLE_UINT w_abs;
+; 41   :     if ((result = ep_uint.Add_X_I(u, v, &w_abs)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _w_abs$[ebp]
@@ -1232,20 +1396,20 @@ _AddU_X_I_Imp PROC					; COMDAT
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+72
+	call	DWORD PTR _ep_uint+68
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN2@AddU_X_I_I
+	je	SHORT $LN4@AddU_X_I_I
 
-; 36   :         return (result);
+; 42   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@AddU_X_I_I
-$LN2@AddU_X_I_I:
+$LN4@AddU_X_I_I:
 
-; 37   :     if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
+; 43   :     if ((result = AllocateNumber(w, sign, w_abs)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _w_abs$[ebp]
 	push	eax
@@ -1257,10 +1421,10 @@ $LN2@AddU_X_I_I:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN3@AddU_X_I_I
+	je	SHORT $LN5@AddU_X_I_I
 
-; 38   :     {
-; 39   :         ep_uint.Dispose(w_abs);
+; 44   :     {
+; 45   :         ep_uint.Dispose(w_abs);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _w_abs$[ebp]
@@ -1269,24 +1433,24 @@ $LN2@AddU_X_I_I:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 40   :         return (result);
+; 46   :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@AddU_X_I_I
-$LN3@AddU_X_I_I:
+$LN5@AddU_X_I_I:
 
-; 41   :     }
-; 42   :     return (PMC_STATUS_OK);
+; 47   :     }
+; 48   :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@AddU_X_I_I:
 
-; 43   : }
+; 49   : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN7@AddU_X_I_I
+	lea	edx, DWORD PTR $LN9@AddU_X_I_I
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -1302,15 +1466,14 @@ $LN1@AddU_X_I_I:
 	mov	esp, ebp
 	pop	ebp
 	ret	0
-	npad	2
-$LN7@AddU_X_I_I:
+$LN9@AddU_X_I_I:
 	DD	1
-	DD	$LN6@AddU_X_I_I
-$LN6@AddU_X_I_I:
+	DD	$LN8@AddU_X_I_I
+$LN8@AddU_X_I_I:
 	DD	-24					; ffffffe8H
 	DD	4
-	DD	$LN5@AddU_X_I_I
-$LN5@AddU_X_I_I:
+	DD	$LN7@AddU_X_I_I
+$LN7@AddU_X_I_I:
 	DB	119					; 00000077H
 	DB	95					; 0000005fH
 	DB	97					; 00000061H
@@ -1550,7 +1713,7 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Subtruct_X_X@12 PROC				; COMDAT
 
-; 1400 : {
+; 1421 : {
 
 	push	ebp
 	mov	ebp, esp
@@ -1568,52 +1731,52 @@ _PMC_Subtruct_X_X@12 PROC				; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 1401 :     if (u == NULL)
+; 1422 :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 1402 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1423 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 1403 :     if (v == NULL)
+; 1424 :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 1404 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1425 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 1405 :     if (w == NULL)
+; 1426 :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN4@PMC_Subtru
 
-; 1406 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1427 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 1407 :     PMC_STATUS_CODE result;
-; 1408 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 1428 :     PMC_STATUS_CODE result;
+; 1429 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	eax, DWORD PTR _u$[ebp]
 	mov	DWORD PTR _nu$[ebp], eax
 
-; 1409 :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 1430 :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	eax, DWORD PTR _v$[ebp]
 	mov	DWORD PTR _nv$[ebp], eax
 
-; 1410 :     NUMBER_HEADER* nw;
-; 1411 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 1431 :     NUMBER_HEADER* nw;
+; 1432 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nu$[ebp]
 	push	eax
@@ -1623,13 +1786,13 @@ $LN4@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN5@PMC_Subtru
 
-; 1412 :         return (result);
+; 1433 :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 1413 :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 1434 :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nv$[ebp]
 	push	eax
@@ -1639,48 +1802,48 @@ $LN5@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Subtru
 
-; 1414 :         return (result);
+; 1435 :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN6@PMC_Subtru:
 
-; 1415 :     if (nu->SIGN == 0)
+; 1436 :     if (nu->SIGN == 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN7@PMC_Subtru
 
-; 1416 :     {
-; 1417 :         // u == 0 ÇÃèÍçá
-; 1418 : 
-; 1419 :         if (nv->SIGN == 0)
+; 1437 :     {
+; 1438 :         // u == 0 ÇÃèÍçá
+; 1439 : 
+; 1440 :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN9@PMC_Subtru
 
-; 1420 :         {
-; 1421 :             // v == 0 ÇÃèÍçá
-; 1422 : 
-; 1423 :             // 0 Çï‘Ç∑
-; 1424 :             nw = &number_zero;
+; 1441 :         {
+; 1442 :             // v == 0 ÇÃèÍçá
+; 1443 : 
+; 1444 :             // 0 Çï‘Ç∑
+; 1445 :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 1425 :         }
+; 1446 :         }
 
 	jmp	SHORT $LN10@PMC_Subtru
 $LN9@PMC_Subtru:
 
-; 1426 :         else
-; 1427 :         {
-; 1428 :             // v != 0 ÇÃèÍçá
-; 1429 : 
-; 1430 :             // -v Çï‘Ç∑
-; 1431 :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
+; 1447 :         else
+; 1448 :         {
+; 1449 :             // v != 0 ÇÃèÍçá
+; 1450 : 
+; 1451 :             // -v Çï‘Ç∑
+; 1452 :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -1692,40 +1855,40 @@ $LN9@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN10@PMC_Subtru
 
-; 1432 :                 return (result);
+; 1453 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN10@PMC_Subtru:
 
-; 1433 :         }
-; 1434 :     }
+; 1454 :         }
+; 1455 :     }
 
 	jmp	$LN8@PMC_Subtru
 $LN7@PMC_Subtru:
 
-; 1435 :     else if (nu->SIGN > 0)
+; 1456 :     else if (nu->SIGN > 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	$LN12@PMC_Subtru
 
-; 1436 :     {
-; 1437 :         // u > 0 ÇÃèÍçá
-; 1438 : 
-; 1439 :         if (nv->SIGN == 0)
+; 1457 :     {
+; 1458 :         // u > 0 ÇÃèÍçá
+; 1459 : 
+; 1460 :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN14@PMC_Subtru
 
-; 1440 :         {
-; 1441 :             // v == 0 ÇÃèÍçá
-; 1442 : 
-; 1443 :             // u Çï‘Ç∑
-; 1444 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1461 :         {
+; 1462 :             // v == 0 ÇÃèÍçá
+; 1463 : 
+; 1464 :             // u Çï‘Ç∑
+; 1465 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -1737,37 +1900,37 @@ $LN7@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN16@PMC_Subtru
 
-; 1445 :                 return (result);
+; 1466 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN16@PMC_Subtru:
 
-; 1446 :         }
+; 1467 :         }
 
 	jmp	SHORT $LN15@PMC_Subtru
 $LN14@PMC_Subtru:
 
-; 1447 :         else if (nv->SIGN > 0)
+; 1468 :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN17@PMC_Subtru
 
-; 1448 :         {
-; 1449 :             // v > 0 ÇÃèÍçá
-; 1450 : 
-; 1451 :             // abs(u) - abs(v) Çï‘Ç∑
-; 1452 :             if ((result = SubtructU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 1469 :         {
+; 1470 :             // v > 0 ÇÃèÍçá
+; 1471 : 
+; 1472 :             // abs(u) - abs(v) Çï‘Ç∑
+; 1473 :             if ((result = SubtructU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	1
 	call	_SubtructU_X_X_Imp
@@ -1776,31 +1939,31 @@ $LN14@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN19@PMC_Subtru
 
-; 1453 :                 return (result);
+; 1474 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN19@PMC_Subtru:
 
-; 1454 :         }
+; 1475 :         }
 
 	jmp	SHORT $LN15@PMC_Subtru
 $LN17@PMC_Subtru:
 
-; 1455 :         else
-; 1456 :         {
-; 1457 :             // v < 0 ÇÃèÍçá
-; 1458 : 
-; 1459 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 1460 :             if ((result = AddU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 1476 :         else
+; 1477 :         {
+; 1478 :             // v < 0 ÇÃèÍçá
+; 1479 : 
+; 1480 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 1481 :             if ((result = AddU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	1
 	call	_AddU_X_X_Imp
@@ -1809,34 +1972,34 @@ $LN17@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN15@PMC_Subtru
 
-; 1461 :                 return (result);
+; 1482 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN15@PMC_Subtru:
 
-; 1462 :         }
-; 1463 :     }
+; 1483 :         }
+; 1484 :     }
 
 	jmp	$LN8@PMC_Subtru
 $LN12@PMC_Subtru:
 
-; 1464 :     else
-; 1465 :     {
-; 1466 :         // u < 0 ÇÃèÍçá
-; 1467 : 
-; 1468 :         if (nv->SIGN == 0)
+; 1485 :     else
+; 1486 :     {
+; 1487 :         // u < 0 ÇÃèÍçá
+; 1488 : 
+; 1489 :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN21@PMC_Subtru
 
-; 1469 :         {
-; 1470 :             // v == 0 ÇÃèÍçá
-; 1471 : 
-; 1472 :             // u Çï‘Ç∑
-; 1473 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1490 :         {
+; 1491 :             // v == 0 ÇÃèÍçá
+; 1492 : 
+; 1493 :             // u Çï‘Ç∑
+; 1494 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -1848,37 +2011,37 @@ $LN12@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN23@PMC_Subtru
 
-; 1474 :                 return (result);
+; 1495 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN23@PMC_Subtru:
 
-; 1475 :         }
+; 1496 :         }
 
 	jmp	SHORT $LN8@PMC_Subtru
 $LN21@PMC_Subtru:
 
-; 1476 :         else if (nv->SIGN > 0)
+; 1497 :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN24@PMC_Subtru
 
-; 1477 :         {
-; 1478 :             // v > 0 ÇÃèÍçá
-; 1479 : 
-; 1480 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 1481 :             if ((result = AddU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 1498 :         {
+; 1499 :             // v > 0 ÇÃèÍçá
+; 1500 : 
+; 1501 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 1502 :             if ((result = AddU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	-1
 	call	_AddU_X_X_Imp
@@ -1887,31 +2050,31 @@ $LN21@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN26@PMC_Subtru
 
-; 1482 :                 return (result);
+; 1503 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN26@PMC_Subtru:
 
-; 1483 :         }
+; 1504 :         }
 
 	jmp	SHORT $LN8@PMC_Subtru
 $LN24@PMC_Subtru:
 
-; 1484 :         else
-; 1485 :         {
-; 1486 :             // v < 0 ÇÃèÍçá
-; 1487 : 
-; 1488 :             // - abs(u) + abs(v) Çï‘Ç∑
-; 1489 :             if ((result = SubtructU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 1505 :         else
+; 1506 :         {
+; 1507 :             // v < 0 ÇÃèÍçá
+; 1508 : 
+; 1509 :             // - abs(u) + abs(v) Çï‘Ç∑
+; 1510 :             if ((result = SubtructU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	-1
 	call	_SubtructU_X_X_Imp
@@ -1920,26 +2083,26 @@ $LN24@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN8@PMC_Subtru
 
-; 1490 :                 return (result);
+; 1511 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN8@PMC_Subtru:
 
-; 1491 :         }
-; 1492 :     }
-; 1493 :     *w = (PMC_HANDLE_SINT)nw;
+; 1512 :         }
+; 1513 :     }
+; 1514 :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 1494 :     return (PMC_STATUS_OK);
+; 1515 :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 1495 : }
+; 1516 : }
 
 	push	edx
 	mov	ecx, ebp
@@ -1978,8 +2141,7 @@ _TEXT	ENDS
 ; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_add_sub.c
 ;	COMDAT _PMC_Subtruct_X_UX@12
 _TEXT	SEGMENT
-_new_v$1 = -60						; size = 4
-_v_is_zero$ = -45					; size = 1
+_new_v$1 = -48						; size = 4
 _nw$ = -36						; size = 4
 _nu$ = -24						; size = 4
 _result$ = -12						; size = 4
@@ -1989,16 +2151,16 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Subtruct_X_UX@12 PROC				; COMDAT
 
-; 1310 : {
+; 1334 : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 256				; 00000100H
+	sub	esp, 244				; 000000f4H
 	push	ebx
 	push	esi
 	push	edi
-	lea	edi, DWORD PTR [ebp-256]
-	mov	ecx, 64					; 00000040H
+	lea	edi, DWORD PTR [ebp-244]
+	mov	ecx, 61					; 0000003dH
 	mov	eax, -858993460				; ccccccccH
 	rep stosd
 	mov	eax, DWORD PTR ___security_cookie
@@ -2007,47 +2169,47 @@ _PMC_Subtruct_X_UX@12 PROC				; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 1311 :     if (u == NULL)
+; 1335 :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 1312 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1336 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 1313 :     if (v == NULL)
+; 1337 :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 1314 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1338 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 1315 :     if (w == NULL)
+; 1339 :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN4@PMC_Subtru
 
-; 1316 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1340 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 1317 :     PMC_STATUS_CODE result;
-; 1318 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 1341 :     PMC_STATUS_CODE result;
+; 1342 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	eax, DWORD PTR _u$[ebp]
 	mov	DWORD PTR _nu$[ebp], eax
 
-; 1319 :     NUMBER_HEADER* nw;
-; 1320 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 1343 :     NUMBER_HEADER* nw;
+; 1344 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nu$[ebp]
 	push	eax
@@ -2057,87 +2219,69 @@ $LN4@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN5@PMC_Subtru
 
-; 1321 :         return (result);
+; 1345 :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 1322 :     char v_is_zero;
-; 1323 :     if ((result = IsZero_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
-
-	lea	eax, DWORD PTR _v_is_zero$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _v$[ebp]
-	push	ecx
-	call	_IsZero_UINT
-	add	esp, 8
-	mov	DWORD PTR _result$[ebp], eax
-	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN6@PMC_Subtru
-
-; 1324 :         return (result);
-
-	mov	eax, DWORD PTR _result$[ebp]
-	jmp	$LN1@PMC_Subtru
-$LN6@PMC_Subtru:
-
-; 1325 :     if (nu->SIGN == 0)
+; 1346 :     if (nu->SIGN == 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
-	jne	SHORT $LN7@PMC_Subtru
+	jne	SHORT $LN6@PMC_Subtru
 
-; 1326 :     {
-; 1327 :         // u == 0 ÇÃèÍçá
-; 1328 : 
-; 1329 :         if (v_is_zero)
+; 1347 :     {
+; 1348 :         // u == 0 ÇÃèÍçá
+; 1349 : 
+; 1350 :         if (v->FLAGS.IS_ZERO)
 
-	movsx	eax, BYTE PTR _v_is_zero$[ebp]
-	test	eax, eax
-	je	SHORT $LN9@PMC_Subtru
+	mov	eax, DWORD PTR _v$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN8@PMC_Subtru
 
-; 1330 :         {
-; 1331 :             // v == 0 ÇÃèÍçá
-; 1332 : 
-; 1333 :             // 0 Çï‘Ç∑
-; 1334 :             nw = &number_zero;
+; 1351 :         {
+; 1352 :             // v == 0 ÇÃèÍçá
+; 1353 : 
+; 1354 :             // 0 Çï‘Ç∑
+; 1355 :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 1335 :         }
+; 1356 :         }
 
-	jmp	SHORT $LN10@PMC_Subtru
-$LN9@PMC_Subtru:
+	jmp	SHORT $LN9@PMC_Subtru
+$LN8@PMC_Subtru:
 
-; 1336 :         else
-; 1337 :         {
-; 1338 :             // v > 0 ÇÃèÍçá
-; 1339 : 
-; 1340 :             // -v Çï‘Ç∑
-; 1341 :             PMC_HANDLE_UINT new_v;
-; 1342 :             if ((result = ep_uint.Clone_X(v, &new_v)) != PMC_STATUS_OK)
+; 1357 :         else
+; 1358 :         {
+; 1359 :             // v > 0 ÇÃèÍçá
+; 1360 : 
+; 1361 :             // -v Çï‘Ç∑
+; 1362 :             PMC_HANDLE_UINT new_v;
+; 1363 :             if ((result = ep_uint.Clone_X(v, &new_v)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _new_v$1[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v$[ebp]
 	push	ecx
-	call	DWORD PTR _ep_uint+44
+	call	DWORD PTR _ep_uint+40
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN11@PMC_Subtru
+	je	SHORT $LN10@PMC_Subtru
 
-; 1343 :                 return (result);
+; 1364 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
-$LN11@PMC_Subtru:
+$LN10@PMC_Subtru:
 
-; 1344 :             if ((result = AllocateNumber(&nw, -1, new_v)) != PMC_STATUS_OK)
+; 1365 :             if ((result = AllocateNumber(&nw, -1, new_v)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _new_v$1[ebp]
 	push	eax
@@ -2148,10 +2292,10 @@ $LN11@PMC_Subtru:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN10@PMC_Subtru
+	je	SHORT $LN9@PMC_Subtru
 
-; 1345 :             {
-; 1346 :                 ep_uint.Dispose(new_v);
+; 1366 :             {
+; 1367 :                 ep_uint.Dispose(new_v);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _new_v$1[ebp]
@@ -2160,41 +2304,42 @@ $LN11@PMC_Subtru:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 1347 :                 return (result);
+; 1368 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
-$LN10@PMC_Subtru:
+$LN9@PMC_Subtru:
 
-; 1348 :             }
-; 1349 :         }
-; 1350 : 
-; 1351 :     }
+; 1369 :             }
+; 1370 :         }
+; 1371 : 
+; 1372 :     }
 
-	jmp	$LN8@PMC_Subtru
-$LN7@PMC_Subtru:
+	jmp	$LN7@PMC_Subtru
+$LN6@PMC_Subtru:
 
-; 1352 :     else if (nu->SIGN > 0)
+; 1373 :     else if (nu->SIGN > 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
-	jle	SHORT $LN13@PMC_Subtru
+	jle	SHORT $LN12@PMC_Subtru
 
-; 1353 :     {
-; 1354 :         // u > 0 ÇÃèÍçá
-; 1355 : 
-; 1356 :         if (v_is_zero)
+; 1374 :     {
+; 1375 :         // u > 0 ÇÃèÍçá
+; 1376 : 
+; 1377 :         if (v->FLAGS.IS_ZERO)
 
-	movsx	eax, BYTE PTR _v_is_zero$[ebp]
-	test	eax, eax
-	je	SHORT $LN15@PMC_Subtru
+	mov	eax, DWORD PTR _v$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN14@PMC_Subtru
 
-; 1357 :         {
-; 1358 :             // v == 0 ÇÃèÍçá
-; 1359 : 
-; 1360 :             // u Çï‘Ç∑
-; 1361 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1378 :         {
+; 1379 :             // v == 0 ÇÃèÍçá
+; 1380 : 
+; 1381 :             // u Çï‘Ç∑
+; 1382 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -2204,68 +2349,69 @@ $LN7@PMC_Subtru:
 	add	esp, 8
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN17@PMC_Subtru
+	je	SHORT $LN16@PMC_Subtru
 
-; 1362 :                 return (result);
+; 1383 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
-$LN17@PMC_Subtru:
+$LN16@PMC_Subtru:
 
-; 1363 :         }
+; 1384 :         }
 
-	jmp	SHORT $LN16@PMC_Subtru
-$LN15@PMC_Subtru:
+	jmp	SHORT $LN15@PMC_Subtru
+$LN14@PMC_Subtru:
 
-; 1364 :         else
-; 1365 :         {
-; 1366 :             // v > 0 ÇÃèÍçá
-; 1367 : 
-; 1368 :             // abs(u) - v Çï‘Ç∑
-; 1369 :             if ((result = SubtructU_X_X_Imp(1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
+; 1385 :         else
+; 1386 :         {
+; 1387 :             // v > 0 ÇÃèÍçá
+; 1388 : 
+; 1389 :             // abs(u) - v Çï‘Ç∑
+; 1390 :             if ((result = SubtructU_X_X_Imp(1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	1
 	call	_SubtructU_X_X_Imp
 	add	esp, 16					; 00000010H
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN16@PMC_Subtru
+	je	SHORT $LN15@PMC_Subtru
 
-; 1370 :                 return (result);
+; 1391 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN16@PMC_Subtru:
+$LN15@PMC_Subtru:
 
-; 1371 :         }
-; 1372 : 
-; 1373 :     }
+; 1392 :         }
+; 1393 : 
+; 1394 :     }
 
-	jmp	SHORT $LN8@PMC_Subtru
-$LN13@PMC_Subtru:
+	jmp	SHORT $LN7@PMC_Subtru
+$LN12@PMC_Subtru:
 
-; 1374 :     else
-; 1375 :     {
-; 1376 :         // u < 0 ÇÃèÍçá
-; 1377 : 
-; 1378 :         if (v_is_zero)
+; 1395 :     else
+; 1396 :     {
+; 1397 :         // u < 0 ÇÃèÍçá
+; 1398 : 
+; 1399 :         if (v->FLAGS.IS_ZERO)
 
-	movsx	eax, BYTE PTR _v_is_zero$[ebp]
-	test	eax, eax
-	je	SHORT $LN19@PMC_Subtru
+	mov	eax, DWORD PTR _v$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN18@PMC_Subtru
 
-; 1379 :         {
-; 1380 :             // v == 0 ÇÃèÍçá
-; 1381 : 
-; 1382 :             // u Çï‘Ç∑
-; 1383 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1400 :         {
+; 1401 :             // v == 0 ÇÃèÍçá
+; 1402 : 
+; 1403 :             // u Çï‘Ç∑
+; 1404 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -2275,65 +2421,65 @@ $LN13@PMC_Subtru:
 	add	esp, 8
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN21@PMC_Subtru
+	je	SHORT $LN20@PMC_Subtru
 
-; 1384 :                 return (result);
+; 1405 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN21@PMC_Subtru:
+$LN20@PMC_Subtru:
 
-; 1385 :         }
+; 1406 :         }
 
-	jmp	SHORT $LN8@PMC_Subtru
-$LN19@PMC_Subtru:
+	jmp	SHORT $LN7@PMC_Subtru
+$LN18@PMC_Subtru:
 
-; 1386 :         else
-; 1387 :         {
-; 1388 :             // v > 0 ÇÃèÍçá
-; 1389 : 
-; 1390 :             // - abs(u) - v ÇåvéZÇ∑ÇÈ
-; 1391 :             if ((result = AddU_X_X_Imp(-1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
+; 1407 :         else
+; 1408 :         {
+; 1409 :             // v > 0 ÇÃèÍçá
+; 1410 : 
+; 1411 :             // - abs(u) - v ÇåvéZÇ∑ÇÈ
+; 1412 :             if ((result = AddU_X_X_Imp(-1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	-1
 	call	_AddU_X_X_Imp
 	add	esp, 16					; 00000010H
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN8@PMC_Subtru
+	je	SHORT $LN7@PMC_Subtru
 
-; 1392 :                 return (result);
+; 1413 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN8@PMC_Subtru:
+$LN7@PMC_Subtru:
 
-; 1393 :         }
-; 1394 :     }
-; 1395 :     *w = (PMC_HANDLE_SINT)nw;
+; 1414 :         }
+; 1415 :     }
+; 1416 :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 1396 :     return (PMC_STATUS_OK);
+; 1417 :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 1397 : }
+; 1418 : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN28@PMC_Subtru
+	lea	edx, DWORD PTR $LN26@PMC_Subtru
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -2343,44 +2489,31 @@ $LN1@PMC_Subtru:
 	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
 	xor	ecx, ebp
 	call	@__security_check_cookie@4
-	add	esp, 256				; 00000100H
+	add	esp, 244				; 000000f4H
 	cmp	ebp, esp
 	call	__RTC_CheckEsp
 	mov	esp, ebp
 	pop	ebp
 	ret	12					; 0000000cH
-$LN28@PMC_Subtru:
-	DD	3
-	DD	$LN27@PMC_Subtru
-$LN27@PMC_Subtru:
+	npad	3
+$LN26@PMC_Subtru:
+	DD	2
+	DD	$LN25@PMC_Subtru
+$LN25@PMC_Subtru:
 	DD	-36					; ffffffdcH
 	DD	4
-	DD	$LN24@PMC_Subtru
-	DD	-45					; ffffffd3H
-	DD	1
-	DD	$LN25@PMC_Subtru
-	DD	-60					; ffffffc4H
+	DD	$LN23@PMC_Subtru
+	DD	-48					; ffffffd0H
 	DD	4
-	DD	$LN26@PMC_Subtru
-$LN26@PMC_Subtru:
+	DD	$LN24@PMC_Subtru
+$LN24@PMC_Subtru:
 	DB	110					; 0000006eH
 	DB	101					; 00000065H
 	DB	119					; 00000077H
 	DB	95					; 0000005fH
 	DB	118					; 00000076H
 	DB	0
-$LN25@PMC_Subtru:
-	DB	118					; 00000076H
-	DB	95					; 0000005fH
-	DB	105					; 00000069H
-	DB	115					; 00000073H
-	DB	95					; 0000005fH
-	DB	122					; 0000007aH
-	DB	101					; 00000065H
-	DB	114					; 00000072H
-	DB	111					; 0000006fH
-	DB	0
-$LN24@PMC_Subtru:
+$LN23@PMC_Subtru:
 	DB	110					; 0000006eH
 	DB	119					; 00000077H
 	DB	0
@@ -2401,7 +2534,7 @@ _v$ = 12						; size = 8
 _w$ = 20						; size = 4
 _PMC_Subtruct_X_L@16 PROC				; COMDAT
 
-; 1215 : {
+; 1239 : {
 
 	push	ebp
 	mov	ebp, esp
@@ -2419,36 +2552,36 @@ _PMC_Subtruct_X_L@16 PROC				; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 1216 :     if (u == NULL)
+; 1240 :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 1217 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1241 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 1218 :     if (w == NULL)
+; 1242 :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 1219 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1243 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 1220 :     PMC_STATUS_CODE result;
-; 1221 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 1244 :     PMC_STATUS_CODE result;
+; 1245 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	eax, DWORD PTR _u$[ebp]
 	mov	DWORD PTR _nu$[ebp], eax
 
-; 1222 :     NUMBER_HEADER* nw;
-; 1223 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 1246 :     NUMBER_HEADER* nw;
+; 1247 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nu$[ebp]
 	push	eax
@@ -2458,14 +2591,14 @@ $LN3@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Subtru
 
-; 1224 :         return (result);
+; 1248 :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 1225 :     char v_sign;
-; 1226 :     _UINT64_T v_abs = GET_ABS_64(v, &v_sign);
+; 1249 :     char v_sign;
+; 1250 :     _UINT64_T v_abs = GET_ABS_64(v, &v_sign);
 
 	lea	eax, DWORD PTR _v_sign$[ebp]
 	push	eax
@@ -2478,41 +2611,41 @@ $LN4@PMC_Subtru:
 	mov	DWORD PTR _v_abs$[ebp], eax
 	mov	DWORD PTR _v_abs$[ebp+4], edx
 
-; 1227 :     if (nu->SIGN == 0)
+; 1251 :     if (nu->SIGN == 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN5@PMC_Subtru
 
-; 1228 :     {
-; 1229 :         // u == 0 ÇÃèÍçá
-; 1230 : 
-; 1231 :         if (v_sign == 0)
+; 1252 :     {
+; 1253 :         // u == 0 ÇÃèÍçá
+; 1254 : 
+; 1255 :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Subtru
 
-; 1232 :         {
-; 1233 :             // v == 0 ÇÃèÍçá
-; 1234 : 
-; 1235 :             // 0 Çï‘Ç∑
-; 1236 :             nw = &number_zero;
+; 1256 :         {
+; 1257 :             // v == 0 ÇÃèÍçá
+; 1258 : 
+; 1259 :             // 0 Çï‘Ç∑
+; 1260 :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 1237 :         }
+; 1261 :         }
 
 	jmp	SHORT $LN8@PMC_Subtru
 $LN7@PMC_Subtru:
 
-; 1238 :         else
-; 1239 :         {
-; 1240 :             // v != 0 ÇÃèÍçá
-; 1241 : 
-; 1242 :             // -v Çï‘Ç∑
-; 1243 :             if ((result = From_L_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
+; 1262 :         else
+; 1263 :         {
+; 1264 :             // v != 0 ÇÃèÍçá
+; 1265 : 
+; 1266 :             // -v Çï‘Ç∑
+; 1267 :             if ((result = From_L_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -2529,39 +2662,39 @@ $LN7@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN8@PMC_Subtru
 
-; 1244 :                 return (result);
+; 1268 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN8@PMC_Subtru:
 
-; 1245 :         }
-; 1246 :     }
+; 1269 :         }
+; 1270 :     }
 
 	jmp	$LN6@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 1247 :     else if (nu->SIGN > 0)
+; 1271 :     else if (nu->SIGN > 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	$LN10@PMC_Subtru
 
-; 1248 :     {
-; 1249 :         // u > 0 ÇÃèÍçá
-; 1250 : 
-; 1251 :         if (v_sign == 0)
+; 1272 :     {
+; 1273 :         // u > 0 ÇÃèÍçá
+; 1274 : 
+; 1275 :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN12@PMC_Subtru
 
-; 1252 :         {
-; 1253 :             // v == 0 ÇÃèÍçá
-; 1254 : 
-; 1255 :             // u Çï‘Ç∑
-; 1256 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1276 :         {
+; 1277 :             // v == 0 ÇÃèÍçá
+; 1278 : 
+; 1279 :             // u Çï‘Ç∑
+; 1280 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -2573,28 +2706,28 @@ $LN5@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN14@PMC_Subtru
 
-; 1257 :                 return (result);
+; 1281 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN14@PMC_Subtru:
 
-; 1258 :         }
+; 1282 :         }
 
 	jmp	SHORT $LN13@PMC_Subtru
 $LN12@PMC_Subtru:
 
-; 1259 :         else if (v_sign > 0)
+; 1283 :         else if (v_sign > 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jle	SHORT $LN15@PMC_Subtru
 
-; 1260 :         {
-; 1261 :             // v > 0 ÇÃèÍçá
-; 1262 : 
-; 1263 :             // abs(u) - abs(v) Çï‘Ç∑
-; 1264 :             if ((result = SubtructU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1284 :         {
+; 1285 :             // v > 0 ÇÃèÍçá
+; 1286 : 
+; 1287 :             // abs(u) - abs(v) Çï‘Ç∑
+; 1288 :             if ((result = SubtructU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -2603,7 +2736,7 @@ $LN12@PMC_Subtru:
 	mov	edx, DWORD PTR _v_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	1
 	call	_SubtructU_X_L_Imp
@@ -2612,23 +2745,23 @@ $LN12@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN17@PMC_Subtru
 
-; 1265 :                 return (result);
+; 1289 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN17@PMC_Subtru:
 
-; 1266 :         }
+; 1290 :         }
 
 	jmp	SHORT $LN13@PMC_Subtru
 $LN15@PMC_Subtru:
 
-; 1267 :         else
-; 1268 :         {
-; 1269 :             // v < 0 ÇÃèÍçá
-; 1270 : 
-; 1271 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 1272 :             if ((result = AddU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1291 :         else
+; 1292 :         {
+; 1293 :             // v < 0 ÇÃèÍçá
+; 1294 : 
+; 1295 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 1296 :             if ((result = AddU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -2637,7 +2770,7 @@ $LN15@PMC_Subtru:
 	mov	edx, DWORD PTR _v_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	1
 	call	_AddU_X_L_Imp
@@ -2646,33 +2779,33 @@ $LN15@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN13@PMC_Subtru
 
-; 1273 :                 return (result);
+; 1297 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN13@PMC_Subtru:
 
-; 1274 :         }
-; 1275 :     }
+; 1298 :         }
+; 1299 :     }
 
 	jmp	$LN6@PMC_Subtru
 $LN10@PMC_Subtru:
 
-; 1276 :     else
-; 1277 :     {
-; 1278 :         // u < 0 ÇÃèÍçá
-; 1279 : 
-; 1280 :         if (v_sign == 0)
+; 1300 :     else
+; 1301 :     {
+; 1302 :         // u < 0 ÇÃèÍçá
+; 1303 : 
+; 1304 :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN19@PMC_Subtru
 
-; 1281 :         {
-; 1282 :             // v == 0 ÇÃèÍçá
-; 1283 : 
-; 1284 :             // u Çï‘Ç∑
-; 1285 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1305 :         {
+; 1306 :             // v == 0 ÇÃèÍçá
+; 1307 : 
+; 1308 :             // u Çï‘Ç∑
+; 1309 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -2684,28 +2817,28 @@ $LN10@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN21@PMC_Subtru
 
-; 1286 :                 return (result);
+; 1310 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN21@PMC_Subtru:
 
-; 1287 :         }
+; 1311 :         }
 
 	jmp	SHORT $LN6@PMC_Subtru
 $LN19@PMC_Subtru:
 
-; 1288 :         else if (v_sign > 0)
+; 1312 :         else if (v_sign > 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jle	SHORT $LN22@PMC_Subtru
 
-; 1289 :         {
-; 1290 :             // v > 0 ÇÃèÍçá
-; 1291 : 
-; 1292 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 1293 :             if ((result = AddU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1313 :         {
+; 1314 :             // v > 0 ÇÃèÍçá
+; 1315 : 
+; 1316 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 1317 :             if ((result = AddU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -2714,7 +2847,7 @@ $LN19@PMC_Subtru:
 	mov	edx, DWORD PTR _v_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	-1
 	call	_AddU_X_L_Imp
@@ -2723,23 +2856,23 @@ $LN19@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN24@PMC_Subtru
 
-; 1294 :                 return (result);
+; 1318 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN24@PMC_Subtru:
 
-; 1295 :         }
+; 1319 :         }
 
 	jmp	SHORT $LN6@PMC_Subtru
 $LN22@PMC_Subtru:
 
-; 1296 :         else
-; 1297 :         {
-; 1298 :             // v < 0 ÇÃèÍçá
-; 1299 : 
-; 1300 :             // - abs(u) + abs(v) Çï‘Ç∑
-; 1301 :             if ((result = SubtructU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1320 :         else
+; 1321 :         {
+; 1322 :             // v < 0 ÇÃèÍçá
+; 1323 : 
+; 1324 :             // - abs(u) + abs(v) Çï‘Ç∑
+; 1325 :             if ((result = SubtructU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -2748,7 +2881,7 @@ $LN22@PMC_Subtru:
 	mov	edx, DWORD PTR _v_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	-1
 	call	_SubtructU_X_L_Imp
@@ -2757,26 +2890,26 @@ $LN22@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Subtru
 
-; 1302 :                 return (result);
+; 1326 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN6@PMC_Subtru:
 
-; 1303 :         }
-; 1304 :     }
-; 1305 :     *w = (PMC_HANDLE_SINT)nw;
+; 1327 :         }
+; 1328 :     }
+; 1329 :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 1306 :     return (PMC_STATUS_OK);
+; 1330 :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 1307 : }
+; 1331 : }
 
 	push	edx
 	mov	ecx, ebp
@@ -2836,7 +2969,7 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Subtruct_X_I@12 PROC				; COMDAT
 
-; 1120 : {
+; 1144 : {
 
 	push	ebp
 	mov	ebp, esp
@@ -2854,36 +2987,36 @@ _PMC_Subtruct_X_I@12 PROC				; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 1121 :     if (u == NULL)
+; 1145 :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 1122 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1146 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 1123 :     if (w == NULL)
+; 1147 :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 1124 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1148 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 1125 :     PMC_STATUS_CODE result;
-; 1126 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 1149 :     PMC_STATUS_CODE result;
+; 1150 :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	eax, DWORD PTR _u$[ebp]
 	mov	DWORD PTR _nu$[ebp], eax
 
-; 1127 :     NUMBER_HEADER* nw;
-; 1128 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 1151 :     NUMBER_HEADER* nw;
+; 1152 :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nu$[ebp]
 	push	eax
@@ -2893,14 +3026,14 @@ $LN3@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Subtru
 
-; 1129 :         return (result);
+; 1153 :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 1130 :     char v_sign;
-; 1131 :     _UINT32_T v_abs = GET_ABS_32(v, &v_sign);
+; 1154 :     char v_sign;
+; 1155 :     _UINT32_T v_abs = GET_ABS_32(v, &v_sign);
 
 	lea	eax, DWORD PTR _v_sign$[ebp]
 	push	eax
@@ -2910,41 +3043,41 @@ $LN4@PMC_Subtru:
 	add	esp, 8
 	mov	DWORD PTR _v_abs$[ebp], eax
 
-; 1132 :     if (nu->SIGN == 0)
+; 1156 :     if (nu->SIGN == 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN5@PMC_Subtru
 
-; 1133 :     {
-; 1134 :         // u == 0 ÇÃèÍçá
-; 1135 : 
-; 1136 :         if (v_sign == 0)
+; 1157 :     {
+; 1158 :         // u == 0 ÇÃèÍçá
+; 1159 : 
+; 1160 :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Subtru
 
-; 1137 :         {
-; 1138 :             // v == 0 ÇÃèÍçá
-; 1139 : 
-; 1140 :             // 0 Çï‘Ç∑
-; 1141 :             nw = &number_zero;
+; 1161 :         {
+; 1162 :             // v == 0 ÇÃèÍçá
+; 1163 : 
+; 1164 :             // 0 Çï‘Ç∑
+; 1165 :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 1142 :         }
+; 1166 :         }
 
 	jmp	SHORT $LN8@PMC_Subtru
 $LN7@PMC_Subtru:
 
-; 1143 :         else
-; 1144 :         {
-; 1145 :             // v != 0 ÇÃèÍçá
-; 1146 : 
-; 1147 :             // -v Çï‘Ç∑
-; 1148 :             if ((result = From_I_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
+; 1167 :         else
+; 1168 :         {
+; 1169 :             // v != 0 ÇÃèÍçá
+; 1170 : 
+; 1171 :             // -v Çï‘Ç∑
+; 1172 :             if ((result = From_I_Imp(-v_sign, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -2959,39 +3092,39 @@ $LN7@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN8@PMC_Subtru
 
-; 1149 :                 return (result);
+; 1173 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN8@PMC_Subtru:
 
-; 1150 :         }
-; 1151 :     }
+; 1174 :         }
+; 1175 :     }
 
 	jmp	$LN6@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 1152 :     else if (nu->SIGN > 0)
+; 1176 :     else if (nu->SIGN > 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	$LN10@PMC_Subtru
 
-; 1153 :     {
-; 1154 :         // u > 0 ÇÃèÍçá
-; 1155 : 
-; 1156 :         if (v_sign == 0)
+; 1177 :     {
+; 1178 :         // u > 0 ÇÃèÍçá
+; 1179 : 
+; 1180 :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN12@PMC_Subtru
 
-; 1157 :         {
-; 1158 :             // v == 0 ÇÃèÍçá
-; 1159 : 
-; 1160 :             // u Çï‘Ç∑
-; 1161 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1181 :         {
+; 1182 :             // v == 0 ÇÃèÍçá
+; 1183 : 
+; 1184 :             // u Çï‘Ç∑
+; 1185 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -3003,35 +3136,35 @@ $LN5@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN14@PMC_Subtru
 
-; 1162 :                 return (result);
+; 1186 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN14@PMC_Subtru:
 
-; 1163 :         }
+; 1187 :         }
 
 	jmp	SHORT $LN13@PMC_Subtru
 $LN12@PMC_Subtru:
 
-; 1164 :         else if (v_sign > 0)
+; 1188 :         else if (v_sign > 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jle	SHORT $LN15@PMC_Subtru
 
-; 1165 :         {
-; 1166 :             // v > 0 ÇÃèÍçá
-; 1167 : 
-; 1168 :             // abs(u) - abs(v) Çï‘Ç∑
-; 1169 :             if ((result = SubtructU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1189 :         {
+; 1190 :             // v > 0 ÇÃèÍçá
+; 1191 : 
+; 1192 :             // abs(u) - abs(v) Çï‘Ç∑
+; 1193 :             if ((result = SubtructU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	1
 	call	_SubtructU_X_I_Imp
@@ -3040,30 +3173,30 @@ $LN12@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN17@PMC_Subtru
 
-; 1170 :                 return (result);
+; 1194 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN17@PMC_Subtru:
 
-; 1171 :         }
+; 1195 :         }
 
 	jmp	SHORT $LN13@PMC_Subtru
 $LN15@PMC_Subtru:
 
-; 1172 :         else
-; 1173 :         {
-; 1174 :             // v < 0 ÇÃèÍçá
-; 1175 : 
-; 1176 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 1177 :             if ((result = AddU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1196 :         else
+; 1197 :         {
+; 1198 :             // v < 0 ÇÃèÍçá
+; 1199 : 
+; 1200 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 1201 :             if ((result = AddU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	1
 	call	_AddU_X_I_Imp
@@ -3072,33 +3205,33 @@ $LN15@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN13@PMC_Subtru
 
-; 1178 :                 return (result);
+; 1202 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN13@PMC_Subtru:
 
-; 1179 :         }
-; 1180 :     }
+; 1203 :         }
+; 1204 :     }
 
 	jmp	$LN6@PMC_Subtru
 $LN10@PMC_Subtru:
 
-; 1181 :     else
-; 1182 :     {
-; 1183 :         // u < 0 ÇÃèÍçá
-; 1184 : 
-; 1185 :         if (v_sign == 0)
+; 1205 :     else
+; 1206 :     {
+; 1207 :         // u < 0 ÇÃèÍçá
+; 1208 : 
+; 1209 :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN19@PMC_Subtru
 
-; 1186 :         {
-; 1187 :             // v == 0 ÇÃèÍçá
-; 1188 : 
-; 1189 :             // u Çï‘Ç∑
-; 1190 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 1210 :         {
+; 1211 :             // v == 0 ÇÃèÍçá
+; 1212 : 
+; 1213 :             // u Çï‘Ç∑
+; 1214 :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -3110,35 +3243,35 @@ $LN10@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN21@PMC_Subtru
 
-; 1191 :                 return (result);
+; 1215 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN21@PMC_Subtru:
 
-; 1192 :         }
+; 1216 :         }
 
 	jmp	SHORT $LN6@PMC_Subtru
 $LN19@PMC_Subtru:
 
-; 1193 :         else if (v_sign > 0)
+; 1217 :         else if (v_sign > 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jle	SHORT $LN22@PMC_Subtru
 
-; 1194 :         {
-; 1195 :             // v > 0 ÇÃèÍçá
-; 1196 : 
-; 1197 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 1198 :             if ((result = AddU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1218 :         {
+; 1219 :             // v > 0 ÇÃèÍçá
+; 1220 : 
+; 1221 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 1222 :             if ((result = AddU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	-1
 	call	_AddU_X_I_Imp
@@ -3147,30 +3280,30 @@ $LN19@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN24@PMC_Subtru
 
-; 1199 :                 return (result);
+; 1223 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN24@PMC_Subtru:
 
-; 1200 :         }
+; 1224 :         }
 
 	jmp	SHORT $LN6@PMC_Subtru
 $LN22@PMC_Subtru:
 
-; 1201 :         else
-; 1202 :         {
-; 1203 :             // v < 0 ÇÃèÍçá
-; 1204 : 
-; 1205 :             // - abs(u) + abs(v) Çï‘Ç∑
-; 1206 :             if ((result = SubtructU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 1225 :         else
+; 1226 :         {
+; 1227 :             // v < 0 ÇÃèÍçá
+; 1228 : 
+; 1229 :             // - abs(u) + abs(v) Çï‘Ç∑
+; 1230 :             if ((result = SubtructU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	-1
 	call	_SubtructU_X_I_Imp
@@ -3179,26 +3312,26 @@ $LN22@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Subtru
 
-; 1207 :                 return (result);
+; 1231 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN6@PMC_Subtru:
 
-; 1208 :         }
-; 1209 :     }
-; 1210 :     *w = (PMC_HANDLE_SINT)nw;
+; 1232 :         }
+; 1233 :     }
+; 1234 :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 1211 :     return (PMC_STATUS_OK);
+; 1235 :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 1212 : }
+; 1236 : }
 
 	push	edx
 	mov	ecx, ebp
@@ -3248,8 +3381,7 @@ _TEXT	ENDS
 ; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_add_sub.c
 ;	COMDAT _PMC_Subtruct_UX_X@12
 _TEXT	SEGMENT
-_new_u$1 = -60						; size = 4
-_u_is_zero$ = -45					; size = 1
+_new_u$1 = -48						; size = 4
 _nw$ = -36						; size = 4
 _nv$ = -24						; size = 4
 _result$ = -12						; size = 4
@@ -3259,16 +3391,16 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Subtruct_UX_X@12 PROC				; COMDAT
 
-; 1045 : {
+; 1072 : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 256				; 00000100H
+	sub	esp, 244				; 000000f4H
 	push	ebx
 	push	esi
 	push	edi
-	lea	edi, DWORD PTR [ebp-256]
-	mov	ecx, 64					; 00000040H
+	lea	edi, DWORD PTR [ebp-244]
+	mov	ecx, 61					; 0000003dH
 	mov	eax, -858993460				; ccccccccH
 	rep stosd
 	mov	eax, DWORD PTR ___security_cookie
@@ -3277,47 +3409,47 @@ _PMC_Subtruct_UX_X@12 PROC				; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 1046 :     if (u == NULL)
+; 1073 :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 1047 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1074 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 1048 :     if (v == NULL)
+; 1075 :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 1049 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1076 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 1050 :     if (w == NULL)
+; 1077 :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN4@PMC_Subtru
 
-; 1051 :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 1078 :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 1052 :     PMC_STATUS_CODE result;
-; 1053 :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 1079 :     PMC_STATUS_CODE result;
+; 1080 :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	eax, DWORD PTR _v$[ebp]
 	mov	DWORD PTR _nv$[ebp], eax
 
-; 1054 :     NUMBER_HEADER* nw;
-; 1055 :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 1081 :     NUMBER_HEADER* nw;
+; 1082 :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nv$[ebp]
 	push	eax
@@ -3327,66 +3459,48 @@ $LN4@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN5@PMC_Subtru
 
-; 1056 :         return (result);
+; 1083 :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 1057 :     char u_is_zero;
-; 1058 :     if ((result = IsZero_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
+; 1084 :     if (u->FLAGS.IS_ZERO)
 
-	lea	eax, DWORD PTR _u_is_zero$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _u$[ebp]
-	push	ecx
-	call	_IsZero_UINT
-	add	esp, 8
-	mov	DWORD PTR _result$[ebp], eax
-	cmp	DWORD PTR _result$[ebp], 0
+	mov	eax, DWORD PTR _u$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
 	je	SHORT $LN6@PMC_Subtru
 
-; 1059 :         return (result);
-
-	mov	eax, DWORD PTR _result$[ebp]
-	jmp	$LN1@PMC_Subtru
-$LN6@PMC_Subtru:
-
-; 1060 :     if (u_is_zero)
-
-	movsx	eax, BYTE PTR _u_is_zero$[ebp]
-	test	eax, eax
-	je	SHORT $LN7@PMC_Subtru
-
-; 1061 :     {
-; 1062 :         // u == 0 ÇÃèÍçá
-; 1063 : 
-; 1064 :         if (nv->SIGN == 0)
+; 1085 :     {
+; 1086 :         // u == 0 ÇÃèÍçá
+; 1087 : 
+; 1088 :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
-	jne	SHORT $LN9@PMC_Subtru
+	jne	SHORT $LN8@PMC_Subtru
 
-; 1065 :         {
-; 1066 :             // v == 0 ÇÃèÍçá
-; 1067 : 
-; 1068 :             // 0 Çï‘Ç∑
-; 1069 :             nw = &number_zero;
+; 1089 :         {
+; 1090 :             // v == 0 ÇÃèÍçá
+; 1091 : 
+; 1092 :             // 0 Çï‘Ç∑
+; 1093 :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 1070 :         }
+; 1094 :         }
 
-	jmp	SHORT $LN10@PMC_Subtru
-$LN9@PMC_Subtru:
+	jmp	SHORT $LN9@PMC_Subtru
+$LN8@PMC_Subtru:
 
-; 1071 :         else
-; 1072 :         {
-; 1073 :             // v != 0 ÇÃèÍçá
-; 1074 : 
-; 1075 :             // -v Çï‘Ç∑
-; 1076 :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
+; 1095 :         else
+; 1096 :         {
+; 1097 :             // v != 0 ÇÃèÍçá
+; 1098 : 
+; 1099 :             // -v Çï‘Ç∑
+; 1100 :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -3396,57 +3510,57 @@ $LN9@PMC_Subtru:
 	add	esp, 8
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN10@PMC_Subtru
+	je	SHORT $LN9@PMC_Subtru
 
-; 1077 :                 return (result);
+; 1101 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
-$LN10@PMC_Subtru:
+$LN9@PMC_Subtru:
 
-; 1078 :         }
-; 1079 :     }
+; 1102 :         }
+; 1103 :     }
 
-	jmp	$LN8@PMC_Subtru
-$LN7@PMC_Subtru:
+	jmp	$LN7@PMC_Subtru
+$LN6@PMC_Subtru:
 
-; 1080 :     else
-; 1081 :     {
-; 1082 :         // u > 0 ÇÃèÍçá
-; 1083 : 
-; 1084 :         if (nv->SIGN == 0)
+; 1104 :     else
+; 1105 :     {
+; 1106 :         // u > 0 ÇÃèÍçá
+; 1107 : 
+; 1108 :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
-	jne	SHORT $LN12@PMC_Subtru
+	jne	SHORT $LN11@PMC_Subtru
 
-; 1085 :         {
-; 1086 :             // v == 0 ÇÃèÍçá
-; 1087 : 
-; 1088 :             // u Çï‘Ç∑
-; 1089 :             PMC_HANDLE_UINT new_u;
-; 1090 :             if ((result = ep_uint.Clone_X(u, &new_u)) != PMC_STATUS_OK)
+; 1109 :         {
+; 1110 :             // v == 0 ÇÃèÍçá
+; 1111 : 
+; 1112 :             // u Çï‘Ç∑
+; 1113 :             PMC_HANDLE_UINT new_u;
+; 1114 :             if ((result = ep_uint.Clone_X(u, &new_u)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _new_u$1[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u$[ebp]
 	push	ecx
-	call	DWORD PTR _ep_uint+44
+	call	DWORD PTR _ep_uint+40
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN14@PMC_Subtru
+	je	SHORT $LN13@PMC_Subtru
 
-; 1091 :                 return (result);
+; 1115 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
-$LN14@PMC_Subtru:
+$LN13@PMC_Subtru:
 
-; 1092 :             if ((result = AllocateNumber(&nw, 1, new_u)) != PMC_STATUS_OK)
+; 1116 :             if ((result = AllocateNumber(&nw, 1, new_u)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _new_u$1[ebp]
 	push	eax
@@ -3457,10 +3571,10 @@ $LN14@PMC_Subtru:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN15@PMC_Subtru
+	je	SHORT $LN14@PMC_Subtru
 
-; 1093 :             {
-; 1094 :                 ep_uint.Dispose(new_u);
+; 1117 :             {
+; 1118 :                 ep_uint.Dispose(new_u);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _new_u$1[ebp]
@@ -3469,35 +3583,35 @@ $LN14@PMC_Subtru:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 1095 :                 return (result);
+; 1119 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN15@PMC_Subtru:
+$LN14@PMC_Subtru:
 
-; 1096 :             }
-; 1097 :         }
+; 1120 :             }
+; 1121 :         }
 
-	jmp	SHORT $LN8@PMC_Subtru
-$LN12@PMC_Subtru:
+	jmp	SHORT $LN7@PMC_Subtru
+$LN11@PMC_Subtru:
 
-; 1098 :         else if (nv->SIGN > 0)
+; 1122 :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
-	jle	SHORT $LN16@PMC_Subtru
+	jle	SHORT $LN15@PMC_Subtru
 
-; 1099 :         {
-; 1100 :             // u > 0 ÇÃèÍçá
-; 1101 : 
-; 1102 :             // u - abs(v) Çï‘Ç∑
-; 1103 :             if ((result = SubtructU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 1123 :         {
+; 1124 :             // u > 0 ÇÃèÍçá
+; 1125 : 
+; 1126 :             // u - abs(v) Çï‘Ç∑
+; 1127 :             if ((result = SubtructU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
@@ -3506,30 +3620,30 @@ $LN12@PMC_Subtru:
 	add	esp, 16					; 00000010H
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN18@PMC_Subtru
+	je	SHORT $LN17@PMC_Subtru
 
-; 1104 :                 return (result);
+; 1128 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN18@PMC_Subtru:
+$LN17@PMC_Subtru:
 
-; 1105 :         }
+; 1129 :         }
 
-	jmp	SHORT $LN8@PMC_Subtru
-$LN16@PMC_Subtru:
+	jmp	SHORT $LN7@PMC_Subtru
+$LN15@PMC_Subtru:
 
-; 1106 :         else
-; 1107 :         {
-; 1108 :             // u < 0 ÇÃèÍçá
-; 1109 : 
-; 1110 :             // u + abs(v) ÇåvéZÇ∑ÇÈ
-; 1111 :             if ((result = AddU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 1130 :         else
+; 1131 :         {
+; 1132 :             // u < 0 ÇÃèÍçá
+; 1133 : 
+; 1134 :             // u + abs(v) ÇåvéZÇ∑ÇÈ
+; 1135 :             if ((result = AddU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
@@ -3538,33 +3652,33 @@ $LN16@PMC_Subtru:
 	add	esp, 16					; 00000010H
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN8@PMC_Subtru
+	je	SHORT $LN7@PMC_Subtru
 
-; 1112 :                 return (result);
+; 1136 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
-$LN8@PMC_Subtru:
+$LN7@PMC_Subtru:
 
-; 1113 :         }
-; 1114 :     }
-; 1115 :     *w = (PMC_HANDLE_SINT)nw;
+; 1137 :         }
+; 1138 :     }
+; 1139 :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 1116 :     return (PMC_STATUS_OK);
+; 1140 :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 1117 : }
+; 1141 : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN25@PMC_Subtru
+	lea	edx, DWORD PTR $LN23@PMC_Subtru
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -3574,44 +3688,31 @@ $LN1@PMC_Subtru:
 	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
 	xor	ecx, ebp
 	call	@__security_check_cookie@4
-	add	esp, 256				; 00000100H
+	add	esp, 244				; 000000f4H
 	cmp	ebp, esp
 	call	__RTC_CheckEsp
 	mov	esp, ebp
 	pop	ebp
 	ret	12					; 0000000cH
-$LN25@PMC_Subtru:
-	DD	3
-	DD	$LN24@PMC_Subtru
-$LN24@PMC_Subtru:
+	npad	3
+$LN23@PMC_Subtru:
+	DD	2
+	DD	$LN22@PMC_Subtru
+$LN22@PMC_Subtru:
 	DD	-36					; ffffffdcH
 	DD	4
-	DD	$LN21@PMC_Subtru
-	DD	-45					; ffffffd3H
-	DD	1
-	DD	$LN22@PMC_Subtru
-	DD	-60					; ffffffc4H
+	DD	$LN20@PMC_Subtru
+	DD	-48					; ffffffd0H
 	DD	4
-	DD	$LN23@PMC_Subtru
-$LN23@PMC_Subtru:
+	DD	$LN21@PMC_Subtru
+$LN21@PMC_Subtru:
 	DB	110					; 0000006eH
 	DB	101					; 00000065H
 	DB	119					; 00000077H
 	DB	95					; 0000005fH
 	DB	117					; 00000075H
 	DB	0
-$LN22@PMC_Subtru:
-	DB	117					; 00000075H
-	DB	95					; 0000005fH
-	DB	105					; 00000069H
-	DB	115					; 00000073H
-	DB	95					; 0000005fH
-	DB	122					; 0000007aH
-	DB	101					; 00000065H
-	DB	114					; 00000072H
-	DB	111					; 0000006fH
-	DB	0
-$LN21@PMC_Subtru:
+$LN20@PMC_Subtru:
 	DB	110					; 0000006eH
 	DB	119					; 00000077H
 	DB	0
@@ -3632,7 +3733,7 @@ _v$ = 16						; size = 4
 _w$ = 20						; size = 4
 _PMC_Subtruct_L_X@16 PROC				; COMDAT
 
-; 950  : {
+; 977  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -3650,36 +3751,36 @@ _PMC_Subtruct_L_X@16 PROC				; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 951  :     if (v == NULL)
+; 978  :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 952  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 979  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 953  :     if (w == NULL)
+; 980  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 954  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 981  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 955  :     PMC_STATUS_CODE result;
-; 956  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 982  :     PMC_STATUS_CODE result;
+; 983  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	eax, DWORD PTR _v$[ebp]
 	mov	DWORD PTR _nv$[ebp], eax
 
-; 957  :     NUMBER_HEADER* nw;
-; 958  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 984  :     NUMBER_HEADER* nw;
+; 985  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nv$[ebp]
 	push	eax
@@ -3689,14 +3790,14 @@ $LN3@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Subtru
 
-; 959  :         return (result);
+; 986  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 960  :     char u_sign;
-; 961  :     _UINT64_T u_abs = GET_ABS_64(u, &u_sign);
+; 987  :     char u_sign;
+; 988  :     _UINT64_T u_abs = GET_ABS_64(u, &u_sign);
 
 	lea	eax, DWORD PTR _u_sign$[ebp]
 	push	eax
@@ -3709,41 +3810,41 @@ $LN4@PMC_Subtru:
 	mov	DWORD PTR _u_abs$[ebp], eax
 	mov	DWORD PTR _u_abs$[ebp+4], edx
 
-; 962  :     if (u_sign == 0)
+; 989  :     if (u_sign == 0)
 
 	movsx	eax, BYTE PTR _u_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Subtru
 
-; 963  :     {
-; 964  :         // u == 0 ÇÃèÍçá
-; 965  : 
-; 966  :         if (nv->SIGN == 0)
+; 990  :     {
+; 991  :         // u == 0 ÇÃèÍçá
+; 992  : 
+; 993  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN7@PMC_Subtru
 
-; 967  :         {
-; 968  :             // v == 0 ÇÃèÍçá
-; 969  : 
-; 970  :             // 0 Çï‘Ç∑
-; 971  :             nw = &number_zero;
+; 994  :         {
+; 995  :             // v == 0 ÇÃèÍçá
+; 996  : 
+; 997  :             // 0 Çï‘Ç∑
+; 998  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 972  :         }
+; 999  :         }
 
 	jmp	SHORT $LN8@PMC_Subtru
 $LN7@PMC_Subtru:
 
-; 973  :         else
-; 974  :         {
-; 975  :             // v != 0 ÇÃèÍçá
-; 976  : 
-; 977  :             // -v Çï‘Ç∑
-; 978  :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
+; 1000 :         else
+; 1001 :         {
+; 1002 :             // v != 0 ÇÃèÍçá
+; 1003 : 
+; 1004 :             // -v Çï‘Ç∑
+; 1005 :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -3755,39 +3856,39 @@ $LN7@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN8@PMC_Subtru
 
-; 979  :                 return (result);
+; 1006 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN8@PMC_Subtru:
 
-; 980  :         }
-; 981  :     }
+; 1007 :         }
+; 1008 :     }
 
 	jmp	$LN6@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 982  :     else if (u_sign > 0)
+; 1009 :     else if (u_sign > 0)
 
 	movsx	eax, BYTE PTR _u_sign$[ebp]
 	test	eax, eax
 	jle	$LN10@PMC_Subtru
 
-; 983  :     {
-; 984  :         // u > 0 ÇÃèÍçá
-; 985  : 
-; 986  :         if (nv->SIGN == 0)
+; 1010 :     {
+; 1011 :         // u > 0 ÇÃèÍçá
+; 1012 : 
+; 1013 :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN12@PMC_Subtru
 
-; 987  :         {
-; 988  :             // v == 0 ÇÃèÍçá
-; 989  : 
-; 990  :             // u Çï‘Ç∑
-; 991  :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 1014 :         {
+; 1015 :             // v == 0 ÇÃèÍçá
+; 1016 : 
+; 1017 :             // u Çï‘Ç∑
+; 1018 :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -3803,29 +3904,29 @@ $LN5@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN14@PMC_Subtru
 
-; 992  :                 return (result);
+; 1019 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN14@PMC_Subtru:
 
-; 993  :         }
+; 1020 :         }
 
 	jmp	SHORT $LN13@PMC_Subtru
 $LN12@PMC_Subtru:
 
-; 994  :         else if (nv->SIGN > 0)
+; 1021 :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN15@PMC_Subtru
 
-; 995  :         {
-; 996  :             // v > 0 ÇÃèÍçá
-; 997  : 
-; 998  :             // abs(u) - abs(v) Çï‘Ç∑
-; 999  :             if ((result = SubtructU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 1022 :         {
+; 1023 :             // v > 0 ÇÃèÍçá
+; 1024 : 
+; 1025 :             // abs(u) - abs(v) Çï‘Ç∑
+; 1026 :             if ((result = SubtructU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -3834,7 +3935,7 @@ $LN12@PMC_Subtru:
 	mov	edx, DWORD PTR _u_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nv$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	-1
 	call	_SubtructU_X_L_Imp
@@ -3843,23 +3944,23 @@ $LN12@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN17@PMC_Subtru
 
-; 1000 :                 return (result);
+; 1027 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN17@PMC_Subtru:
 
-; 1001 :         }
+; 1028 :         }
 
 	jmp	SHORT $LN13@PMC_Subtru
 $LN15@PMC_Subtru:
 
-; 1002 :         else
-; 1003 :         {
-; 1004 :             // v < 0 ÇÃèÍçá
-; 1005 : 
-; 1006 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 1007 :             if ((result = AddU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 1029 :         else
+; 1030 :         {
+; 1031 :             // v < 0 ÇÃèÍçá
+; 1032 : 
+; 1033 :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 1034 :             if ((result = AddU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -3868,7 +3969,7 @@ $LN15@PMC_Subtru:
 	mov	edx, DWORD PTR _u_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nv$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	1
 	call	_AddU_X_L_Imp
@@ -3877,34 +3978,34 @@ $LN15@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN13@PMC_Subtru
 
-; 1008 :                 return (result);
+; 1035 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN13@PMC_Subtru:
 
-; 1009 :         }
-; 1010 :     }
+; 1036 :         }
+; 1037 :     }
 
 	jmp	$LN6@PMC_Subtru
 $LN10@PMC_Subtru:
 
-; 1011 :     else
-; 1012 :     {
-; 1013 :         // u < 0 ÇÃèÍçá
-; 1014 : 
-; 1015 :         if (nv->SIGN == 0)
+; 1038 :     else
+; 1039 :     {
+; 1040 :         // u < 0 ÇÃèÍçá
+; 1041 : 
+; 1042 :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN19@PMC_Subtru
 
-; 1016 :         {
-; 1017 :             // v == 0 ÇÃèÍçá
-; 1018 : 
-; 1019 :             // u Çï‘Ç∑
-; 1020 :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 1043 :         {
+; 1044 :             // v == 0 ÇÃèÍçá
+; 1045 : 
+; 1046 :             // u Çï‘Ç∑
+; 1047 :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -3920,29 +4021,29 @@ $LN10@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN21@PMC_Subtru
 
-; 1021 :                 return (result);
+; 1048 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN21@PMC_Subtru:
 
-; 1022 :         }
+; 1049 :         }
 
 	jmp	SHORT $LN6@PMC_Subtru
 $LN19@PMC_Subtru:
 
-; 1023 :         else if (nv->SIGN > 0)
+; 1050 :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN22@PMC_Subtru
 
-; 1024 :         {
-; 1025 :             // v > 0 ÇÃèÍçá
-; 1026 : 
-; 1027 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 1028 :             if ((result = AddU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 1051 :         {
+; 1052 :             // v > 0 ÇÃèÍçá
+; 1053 : 
+; 1054 :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 1055 :             if ((result = AddU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -3951,7 +4052,7 @@ $LN19@PMC_Subtru:
 	mov	edx, DWORD PTR _u_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nv$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	-1
 	call	_AddU_X_L_Imp
@@ -3960,23 +4061,23 @@ $LN19@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN24@PMC_Subtru
 
-; 1029 :                 return (result);
+; 1056 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN24@PMC_Subtru:
 
-; 1030 :         }
+; 1057 :         }
 
 	jmp	SHORT $LN6@PMC_Subtru
 $LN22@PMC_Subtru:
 
-; 1031 :         else
-; 1032 :         {
-; 1033 :             // v < 0 ÇÃèÍçá
-; 1034 : 
-; 1035 :             // - abs(u) + abs(v) Çï‘Ç∑
-; 1036 :             if ((result = SubtructU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 1058 :         else
+; 1059 :         {
+; 1060 :             // v < 0 ÇÃèÍçá
+; 1061 : 
+; 1062 :             // - abs(u) + abs(v) Çï‘Ç∑
+; 1063 :             if ((result = SubtructU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -3985,7 +4086,7 @@ $LN22@PMC_Subtru:
 	mov	edx, DWORD PTR _u_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nv$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	1
 	call	_SubtructU_X_L_Imp
@@ -3994,26 +4095,26 @@ $LN22@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Subtru
 
-; 1037 :                 return (result);
+; 1064 :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN6@PMC_Subtru:
 
-; 1038 :         }
-; 1039 :     }
-; 1040 :     *w = (PMC_HANDLE_SINT)nw;
+; 1065 :         }
+; 1066 :     }
+; 1067 :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 1041 :     return (PMC_STATUS_OK);
+; 1068 :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 1042 : }
+; 1069 : }
 
 	push	edx
 	mov	ecx, ebp
@@ -4073,7 +4174,7 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Subtruct_I_X@12 PROC				; COMDAT
 
-; 855  : {
+; 882  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -4091,36 +4192,36 @@ _PMC_Subtruct_I_X@12 PROC				; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 856  :     if (v == NULL)
+; 883  :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN2@PMC_Subtru
 
-; 857  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 884  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN2@PMC_Subtru:
 
-; 858  :     if (w == NULL)
+; 885  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Subtru
 
-; 859  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 886  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Subtru
 $LN3@PMC_Subtru:
 
-; 860  :     PMC_STATUS_CODE result;
-; 861  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 887  :     PMC_STATUS_CODE result;
+; 888  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	eax, DWORD PTR _v$[ebp]
 	mov	DWORD PTR _nv$[ebp], eax
 
-; 862  :     NUMBER_HEADER* nw;
-; 863  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 889  :     NUMBER_HEADER* nw;
+; 890  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nv$[ebp]
 	push	eax
@@ -4130,14 +4231,14 @@ $LN3@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Subtru
 
-; 864  :         return (result);
+; 891  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN4@PMC_Subtru:
 
-; 865  :     char u_sign;
-; 866  :     _UINT32_T u_abs = GET_ABS_32(u, &u_sign);
+; 892  :     char u_sign;
+; 893  :     _UINT32_T u_abs = GET_ABS_32(u, &u_sign);
 
 	lea	eax, DWORD PTR _u_sign$[ebp]
 	push	eax
@@ -4147,41 +4248,41 @@ $LN4@PMC_Subtru:
 	add	esp, 8
 	mov	DWORD PTR _u_abs$[ebp], eax
 
-; 867  :     if (u_sign == 0)
+; 894  :     if (u_sign == 0)
 
 	movsx	eax, BYTE PTR _u_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Subtru
 
-; 868  :     {
-; 869  :         // u == 0 ÇÃèÍçá
-; 870  : 
-; 871  :         if (nv->SIGN == 0)
+; 895  :     {
+; 896  :         // u == 0 ÇÃèÍçá
+; 897  : 
+; 898  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN7@PMC_Subtru
 
-; 872  :         {
-; 873  :             // v == 0 ÇÃèÍçá
-; 874  : 
-; 875  :             // 0 Çï‘Ç∑
-; 876  :             nw = &number_zero;
+; 899  :         {
+; 900  :             // v == 0 ÇÃèÍçá
+; 901  : 
+; 902  :             // 0 Çï‘Ç∑
+; 903  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 877  :         }
+; 904  :         }
 
 	jmp	SHORT $LN8@PMC_Subtru
 $LN7@PMC_Subtru:
 
-; 878  :         else
-; 879  :         {
-; 880  :             // v != 0 ÇÃèÍçá
-; 881  : 
-; 882  :             // -v Çï‘Ç∑
-; 883  :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
+; 905  :         else
+; 906  :         {
+; 907  :             // v != 0 ÇÃèÍçá
+; 908  : 
+; 909  :             // -v Çï‘Ç∑
+; 910  :             if ((result = Negate_Imp(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -4193,39 +4294,39 @@ $LN7@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN8@PMC_Subtru
 
-; 884  :                 return (result);
+; 911  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN8@PMC_Subtru:
 
-; 885  :         }
-; 886  :     }
+; 912  :         }
+; 913  :     }
 
 	jmp	$LN6@PMC_Subtru
 $LN5@PMC_Subtru:
 
-; 887  :     else if (u_sign > 0)
+; 914  :     else if (u_sign > 0)
 
 	movsx	eax, BYTE PTR _u_sign$[ebp]
 	test	eax, eax
 	jle	$LN10@PMC_Subtru
 
-; 888  :     {
-; 889  :         // u > 0 ÇÃèÍçá
-; 890  : 
-; 891  :         if (nv->SIGN == 0)
+; 915  :     {
+; 916  :         // u > 0 ÇÃèÍçá
+; 917  : 
+; 918  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN12@PMC_Subtru
 
-; 892  :         {
-; 893  :             // v == 0 ÇÃèÍçá
-; 894  : 
-; 895  :             // u Çï‘Ç∑
-; 896  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 919  :         {
+; 920  :             // v == 0 ÇÃèÍçá
+; 921  : 
+; 922  :             // u Çï‘Ç∑
+; 923  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -4239,36 +4340,36 @@ $LN5@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN14@PMC_Subtru
 
-; 897  :                 return (result);
+; 924  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN14@PMC_Subtru:
 
-; 898  :         }
+; 925  :         }
 
 	jmp	SHORT $LN13@PMC_Subtru
 $LN12@PMC_Subtru:
 
-; 899  :         else if (nv->SIGN > 0)
+; 926  :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN15@PMC_Subtru
 
-; 900  :         {
-; 901  :             // v > 0 ÇÃèÍçá
-; 902  : 
-; 903  :             // abs(u) - abs(v) Çï‘Ç∑
-; 904  :             if ((result = SubtructU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 927  :         {
+; 928  :             // v > 0 ÇÃèÍçá
+; 929  : 
+; 930  :             // abs(u) - abs(v) Çï‘Ç∑
+; 931  :             if ((result = SubtructU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	-1
 	call	_SubtructU_X_I_Imp
@@ -4277,30 +4378,30 @@ $LN12@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN17@PMC_Subtru
 
-; 905  :                 return (result);
+; 932  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN17@PMC_Subtru:
 
-; 906  :         }
+; 933  :         }
 
 	jmp	SHORT $LN13@PMC_Subtru
 $LN15@PMC_Subtru:
 
-; 907  :         else
-; 908  :         {
-; 909  :             // v < 0 ÇÃèÍçá
-; 910  : 
-; 911  :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 912  :             if ((result = AddU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 934  :         else
+; 935  :         {
+; 936  :             // v < 0 ÇÃèÍçá
+; 937  : 
+; 938  :             // abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 939  :             if ((result = AddU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	1
 	call	_AddU_X_I_Imp
@@ -4309,34 +4410,34 @@ $LN15@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN13@PMC_Subtru
 
-; 913  :                 return (result);
+; 940  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Subtru
 $LN13@PMC_Subtru:
 
-; 914  :         }
-; 915  :     }
+; 941  :         }
+; 942  :     }
 
 	jmp	$LN6@PMC_Subtru
 $LN10@PMC_Subtru:
 
-; 916  :     else
-; 917  :     {
-; 918  :         // u < 0 ÇÃèÍçá
-; 919  : 
-; 920  :         if (nv->SIGN == 0)
+; 943  :     else
+; 944  :     {
+; 945  :         // u < 0 ÇÃèÍçá
+; 946  : 
+; 947  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN19@PMC_Subtru
 
-; 921  :         {
-; 922  :             // v == 0 ÇÃèÍçá
-; 923  : 
-; 924  :             // u Çï‘Ç∑
-; 925  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 948  :         {
+; 949  :             // v == 0 ÇÃèÍçá
+; 950  : 
+; 951  :             // u Çï‘Ç∑
+; 952  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -4350,36 +4451,36 @@ $LN10@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN21@PMC_Subtru
 
-; 926  :                 return (result);
+; 953  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN21@PMC_Subtru:
 
-; 927  :         }
+; 954  :         }
 
 	jmp	SHORT $LN6@PMC_Subtru
 $LN19@PMC_Subtru:
 
-; 928  :         else if (nv->SIGN > 0)
+; 955  :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN22@PMC_Subtru
 
-; 929  :         {
-; 930  :             // v > 0 ÇÃèÍçá
-; 931  : 
-; 932  :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 933  :             if ((result = AddU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 956  :         {
+; 957  :             // v > 0 ÇÃèÍçá
+; 958  : 
+; 959  :             // - abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 960  :             if ((result = AddU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	-1
 	call	_AddU_X_I_Imp
@@ -4388,30 +4489,30 @@ $LN19@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN24@PMC_Subtru
 
-; 934  :                 return (result);
+; 961  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN24@PMC_Subtru:
 
-; 935  :         }
+; 962  :         }
 
 	jmp	SHORT $LN6@PMC_Subtru
 $LN22@PMC_Subtru:
 
-; 936  :         else
-; 937  :         {
-; 938  :             // v < 0 ÇÃèÍçá
-; 939  : 
-; 940  :             // - abs(u) + abs(v) Çï‘Ç∑
-; 941  :             if ((result = SubtructU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 963  :         else
+; 964  :         {
+; 965  :             // v < 0 ÇÃèÍçá
+; 966  : 
+; 967  :             // - abs(u) + abs(v) Çï‘Ç∑
+; 968  :             if ((result = SubtructU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	1
 	call	_SubtructU_X_I_Imp
@@ -4420,26 +4521,26 @@ $LN22@PMC_Subtru:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Subtru
 
-; 942  :                 return (result);
+; 969  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Subtru
 $LN6@PMC_Subtru:
 
-; 943  :         }
-; 944  :     }
-; 945  :     *w = (PMC_HANDLE_SINT)nw;
+; 970  :         }
+; 971  :     }
+; 972  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 946  :     return (PMC_STATUS_OK);
+; 973  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Subtru:
 
-; 947  : }
+; 974  : }
 
 	push	edx
 	mov	ecx, ebp
@@ -4499,7 +4600,7 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Add_X_X@12 PROC					; COMDAT
 
-; 757  : {
+; 784  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -4517,52 +4618,52 @@ _PMC_Add_X_X@12 PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 758  :     if (u == NULL)
+; 785  :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Add_X_
 
-; 759  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 786  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN2@PMC_Add_X_:
 
-; 760  :     if (v == NULL)
+; 787  :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN3@PMC_Add_X_
 
-; 761  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 788  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN3@PMC_Add_X_:
 
-; 762  :     if (w == NULL)
+; 789  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN4@PMC_Add_X_
 
-; 763  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 790  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN4@PMC_Add_X_:
 
-; 764  :     PMC_STATUS_CODE result;
-; 765  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 791  :     PMC_STATUS_CODE result;
+; 792  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	eax, DWORD PTR _u$[ebp]
 	mov	DWORD PTR _nu$[ebp], eax
 
-; 766  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 793  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	eax, DWORD PTR _v$[ebp]
 	mov	DWORD PTR _nv$[ebp], eax
 
-; 767  :     NUMBER_HEADER* nw;
-; 768  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 794  :     NUMBER_HEADER* nw;
+; 795  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nu$[ebp]
 	push	eax
@@ -4572,13 +4673,13 @@ $LN4@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN5@PMC_Add_X_
 
-; 769  :         return (result);
+; 796  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN5@PMC_Add_X_:
 
-; 770  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 797  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nv$[ebp]
 	push	eax
@@ -4588,48 +4689,48 @@ $LN5@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Add_X_
 
-; 771  :         return (result);
+; 798  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN6@PMC_Add_X_:
 
-; 772  :     if (nu->SIGN == 0)
+; 799  :     if (nu->SIGN == 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN7@PMC_Add_X_
 
-; 773  :     {
-; 774  :         // u == 0 ÇÃèÍçá
-; 775  : 
-; 776  :         if (nv->SIGN == 0)
+; 800  :     {
+; 801  :         // u == 0 ÇÃèÍçá
+; 802  : 
+; 803  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN9@PMC_Add_X_
 
-; 777  :         {
-; 778  :             // v == 0 ÇÃèÍçá
-; 779  : 
-; 780  :             // 0 Çï‘Ç∑
-; 781  :             nw = &number_zero;
+; 804  :         {
+; 805  :             // v == 0 ÇÃèÍçá
+; 806  : 
+; 807  :             // 0 Çï‘Ç∑
+; 808  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 782  :         }
+; 809  :         }
 
 	jmp	SHORT $LN10@PMC_Add_X_
 $LN9@PMC_Add_X_:
 
-; 783  :         else
-; 784  :         {
-; 785  :             // v != 0 ÇÃèÍçá
-; 786  : 
-; 787  :             // v Çï‘Ç∑
-; 788  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
+; 810  :         else
+; 811  :         {
+; 812  :             // v != 0 ÇÃèÍçá
+; 813  : 
+; 814  :             // v Çï‘Ç∑
+; 815  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -4641,40 +4742,40 @@ $LN9@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN10@PMC_Add_X_
 
-; 789  :                 return (result);
+; 816  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN10@PMC_Add_X_:
 
-; 790  :         }
-; 791  :     }
+; 817  :         }
+; 818  :     }
 
 	jmp	$LN8@PMC_Add_X_
 $LN7@PMC_Add_X_:
 
-; 792  :     else if (nu->SIGN > 0)
+; 819  :     else if (nu->SIGN > 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	$LN12@PMC_Add_X_
 
-; 793  :     {
-; 794  :         // u > 0 ÇÃèÍçá
-; 795  : 
-; 796  :         if (nv->SIGN == 0)
+; 820  :     {
+; 821  :         // u > 0 ÇÃèÍçá
+; 822  : 
+; 823  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN14@PMC_Add_X_
 
-; 797  :         {
-; 798  :             // v == 0 ÇÃèÍçá
-; 799  : 
-; 800  :             // u Çï‘Ç∑
-; 801  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 824  :         {
+; 825  :             // v == 0 ÇÃèÍçá
+; 826  : 
+; 827  :             // u Çï‘Ç∑
+; 828  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -4686,37 +4787,37 @@ $LN7@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN16@PMC_Add_X_
 
-; 802  :                 return (result);
+; 829  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN16@PMC_Add_X_:
 
-; 803  :         }
+; 830  :         }
 
 	jmp	SHORT $LN15@PMC_Add_X_
 $LN14@PMC_Add_X_:
 
-; 804  :         else if (nv->SIGN > 0)
+; 831  :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN17@PMC_Add_X_
 
-; 805  :         {
-; 806  :             // v > 0 ÇÃèÍçá
-; 807  : 
-; 808  :             // abs(u) + abs(v) Çï‘Ç∑
-; 809  :             if ((result = AddU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 832  :         {
+; 833  :             // v > 0 ÇÃèÍçá
+; 834  : 
+; 835  :             // abs(u) + abs(v) Çï‘Ç∑
+; 836  :             if ((result = AddU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	1
 	call	_AddU_X_X_Imp
@@ -4725,31 +4826,31 @@ $LN14@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN19@PMC_Add_X_
 
-; 810  :                 return (result);
+; 837  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN19@PMC_Add_X_:
 
-; 811  :         }
+; 838  :         }
 
 	jmp	SHORT $LN15@PMC_Add_X_
 $LN17@PMC_Add_X_:
 
-; 812  :         else
-; 813  :         {
-; 814  :             // v < 0 ÇÃèÍçá
-; 815  : 
-; 816  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 817  :             if ((result = SubtructU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 839  :         else
+; 840  :         {
+; 841  :             // v < 0 ÇÃèÍçá
+; 842  : 
+; 843  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 844  :             if ((result = SubtructU_X_X_Imp(1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	1
 	call	_SubtructU_X_X_Imp
@@ -4758,34 +4859,34 @@ $LN17@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN15@PMC_Add_X_
 
-; 818  :                 return (result);
+; 845  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN15@PMC_Add_X_:
 
-; 819  :         }
-; 820  :     }
+; 846  :         }
+; 847  :     }
 
 	jmp	$LN8@PMC_Add_X_
 $LN12@PMC_Add_X_:
 
-; 821  :     else
-; 822  :     {
-; 823  :         // u < 0 ÇÃèÍçá
-; 824  : 
-; 825  :         if (nv->SIGN == 0)
+; 848  :     else
+; 849  :     {
+; 850  :         // u < 0 ÇÃèÍçá
+; 851  : 
+; 852  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN21@PMC_Add_X_
 
-; 826  :         {
-; 827  :             // v == 0 ÇÃèÍçá
-; 828  : 
-; 829  :             // u Çï‘Ç∑
-; 830  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 853  :         {
+; 854  :             // v == 0 ÇÃèÍçá
+; 855  : 
+; 856  :             // u Çï‘Ç∑
+; 857  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -4797,37 +4898,37 @@ $LN12@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN23@PMC_Add_X_
 
-; 831  :                 return (result);
+; 858  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN23@PMC_Add_X_:
 
-; 832  :         }
+; 859  :         }
 
 	jmp	SHORT $LN8@PMC_Add_X_
 $LN21@PMC_Add_X_:
 
-; 833  :         else if (nv->SIGN > 0)
+; 860  :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN24@PMC_Add_X_
 
-; 834  :         {
-; 835  :             // v > 0 ÇÃèÍçá
-; 836  : 
-; 837  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 838  :             if ((result = SubtructU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 861  :         {
+; 862  :             // v > 0 ÇÃèÍçá
+; 863  : 
+; 864  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 865  :             if ((result = SubtructU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	-1
 	call	_SubtructU_X_X_Imp
@@ -4836,31 +4937,31 @@ $LN21@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN26@PMC_Add_X_
 
-; 839  :                 return (result);
+; 866  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN26@PMC_Add_X_:
 
-; 840  :         }
+; 867  :         }
 
 	jmp	SHORT $LN8@PMC_Add_X_
 $LN24@PMC_Add_X_:
 
-; 841  :         else
-; 842  :         {
-; 843  :             // v < 0 ÇÃèÍçá
-; 844  : 
-; 845  :             // - abs(u) - abs(v) Çï‘Ç∑
-; 846  :             if ((result = AddU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 868  :         else
+; 869  :         {
+; 870  :             // v < 0 ÇÃèÍçá
+; 871  : 
+; 872  :             // - abs(u) - abs(v) Çï‘Ç∑
+; 873  :             if ((result = AddU_X_X_Imp(-1, nu->ABS, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	-1
 	call	_AddU_X_X_Imp
@@ -4869,26 +4970,26 @@ $LN24@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN8@PMC_Add_X_
 
-; 847  :                 return (result);
+; 874  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN8@PMC_Add_X_:
 
-; 848  :         }
-; 849  :     }
-; 850  :     *w = (PMC_HANDLE_SINT)nw;
+; 875  :         }
+; 876  :     }
+; 877  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 851  :     return (PMC_STATUS_OK);
+; 878  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_X_:
 
-; 852  : }
+; 879  : }
 
 	push	edx
 	mov	ecx, ebp
@@ -4927,9 +5028,7 @@ _TEXT	ENDS
 ; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_add_sub.c
 ;	COMDAT _PMC_Add_X_UX@12
 _TEXT	SEGMENT
-_type$1 = -72						; size = 4
-_new_v$2 = -60						; size = 4
-_v_is_zero$ = -45					; size = 1
+_new_v$1 = -48						; size = 4
 _nw$ = -36						; size = 4
 _nu$ = -24						; size = 4
 _result$ = -12						; size = 4
@@ -4939,16 +5038,16 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Add_X_UX@12 PROC					; COMDAT
 
-; 665  : {
+; 698  : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 268				; 0000010cH
+	sub	esp, 244				; 000000f4H
 	push	ebx
 	push	esi
 	push	edi
-	lea	edi, DWORD PTR [ebp-268]
-	mov	ecx, 67					; 00000043H
+	lea	edi, DWORD PTR [ebp-244]
+	mov	ecx, 61					; 0000003dH
 	mov	eax, -858993460				; ccccccccH
 	rep stosd
 	mov	eax, DWORD PTR ___security_cookie
@@ -4957,47 +5056,47 @@ _PMC_Add_X_UX@12 PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 666  :     if (u == NULL)
+; 699  :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Add_X_
 
-; 667  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 700  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN2@PMC_Add_X_:
 
-; 668  :     if (v == NULL)
+; 701  :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN3@PMC_Add_X_
 
-; 669  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 702  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN3@PMC_Add_X_:
 
-; 670  :     if (w == NULL)
+; 703  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN4@PMC_Add_X_
 
-; 671  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 704  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN4@PMC_Add_X_:
 
-; 672  :     PMC_STATUS_CODE result;
-; 673  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 705  :     PMC_STATUS_CODE result;
+; 706  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	eax, DWORD PTR _u$[ebp]
 	mov	DWORD PTR _nu$[ebp], eax
 
-; 674  :     NUMBER_HEADER* nw;
-; 675  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 707  :     NUMBER_HEADER* nw;
+; 708  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nu$[ebp]
 	push	eax
@@ -5007,110 +5106,71 @@ $LN4@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN5@PMC_Add_X_
 
-; 676  :         return (result);
+; 709  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN5@PMC_Add_X_:
 
-; 677  :     char v_is_zero;
-; 678  :     if ((result = IsZero_UINT(v, &v_is_zero)) != PMC_STATUS_OK)
-
-	lea	eax, DWORD PTR _v_is_zero$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _v$[ebp]
-	push	ecx
-	call	_IsZero_UINT
-	add	esp, 8
-	mov	DWORD PTR _result$[ebp], eax
-	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN6@PMC_Add_X_
-
-; 679  :         return (result);
-
-	mov	eax, DWORD PTR _result$[ebp]
-	jmp	$LN1@PMC_Add_X_
-$LN6@PMC_Add_X_:
-
-; 680  :     if (nu->SIGN == 0)
+; 710  :     if (nu->SIGN == 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
-	jne	$LN7@PMC_Add_X_
+	jne	SHORT $LN6@PMC_Add_X_
 
-; 681  :     {
-; 682  :         // u == 0 ÇÃèÍçá
-; 683  : 
-; 684  :         if (v_is_zero)
+; 711  :     {
+; 712  :         // u == 0 ÇÃèÍçá
+; 713  : 
+; 714  :         if (v->FLAGS.IS_ZERO)
 
-	movsx	eax, BYTE PTR _v_is_zero$[ebp]
-	test	eax, eax
-	je	SHORT $LN9@PMC_Add_X_
+	mov	eax, DWORD PTR _v$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN8@PMC_Add_X_
 
-; 685  :         {
-; 686  :             // v == 0 ÇÃèÍçá
-; 687  : 
-; 688  :             // 0 Çï‘Ç∑
-; 689  :             nw = &number_zero;
+; 715  :         {
+; 716  :             // v == 0 ÇÃèÍçá
+; 717  : 
+; 718  :             // 0 Çï‘Ç∑
+; 719  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 690  :         }
+; 720  :         }
 
-	jmp	$LN10@PMC_Add_X_
-$LN9@PMC_Add_X_:
+	jmp	SHORT $LN9@PMC_Add_X_
+$LN8@PMC_Add_X_:
 
-; 691  :         else
-; 692  :         {
-; 693  :             // v > 0 ÇÃèÍçá
-; 694  : 
-; 695  :             // v Çï‘Ç∑
-; 696  :             PMC_HANDLE_UINT new_v;
-; 697  :             if ((result = ep_uint.Clone_X(v, &new_v)) != PMC_STATUS_OK)
+; 721  :         else
+; 722  :         {
+; 723  :             // v > 0 ÇÃèÍçá
+; 724  : 
+; 725  :             // v Çï‘Ç∑
+; 726  :             PMC_HANDLE_UINT new_v;
+; 727  :             if ((result = ep_uint.Clone_X(v, &new_v)) != PMC_STATUS_OK)
 
 	mov	esi, esp
-	lea	eax, DWORD PTR _new_v$2[ebp]
+	lea	eax, DWORD PTR _new_v$1[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v$[ebp]
 	push	ecx
-	call	DWORD PTR _ep_uint+44
+	call	DWORD PTR _ep_uint+40
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN11@PMC_Add_X_
+	je	SHORT $LN10@PMC_Add_X_
 
-; 698  :                 return (result);
-
-	mov	eax, DWORD PTR _result$[ebp]
-	jmp	$LN1@PMC_Add_X_
-$LN11@PMC_Add_X_:
-
-; 699  :             PMC_NUMBER_TYPE_CODE type;
-; 700  :             if ((result = ep_uint.GetNumberType_X(new_v, &type)) != PMC_STATUS_OK)
-
-	mov	esi, esp
-	lea	eax, DWORD PTR _type$1[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _new_v$2[ebp]
-	push	ecx
-	call	DWORD PTR _ep_uint+20
-	cmp	esi, esp
-	call	__RTC_CheckEsp
-	mov	DWORD PTR _result$[ebp], eax
-	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN12@PMC_Add_X_
-
-; 701  :                 return (result);
+; 728  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
-$LN12@PMC_Add_X_:
+$LN10@PMC_Add_X_:
 
-; 702  :             if ((result = AllocateNumber(&nw, 1, new_v)) != PMC_STATUS_OK)
+; 729  :             if ((result = AllocateNumber(&nw, 1, new_v)) != PMC_STATUS_OK)
 
-	mov	eax, DWORD PTR _new_v$2[ebp]
+	mov	eax, DWORD PTR _new_v$1[ebp]
 	push	eax
 	push	1
 	lea	ecx, DWORD PTR _nw$[ebp]
@@ -5119,52 +5179,53 @@ $LN12@PMC_Add_X_:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN10@PMC_Add_X_
+	je	SHORT $LN9@PMC_Add_X_
 
-; 703  :             {
-; 704  :                 ep_uint.Dispose(new_v);
+; 730  :             {
+; 731  :                 ep_uint.Dispose(new_v);
 
 	mov	esi, esp
-	mov	eax, DWORD PTR _new_v$2[ebp]
+	mov	eax, DWORD PTR _new_v$1[ebp]
 	push	eax
 	call	DWORD PTR _ep_uint+16
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 705  :                 return (result);
+; 732  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
-$LN10@PMC_Add_X_:
+$LN9@PMC_Add_X_:
 
-; 706  :             }
-; 707  :         }
-; 708  :     }
+; 733  :             }
+; 734  :         }
+; 735  :     }
 
-	jmp	$LN8@PMC_Add_X_
-$LN7@PMC_Add_X_:
+	jmp	$LN7@PMC_Add_X_
+$LN6@PMC_Add_X_:
 
-; 709  :     else if (nu->SIGN > 0)
+; 736  :     else if (nu->SIGN > 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
-	jle	SHORT $LN14@PMC_Add_X_
+	jle	SHORT $LN12@PMC_Add_X_
 
-; 710  :     {
-; 711  :         // u > 0 ÇÃèÍçá
-; 712  : 
-; 713  :         if (v_is_zero)
+; 737  :     {
+; 738  :         // u > 0 ÇÃèÍçá
+; 739  : 
+; 740  :         if (v->FLAGS.IS_ZERO)
 
-	movsx	eax, BYTE PTR _v_is_zero$[ebp]
-	test	eax, eax
-	je	SHORT $LN16@PMC_Add_X_
+	mov	eax, DWORD PTR _v$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN14@PMC_Add_X_
 
-; 714  :         {
-; 715  :             // v == 0 ÇÃèÍçá
-; 716  : 
-; 717  :             // u Çï‘Ç∑
-; 718  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 741  :         {
+; 742  :             // v == 0 ÇÃèÍçá
+; 743  : 
+; 744  :             // u Çï‘Ç∑
+; 745  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -5174,67 +5235,68 @@ $LN7@PMC_Add_X_:
 	add	esp, 8
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN18@PMC_Add_X_
+	je	SHORT $LN16@PMC_Add_X_
 
-; 719  :                 return (result);
+; 746  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
-$LN18@PMC_Add_X_:
-
-; 720  :         }
-
-	jmp	SHORT $LN17@PMC_Add_X_
 $LN16@PMC_Add_X_:
 
-; 721  :         else
-; 722  :         {
-; 723  :             // v > 0 ÇÃèÍçá
-; 724  : 
-; 725  :             // abs(u) + v Çï‘Ç∑
-; 726  :             if ((result = AddU_X_X_Imp(1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
+; 747  :         }
+
+	jmp	SHORT $LN15@PMC_Add_X_
+$LN14@PMC_Add_X_:
+
+; 748  :         else
+; 749  :         {
+; 750  :             // v > 0 ÇÃèÍçá
+; 751  : 
+; 752  :             // abs(u) + v Çï‘Ç∑
+; 753  :             if ((result = AddU_X_X_Imp(1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	1
 	call	_AddU_X_X_Imp
 	add	esp, 16					; 00000010H
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN17@PMC_Add_X_
+	je	SHORT $LN15@PMC_Add_X_
 
-; 727  :                 return (result);
+; 754  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_X_
-$LN17@PMC_Add_X_:
+$LN15@PMC_Add_X_:
 
-; 728  :         }
-; 729  :     }
+; 755  :         }
+; 756  :     }
 
-	jmp	SHORT $LN8@PMC_Add_X_
-$LN14@PMC_Add_X_:
+	jmp	SHORT $LN7@PMC_Add_X_
+$LN12@PMC_Add_X_:
 
-; 730  :     else
-; 731  :     {
-; 732  :         // u < 0 ÇÃèÍçá
-; 733  : 
-; 734  :         if (v_is_zero)
+; 757  :     else
+; 758  :     {
+; 759  :         // u < 0 ÇÃèÍçá
+; 760  : 
+; 761  :         if (v->FLAGS.IS_ZERO)
 
-	movsx	eax, BYTE PTR _v_is_zero$[ebp]
-	test	eax, eax
-	je	SHORT $LN20@PMC_Add_X_
+	mov	eax, DWORD PTR _v$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
+	je	SHORT $LN18@PMC_Add_X_
 
-; 735  :         {
-; 736  :             // v == 0 ÇÃèÍçá
-; 737  : 
-; 738  :             // u Çï‘Ç∑
-; 739  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 762  :         {
+; 763  :             // v == 0 ÇÃèÍçá
+; 764  : 
+; 765  :             // u Çï‘Ç∑
+; 766  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -5244,66 +5306,66 @@ $LN14@PMC_Add_X_:
 	add	esp, 8
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN22@PMC_Add_X_
+	je	SHORT $LN20@PMC_Add_X_
 
-; 740  :                 return (result);
+; 767  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_X_
-$LN22@PMC_Add_X_:
-
-; 741  :         }
-
-	jmp	SHORT $LN8@PMC_Add_X_
 $LN20@PMC_Add_X_:
 
-; 742  :         else
-; 743  :         {
-; 744  :             // v > 0 ÇÃèÍçá
-; 745  : 
-; 746  :             // - abs(u) + v Çï‘Ç∑
-; 747  :             if ((result = SubtructU_X_X_Imp(-1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
+; 768  :         }
+
+	jmp	SHORT $LN7@PMC_Add_X_
+$LN18@PMC_Add_X_:
+
+; 769  :         else
+; 770  :         {
+; 771  :             // v > 0 ÇÃèÍçá
+; 772  : 
+; 773  :             // - abs(u) + v Çï‘Ç∑
+; 774  :             if ((result = SubtructU_X_X_Imp(-1, nu->ABS, v, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	-1
 	call	_SubtructU_X_X_Imp
 	add	esp, 16					; 00000010H
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN8@PMC_Add_X_
+	je	SHORT $LN7@PMC_Add_X_
 
-; 748  :                 return (result);
+; 775  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_X_
-$LN8@PMC_Add_X_:
+$LN7@PMC_Add_X_:
 
-; 749  :         }
-; 750  : 
-; 751  :     }
-; 752  :     *w = (PMC_HANDLE_SINT)nw;
+; 776  :         }
+; 777  : 
+; 778  :     }
+; 779  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 753  :     return (PMC_STATUS_OK);
+; 780  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_X_:
 
-; 754  : }
+; 781  : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN30@PMC_Add_X_
+	lea	edx, DWORD PTR $LN26@PMC_Add_X_
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -5313,54 +5375,31 @@ $LN1@PMC_Add_X_:
 	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
 	xor	ecx, ebp
 	call	@__security_check_cookie@4
-	add	esp, 268				; 0000010cH
+	add	esp, 244				; 000000f4H
 	cmp	ebp, esp
 	call	__RTC_CheckEsp
 	mov	esp, ebp
 	pop	ebp
 	ret	12					; 0000000cH
-	npad	1
-$LN30@PMC_Add_X_:
-	DD	4
-	DD	$LN29@PMC_Add_X_
-$LN29@PMC_Add_X_:
+	npad	3
+$LN26@PMC_Add_X_:
+	DD	2
+	DD	$LN25@PMC_Add_X_
+$LN25@PMC_Add_X_:
 	DD	-36					; ffffffdcH
 	DD	4
-	DD	$LN25@PMC_Add_X_
-	DD	-45					; ffffffd3H
-	DD	1
-	DD	$LN26@PMC_Add_X_
-	DD	-60					; ffffffc4H
+	DD	$LN23@PMC_Add_X_
+	DD	-48					; ffffffd0H
 	DD	4
-	DD	$LN27@PMC_Add_X_
-	DD	-72					; ffffffb8H
-	DD	4
-	DD	$LN28@PMC_Add_X_
-$LN28@PMC_Add_X_:
-	DB	116					; 00000074H
-	DB	121					; 00000079H
-	DB	112					; 00000070H
-	DB	101					; 00000065H
-	DB	0
-$LN27@PMC_Add_X_:
+	DD	$LN24@PMC_Add_X_
+$LN24@PMC_Add_X_:
 	DB	110					; 0000006eH
 	DB	101					; 00000065H
 	DB	119					; 00000077H
 	DB	95					; 0000005fH
 	DB	118					; 00000076H
 	DB	0
-$LN26@PMC_Add_X_:
-	DB	118					; 00000076H
-	DB	95					; 0000005fH
-	DB	105					; 00000069H
-	DB	115					; 00000073H
-	DB	95					; 0000005fH
-	DB	122					; 0000007aH
-	DB	101					; 00000065H
-	DB	114					; 00000072H
-	DB	111					; 0000006fH
-	DB	0
-$LN25@PMC_Add_X_:
+$LN23@PMC_Add_X_:
 	DB	110					; 0000006eH
 	DB	119					; 00000077H
 	DB	0
@@ -5381,7 +5420,7 @@ _v$ = 12						; size = 8
 _w$ = 20						; size = 4
 _PMC_Add_X_L@16 PROC					; COMDAT
 
-; 570  : {
+; 603  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -5399,36 +5438,36 @@ _PMC_Add_X_L@16 PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 571  :     if (u == NULL)
+; 604  :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Add_X_
 
-; 572  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 605  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN2@PMC_Add_X_:
 
-; 573  :     if (w == NULL)
+; 606  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Add_X_
 
-; 574  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 607  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN3@PMC_Add_X_:
 
-; 575  :     PMC_STATUS_CODE result;
-; 576  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 608  :     PMC_STATUS_CODE result;
+; 609  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	eax, DWORD PTR _u$[ebp]
 	mov	DWORD PTR _nu$[ebp], eax
 
-; 577  :     NUMBER_HEADER* nw;
-; 578  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 610  :     NUMBER_HEADER* nw;
+; 611  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nu$[ebp]
 	push	eax
@@ -5438,14 +5477,14 @@ $LN3@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Add_X_
 
-; 579  :         return (result);
+; 612  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN4@PMC_Add_X_:
 
-; 580  :     char v_sign;
-; 581  :     _UINT64_T v_abs = GET_ABS_64(v, &v_sign);
+; 613  :     char v_sign;
+; 614  :     _UINT64_T v_abs = GET_ABS_64(v, &v_sign);
 
 	lea	eax, DWORD PTR _v_sign$[ebp]
 	push	eax
@@ -5458,41 +5497,41 @@ $LN4@PMC_Add_X_:
 	mov	DWORD PTR _v_abs$[ebp], eax
 	mov	DWORD PTR _v_abs$[ebp+4], edx
 
-; 582  :     if (nu->SIGN == 0)
+; 615  :     if (nu->SIGN == 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN5@PMC_Add_X_
 
-; 583  :     {
-; 584  :         // u == 0 ÇÃèÍçá
-; 585  : 
-; 586  :         if (v_sign == 0)
+; 616  :     {
+; 617  :         // u == 0 ÇÃèÍçá
+; 618  : 
+; 619  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Add_X_
 
-; 587  :         {
-; 588  :             // v == 0 ÇÃèÍçá
-; 589  : 
-; 590  :             // 0 Çï‘Ç∑
-; 591  :             nw = &number_zero;
+; 620  :         {
+; 621  :             // v == 0 ÇÃèÍçá
+; 622  : 
+; 623  :             // 0 Çï‘Ç∑
+; 624  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 592  :         }
+; 625  :         }
 
 	jmp	SHORT $LN8@PMC_Add_X_
 $LN7@PMC_Add_X_:
 
-; 593  :         else
-; 594  :         {
-; 595  :             // v != 0 ÇÃèÍçá
-; 596  : 
-; 597  :             // v Çï‘Ç∑
-; 598  :             if ((result = From_L_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
+; 626  :         else
+; 627  :         {
+; 628  :             // v != 0 ÇÃèÍçá
+; 629  : 
+; 630  :             // v Çï‘Ç∑
+; 631  :             if ((result = From_L_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -5508,39 +5547,39 @@ $LN7@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN8@PMC_Add_X_
 
-; 599  :                 return (result);
+; 632  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN8@PMC_Add_X_:
 
-; 600  :         }
-; 601  :     }
+; 633  :         }
+; 634  :     }
 
 	jmp	$LN6@PMC_Add_X_
 $LN5@PMC_Add_X_:
 
-; 602  :     else if (nu->SIGN > 0)
+; 635  :     else if (nu->SIGN > 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	$LN10@PMC_Add_X_
 
-; 603  :     {
-; 604  :         // u > 0 ÇÃèÍçá
-; 605  : 
-; 606  :         if (v_sign == 0)
+; 636  :     {
+; 637  :         // u > 0 ÇÃèÍçá
+; 638  : 
+; 639  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN12@PMC_Add_X_
 
-; 607  :         {
-; 608  :             // v == 0 ÇÃèÍçá
-; 609  : 
-; 610  :             // u Çï‘Ç∑
-; 611  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 640  :         {
+; 641  :             // v == 0 ÇÃèÍçá
+; 642  : 
+; 643  :             // u Çï‘Ç∑
+; 644  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -5552,28 +5591,28 @@ $LN5@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN14@PMC_Add_X_
 
-; 612  :                 return (result);
+; 645  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN14@PMC_Add_X_:
 
-; 613  :         }
+; 646  :         }
 
 	jmp	SHORT $LN13@PMC_Add_X_
 $LN12@PMC_Add_X_:
 
-; 614  :         else if (v_sign > 0)
+; 647  :         else if (v_sign > 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jle	SHORT $LN15@PMC_Add_X_
 
-; 615  :         {
-; 616  :             // v > 0 ÇÃèÍçá
-; 617  : 
-; 618  :             // abs(u) + abs(v) Çï‘Ç∑
-; 619  :             if ((result = AddU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 648  :         {
+; 649  :             // v > 0 ÇÃèÍçá
+; 650  : 
+; 651  :             // abs(u) + abs(v) Çï‘Ç∑
+; 652  :             if ((result = AddU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -5582,7 +5621,7 @@ $LN12@PMC_Add_X_:
 	mov	edx, DWORD PTR _v_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	1
 	call	_AddU_X_L_Imp
@@ -5591,23 +5630,23 @@ $LN12@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN17@PMC_Add_X_
 
-; 620  :                 return (result);
+; 653  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN17@PMC_Add_X_:
 
-; 621  :         }
+; 654  :         }
 
 	jmp	SHORT $LN13@PMC_Add_X_
 $LN15@PMC_Add_X_:
 
-; 622  :         else
-; 623  :         {
-; 624  :             // v < 0 ÇÃèÍçá
-; 625  : 
-; 626  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 627  :             if ((result = SubtructU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 655  :         else
+; 656  :         {
+; 657  :             // v < 0 ÇÃèÍçá
+; 658  : 
+; 659  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 660  :             if ((result = SubtructU_X_L_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -5616,7 +5655,7 @@ $LN15@PMC_Add_X_:
 	mov	edx, DWORD PTR _v_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	1
 	call	_SubtructU_X_L_Imp
@@ -5625,33 +5664,33 @@ $LN15@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN13@PMC_Add_X_
 
-; 628  :                 return (result);
+; 661  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN13@PMC_Add_X_:
 
-; 629  :         }
-; 630  :     }
+; 662  :         }
+; 663  :     }
 
 	jmp	$LN6@PMC_Add_X_
 $LN10@PMC_Add_X_:
 
-; 631  :     else
-; 632  :     {
-; 633  :         // u < 0 ÇÃèÍçá
-; 634  : 
-; 635  :         if (v_sign == 0)
+; 664  :     else
+; 665  :     {
+; 666  :         // u < 0 ÇÃèÍçá
+; 667  : 
+; 668  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN19@PMC_Add_X_
 
-; 636  :         {
-; 637  :             // v == 0 ÇÃèÍçá
-; 638  : 
-; 639  :             // u Çï‘Ç∑
-; 640  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 669  :         {
+; 670  :             // v == 0 ÇÃèÍçá
+; 671  : 
+; 672  :             // u Çï‘Ç∑
+; 673  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -5663,28 +5702,28 @@ $LN10@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN21@PMC_Add_X_
 
-; 641  :                 return (result);
+; 674  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN21@PMC_Add_X_:
 
-; 642  :         }
+; 675  :         }
 
 	jmp	SHORT $LN6@PMC_Add_X_
 $LN19@PMC_Add_X_:
 
-; 643  :         else if (v_sign > 0)
+; 676  :         else if (v_sign > 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jle	SHORT $LN22@PMC_Add_X_
 
-; 644  :         {
-; 645  :             // v > 0 ÇÃèÍçá
-; 646  : 
-; 647  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 648  :             if ((result = SubtructU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 677  :         {
+; 678  :             // v > 0 ÇÃèÍçá
+; 679  : 
+; 680  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 681  :             if ((result = SubtructU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -5693,7 +5732,7 @@ $LN19@PMC_Add_X_:
 	mov	edx, DWORD PTR _v_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	-1
 	call	_SubtructU_X_L_Imp
@@ -5702,23 +5741,23 @@ $LN19@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN24@PMC_Add_X_
 
-; 649  :                 return (result);
+; 682  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN24@PMC_Add_X_:
 
-; 650  :         }
+; 683  :         }
 
 	jmp	SHORT $LN6@PMC_Add_X_
 $LN22@PMC_Add_X_:
 
-; 651  :         else
-; 652  :         {
-; 653  :             // v < 0 ÇÃèÍçá
-; 654  : 
-; 655  :             // - abs(u) - abs(v) Çï‘Ç∑
-; 656  :             if ((result = AddU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 684  :         else
+; 685  :         {
+; 686  :             // v < 0 ÇÃèÍçá
+; 687  : 
+; 688  :             // - abs(u) - abs(v) Çï‘Ç∑
+; 689  :             if ((result = AddU_X_L_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -5727,7 +5766,7 @@ $LN22@PMC_Add_X_:
 	mov	edx, DWORD PTR _v_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nu$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	-1
 	call	_AddU_X_L_Imp
@@ -5736,26 +5775,26 @@ $LN22@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Add_X_
 
-; 657  :                 return (result);
+; 690  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN6@PMC_Add_X_:
 
-; 658  :         }
-; 659  :     }
-; 660  :     *w = (PMC_HANDLE_SINT)nw;
+; 691  :         }
+; 692  :     }
+; 693  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 661  :     return (PMC_STATUS_OK);
+; 694  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_X_:
 
-; 662  : }
+; 695  : }
 
 	push	edx
 	mov	ecx, ebp
@@ -5816,7 +5855,7 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Add_X_I@12 PROC					; COMDAT
 
-; 475  : {
+; 508  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -5834,36 +5873,36 @@ _PMC_Add_X_I@12 PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 476  :     if (u == NULL)
+; 509  :     if (u == NULL)
 
 	cmp	DWORD PTR _u$[ebp], 0
 	jne	SHORT $LN2@PMC_Add_X_
 
-; 477  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 510  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN2@PMC_Add_X_:
 
-; 478  :     if (w == NULL)
+; 511  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Add_X_
 
-; 479  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 512  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_X_
 $LN3@PMC_Add_X_:
 
-; 480  :     PMC_STATUS_CODE result;
-; 481  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
+; 513  :     PMC_STATUS_CODE result;
+; 514  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
 
 	mov	eax, DWORD PTR _u$[ebp]
 	mov	DWORD PTR _nu$[ebp], eax
 
-; 482  :     NUMBER_HEADER* nw;
-; 483  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
+; 515  :     NUMBER_HEADER* nw;
+; 516  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nu$[ebp]
 	push	eax
@@ -5873,14 +5912,14 @@ $LN3@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Add_X_
 
-; 484  :         return (result);
+; 517  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN4@PMC_Add_X_:
 
-; 485  :     char v_sign;
-; 486  :     _UINT32_T v_abs = GET_ABS_32(v, &v_sign);
+; 518  :     char v_sign;
+; 519  :     _UINT32_T v_abs = GET_ABS_32(v, &v_sign);
 
 	lea	eax, DWORD PTR _v_sign$[ebp]
 	push	eax
@@ -5890,41 +5929,41 @@ $LN4@PMC_Add_X_:
 	add	esp, 8
 	mov	DWORD PTR _v_abs$[ebp], eax
 
-; 487  :     if (nu->SIGN == 0)
+; 520  :     if (nu->SIGN == 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN5@PMC_Add_X_
 
-; 488  :     {
-; 489  :         // u == 0 ÇÃèÍçá
-; 490  : 
-; 491  :         if (v_sign == 0)
+; 521  :     {
+; 522  :         // u == 0 ÇÃèÍçá
+; 523  : 
+; 524  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN7@PMC_Add_X_
 
-; 492  :         {
-; 493  :             // v == 0 ÇÃèÍçá
-; 494  : 
-; 495  :             // 0 Çï‘Ç∑
-; 496  :             nw = &number_zero;
+; 525  :         {
+; 526  :             // v == 0 ÇÃèÍçá
+; 527  : 
+; 528  :             // 0 Çï‘Ç∑
+; 529  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 497  :         }
+; 530  :         }
 
 	jmp	SHORT $LN8@PMC_Add_X_
 $LN7@PMC_Add_X_:
 
-; 498  :         else
-; 499  :         {
-; 500  :             // v != 0 ÇÃèÍçá
-; 501  : 
-; 502  :             // v Çï‘Ç∑
-; 503  :             if ((result = From_I_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
+; 531  :         else
+; 532  :         {
+; 533  :             // v != 0 ÇÃèÍçá
+; 534  : 
+; 535  :             // v Çï‘Ç∑
+; 536  :             if ((result = From_I_Imp(v_sign, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -5938,39 +5977,39 @@ $LN7@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN8@PMC_Add_X_
 
-; 504  :                 return (result);
+; 537  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN8@PMC_Add_X_:
 
-; 505  :         }
-; 506  :     }
+; 538  :         }
+; 539  :     }
 
 	jmp	$LN6@PMC_Add_X_
 $LN5@PMC_Add_X_:
 
-; 507  :     else if (nu->SIGN > 0)
+; 540  :     else if (nu->SIGN > 0)
 
 	mov	eax, DWORD PTR _nu$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	$LN10@PMC_Add_X_
 
-; 508  :     {
-; 509  :         // u > 0 ÇÃèÍçá
-; 510  : 
-; 511  :         if (v_sign == 0)
+; 541  :     {
+; 542  :         // u > 0 ÇÃèÍçá
+; 543  : 
+; 544  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN12@PMC_Add_X_
 
-; 512  :         {
-; 513  :             // v == 0 ÇÃèÍçá
-; 514  : 
-; 515  :             // u Çï‘Ç∑
-; 516  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 545  :         {
+; 546  :             // v == 0 ÇÃèÍçá
+; 547  : 
+; 548  :             // u Çï‘Ç∑
+; 549  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -5982,35 +6021,35 @@ $LN5@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN14@PMC_Add_X_
 
-; 517  :                 return (result);
+; 550  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN14@PMC_Add_X_:
 
-; 518  :         }
+; 551  :         }
 
 	jmp	SHORT $LN13@PMC_Add_X_
 $LN12@PMC_Add_X_:
 
-; 519  :         else if (v_sign > 0)
+; 552  :         else if (v_sign > 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jle	SHORT $LN15@PMC_Add_X_
 
-; 520  :         {
-; 521  :             // v > 0 ÇÃèÍçá
-; 522  : 
-; 523  :             // abs(u) + abs(v) Çï‘Ç∑
-; 524  :             if ((result = AddU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 553  :         {
+; 554  :             // v > 0 ÇÃèÍçá
+; 555  : 
+; 556  :             // abs(u) + abs(v) Çï‘Ç∑
+; 557  :             if ((result = AddU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	1
 	call	_AddU_X_I_Imp
@@ -6019,30 +6058,30 @@ $LN12@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN17@PMC_Add_X_
 
-; 525  :                 return (result);
+; 558  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN17@PMC_Add_X_:
 
-; 526  :         }
+; 559  :         }
 
 	jmp	SHORT $LN13@PMC_Add_X_
 $LN15@PMC_Add_X_:
 
-; 527  :         else
-; 528  :         {
-; 529  :             // v < 0 ÇÃèÍçá
-; 530  : 
-; 531  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 532  :             if ((result = SubtructU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 560  :         else
+; 561  :         {
+; 562  :             // v < 0 ÇÃèÍçá
+; 563  : 
+; 564  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 565  :             if ((result = SubtructU_X_I_Imp(1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	1
 	call	_SubtructU_X_I_Imp
@@ -6051,33 +6090,33 @@ $LN15@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN13@PMC_Add_X_
 
-; 533  :                 return (result);
+; 566  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_X_
 $LN13@PMC_Add_X_:
 
-; 534  :         }
-; 535  :     }
+; 567  :         }
+; 568  :     }
 
 	jmp	$LN6@PMC_Add_X_
 $LN10@PMC_Add_X_:
 
-; 536  :     else
-; 537  :     {
-; 538  :         // u < 0 ÇÃèÍçá
-; 539  : 
-; 540  :         if (v_sign == 0)
+; 569  :     else
+; 570  :     {
+; 571  :         // u < 0 ÇÃèÍçá
+; 572  : 
+; 573  :         if (v_sign == 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN19@PMC_Add_X_
 
-; 541  :         {
-; 542  :             // v == 0 ÇÃèÍçá
-; 543  : 
-; 544  :             // u Çï‘Ç∑
-; 545  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
+; 574  :         {
+; 575  :             // v == 0 ÇÃèÍçá
+; 576  : 
+; 577  :             // u Çï‘Ç∑
+; 578  :             if ((result = DuplicateNumber(nu, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -6089,35 +6128,35 @@ $LN10@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN21@PMC_Add_X_
 
-; 546  :                 return (result);
+; 579  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN21@PMC_Add_X_:
 
-; 547  :         }
+; 580  :         }
 
 	jmp	SHORT $LN6@PMC_Add_X_
 $LN19@PMC_Add_X_:
 
-; 548  :         else if (v_sign > 0)
+; 581  :         else if (v_sign > 0)
 
 	movsx	eax, BYTE PTR _v_sign$[ebp]
 	test	eax, eax
 	jle	SHORT $LN22@PMC_Add_X_
 
-; 549  :         {
-; 550  :             // v > 0 ÇÃèÍçá
-; 551  : 
-; 552  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 553  :             if ((result = SubtructU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 582  :         {
+; 583  :             // v > 0 ÇÃèÍçá
+; 584  : 
+; 585  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 586  :             if ((result = SubtructU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	-1
 	call	_SubtructU_X_I_Imp
@@ -6126,30 +6165,30 @@ $LN19@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN24@PMC_Add_X_
 
-; 554  :                 return (result);
+; 587  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN24@PMC_Add_X_:
 
-; 555  :         }
+; 588  :         }
 
 	jmp	SHORT $LN6@PMC_Add_X_
 $LN22@PMC_Add_X_:
 
-; 556  :         else
-; 557  :         {
-; 558  :             // v < 0 ÇÃèÍçá
-; 559  : 
-; 560  :             // - abs(u) - abs(v) Çï‘Ç∑
-; 561  :             if ((result = AddU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
+; 589  :         else
+; 590  :         {
+; 591  :             // v < 0 ÇÃèÍçá
+; 592  : 
+; 593  :             // - abs(u) - abs(v) Çï‘Ç∑
+; 594  :             if ((result = AddU_X_I_Imp(-1, nu->ABS, v_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _v_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nu$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	-1
 	call	_AddU_X_I_Imp
@@ -6158,26 +6197,26 @@ $LN22@PMC_Add_X_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Add_X_
 
-; 562  :                 return (result);
+; 595  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_X_
 $LN6@PMC_Add_X_:
 
-; 563  :         }
-; 564  :     }
-; 565  :     *w = (PMC_HANDLE_SINT)nw;
+; 596  :         }
+; 597  :     }
+; 598  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 566  :     return (PMC_STATUS_OK);
+; 599  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_X_:
 
-; 567  : }
+; 600  : }
 
 	push	edx
 	mov	ecx, ebp
@@ -6227,8 +6266,7 @@ _TEXT	ENDS
 ; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_add_sub.c
 ;	COMDAT _PMC_Add_UX_X@12
 _TEXT	SEGMENT
-_new_u$1 = -60						; size = 4
-_u_is_zero$ = -45					; size = 1
+_new_u$1 = -48						; size = 4
 _nw$ = -36						; size = 4
 _nv$ = -24						; size = 4
 _result$ = -12						; size = 4
@@ -6238,16 +6276,16 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Add_UX_X@12 PROC					; COMDAT
 
-; 402  : {
+; 438  : {
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 256				; 00000100H
+	sub	esp, 244				; 000000f4H
 	push	ebx
 	push	esi
 	push	edi
-	lea	edi, DWORD PTR [ebp-256]
-	mov	ecx, 64					; 00000040H
+	lea	edi, DWORD PTR [ebp-244]
+	mov	ecx, 61					; 0000003dH
 	mov	eax, -858993460				; ccccccccH
 	rep stosd
 	mov	eax, DWORD PTR ___security_cookie
@@ -6256,36 +6294,36 @@ _PMC_Add_UX_X@12 PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 403  :     if (v == NULL)
+; 439  :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN2@PMC_Add_UX
 
-; 404  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 440  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_UX
 $LN2@PMC_Add_UX:
 
-; 405  :     if (w == NULL)
+; 441  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Add_UX
 
-; 406  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 442  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_UX
 $LN3@PMC_Add_UX:
 
-; 407  :     PMC_STATUS_CODE result;
-; 408  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 443  :     PMC_STATUS_CODE result;
+; 444  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	eax, DWORD PTR _v$[ebp]
 	mov	DWORD PTR _nv$[ebp], eax
 
-; 409  :     NUMBER_HEADER* nw;
-; 410  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 445  :     NUMBER_HEADER* nw;
+; 446  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nv$[ebp]
 	push	eax
@@ -6295,66 +6333,48 @@ $LN3@PMC_Add_UX:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Add_UX
 
-; 411  :         return (result);
+; 447  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_UX
 $LN4@PMC_Add_UX:
 
-; 412  :     char u_is_zero;
-; 413  :     if ((result = IsZero_UINT(u, &u_is_zero)) != PMC_STATUS_OK)
+; 448  :     if (u->FLAGS.IS_ZERO)
 
-	lea	eax, DWORD PTR _u_is_zero$[ebp]
-	push	eax
-	mov	ecx, DWORD PTR _u$[ebp]
-	push	ecx
-	call	_IsZero_UINT
-	add	esp, 8
-	mov	DWORD PTR _result$[ebp], eax
-	cmp	DWORD PTR _result$[ebp], 0
+	mov	eax, DWORD PTR _u$[ebp]
+	mov	ecx, DWORD PTR [eax]
+	and	ecx, 1
 	je	SHORT $LN5@PMC_Add_UX
 
-; 414  :         return (result);
-
-	mov	eax, DWORD PTR _result$[ebp]
-	jmp	$LN1@PMC_Add_UX
-$LN5@PMC_Add_UX:
-
-; 415  :     if (u_is_zero)
-
-	movsx	eax, BYTE PTR _u_is_zero$[ebp]
-	test	eax, eax
-	je	SHORT $LN6@PMC_Add_UX
-
-; 416  :     {
-; 417  :         // u == 0 ÇÃèÍçá
-; 418  : 
-; 419  :         if (nv->SIGN == 0)
+; 449  :     {
+; 450  :         // u == 0 ÇÃèÍçá
+; 451  : 
+; 452  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
-	jne	SHORT $LN8@PMC_Add_UX
+	jne	SHORT $LN7@PMC_Add_UX
 
-; 420  :         {
-; 421  :             // v == 0 ÇÃèÍçá
-; 422  : 
-; 423  :             // 0 Çï‘Ç∑
-; 424  :             nw = &number_zero;
+; 453  :         {
+; 454  :             // v == 0 ÇÃèÍçá
+; 455  : 
+; 456  :             // 0 Çï‘Ç∑
+; 457  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 425  :         }
+; 458  :         }
 
-	jmp	SHORT $LN9@PMC_Add_UX
-$LN8@PMC_Add_UX:
+	jmp	SHORT $LN8@PMC_Add_UX
+$LN7@PMC_Add_UX:
 
-; 426  :         else
-; 427  :         {
-; 428  :             // v != 0 ÇÃèÍçá
-; 429  : 
-; 430  :             // v Çï‘Ç∑
-; 431  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
+; 459  :         else
+; 460  :         {
+; 461  :             // v != 0 ÇÃèÍçá
+; 462  : 
+; 463  :             // v Çï‘Ç∑
+; 464  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -6364,57 +6384,57 @@ $LN8@PMC_Add_UX:
 	add	esp, 8
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN9@PMC_Add_UX
+	je	SHORT $LN8@PMC_Add_UX
 
-; 432  :                 return (result);
+; 465  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_UX
-$LN9@PMC_Add_UX:
+$LN8@PMC_Add_UX:
 
-; 433  :         }
-; 434  :     }
+; 466  :         }
+; 467  :     }
 
-	jmp	$LN7@PMC_Add_UX
-$LN6@PMC_Add_UX:
+	jmp	$LN6@PMC_Add_UX
+$LN5@PMC_Add_UX:
 
-; 435  :     else
-; 436  :     {
-; 437  :         // u > 0 ÇÃèÍçá
-; 438  : 
-; 439  :         if (nv->SIGN == 0)
+; 468  :     else
+; 469  :     {
+; 470  :         // u > 0 ÇÃèÍçá
+; 471  : 
+; 472  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
-	jne	SHORT $LN11@PMC_Add_UX
+	jne	SHORT $LN10@PMC_Add_UX
 
-; 440  :         {
-; 441  :             // v == 0 ÇÃèÍçá
-; 442  : 
-; 443  :             // u Çï‘Ç∑
-; 444  :             PMC_HANDLE_UINT new_u;
-; 445  :             if ((result = ep_uint.Clone_X(u, &new_u)) != PMC_STATUS_OK)
+; 473  :         {
+; 474  :             // v == 0 ÇÃèÍçá
+; 475  : 
+; 476  :             // u Çï‘Ç∑
+; 477  :             PMC_HANDLE_UINT new_u;
+; 478  :             if ((result = ep_uint.Clone_X(u, &new_u)) != PMC_STATUS_OK)
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _new_u$1[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u$[ebp]
 	push	ecx
-	call	DWORD PTR _ep_uint+44
+	call	DWORD PTR _ep_uint+40
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN13@PMC_Add_UX
+	je	SHORT $LN12@PMC_Add_UX
 
-; 446  :                 return (result);
+; 479  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_UX
-$LN13@PMC_Add_UX:
+$LN12@PMC_Add_UX:
 
-; 447  :             if ((result = AllocateNumber(&nw, 1, new_u)) != PMC_STATUS_OK)
+; 480  :             if ((result = AllocateNumber(&nw, 1, new_u)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _new_u$1[ebp]
 	push	eax
@@ -6425,10 +6445,10 @@ $LN13@PMC_Add_UX:
 	add	esp, 12					; 0000000cH
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN14@PMC_Add_UX
+	je	SHORT $LN13@PMC_Add_UX
 
-; 448  :             {
-; 449  :                 ep_uint.Dispose(new_u);
+; 481  :             {
+; 482  :                 ep_uint.Dispose(new_u);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _new_u$1[ebp]
@@ -6437,35 +6457,35 @@ $LN13@PMC_Add_UX:
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 450  :                 return (result);
+; 483  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_UX
-$LN14@PMC_Add_UX:
+$LN13@PMC_Add_UX:
 
-; 451  :             }
-; 452  :         }
+; 484  :             }
+; 485  :         }
 
-	jmp	SHORT $LN7@PMC_Add_UX
-$LN11@PMC_Add_UX:
+	jmp	SHORT $LN6@PMC_Add_UX
+$LN10@PMC_Add_UX:
 
-; 453  :         else if (nv->SIGN > 0)
+; 486  :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
-	jle	SHORT $LN15@PMC_Add_UX
+	jle	SHORT $LN14@PMC_Add_UX
 
-; 454  :         {
-; 455  :             // v > 0 ÇÃèÍçá
-; 456  : 
-; 457  :             // u + abs(v) Çï‘Ç∑
-; 458  :             if ((result = AddU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 487  :         {
+; 488  :             // v > 0 ÇÃèÍçá
+; 489  : 
+; 490  :             // u + abs(v) Çï‘Ç∑
+; 491  :             if ((result = AddU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
@@ -6474,30 +6494,30 @@ $LN11@PMC_Add_UX:
 	add	esp, 16					; 00000010H
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN17@PMC_Add_UX
+	je	SHORT $LN16@PMC_Add_UX
 
-; 459  :                 return (result);
+; 492  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_UX
-$LN17@PMC_Add_UX:
+$LN16@PMC_Add_UX:
 
-; 460  :         }
+; 493  :         }
 
-	jmp	SHORT $LN7@PMC_Add_UX
-$LN15@PMC_Add_UX:
+	jmp	SHORT $LN6@PMC_Add_UX
+$LN14@PMC_Add_UX:
 
-; 461  :         else
-; 462  :         {
-; 463  :             // v < 0 ÇÃèÍçá
-; 464  : 
-; 465  :             // u - abs(v) ÇåvéZÇ∑ÇÈ
-; 466  :             if ((result = SubtructU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
+; 494  :         else
+; 495  :         {
+; 496  :             // v < 0 ÇÃèÍçá
+; 497  : 
+; 498  :             // u - abs(v) ÇåvéZÇ∑ÇÈ
+; 499  :             if ((result = SubtructU_X_X_Imp(1, u, nv->ABS, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _nv$[ebp]
-	mov	edx, DWORD PTR [ecx+8]
+	mov	edx, DWORD PTR [ecx+12]
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
@@ -6506,33 +6526,33 @@ $LN15@PMC_Add_UX:
 	add	esp, 16					; 00000010H
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
-	je	SHORT $LN7@PMC_Add_UX
+	je	SHORT $LN6@PMC_Add_UX
 
-; 467  :                 return (result);
+; 500  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_UX
-$LN7@PMC_Add_UX:
+$LN6@PMC_Add_UX:
 
-; 468  :         }
-; 469  :     }
-; 470  :     *w = (PMC_HANDLE_SINT)nw;
+; 501  :         }
+; 502  :     }
+; 503  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 471  :     return (PMC_STATUS_OK);
+; 504  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_UX:
 
-; 472  : }
+; 505  : }
 
 	push	edx
 	mov	ecx, ebp
 	push	eax
-	lea	edx, DWORD PTR $LN24@PMC_Add_UX
+	lea	edx, DWORD PTR $LN22@PMC_Add_UX
 	call	@_RTC_CheckStackVars@8
 	pop	eax
 	pop	edx
@@ -6542,45 +6562,31 @@ $LN1@PMC_Add_UX:
 	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
 	xor	ecx, ebp
 	call	@__security_check_cookie@4
-	add	esp, 256				; 00000100H
+	add	esp, 244				; 000000f4H
 	cmp	ebp, esp
 	call	__RTC_CheckEsp
 	mov	esp, ebp
 	pop	ebp
 	ret	12					; 0000000cH
-	npad	2
-$LN24@PMC_Add_UX:
-	DD	3
-	DD	$LN23@PMC_Add_UX
-$LN23@PMC_Add_UX:
+	npad	1
+$LN22@PMC_Add_UX:
+	DD	2
+	DD	$LN21@PMC_Add_UX
+$LN21@PMC_Add_UX:
 	DD	-36					; ffffffdcH
 	DD	4
-	DD	$LN20@PMC_Add_UX
-	DD	-45					; ffffffd3H
-	DD	1
-	DD	$LN21@PMC_Add_UX
-	DD	-60					; ffffffc4H
+	DD	$LN19@PMC_Add_UX
+	DD	-48					; ffffffd0H
 	DD	4
-	DD	$LN22@PMC_Add_UX
-$LN22@PMC_Add_UX:
+	DD	$LN20@PMC_Add_UX
+$LN20@PMC_Add_UX:
 	DB	110					; 0000006eH
 	DB	101					; 00000065H
 	DB	119					; 00000077H
 	DB	95					; 0000005fH
 	DB	117					; 00000075H
 	DB	0
-$LN21@PMC_Add_UX:
-	DB	117					; 00000075H
-	DB	95					; 0000005fH
-	DB	105					; 00000069H
-	DB	115					; 00000073H
-	DB	95					; 0000005fH
-	DB	122					; 0000007aH
-	DB	101					; 00000065H
-	DB	114					; 00000072H
-	DB	111					; 0000006fH
-	DB	0
-$LN20@PMC_Add_UX:
+$LN19@PMC_Add_UX:
 	DB	110					; 0000006eH
 	DB	119					; 00000077H
 	DB	0
@@ -6601,7 +6607,7 @@ _v$ = 16						; size = 4
 _w$ = 20						; size = 4
 _PMC_Add_L_X@16 PROC					; COMDAT
 
-; 307  : {
+; 343  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -6619,36 +6625,36 @@ _PMC_Add_L_X@16 PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 308  :     if (v == NULL)
+; 344  :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN2@PMC_Add_L_
 
-; 309  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 345  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_L_
 $LN2@PMC_Add_L_:
 
-; 310  :     if (w == NULL)
+; 346  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Add_L_
 
-; 311  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 347  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_L_
 $LN3@PMC_Add_L_:
 
-; 312  :     PMC_STATUS_CODE result;
-; 313  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 348  :     PMC_STATUS_CODE result;
+; 349  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	eax, DWORD PTR _v$[ebp]
 	mov	DWORD PTR _nv$[ebp], eax
 
-; 314  :     NUMBER_HEADER* nw;
-; 315  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 350  :     NUMBER_HEADER* nw;
+; 351  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nv$[ebp]
 	push	eax
@@ -6658,14 +6664,14 @@ $LN3@PMC_Add_L_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Add_L_
 
-; 316  :         return (result);
+; 352  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_L_
 $LN4@PMC_Add_L_:
 
-; 317  :     char u_sign;
-; 318  :     _UINT64_T u_abs = GET_ABS_64(u, &u_sign);
+; 353  :     char u_sign;
+; 354  :     _UINT64_T u_abs = GET_ABS_64(u, &u_sign);
 
 	lea	eax, DWORD PTR _u_sign$[ebp]
 	push	eax
@@ -6678,41 +6684,41 @@ $LN4@PMC_Add_L_:
 	mov	DWORD PTR _u_abs$[ebp], eax
 	mov	DWORD PTR _u_abs$[ebp+4], edx
 
-; 319  :     if (u_sign == 0)
+; 355  :     if (u_sign == 0)
 
 	movsx	eax, BYTE PTR _u_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Add_L_
 
-; 320  :     {
-; 321  :         // u == 0 ÇÃèÍçá
-; 322  : 
-; 323  :         if (nv->SIGN == 0)
+; 356  :     {
+; 357  :         // u == 0 ÇÃèÍçá
+; 358  : 
+; 359  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN7@PMC_Add_L_
 
-; 324  :         {
-; 325  :             // v == 0 ÇÃèÍçá
-; 326  : 
-; 327  :             // 0 Çï‘Ç∑
-; 328  :             nw = &number_zero;
+; 360  :         {
+; 361  :             // v == 0 ÇÃèÍçá
+; 362  : 
+; 363  :             // 0 Çï‘Ç∑
+; 364  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 329  :         }
+; 365  :         }
 
 	jmp	SHORT $LN8@PMC_Add_L_
 $LN7@PMC_Add_L_:
 
-; 330  :         else
-; 331  :         {
-; 332  :             // v != 0 ÇÃèÍçá
-; 333  : 
-; 334  :             // v Çï‘Ç∑
-; 335  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
+; 366  :         else
+; 367  :         {
+; 368  :             // v != 0 ÇÃèÍçá
+; 369  : 
+; 370  :             // v Çï‘Ç∑
+; 371  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -6724,39 +6730,39 @@ $LN7@PMC_Add_L_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN8@PMC_Add_L_
 
-; 336  :                 return (result);
+; 372  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_L_
 $LN8@PMC_Add_L_:
 
-; 337  :         }
-; 338  :     }
+; 373  :         }
+; 374  :     }
 
 	jmp	$LN6@PMC_Add_L_
 $LN5@PMC_Add_L_:
 
-; 339  :     else if (u_sign > 0)
+; 375  :     else if (u_sign > 0)
 
 	movsx	eax, BYTE PTR _u_sign$[ebp]
 	test	eax, eax
 	jle	$LN10@PMC_Add_L_
 
-; 340  :     {
-; 341  :         // u > 0 ÇÃèÍçá
-; 342  : 
-; 343  :         if (nv->SIGN == 0)
+; 376  :     {
+; 377  :         // u > 0 ÇÃèÍçá
+; 378  : 
+; 379  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN12@PMC_Add_L_
 
-; 344  :         {
-; 345  :             // v == 0 ÇÃèÍçá
-; 346  : 
-; 347  :             // u Çï‘Ç∑
-; 348  :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 380  :         {
+; 381  :             // v == 0 ÇÃèÍçá
+; 382  : 
+; 383  :             // u Çï‘Ç∑
+; 384  :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -6772,29 +6778,29 @@ $LN5@PMC_Add_L_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN14@PMC_Add_L_
 
-; 349  :                 return (result);
+; 385  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_L_
 $LN14@PMC_Add_L_:
 
-; 350  :         }
+; 386  :         }
 
 	jmp	SHORT $LN13@PMC_Add_L_
 $LN12@PMC_Add_L_:
 
-; 351  :         else if (nv->SIGN > 0)
+; 387  :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN15@PMC_Add_L_
 
-; 352  :         {
-; 353  :             // v > 0 ÇÃèÍçá
-; 354  : 
-; 355  :             // abs(u) + abs(v) Çï‘Ç∑
-; 356  :             if ((result = AddU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 388  :         {
+; 389  :             // v > 0 ÇÃèÍçá
+; 390  : 
+; 391  :             // abs(u) + abs(v) Çï‘Ç∑
+; 392  :             if ((result = AddU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -6803,7 +6809,7 @@ $LN12@PMC_Add_L_:
 	mov	edx, DWORD PTR _u_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nv$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	1
 	call	_AddU_X_L_Imp
@@ -6812,23 +6818,23 @@ $LN12@PMC_Add_L_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN17@PMC_Add_L_
 
-; 357  :                 return (result);
+; 393  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_L_
 $LN17@PMC_Add_L_:
 
-; 358  :         }
+; 394  :         }
 
 	jmp	SHORT $LN13@PMC_Add_L_
 $LN15@PMC_Add_L_:
 
-; 359  :         else
-; 360  :         {
-; 361  :             // v < 0 ÇÃèÍçá
-; 362  : 
-; 363  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 364  :             if ((result = SubtructU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 395  :         else
+; 396  :         {
+; 397  :             // v < 0 ÇÃèÍçá
+; 398  : 
+; 399  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 400  :             if ((result = SubtructU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -6837,7 +6843,7 @@ $LN15@PMC_Add_L_:
 	mov	edx, DWORD PTR _u_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nv$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	-1
 	call	_SubtructU_X_L_Imp
@@ -6846,34 +6852,34 @@ $LN15@PMC_Add_L_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN13@PMC_Add_L_
 
-; 365  :                 return (result);
+; 401  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_L_
 $LN13@PMC_Add_L_:
 
-; 366  :         }
-; 367  :     }
+; 402  :         }
+; 403  :     }
 
 	jmp	$LN6@PMC_Add_L_
 $LN10@PMC_Add_L_:
 
-; 368  :     else
-; 369  :     {
-; 370  :         // u < 0 ÇÃèÍçá
-; 371  : 
-; 372  :         if (nv->SIGN == 0)
+; 404  :     else
+; 405  :     {
+; 406  :         // u < 0 ÇÃèÍçá
+; 407  : 
+; 408  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN19@PMC_Add_L_
 
-; 373  :         {
-; 374  :             // v == 0 ÇÃèÍçá
-; 375  : 
-; 376  :             // u Çï‘Ç∑
-; 377  :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 409  :         {
+; 410  :             // v == 0 ÇÃèÍçá
+; 411  : 
+; 412  :             // u Çï‘Ç∑
+; 413  :             if ((result = From_L_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -6889,29 +6895,29 @@ $LN10@PMC_Add_L_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN21@PMC_Add_L_
 
-; 378  :                 return (result);
+; 414  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_L_
 $LN21@PMC_Add_L_:
 
-; 379  :         }
+; 415  :         }
 
 	jmp	SHORT $LN6@PMC_Add_L_
 $LN19@PMC_Add_L_:
 
-; 380  :         else if (nv->SIGN > 0)
+; 416  :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN22@PMC_Add_L_
 
-; 381  :         {
-; 382  :             // v > 0 ÇÃèÍçá
-; 383  : 
-; 384  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 385  :             if ((result = SubtructU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 417  :         {
+; 418  :             // v > 0 ÇÃèÍçá
+; 419  : 
+; 420  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 421  :             if ((result = SubtructU_X_L_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -6920,7 +6926,7 @@ $LN19@PMC_Add_L_:
 	mov	edx, DWORD PTR _u_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nv$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	1
 	call	_SubtructU_X_L_Imp
@@ -6929,23 +6935,23 @@ $LN19@PMC_Add_L_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN24@PMC_Add_L_
 
-; 386  :                 return (result);
+; 422  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_L_
 $LN24@PMC_Add_L_:
 
-; 387  :         }
+; 423  :         }
 
 	jmp	SHORT $LN6@PMC_Add_L_
 $LN22@PMC_Add_L_:
 
-; 388  :         else
-; 389  :         {
-; 390  :             // v < 0 ÇÃèÍçá
-; 391  : 
-; 392  :             // - abs(u) - abs(v) Çï‘Ç∑
-; 393  :             if ((result = AddU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 424  :         else
+; 425  :         {
+; 426  :             // v < 0 ÇÃèÍçá
+; 427  : 
+; 428  :             // - abs(u) - abs(v) Çï‘Ç∑
+; 429  :             if ((result = AddU_X_L_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -6954,7 +6960,7 @@ $LN22@PMC_Add_L_:
 	mov	edx, DWORD PTR _u_abs$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _nv$[ebp]
-	mov	ecx, DWORD PTR [eax+8]
+	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
 	push	-1
 	call	_AddU_X_L_Imp
@@ -6963,26 +6969,26 @@ $LN22@PMC_Add_L_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Add_L_
 
-; 394  :                 return (result);
+; 430  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_L_
 $LN6@PMC_Add_L_:
 
-; 395  :         }
-; 396  :     }
-; 397  :     *w = (PMC_HANDLE_SINT)nw;
+; 431  :         }
+; 432  :     }
+; 433  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 398  :     return (PMC_STATUS_OK);
+; 434  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_L_:
 
-; 399  : }
+; 435  : }
 
 	push	edx
 	mov	ecx, ebp
@@ -7042,7 +7048,7 @@ _v$ = 12						; size = 4
 _w$ = 16						; size = 4
 _PMC_Add_I_X@12 PROC					; COMDAT
 
-; 212  : {
+; 248  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -7060,36 +7066,36 @@ _PMC_Add_I_X@12 PROC					; COMDAT
 	mov	ecx, OFFSET __5A8189A9_pmc_add_sub@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 213  :     if (v == NULL)
+; 249  :     if (v == NULL)
 
 	cmp	DWORD PTR _v$[ebp], 0
 	jne	SHORT $LN2@PMC_Add_I_
 
-; 214  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 250  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_I_
 $LN2@PMC_Add_I_:
 
-; 215  :     if (w == NULL)
+; 251  :     if (w == NULL)
 
 	cmp	DWORD PTR _w$[ebp], 0
 	jne	SHORT $LN3@PMC_Add_I_
 
-; 216  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 252  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	or	eax, -1
 	jmp	$LN1@PMC_Add_I_
 $LN3@PMC_Add_I_:
 
-; 217  :     PMC_STATUS_CODE result;
-; 218  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
+; 253  :     PMC_STATUS_CODE result;
+; 254  :     NUMBER_HEADER* nv = (NUMBER_HEADER*)v;
 
 	mov	eax, DWORD PTR _v$[ebp]
 	mov	DWORD PTR _nv$[ebp], eax
 
-; 219  :     NUMBER_HEADER* nw;
-; 220  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
+; 255  :     NUMBER_HEADER* nw;
+; 256  :     if ((result = CheckNumber(nv)) != PMC_STATUS_OK)
 
 	mov	eax, DWORD PTR _nv$[ebp]
 	push	eax
@@ -7099,14 +7105,14 @@ $LN3@PMC_Add_I_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN4@PMC_Add_I_
 
-; 221  :         return (result);
+; 257  :         return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_I_
 $LN4@PMC_Add_I_:
 
-; 222  :     char u_sign;
-; 223  :     _UINT32_T u_abs = GET_ABS_32(u, &u_sign);
+; 258  :     char u_sign;
+; 259  :     _UINT32_T u_abs = GET_ABS_32(u, &u_sign);
 
 	lea	eax, DWORD PTR _u_sign$[ebp]
 	push	eax
@@ -7116,41 +7122,41 @@ $LN4@PMC_Add_I_:
 	add	esp, 8
 	mov	DWORD PTR _u_abs$[ebp], eax
 
-; 224  :     if (u_sign == 0)
+; 260  :     if (u_sign == 0)
 
 	movsx	eax, BYTE PTR _u_sign$[ebp]
 	test	eax, eax
 	jne	SHORT $LN5@PMC_Add_I_
 
-; 225  :     {
-; 226  :         // u == 0 ÇÃèÍçá
-; 227  : 
-; 228  :         if (nv->SIGN == 0)
+; 261  :     {
+; 262  :         // u == 0 ÇÃèÍçá
+; 263  : 
+; 264  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN7@PMC_Add_I_
 
-; 229  :         {
-; 230  :             // v == 0 ÇÃèÍçá
-; 231  : 
-; 232  :             // 0 Çï‘Ç∑
-; 233  :             nw = &number_zero;
+; 265  :         {
+; 266  :             // v == 0 ÇÃèÍçá
+; 267  : 
+; 268  :             // 0 Çï‘Ç∑
+; 269  :             nw = &number_zero;
 
 	mov	DWORD PTR _nw$[ebp], OFFSET _number_zero
 
-; 234  :         }
+; 270  :         }
 
 	jmp	SHORT $LN8@PMC_Add_I_
 $LN7@PMC_Add_I_:
 
-; 235  :         else
-; 236  :         {
-; 237  :             // v != 0 ÇÃèÍçá
-; 238  : 
-; 239  :             // v Çï‘Ç∑
-; 240  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
+; 271  :         else
+; 272  :         {
+; 273  :             // v != 0 ÇÃèÍçá
+; 274  : 
+; 275  :             // v Çï‘Ç∑
+; 276  :             if ((result = DuplicateNumber(nv, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -7162,39 +7168,39 @@ $LN7@PMC_Add_I_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN8@PMC_Add_I_
 
-; 241  :                 return (result);
+; 277  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_I_
 $LN8@PMC_Add_I_:
 
-; 242  :         }
-; 243  :     }
+; 278  :         }
+; 279  :     }
 
 	jmp	$LN6@PMC_Add_I_
 $LN5@PMC_Add_I_:
 
-; 244  :     else if (u_sign > 0)
+; 280  :     else if (u_sign > 0)
 
 	movsx	eax, BYTE PTR _u_sign$[ebp]
 	test	eax, eax
 	jle	$LN10@PMC_Add_I_
 
-; 245  :     {
-; 246  :         // u > 0 ÇÃèÍçá
-; 247  : 
-; 248  :         if (nv->SIGN == 0)
+; 281  :     {
+; 282  :         // u > 0 ÇÃèÍçá
+; 283  : 
+; 284  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN12@PMC_Add_I_
 
-; 249  :         {
-; 250  :             // v == 0 ÇÃèÍçá
-; 251  : 
-; 252  :             // u Çï‘Ç∑
-; 253  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 285  :         {
+; 286  :             // v == 0 ÇÃèÍçá
+; 287  : 
+; 288  :             // u Çï‘Ç∑
+; 289  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -7208,36 +7214,36 @@ $LN5@PMC_Add_I_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN14@PMC_Add_I_
 
-; 254  :                 return (result);
+; 290  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_I_
 $LN14@PMC_Add_I_:
 
-; 255  :         }
+; 291  :         }
 
 	jmp	SHORT $LN13@PMC_Add_I_
 $LN12@PMC_Add_I_:
 
-; 256  :         else if (nv->SIGN > 0)
+; 292  :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN15@PMC_Add_I_
 
-; 257  :         {
-; 258  :             // v > 0 ÇÃèÍçá
-; 259  : 
-; 260  :             // abs(u) + abs(v) Çï‘Ç∑
-; 261  :             if ((result = AddU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 293  :         {
+; 294  :             // v > 0 ÇÃèÍçá
+; 295  : 
+; 296  :             // abs(u) + abs(v) Çï‘Ç∑
+; 297  :             if ((result = AddU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	1
 	call	_AddU_X_I_Imp
@@ -7246,30 +7252,30 @@ $LN12@PMC_Add_I_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN17@PMC_Add_I_
 
-; 262  :                 return (result);
+; 298  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_I_
 $LN17@PMC_Add_I_:
 
-; 263  :         }
+; 299  :         }
 
 	jmp	SHORT $LN13@PMC_Add_I_
 $LN15@PMC_Add_I_:
 
-; 264  :         else
-; 265  :         {
-; 266  :             // v < 0 ÇÃèÍçá
-; 267  : 
-; 268  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
-; 269  :             if ((result = SubtructU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 300  :         else
+; 301  :         {
+; 302  :             // v < 0 ÇÃèÍçá
+; 303  : 
+; 304  :             // abs(u) - abs(v) ÇåvéZÇ∑ÇÈ
+; 305  :             if ((result = SubtructU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	-1
 	call	_SubtructU_X_I_Imp
@@ -7278,34 +7284,34 @@ $LN15@PMC_Add_I_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN13@PMC_Add_I_
 
-; 270  :                 return (result);
+; 306  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	$LN1@PMC_Add_I_
 $LN13@PMC_Add_I_:
 
-; 271  :         }
-; 272  :     }
+; 307  :         }
+; 308  :     }
 
 	jmp	$LN6@PMC_Add_I_
 $LN10@PMC_Add_I_:
 
-; 273  :     else
-; 274  :     {
-; 275  :         // u < 0 ÇÃèÍçá
-; 276  : 
-; 277  :         if (nv->SIGN == 0)
+; 309  :     else
+; 310  :     {
+; 311  :         // u < 0 ÇÃèÍçá
+; 312  : 
+; 313  :         if (nv->SIGN == 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jne	SHORT $LN19@PMC_Add_I_
 
-; 278  :         {
-; 279  :             // v == 0 ÇÃèÍçá
-; 280  : 
-; 281  :             // u Çï‘Ç∑
-; 282  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
+; 314  :         {
+; 315  :             // v == 0 ÇÃèÍçá
+; 316  : 
+; 317  :             // u Çï‘Ç∑
+; 318  :             if ((result = From_I_Imp(u_sign, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
@@ -7319,36 +7325,36 @@ $LN10@PMC_Add_I_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN21@PMC_Add_I_
 
-; 283  :                 return (result);
+; 319  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_I_
 $LN21@PMC_Add_I_:
 
-; 284  :         }
+; 320  :         }
 
 	jmp	SHORT $LN6@PMC_Add_I_
 $LN19@PMC_Add_I_:
 
-; 285  :         else if (nv->SIGN > 0)
+; 321  :         else if (nv->SIGN > 0)
 
 	mov	eax, DWORD PTR _nv$[ebp]
-	movsx	ecx, BYTE PTR [eax+12]
+	movsx	ecx, BYTE PTR [eax+16]
 	test	ecx, ecx
 	jle	SHORT $LN22@PMC_Add_I_
 
-; 286  :         {
-; 287  :             // v > 0 ÇÃèÍçá
-; 288  : 
-; 289  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
-; 290  :             if ((result = SubtructU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 322  :         {
+; 323  :             // v > 0 ÇÃèÍçá
+; 324  : 
+; 325  :             // - abs(u) + abs(v) ÇåvéZÇ∑ÇÈ
+; 326  :             if ((result = SubtructU_X_I_Imp(1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	1
 	call	_SubtructU_X_I_Imp
@@ -7357,30 +7363,30 @@ $LN19@PMC_Add_I_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN24@PMC_Add_I_
 
-; 291  :                 return (result);
+; 327  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_I_
 $LN24@PMC_Add_I_:
 
-; 292  :         }
+; 328  :         }
 
 	jmp	SHORT $LN6@PMC_Add_I_
 $LN22@PMC_Add_I_:
 
-; 293  :         else
-; 294  :         {
-; 295  :             // v < 0 ÇÃèÍçá
-; 296  : 
-; 297  :             // - abs(u) - abs(v) Çï‘Ç∑
-; 298  :             if ((result = AddU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
+; 329  :         else
+; 330  :         {
+; 331  :             // v < 0 ÇÃèÍçá
+; 332  : 
+; 333  :             // - abs(u) - abs(v) Çï‘Ç∑
+; 334  :             if ((result = AddU_X_I_Imp(-1, nv->ABS, u_abs, &nw)) != PMC_STATUS_OK)
 
 	lea	eax, DWORD PTR _nw$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _nv$[ebp]
-	mov	eax, DWORD PTR [edx+8]
+	mov	eax, DWORD PTR [edx+12]
 	push	eax
 	push	-1
 	call	_AddU_X_I_Imp
@@ -7389,26 +7395,26 @@ $LN22@PMC_Add_I_:
 	cmp	DWORD PTR _result$[ebp], 0
 	je	SHORT $LN6@PMC_Add_I_
 
-; 299  :                 return (result);
+; 335  :                 return (result);
 
 	mov	eax, DWORD PTR _result$[ebp]
 	jmp	SHORT $LN1@PMC_Add_I_
 $LN6@PMC_Add_I_:
 
-; 300  :         }
-; 301  :     }
-; 302  :     *w = (PMC_HANDLE_SINT)nw;
+; 336  :         }
+; 337  :     }
+; 338  :     *w = (PMC_HANDLE_SINT)nw;
 
 	mov	eax, DWORD PTR _w$[ebp]
 	mov	ecx, DWORD PTR _nw$[ebp]
 	mov	DWORD PTR [eax], ecx
 
-; 303  :     return (PMC_STATUS_OK);
+; 339  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@PMC_Add_I_:
 
-; 304  : }
+; 340  : }
 
 	push	edx
 	mov	ecx, ebp

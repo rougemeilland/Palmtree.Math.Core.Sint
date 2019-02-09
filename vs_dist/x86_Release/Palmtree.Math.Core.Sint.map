@@ -1,11 +1,11 @@
  Palmtree.Math.Core.Sint
 
- Timestamp is 5c5d8729 (Fri Feb  8 22:42:01 2019)
+ Timestamp is 5c5ec778 (Sat Feb  9 21:28:40 2019)
 
  Preferred load address is 10000000
 
  Start         Length     Name                   Class
- 0001:00000000 000027edH .text$mn                CODE
+ 0001:00000000 0000316eH .text$mn                CODE
  0002:00000000 00000020H .idata$5                DATA
  0002:00000020 00000010H .00cfg                  DATA
  0002:00000024 00000000H .gfids$y                DATA
@@ -17,7 +17,7 @@
  0002:000003c4 00000020H .idata$4                DATA
  0002:000003e4 00000072H .idata$6                DATA
  0003:00000000 00000020H .data                   DATA
- 0003:00000020 00000658H .bss                    DATA
+ 0003:00000020 0000065cH .bss                    DATA
  0004:00000000 000000a0H .rsrc$01                DATA
  0004:000000a0 000004a0H .rsrc$02                DATA
 
@@ -40,112 +40,122 @@
  0000:00000100       ___guard_flags             00000100     <absolute>
  0001:00000000       _DoDebug@4                 10001000 f   debug.obj
  0001:00000010       _DllMain@12                10001010 f   dllmain.obj
- 0001:00000570       _PMC_Add_I_X@12            10001570 f   pmc_add_sub.obj
- 0001:00000670       _PMC_Add_L_X@16            10001670 f   pmc_add_sub.obj
- 0001:000007b0       _PMC_Add_UX_X@12           100017b0 f   pmc_add_sub.obj
- 0001:000008b0       _PMC_Add_X_I@12            100018b0 f   pmc_add_sub.obj
- 0001:000009b0       _PMC_Add_X_L@16            100019b0 f   pmc_add_sub.obj
- 0001:00000af0       _PMC_Add_X_UX@12           10001af0 f   pmc_add_sub.obj
- 0001:00000c30       _PMC_Add_X_X@12            10001c30 f   pmc_add_sub.obj
- 0001:00000d40       _PMC_Subtruct_I_X@12       10001d40 f   pmc_add_sub.obj
- 0001:00000e40       _PMC_Subtruct_L_X@16       10001e40 f   pmc_add_sub.obj
- 0001:00000f80       _PMC_Subtruct_UX_X@12      10001f80 f   pmc_add_sub.obj
- 0001:000010a0       _PMC_Subtruct_X_I@12       100020a0 f   pmc_add_sub.obj
- 0001:000011c0       _PMC_Subtruct_X_L@16       100021c0 f   pmc_add_sub.obj
- 0001:00001300       _PMC_Subtruct_X_UX@12      10002300 f   pmc_add_sub.obj
- 0001:00001430       _PMC_Subtruct_X_X@12       10002430 f   pmc_add_sub.obj
- 0001:00001540       _PMC_FromByteArray@12      10002540 f   pmc_bytes.obj
- 0001:000015b0       _PMC_ToByteArray@16        100025b0 f   pmc_bytes.obj
- 0001:00001600       _PMC_Clone_X@8             10002600 f   pmc_clone.obj
- 0001:00001670       _From_I_Imp                10002670 f   pmc_from.obj
- 0001:000016f0       _From_L_Imp                100026f0 f   pmc_from.obj
- 0001:00001770       _PMC_From_I@8              10002770 f   pmc_from.obj
- 0001:00001830       _PMC_From_L@12             10002830 f   pmc_from.obj
- 0001:00001920       _PMC_GetNumberType_X@8     10002920 f   pmc_getnumbertype.obj
- 0001:000019a0       _PMC_SINT_Initialize@4     100029a0 f   pmc_initialize.obj
- 0001:00001d40       _AllocateNumber            10002d40 f   pmc_memory.obj
- 0001:00001d90       _DuplicateNumber           10002d90 f   pmc_memory.obj
- 0001:00001e30       _Negate_Imp                10002e30 f   pmc_memory.obj
- 0001:00001ec0       _PMC_GetConstantValue_I@8  10002ec0 f   pmc_memory.obj
- 0001:00001f10       _PMC_Dispose@4             10002f10 f   pmc_memory.obj
- 0001:000020f0       _PMC_Multiply_I_X@12       100030f0 f   pmc_multiply.obj
- 0001:000021a0       _PMC_Multiply_L_X@16       100031a0 f   pmc_multiply.obj
- 0001:00002280       _PMC_Multiply_UX_X@12      10003280 f   pmc_multiply.obj
- 0001:00002320       _PMC_Multiply_X_I@12       10003320 f   pmc_multiply.obj
- 0001:000023f0       _PMC_Multiply_X_L@16       100033f0 f   pmc_multiply.obj
- 0001:000024d0       _PMC_Multiply_X_UX@12      100034d0 f   pmc_multiply.obj
- 0001:00002570       _PMC_Multiply_X_X@12       10003570 f   pmc_multiply.obj
- 0001:00002640       _PMC_Negate_X@8            10003640 f   pmc_negate.obj
- 0001:00002690       _PMC_GetStatisticsInfo@4   10003690 f   pmc_statistics.obj
- 0001:000026a0       _PMC_To_X_I@8              100036a0 f   pmc_to.obj
- 0001:00002730       _PMC_To_X_L@8              10003730 f   pmc_to.obj
- 0001:000027ec       @_guard_check_icall_nop@4  100037ec f i MSVCRT:guard_support.obj
- 0002:00000000       __imp__LoadLibraryA@4      10004000     kernel32:KERNEL32.dll
- 0002:00000004       __imp__GetProcAddress@8    10004004     kernel32:KERNEL32.dll
- 0002:00000008       __imp__FreeLibrary@4       10004008     kernel32:KERNEL32.dll
- 0002:0000000c       __imp__HeapCreate@12       1000400c     kernel32:KERNEL32.dll
- 0002:00000010       __imp__HeapFree@12         10004010     kernel32:KERNEL32.dll
- 0002:00000014       __imp__HeapAlloc@12        10004014     kernel32:KERNEL32.dll
- 0002:00000018       __imp__HeapDestroy@4       10004018     kernel32:KERNEL32.dll
- 0002:0000001c       \177KERNEL32_NULL_THUNK_DATA 1000401c     kernel32:KERNEL32.dll
- 0002:00000020       ___guard_check_icall_fptr  10004020     MSVCRT:guard_support.obj
- 0002:00000038       ??_C@_0BM@ONKLCLPJ@Palmtree?4Math?4Core?4Uint?4dll@ 10004038     pmc_initialize.obj
- 0002:00000054       ??_C@_0BE@LMKJAMNH@PMC_UINT_Initialize@ 10004054     pmc_initialize.obj
- 0002:000000e0       __load_config_used         100040e0     MSVCRT:loadcfg.obj
- 0002:0000039c       __IMPORT_DESCRIPTOR_KERNEL32 1000439c     kernel32:KERNEL32.dll
- 0002:000003b0       __NULL_IMPORT_DESCRIPTOR   100043b0     kernel32:KERNEL32.dll
- 0003:00000000       ___security_cookie_complement 10005000     MSVCRT:gs_cookie.obj
- 0003:00000004       ___security_cookie         10005004     MSVCRT:gs_cookie.obj
- 0003:000004e8       _hLocalHeap                100054e8     <common>
- 0003:00000500       _number_one                10005500     <common>
- 0003:00000520       _number_minus_one          10005520     <common>
- 0003:00000540       _number_zero               10005540     <common>
- 0003:00000560       _ep_uint                   10005560     <common>
+ 0001:00000560       _PMC_Add_I_X@12            10001560 f   pmc_add_sub.obj
+ 0001:00000660       _PMC_Add_L_X@16            10001660 f   pmc_add_sub.obj
+ 0001:000007a0       _PMC_Add_UX_X@12           100017a0 f   pmc_add_sub.obj
+ 0001:00000890       _PMC_Add_X_I@12            10001890 f   pmc_add_sub.obj
+ 0001:00000990       _PMC_Add_X_L@16            10001990 f   pmc_add_sub.obj
+ 0001:00000ad0       _PMC_Add_X_UX@12           10001ad0 f   pmc_add_sub.obj
+ 0001:00000be0       _PMC_Add_X_X@12            10001be0 f   pmc_add_sub.obj
+ 0001:00000cf0       _PMC_Subtruct_I_X@12       10001cf0 f   pmc_add_sub.obj
+ 0001:00000df0       _PMC_Subtruct_L_X@16       10001df0 f   pmc_add_sub.obj
+ 0001:00000f30       _PMC_Subtruct_UX_X@12      10001f30 f   pmc_add_sub.obj
+ 0001:00001020       _PMC_Subtruct_X_I@12       10002020 f   pmc_add_sub.obj
+ 0001:00001140       _PMC_Subtruct_X_L@16       10002140 f   pmc_add_sub.obj
+ 0001:00001280       _PMC_Subtruct_X_UX@12      10002280 f   pmc_add_sub.obj
+ 0001:00001390       _PMC_Subtruct_X_X@12       10002390 f   pmc_add_sub.obj
+ 0001:000014a0       _PMC_FromByteArray@12      100024a0 f   pmc_bytes.obj
+ 0001:00001510       _PMC_ToByteArray@16        10002510 f   pmc_bytes.obj
+ 0001:00001560       _PMC_Clone_X@8             10002560 f   pmc_clone.obj
+ 0001:000015d0       _PMC_DivRem_I_X@16         100025d0 f   pmc_divrem.obj
+ 0001:00001750       _PMC_DivRem_L_X@20         10002750 f   pmc_divrem.obj
+ 0001:000018f0       _PMC_DivRem_UX_X@16        100028f0 f   pmc_divrem.obj
+ 0001:000019f0       _PMC_DivRem_X_I@16         100029f0 f   pmc_divrem.obj
+ 0001:00001b20       _PMC_DivRem_X_L@20         10002b20 f   pmc_divrem.obj
+ 0001:00001c90       _PMC_DivRem_X_UX@16        10002c90 f   pmc_divrem.obj
+ 0001:00001e30       _PMC_DivRem_X_X@16         10002e30 f   pmc_divrem.obj
+ 0001:00002020       _From_I_Imp                10003020 f   pmc_from.obj
+ 0001:00002090       _From_L_Imp                10003090 f   pmc_from.obj
+ 0001:00002110       _PMC_From_I@8              10003110 f   pmc_from.obj
+ 0001:000021d0       _PMC_From_L@12             100031d0 f   pmc_from.obj
+ 0001:000022b0       _PMC_SINT_Initialize@4     100032b0 f   pmc_initialize.obj
+ 0001:000026b0       _AllocateNumber            100036b0 f   pmc_memory.obj
+ 0001:00002700       _DeallocateNumber          10003700 f   pmc_memory.obj
+ 0001:00002750       _DuplicateNumber           10003750 f   pmc_memory.obj
+ 0001:000027f0       _Negate_Imp                100037f0 f   pmc_memory.obj
+ 0001:00002880       _PMC_GetConstantValue_I@8  10003880 f   pmc_memory.obj
+ 0001:000028d0       _PMC_Dispose@4             100038d0 f   pmc_memory.obj
+ 0001:00002ab0       _PMC_Multiply_I_X@12       10003ab0 f   pmc_multiply.obj
+ 0001:00002b60       _PMC_Multiply_L_X@16       10003b60 f   pmc_multiply.obj
+ 0001:00002c40       _PMC_Multiply_UX_X@12      10003c40 f   pmc_multiply.obj
+ 0001:00002cc0       _PMC_Multiply_X_I@12       10003cc0 f   pmc_multiply.obj
+ 0001:00002d90       _PMC_Multiply_X_L@16       10003d90 f   pmc_multiply.obj
+ 0001:00002e70       _PMC_Multiply_X_UX@12      10003e70 f   pmc_multiply.obj
+ 0001:00002ef0       _PMC_Multiply_X_X@12       10003ef0 f   pmc_multiply.obj
+ 0001:00002fc0       _PMC_Negate_X@8            10003fc0 f   pmc_negate.obj
+ 0001:00003010       _PMC_GetStatisticsInfo@4   10004010 f   pmc_statistics.obj
+ 0001:00003020       _PMC_To_X_I@8              10004020 f   pmc_to.obj
+ 0001:000030b0       _PMC_To_X_L@8              100040b0 f   pmc_to.obj
+ 0001:0000316d       @_guard_check_icall_nop@4  1000416d f i MSVCRT:guard_support.obj
+ 0002:00000000       __imp__LoadLibraryA@4      10005000     kernel32:KERNEL32.dll
+ 0002:00000004       __imp__GetProcAddress@8    10005004     kernel32:KERNEL32.dll
+ 0002:00000008       __imp__FreeLibrary@4       10005008     kernel32:KERNEL32.dll
+ 0002:0000000c       __imp__HeapCreate@12       1000500c     kernel32:KERNEL32.dll
+ 0002:00000010       __imp__HeapFree@12         10005010     kernel32:KERNEL32.dll
+ 0002:00000014       __imp__HeapAlloc@12        10005014     kernel32:KERNEL32.dll
+ 0002:00000018       __imp__HeapDestroy@4       10005018     kernel32:KERNEL32.dll
+ 0002:0000001c       \177KERNEL32_NULL_THUNK_DATA 1000501c     kernel32:KERNEL32.dll
+ 0002:00000020       ___guard_check_icall_fptr  10005020     MSVCRT:guard_support.obj
+ 0002:00000038       ??_C@_0BM@ONKLCLPJ@Palmtree?4Math?4Core?4Uint?4dll@ 10005038     pmc_initialize.obj
+ 0002:00000054       ??_C@_0BE@LMKJAMNH@PMC_UINT_Initialize@ 10005054     pmc_initialize.obj
+ 0002:000000e0       __load_config_used         100050e0     MSVCRT:loadcfg.obj
+ 0002:0000039c       __IMPORT_DESCRIPTOR_KERNEL32 1000539c     kernel32:KERNEL32.dll
+ 0002:000003b0       __NULL_IMPORT_DESCRIPTOR   100053b0     kernel32:KERNEL32.dll
+ 0003:00000000       ___security_cookie_complement 10006000     MSVCRT:gs_cookie.obj
+ 0003:00000004       ___security_cookie         10006004     MSVCRT:gs_cookie.obj
+ 0003:000004fc       _hLocalHeap                100064fc     <common>
+ 0003:00000500       _number_one                10006500     <common>
+ 0003:00000520       _number_minus_one          10006520     <common>
+ 0003:00000540       _number_zero               10006540     <common>
+ 0003:00000560       _ep_uint                   10006560     <common>
+ 0003:00000674       _uint_number_one           10006674     <common>
+ 0003:00000678       _uint_number_zero          10006678     <common>
 
  entry point at        0001:00000010
 
  Static symbols
 
- 0000:ffff8000       .debug$S                   10000000     kernel32:KERNEL32.dll
- 0000:ffff8000       .debug$S                   10000000     kernel32:KERNEL32.dll
- 0000:ffff8000       .debug$S                   10000000     kernel32:KERNEL32.dll
- 0000:ffff8000       .debug$S                   10000000     kernel32:KERNEL32.dll
- 0000:ffff8000       .debug$S                   10000000     kernel32:KERNEL32.dll
- 0000:ffff8000       .debug$S                   10000000     Palmtree.Math.Core.Sint.exp
- 0000:ffff8000       .debug$S                   10000000     kernel32:KERNEL32.dll
- 0000:ffff8000       .debug$S                   10000000     kernel32:KERNEL32.dll
- 0000:ffff8000       .debug$S                   10000000     kernel32:KERNEL32.dll
- 0000:ffff8000       .debug$S                   10000000     kernel32:KERNEL32.dll
- 0000:ffff8000       .debug$S                   10000000     kernel32:KERNEL32.dll
- 0000:ffff8000       .debug$S                   10000000     kernel32:KERNEL32.dll
- 0000:ffff8000       .debug$S                   10000000     kernel32:KERNEL32.dll
+ 0000:ffff7000       .debug$S                   10000000     kernel32:KERNEL32.dll
+ 0000:ffff7000       .debug$S                   10000000     kernel32:KERNEL32.dll
+ 0000:ffff7000       .debug$S                   10000000     kernel32:KERNEL32.dll
+ 0000:ffff7000       .debug$S                   10000000     kernel32:KERNEL32.dll
+ 0000:ffff7000       .debug$S                   10000000     kernel32:KERNEL32.dll
+ 0000:ffff7000       .debug$S                   10000000     Palmtree.Math.Core.Sint.exp
+ 0000:ffff7000       .debug$S                   10000000     kernel32:KERNEL32.dll
+ 0000:ffff7000       .debug$S                   10000000     kernel32:KERNEL32.dll
+ 0000:ffff7000       .debug$S                   10000000     kernel32:KERNEL32.dll
+ 0000:ffff7000       .debug$S                   10000000     kernel32:KERNEL32.dll
+ 0000:ffff7000       .debug$S                   10000000     kernel32:KERNEL32.dll
+ 0000:ffff7000       .debug$S                   10000000     kernel32:KERNEL32.dll
+ 0000:ffff7000       .debug$S                   10000000     kernel32:KERNEL32.dll
  0001:00000074       $LN18                      10001074     dllmain.obj
- 0001:00000090       _GET_ABS_64                10001090 f   pmc_multiply.obj
+ 0001:00000090       _GET_ABS_64                10001090 f   pmc_divrem.obj
  0001:00000090       _GET_ABS_64                10001090 f   pmc_add_sub.obj
+ 0001:00000090       _GET_ABS_64                10001090 f   pmc_multiply.obj
  0001:000000e0       _AddU_X_I_Imp              100010e0 f   pmc_add_sub.obj
  0001:00000160       _AddU_X_L_Imp              10001160 f   pmc_add_sub.obj
- 0001:000001f0       _AddU_X_X_Imp              100011f0 f   pmc_add_sub.obj
- 0001:00000270       _SubtructU_X_I_Imp         10001270 f   pmc_add_sub.obj
- 0001:00000370       _SubtructU_X_L_Imp         10001370 f   pmc_add_sub.obj
- 0001:00000480       _SubtructU_X_X_Imp         10001480 f   pmc_add_sub.obj
- 0001:00001c80       _InitializeNumber          10002c80 f   pmc_memory.obj
- 0001:00001f50       _MultiplyU_X_I_Imp         10002f50 f   pmc_multiply.obj
- 0001:00001fe0       _MultiplyU_X_L_Imp         10002fe0 f   pmc_multiply.obj
- 0001:00002070       _MultiplyU_X_X_Imp         10003070 f   pmc_multiply.obj
- 0002:00000030       _GS_ExceptionPointers      10004030     MSVCRT:gs_report.obj
- 0002:00000180       .edata                     10004180     Palmtree.Math.Core.Sint.exp
- 0002:000001a8       rgpv                       100041a8     Palmtree.Math.Core.Sint.exp
- 0002:000001b0       rgszName                   100041b0     Palmtree.Math.Core.Sint.exp
- 0002:000001b8       rgwOrd                     100041b8     Palmtree.Math.Core.Sint.exp
- 0002:000001bc       szName                     100041bc     Palmtree.Math.Core.Sint.exp
- 0002:000001d8       $N00001                    100041d8     Palmtree.Math.Core.Sint.exp
- 0002:000001e0       $N00002                    100041e0     Palmtree.Math.Core.Sint.exp
- 0002:00000448       .idata$6                   10004448     kernel32:KERNEL32.dll
- 0003:00000020       _GS_ExceptionRecord        10005020     MSVCRT:gs_report.obj
- 0003:00000070       _GS_ContextRecord          10005070     MSVCRT:gs_report.obj
- 0003:00000340       _entry_points              10005340     pmc_initialize.obj
- 0003:000004dc       _initialized               100054dc     pmc_initialize.obj
- 0003:000004e0       _hLib_UINT                 100054e0     pmc_initialize.obj
- 0003:000004e4       _fp_PMC_UINT_Initialize    100054e4     pmc_initialize.obj
- 0004:000000a0       $R000000                   100060a0     Palmtree.Math.Core.Sint.res
- 0004:000003c0       $R000320                   100063c0     Palmtree.Math.Core.Sint.res
+ 0001:000001e0       _AddU_X_X_Imp              100011e0 f   pmc_add_sub.obj
+ 0001:00000260       _SubtructU_X_I_Imp         10001260 f   pmc_add_sub.obj
+ 0001:00000360       _SubtructU_X_L_Imp         10001360 f   pmc_add_sub.obj
+ 0001:00000470       _SubtructU_X_X_Imp         10001470 f   pmc_add_sub.obj
+ 0001:00002600       _InitializeNumber          10003600 f   pmc_memory.obj
+ 0001:00002930       _MultiplyU_X_I_Imp         10003930 f   pmc_multiply.obj
+ 0001:000029b0       _MultiplyU_X_L_Imp         100039b0 f   pmc_multiply.obj
+ 0001:00002a30       _MultiplyU_X_X_Imp         10003a30 f   pmc_multiply.obj
+ 0002:00000030       _GS_ExceptionPointers      10005030     MSVCRT:gs_report.obj
+ 0002:00000180       .edata                     10005180     Palmtree.Math.Core.Sint.exp
+ 0002:000001a8       rgpv                       100051a8     Palmtree.Math.Core.Sint.exp
+ 0002:000001b0       rgszName                   100051b0     Palmtree.Math.Core.Sint.exp
+ 0002:000001b8       rgwOrd                     100051b8     Palmtree.Math.Core.Sint.exp
+ 0002:000001bc       szName                     100051bc     Palmtree.Math.Core.Sint.exp
+ 0002:000001d8       $N00001                    100051d8     Palmtree.Math.Core.Sint.exp
+ 0002:000001e0       $N00002                    100051e0     Palmtree.Math.Core.Sint.exp
+ 0002:00000448       .idata$6                   10005448     kernel32:KERNEL32.dll
+ 0003:00000020       _GS_ExceptionRecord        10006020     MSVCRT:gs_report.obj
+ 0003:00000070       _GS_ContextRecord          10006070     MSVCRT:gs_report.obj
+ 0003:00000340       _entry_points              10006340     pmc_initialize.obj
+ 0003:000004f0       _initialized               100064f0     pmc_initialize.obj
+ 0003:000004f4       _hLib_UINT                 100064f4     pmc_initialize.obj
+ 0003:000004f8       _fp_PMC_UINT_Initialize    100064f8     pmc_initialize.obj
+ 0004:000000a0       $R000000                   100070a0     Palmtree.Math.Core.Sint.res
+ 0004:000003c0       $R000320                   100073c0     Palmtree.Math.Core.Sint.res

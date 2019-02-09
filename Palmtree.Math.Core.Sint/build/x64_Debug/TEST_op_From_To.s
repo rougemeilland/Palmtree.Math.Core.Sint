@@ -2,12 +2,14 @@
 	.text
 .Ltext0:
 	.cfi_sections	.debug_frame
+	.comm	uint_number_zero, 8, 3
+	.comm	uint_number_one, 8, 3
 	.def	_EQUALS_MEMORY;	.scl	3;	.type	32;	.endef
 	.seh_proc	_EQUALS_MEMORY
 _EQUALS_MEMORY:
 .LFB4273:
 	.file 1 "../pmc_sint_debug.h"
-	.loc 1 95 1
+	.loc 1 109 1
 	.cfi_startproc
 	pushq	%rbp
 	.seh_pushreg	%rbp
@@ -21,41 +23,41 @@ _EQUALS_MEMORY:
 	movq	%rdx, 24(%rbp)
 	movq	%r8, 32(%rbp)
 	movq	%r9, 40(%rbp)
-	.loc 1 96 8
+	.loc 1 110 8
 	movq	24(%rbp), %rax
 	cmpq	40(%rbp), %rax
 	je	.L4
-	.loc 1 97 16
+	.loc 1 111 16
 	movl	$-1, %eax
 	jmp	.L3
 .L6:
-	.loc 1 100 13
+	.loc 1 114 13
 	movq	16(%rbp), %rax
 	movzbl	(%rax), %edx
-	.loc 1 100 25
+	.loc 1 114 25
 	movq	32(%rbp), %rax
 	movzbl	(%rax), %eax
-	.loc 1 100 12
+	.loc 1 114 12
 	cmpb	%al, %dl
 	je	.L5
-	.loc 1 101 20
+	.loc 1 115 20
 	movl	$-1, %eax
 	jmp	.L3
 .L5:
-	.loc 1 102 9
+	.loc 1 116 9
 	addq	$1, 16(%rbp)
-	.loc 1 103 9
+	.loc 1 117 9
 	addq	$1, 32(%rbp)
-	.loc 1 104 9
+	.loc 1 118 9
 	subq	$1, 24(%rbp)
 .L4:
-	.loc 1 98 11
+	.loc 1 112 11
 	cmpq	$0, 24(%rbp)
 	jne	.L6
-	.loc 1 106 12
+	.loc 1 120 12
 	movl	$0, %eax
 .L3:
-	.loc 1 107 1
+	.loc 1 121 1
 	popq	%rbp
 	.cfi_restore 6
 	.cfi_def_cfa 7, 8
@@ -127,7 +129,7 @@ TEST_From_I:
 	movq	%rax, %rsi
 	.loc 2 39 79
 	movq	232(%rbp), %rax
-	movq	568(%rax), %r8
+	movq	560(%rax), %r8
 	.loc 2 39 77
 	leaq	176(%rbp), %rax
 	movl	248(%rbp), %ecx
@@ -159,7 +161,7 @@ TEST_From_I:
 	movq	%rax, %rsi
 	.loc 2 40 77
 	movq	232(%rbp), %rax
-	movq	616(%rax), %r10
+	movq	600(%rax), %r10
 	.loc 2 40 75
 	movq	176(%rbp), %rcx
 	leaq	-88(%rbp), %rdx
@@ -216,7 +218,7 @@ TEST_From_I:
 	jne	.L9
 	.loc 2 43 11
 	movq	232(%rbp), %rax
-	movq	584(%rax), %rax
+	movq	576(%rax), %rax
 	.loc 2 43 9
 	movq	176(%rbp), %rdx
 	movq	%rdx, %rcx
@@ -287,7 +289,7 @@ TEST_From_L:
 	movq	%rax, %rsi
 	.loc 2 53 79
 	movq	232(%rbp), %rax
-	movq	576(%rax), %r8
+	movq	568(%rax), %r8
 	.loc 2 53 77
 	leaq	176(%rbp), %rax
 	movq	248(%rbp), %rcx
@@ -319,7 +321,7 @@ TEST_From_L:
 	movq	%rax, %rsi
 	.loc 2 54 77
 	movq	232(%rbp), %rax
-	movq	616(%rax), %r10
+	movq	600(%rax), %r10
 	.loc 2 54 75
 	movq	176(%rbp), %rcx
 	leaq	-88(%rbp), %rdx
@@ -376,7 +378,7 @@ TEST_From_L:
 	jne	.L12
 	.loc 2 57 11
 	movq	232(%rbp), %rax
-	movq	584(%rax), %rax
+	movq	576(%rax), %rax
 	.loc 2 57 9
 	movq	176(%rbp), %rdx
 	movq	%rdx, %rcx
@@ -453,7 +455,7 @@ TEST_To_X_I:
 	movq	%rax, %rsi
 	.loc 2 66 79
 	movq	40(%rbp), %rax
-	movq	608(%rax), %rax
+	movq	592(%rax), %rax
 	.loc 2 66 77
 	leaq	-16(%rbp), %r8
 	movq	64(%rbp), %rdx
@@ -485,7 +487,7 @@ TEST_To_X_I:
 	movq	%rax, %rsi
 	.loc 2 67 77
 	movq	40(%rbp), %rax
-	movq	632(%rax), %r8
+	movq	616(%rax), %r8
 	.loc 2 67 75
 	movq	-16(%rbp), %rcx
 	leaq	-20(%rbp), %rax
@@ -536,7 +538,7 @@ TEST_To_X_I:
 	jne	.L16
 	.loc 2 71 11
 	movq	40(%rbp), %rax
-	movq	584(%rax), %rax
+	movq	576(%rax), %rax
 	.loc 2 71 9
 	movq	-16(%rbp), %rdx
 	movq	%rdx, %rcx
@@ -599,7 +601,7 @@ TEST_To_X_L:
 	movq	%rax, %rsi
 	.loc 2 80 79
 	movq	40(%rbp), %rax
-	movq	608(%rax), %rax
+	movq	592(%rax), %rax
 	.loc 2 80 77
 	leaq	-16(%rbp), %r8
 	movq	64(%rbp), %rdx
@@ -631,7 +633,7 @@ TEST_To_X_L:
 	movq	%rax, %rsi
 	.loc 2 81 77
 	movq	40(%rbp), %rax
-	movq	640(%rax), %r8
+	movq	624(%rax), %r8
 	.loc 2 81 75
 	movq	-16(%rbp), %rcx
 	leaq	-24(%rbp), %rax
@@ -682,7 +684,7 @@ TEST_To_X_L:
 	jne	.L20
 	.loc 2 85 11
 	movq	40(%rbp), %rax
-	movq	584(%rax), %rax
+	movq	576(%rax), %rax
 	.loc 2 85 9
 	movq	-16(%rbp), %rdx
 	movq	%rdx, %rcx
@@ -718,24 +720,25 @@ TEST_To_X_L:
 	.file 14 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/objidlbase.h"
 	.file 15 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/cguid.h"
 	.file 16 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/wtypes.h"
-	.file 17 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/objidl.h"
-	.file 18 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/oleidl.h"
-	.file 19 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/servprov.h"
-	.file 20 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/oaidl.h"
-	.file 21 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/msxml.h"
-	.file 22 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/urlmon.h"
-	.file 23 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/propidl.h"
-	.file 24 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/oleauto.h"
-	.file 25 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/winioctl.h"
-	.file 26 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/winsmcrd.h"
-	.file 27 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/winscard.h"
-	.file 28 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/commdlg.h"
-	.file 29 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/stdint.h"
-	.file 30 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
-	.file 31 "../pmc_sint_internal.h"
+	.file 17 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/combaseapi.h"
+	.file 18 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/objidl.h"
+	.file 19 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/oleidl.h"
+	.file 20 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/servprov.h"
+	.file 21 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/oaidl.h"
+	.file 22 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/msxml.h"
+	.file 23 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/urlmon.h"
+	.file 24 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/propidl.h"
+	.file 25 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/oleauto.h"
+	.file 26 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/winioctl.h"
+	.file 27 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/winsmcrd.h"
+	.file 28 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/winscard.h"
+	.file 29 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/commdlg.h"
+	.file 30 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/stdint.h"
+	.file 31 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+	.file 32 "../pmc_sint_internal.h"
 	.section	.debug_info,"dr"
 .Ldebug_info0:
-	.long	0x61e2
+	.long	0x66a8
 	.word	0x4
 	.secrel32	.Ldebug_abbrev0
 	.byte	0x8
@@ -2292,6 +2295,19 @@ TEST_To_X_L:
 	.long	0xdf
 	.byte	0xff
 	.byte	0
+	.uleb128 0x19
+	.ascii "tagCOINITBASE\0"
+	.byte	0x7
+	.byte	0x4
+	.long	0x462
+	.byte	0x11
+	.byte	0x95
+	.byte	0xe
+	.long	0x1f26
+	.uleb128 0x1a
+	.ascii "COINITBASE_MULTITHREADED\0"
+	.byte	0
+	.byte	0
 	.uleb128 0x15
 	.ascii "IWinTypesBase_v0_1_c_ifspec\0"
 	.byte	0xc
@@ -3120,1355 +3136,1521 @@ TEST_To_X_L:
 	.byte	0x29
 	.byte	0x16
 	.long	0x1ec8
+	.uleb128 0x1b
+	.ascii "VARENUM\0"
+	.byte	0x7
+	.byte	0x4
+	.long	0x462
+	.byte	0x10
+	.word	0x200
+	.byte	0x6
+	.long	0x313c
+	.uleb128 0x1a
+	.ascii "VT_EMPTY\0"
+	.byte	0
+	.uleb128 0x1a
+	.ascii "VT_NULL\0"
+	.byte	0x1
+	.uleb128 0x1a
+	.ascii "VT_I2\0"
+	.byte	0x2
+	.uleb128 0x1a
+	.ascii "VT_I4\0"
+	.byte	0x3
+	.uleb128 0x1a
+	.ascii "VT_R4\0"
+	.byte	0x4
+	.uleb128 0x1a
+	.ascii "VT_R8\0"
+	.byte	0x5
+	.uleb128 0x1a
+	.ascii "VT_CY\0"
+	.byte	0x6
+	.uleb128 0x1a
+	.ascii "VT_DATE\0"
+	.byte	0x7
+	.uleb128 0x1a
+	.ascii "VT_BSTR\0"
+	.byte	0x8
+	.uleb128 0x1a
+	.ascii "VT_DISPATCH\0"
+	.byte	0x9
+	.uleb128 0x1a
+	.ascii "VT_ERROR\0"
+	.byte	0xa
+	.uleb128 0x1a
+	.ascii "VT_BOOL\0"
+	.byte	0xb
+	.uleb128 0x1a
+	.ascii "VT_VARIANT\0"
+	.byte	0xc
+	.uleb128 0x1a
+	.ascii "VT_UNKNOWN\0"
+	.byte	0xd
+	.uleb128 0x1a
+	.ascii "VT_DECIMAL\0"
+	.byte	0xe
+	.uleb128 0x1a
+	.ascii "VT_I1\0"
+	.byte	0x10
+	.uleb128 0x1a
+	.ascii "VT_UI1\0"
+	.byte	0x11
+	.uleb128 0x1a
+	.ascii "VT_UI2\0"
+	.byte	0x12
+	.uleb128 0x1a
+	.ascii "VT_UI4\0"
+	.byte	0x13
+	.uleb128 0x1a
+	.ascii "VT_I8\0"
+	.byte	0x14
+	.uleb128 0x1a
+	.ascii "VT_UI8\0"
+	.byte	0x15
+	.uleb128 0x1a
+	.ascii "VT_INT\0"
+	.byte	0x16
+	.uleb128 0x1a
+	.ascii "VT_UINT\0"
+	.byte	0x17
+	.uleb128 0x1a
+	.ascii "VT_VOID\0"
+	.byte	0x18
+	.uleb128 0x1a
+	.ascii "VT_HRESULT\0"
+	.byte	0x19
+	.uleb128 0x1a
+	.ascii "VT_PTR\0"
+	.byte	0x1a
+	.uleb128 0x1a
+	.ascii "VT_SAFEARRAY\0"
+	.byte	0x1b
+	.uleb128 0x1a
+	.ascii "VT_CARRAY\0"
+	.byte	0x1c
+	.uleb128 0x1a
+	.ascii "VT_USERDEFINED\0"
+	.byte	0x1d
+	.uleb128 0x1a
+	.ascii "VT_LPSTR\0"
+	.byte	0x1e
+	.uleb128 0x1a
+	.ascii "VT_LPWSTR\0"
+	.byte	0x1f
+	.uleb128 0x1a
+	.ascii "VT_RECORD\0"
+	.byte	0x24
+	.uleb128 0x1a
+	.ascii "VT_INT_PTR\0"
+	.byte	0x25
+	.uleb128 0x1a
+	.ascii "VT_UINT_PTR\0"
+	.byte	0x26
+	.uleb128 0x1a
+	.ascii "VT_FILETIME\0"
+	.byte	0x40
+	.uleb128 0x1a
+	.ascii "VT_BLOB\0"
+	.byte	0x41
+	.uleb128 0x1a
+	.ascii "VT_STREAM\0"
+	.byte	0x42
+	.uleb128 0x1a
+	.ascii "VT_STORAGE\0"
+	.byte	0x43
+	.uleb128 0x1a
+	.ascii "VT_STREAMED_OBJECT\0"
+	.byte	0x44
+	.uleb128 0x1a
+	.ascii "VT_STORED_OBJECT\0"
+	.byte	0x45
+	.uleb128 0x1a
+	.ascii "VT_BLOB_OBJECT\0"
+	.byte	0x46
+	.uleb128 0x1a
+	.ascii "VT_CF\0"
+	.byte	0x47
+	.uleb128 0x1a
+	.ascii "VT_CLSID\0"
+	.byte	0x48
+	.uleb128 0x1a
+	.ascii "VT_VERSIONED_STREAM\0"
+	.byte	0x49
+	.uleb128 0x1c
+	.ascii "VT_BSTR_BLOB\0"
+	.word	0xfff
+	.uleb128 0x1c
+	.ascii "VT_VECTOR\0"
+	.word	0x1000
+	.uleb128 0x1c
+	.ascii "VT_ARRAY\0"
+	.word	0x2000
+	.uleb128 0x1c
+	.ascii "VT_BYREF\0"
+	.word	0x4000
+	.uleb128 0x1c
+	.ascii "VT_RESERVED\0"
+	.word	0x8000
+	.uleb128 0x1c
+	.ascii "VT_ILLEGAL\0"
+	.word	0xffff
+	.uleb128 0x1c
+	.ascii "VT_ILLEGALMASKED\0"
+	.word	0xfff
+	.uleb128 0x1c
+	.ascii "VT_TYPEMASK\0"
+	.word	0xfff
+	.byte	0
 	.uleb128 0x18
 	.ascii "IID_IMallocSpy\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x1dbd
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IBindCtx\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x1f3a
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IEnumMoniker\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x204a
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IRunnableObject\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x20e8
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IRunningObjectTable\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x218e
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IPersist\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x2269
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IPersistStream\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x22be
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IMoniker\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x236a
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IROTData\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x2558
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IEnumSTATSTG\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x25b5
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IStorage\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x2658
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IPersistFile\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x2841
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IPersistStorage\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x28f1
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ILockBytes\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x29b1
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IEnumFORMATETC\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x2ac0
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IEnumSTATDATA\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x2b6c
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IRootStorage\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x2c08
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IAdviseSink\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x2cb3
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_AsyncIAdviseSink\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x2d73
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IAdviseSink2\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x2ea9
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_AsyncIAdviseSink2\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x2f2e
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IDataObject\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x2ff4
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IDataAdviseHolder\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x3118
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IMessageFilter\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x31d3
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "FMTID_SummaryInformation\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x325d
 	.byte	0x14
 	.long	0x7fc
 	.uleb128 0x18
 	.ascii "FMTID_DocSummaryInformation\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x325f
 	.byte	0x14
 	.long	0x7fc
 	.uleb128 0x18
 	.ascii "FMTID_UserDefinedProperties\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x3261
 	.byte	0x14
 	.long	0x7fc
 	.uleb128 0x18
 	.ascii "FMTID_DiscardableInformation\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x3263
 	.byte	0x14
 	.long	0x7fc
 	.uleb128 0x18
 	.ascii "FMTID_ImageSummaryInformation\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x3265
 	.byte	0x14
 	.long	0x7fc
 	.uleb128 0x18
 	.ascii "FMTID_AudioSummaryInformation\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x3267
 	.byte	0x14
 	.long	0x7fc
 	.uleb128 0x18
 	.ascii "FMTID_VideoSummaryInformation\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x3269
 	.byte	0x14
 	.long	0x7fc
 	.uleb128 0x18
 	.ascii "FMTID_MediaFileSummaryInformation\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x326b
 	.byte	0x14
 	.long	0x7fc
 	.uleb128 0x18
 	.ascii "IID_IClassActivator\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x3273
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IFillLockBytes\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x32d5
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IProgressNotify\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x3389
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ILayoutStorage\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x33ee
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IBlockingLock\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x3492
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ITimeAndNoticeControl\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x34f7
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOplockStorage\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x354e
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IDirectWriterLock\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x35d5
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IUrlMon\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x364d
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IForegroundTransfer\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x36bc
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IThumbnailExtractor\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x3710
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IDummyHICONIncluder\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x3786
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IProcessLock\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x37e5
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ISurrogateService\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x3848
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInitializeSpy\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x38f2
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IApartmentShutdown\0"
-	.byte	0x11
+	.byte	0x12
 	.word	0x398a
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "IID_IOleAdviseHolder\0"
-	.byte	0x12
+	.byte	0x13
 	.byte	0xab
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleCache\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x162
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleCache2\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x229
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleCacheControl\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x2d4
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IParseDisplayName\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x33c
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleContainer\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x39c
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleClientSite\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x417
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleObject\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x4fe
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IOLETypes_v0_0_c_ifspec\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x6fe
 	.byte	0x16
 	.long	0x1ec8
 	.uleb128 0x18
 	.ascii "IOLETypes_v0_0_s_ifspec\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x6ff
 	.byte	0x16
 	.long	0x1ec8
 	.uleb128 0x18
 	.ascii "IID_IOleWindow\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x724
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleLink\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x79a
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleItemContainer\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x8bf
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleInPlaceUIWindow\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x976
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleInPlaceActiveObject\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0xa1c
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleInPlaceFrame\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0xaf8
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleInPlaceObject\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0xbf1
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IOleInPlaceSite\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0xc91
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IContinue\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0xda4
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IViewObject\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0xdf9
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IViewObject2\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0xf2a
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IDropSource\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0xfd2
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IDropTarget\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x105b
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IDropSourceNotify\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x10ff
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IEnumOLEVERB\0"
-	.byte	0x12
+	.byte	0x13
 	.word	0x1176
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "IID_IServiceProvider\0"
-	.byte	0x13
+	.byte	0x14
 	.byte	0x4d
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "IOleAutomationTypes_v1_0_c_ifspec\0"
-	.byte	0x14
+	.byte	0x15
 	.byte	0xf1
 	.byte	0x16
 	.long	0x1ec8
 	.uleb128 0x15
 	.ascii "IOleAutomationTypes_v1_0_s_ifspec\0"
-	.byte	0x14
+	.byte	0x15
 	.byte	0xf2
 	.byte	0x16
 	.long	0x1ec8
 	.uleb128 0x18
 	.ascii "IID_ICreateTypeInfo\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x33b
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ICreateTypeInfo2\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x562
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ICreateTypeLib\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x7b2
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ICreateTypeLib2\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x8ba
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IDispatch\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x9b6
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IEnumVARIANT\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0xa87
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ITypeComp\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0xb35
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ITypeInfo\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0xbd9
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ITypeInfo2\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0xe50
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ITypeLib\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x10d6
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ITypeLib2\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x123d
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ITypeChangeEvents\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x1361
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IErrorInfo\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x13da
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ICreateErrorInfo\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x147d
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ISupportErrorInfo\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x1520
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ITypeFactory\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x1575
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ITypeMarshal\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x15d0
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IRecordInfo\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x1684
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IErrorLog\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x1820
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IPropertyBag\0"
-	.byte	0x14
+	.byte	0x15
 	.word	0x187a
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "__MIDL_itf_msxml_0000_v0_0_c_ifspec\0"
-	.byte	0x15
+	.byte	0x16
 	.byte	0xeb
 	.byte	0x18
 	.long	0x1ec8
 	.uleb128 0x15
 	.ascii "__MIDL_itf_msxml_0000_v0_0_s_ifspec\0"
-	.byte	0x15
+	.byte	0x16
 	.byte	0xec
 	.byte	0x18
 	.long	0x1ec8
 	.uleb128 0x15
 	.ascii "LIBID_MSXML\0"
-	.byte	0x15
+	.byte	0x16
 	.byte	0xfc
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMImplementation\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x100
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMNode\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x127
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMDocumentFragment\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x1fd
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMDocument\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x266
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMNodeList\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x375
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMNamedNodeMap\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x3b0
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMCharacterData\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x404
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMAttribute\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x496
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMElement\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x50f
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMText\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x5a6
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMComment\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x625
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMProcessingInstruction\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x69e
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMCDATASection\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x717
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMDocumentType\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x792
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMNotation\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x80b
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMEntity\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x87f
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMEntityReference\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x8f8
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDOMParseError\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x961
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXTLRuntime\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0x9a6
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "DIID_XMLDOMDocumentEvents\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xa3d
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_DOMDocument\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xa5c
 	.byte	0x16
 	.long	0x7e9
 	.uleb128 0x18
 	.ascii "CLSID_DOMFreeThreadedDocument\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xa60
 	.byte	0x16
 	.long	0x7e9
 	.uleb128 0x18
 	.ascii "IID_IXMLHttpRequest\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xa67
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_XMLHTTPRequest\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xacd
 	.byte	0x16
 	.long	0x7e9
 	.uleb128 0x18
 	.ascii "IID_IXMLDSOControl\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xad4
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_XMLDSOControl\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xb0d
 	.byte	0x16
 	.long	0x7e9
 	.uleb128 0x18
 	.ascii "IID_IXMLElementCollection\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xb14
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDocument\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xb4a
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLDocument2\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xbb2
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLElement\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xc24
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLElement2\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xc82
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLAttribute\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xce5
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IXMLError\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xd11
 	.byte	0x14
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_XMLDocument\0"
-	.byte	0x15
+	.byte	0x16
 	.word	0xd2e
 	.byte	0x16
 	.long	0x7e9
 	.uleb128 0x18
 	.ascii "CLSID_SBS_StdURLMoniker\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x17e
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_SBS_HttpProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x17f
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_SBS_FtpProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x180
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_SBS_GopherProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x181
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_SBS_HttpSProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x182
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_SBS_FileProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x183
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_SBS_MkProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x184
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_SBS_UrlMkBindCtx\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x185
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_SBS_SoftDistExt\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x186
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_SBS_CdlProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x187
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_SBS_ClassInstallFilter\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x188
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_SBS_InternetSecurityManager\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x189
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_SBS_InternetZoneManager\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x18a
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IAsyncMoniker\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x193
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_StdURLMoniker\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x194
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_HttpProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x195
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_FtpProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x196
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_GopherProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x197
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_HttpSProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x198
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_FileProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x199
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_MkProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x19a
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_StdURLProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x19b
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_UrlMkBindCtx\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x19c
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_CdlProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x19d
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_ClassInstallFilter\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x19e
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IAsyncBindCtx\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x19f
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IPersistMoniker\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x250
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IMonikerProp\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x321
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IBindProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x37f
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IBinding\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x3e0
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IBindStatusCallback\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x575
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IBindStatusCallbackEx\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x6a5
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IAuthenticate\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x764
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IAuthenticateEx\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x7d0
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IHttpNegotiate\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x841
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IHttpNegotiate2\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x8c1
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IHttpNegotiate3\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x93b
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IWinInetFileStream\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x9bf
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IWindowForBindingUI\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0xa30
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ICodeInstall\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0xa9b
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IWinInetInfo\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x10a5
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IHttpSecurity\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x1112
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IWinInetHttpInfo\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x1179
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IWinInetHttpTimeouts\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x11f8
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "SID_BindHost\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x1335
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IBindHost\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x133f
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternet\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x144d
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetBindInfo\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x14ac
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetBindInfoEx\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x1526
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetProtocolRoot\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x15bf
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x1684
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetProtocolSink\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x181a
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetProtocolSinkStackable\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x18bd
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetSession\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x193f
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetThreadSwitch\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x1a48
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetPriority\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x1ab2
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetProtocolInfo\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x1b4e
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "CLSID_InternetSecurityManager\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x1cb2
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "CLSID_InternetZoneManager\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x1cb3
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_IInternetSecurityMgrSite\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x1ccb
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetSecurityManager\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x1d69
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetHostSecurityManager\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x210f
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IInternetZoneManager\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x22c4
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "CLSID_SoftDistExt\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x269c
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x18
 	.ascii "IID_ISoftDistExt\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x26cc
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_ICatalogFileInfo\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x2778
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IDataFilter\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x27e6
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IEncodingFilterFactory\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x28a6
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "GUID_CUSTOM_CONFIRMOBJECTSAFETY\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x2933
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IWrappedProtocol\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x2941
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IGetBindHandle\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x29a5
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IBindCallbackRedirect\0"
-	.byte	0x16
+	.byte	0x17
 	.word	0x2a0d
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IPropertyStorage\0"
-	.byte	0x17
+	.byte	0x18
 	.word	0x1b7
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IPropertySetStorage\0"
-	.byte	0x17
+	.byte	0x18
 	.word	0x304
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IEnumSTATPROPSTG\0"
-	.byte	0x17
+	.byte	0x18
 	.word	0x3a6
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x18
 	.ascii "IID_IEnumSTATPROPSETSTG\0"
-	.byte	0x17
+	.byte	0x18
 	.word	0x444
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "IID_StdOle\0"
-	.byte	0x18
+	.byte	0x19
 	.byte	0x15
 	.byte	0x12
 	.long	0x7d6
 	.uleb128 0x15
 	.ascii "GUID_DEVINTERFACE_DISK\0"
-	.byte	0x19
+	.byte	0x1a
 	.byte	0xc
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "GUID_DEVINTERFACE_CDROM\0"
-	.byte	0x19
+	.byte	0x1a
 	.byte	0xd
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "GUID_DEVINTERFACE_PARTITION\0"
-	.byte	0x19
+	.byte	0x1a
 	.byte	0xe
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "GUID_DEVINTERFACE_TAPE\0"
-	.byte	0x19
+	.byte	0x1a
 	.byte	0xf
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "GUID_DEVINTERFACE_WRITEONCEDISK\0"
-	.byte	0x19
+	.byte	0x1a
 	.byte	0x10
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "GUID_DEVINTERFACE_VOLUME\0"
-	.byte	0x19
+	.byte	0x1a
 	.byte	0x11
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "GUID_DEVINTERFACE_MEDIUMCHANGER\0"
-	.byte	0x19
+	.byte	0x1a
 	.byte	0x12
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "GUID_DEVINTERFACE_FLOPPY\0"
-	.byte	0x19
+	.byte	0x1a
 	.byte	0x13
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "GUID_DEVINTERFACE_CDCHANGER\0"
-	.byte	0x19
+	.byte	0x1a
 	.byte	0x14
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "GUID_DEVINTERFACE_STORAGEPORT\0"
-	.byte	0x19
+	.byte	0x1a
 	.byte	0x15
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "GUID_DEVINTERFACE_COMPORT\0"
-	.byte	0x19
+	.byte	0x1a
 	.byte	0x16
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "GUID_DEVINTERFACE_SERENUM_BUS_ENUMERATOR\0"
-	.byte	0x19
+	.byte	0x1a
 	.byte	0x17
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x12
 	.ascii "_SCARD_IO_REQUEST\0"
 	.byte	0x8
-	.byte	0x1a
+	.byte	0x1b
 	.byte	0xa1
 	.byte	0x12
-	.long	0x48e5
+	.long	0x4ba9
 	.uleb128 0x13
 	.ascii "dwProtocol\0"
-	.byte	0x1a
+	.byte	0x1b
 	.byte	0xa2
 	.byte	0xb
 	.long	0x5ea
 	.byte	0
 	.uleb128 0x13
 	.ascii "cbPciLength\0"
-	.byte	0x1a
+	.byte	0x1b
 	.byte	0xa3
 	.byte	0xb
 	.long	0x5ea
@@ -4476,918 +4658,1011 @@ TEST_To_X_L:
 	.byte	0
 	.uleb128 0x3
 	.ascii "SCARD_IO_REQUEST\0"
-	.byte	0x1a
+	.byte	0x1b
 	.byte	0xa4
 	.byte	0x5
-	.long	0x48a0
+	.long	0x4b64
 	.uleb128 0x4
-	.long	0x48e5
+	.long	0x4ba9
 	.uleb128 0x15
 	.ascii "g_rgSCardT0Pci\0"
-	.byte	0x1b
+	.byte	0x1c
 	.byte	0x25
 	.byte	0x3c
-	.long	0x48fe
+	.long	0x4bc2
 	.uleb128 0x15
 	.ascii "g_rgSCardT1Pci\0"
-	.byte	0x1b
+	.byte	0x1c
 	.byte	0x25
 	.byte	0x4b
-	.long	0x48fe
+	.long	0x4bc2
 	.uleb128 0x15
 	.ascii "g_rgSCardRawPci\0"
-	.byte	0x1b
+	.byte	0x1c
 	.byte	0x25
 	.byte	0x5a
-	.long	0x48fe
+	.long	0x4bc2
 	.uleb128 0x15
 	.ascii "IID_IPrintDialogCallback\0"
-	.byte	0x1c
+	.byte	0x1d
 	.byte	0xe
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x15
 	.ascii "IID_IPrintDialogServices\0"
-	.byte	0x1c
+	.byte	0x1d
 	.byte	0xf
 	.byte	0x13
 	.long	0x7c5
 	.uleb128 0x3
 	.ascii "int32_t\0"
-	.byte	0x1d
+	.byte	0x1e
 	.byte	0x27
 	.byte	0xd
 	.long	0x13a
 	.uleb128 0x3
 	.ascii "uint32_t\0"
-	.byte	0x1d
+	.byte	0x1e
 	.byte	0x28
 	.byte	0x12
 	.long	0x462
 	.uleb128 0x3
 	.ascii "int64_t\0"
-	.byte	0x1d
+	.byte	0x1e
 	.byte	0x29
 	.byte	0x21
 	.long	0xf9
 	.uleb128 0x3
 	.ascii "uint64_t\0"
-	.byte	0x1d
+	.byte	0x1e
 	.byte	0x2a
 	.byte	0x2a
 	.long	0xdf
 	.uleb128 0x3
 	.ascii "_INT32_T\0"
-	.byte	0x1e
-	.byte	0x5a
+	.byte	0x1f
+	.byte	0x54
 	.byte	0x11
-	.long	0x498b
+	.long	0x4c4f
 	.uleb128 0x3
 	.ascii "_INT64_T\0"
-	.byte	0x1e
-	.byte	0x5b
+	.byte	0x1f
+	.byte	0x55
 	.byte	0x11
-	.long	0x49ac
+	.long	0x4c70
 	.uleb128 0x3
 	.ascii "_UINT32_T\0"
-	.byte	0x1e
-	.byte	0x5e
+	.byte	0x1f
+	.byte	0x58
 	.byte	0x12
-	.long	0x499b
+	.long	0x4c5f
 	.uleb128 0x3
 	.ascii "_UINT64_T\0"
-	.byte	0x1e
-	.byte	0x5f
+	.byte	0x1f
+	.byte	0x59
 	.byte	0x12
-	.long	0x49bc
+	.long	0x4c80
 	.uleb128 0x3
 	.ascii "PMC_STATUS_CODE\0"
-	.byte	0x1e
-	.byte	0x6a
-	.byte	0xd
-	.long	0x13a
-	.uleb128 0x3
-	.ascii "PMC_NUMBER_TYPE_CODE\0"
-	.byte	0x1e
-	.byte	0x6c
+	.byte	0x1f
+	.byte	0x64
 	.byte	0xd
 	.long	0x13a
 	.uleb128 0x3
 	.ascii "PMC_CONSTANT_VALUE_CODE\0"
-	.byte	0x1e
-	.byte	0x6e
+	.byte	0x1f
+	.byte	0x66
 	.byte	0xd
 	.long	0x13a
 	.uleb128 0x3
 	.ascii "PMC_NUMBER_STYLE_CODE\0"
-	.byte	0x1e
-	.byte	0x70
+	.byte	0x1f
+	.byte	0x68
 	.byte	0xd
 	.long	0x13a
 	.uleb128 0x12
+	.ascii "__tag_UINT_FLAGS\0"
+	.byte	0x4
+	.byte	0x1f
+	.byte	0x6c
+	.byte	0x12
+	.long	0x4d88
+	.uleb128 0x1d
+	.secrel32	.LASF1
+	.byte	0x1f
+	.byte	0x6e
+	.byte	0x12
+	.long	0x462
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1f
+	.byte	0
+	.uleb128 0x1d
+	.secrel32	.LASF2
+	.byte	0x1f
+	.byte	0x6f
+	.byte	0x12
+	.long	0x462
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1e
+	.byte	0
+	.uleb128 0x1d
+	.secrel32	.LASF3
+	.byte	0x1f
+	.byte	0x70
+	.byte	0x12
+	.long	0x462
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1d
+	.byte	0
+	.uleb128 0x1d
+	.secrel32	.LASF4
+	.byte	0x1f
+	.byte	0x71
+	.byte	0x12
+	.long	0x462
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1c
+	.byte	0
+	.byte	0
+	.uleb128 0x4
+	.long	0x4d2d
+	.uleb128 0x1e
 	.ascii "__tag_PMC_HANDLE_UINT\0"
 	.byte	0x8
-	.byte	0x1e
+	.byte	0x1f
+	.byte	0x6a
+	.byte	0x7
+	.long	0x4dcb
+	.uleb128 0x1f
+	.ascii "FLAGS\0"
+	.byte	0x1f
 	.byte	0x72
-	.byte	0x8
-	.long	0x4ab5
-	.uleb128 0x13
-	.ascii "dummy\0"
-	.byte	0x1e
-	.byte	0x77
+	.byte	0x7
+	.long	0x4d88
+	.uleb128 0x1f
+	.ascii "__dummy\0"
+	.byte	0x1f
+	.byte	0x76
 	.byte	0xf
-	.long	0x4a01
-	.byte	0
+	.long	0x4cc5
 	.byte	0
 	.uleb128 0x3
 	.ascii "PMC_HANDLE_UINT\0"
-	.byte	0x1e
-	.byte	0x7c
-	.byte	0x27
-	.long	0x4acd
+	.byte	0x1f
+	.byte	0x7b
+	.byte	0x26
+	.long	0x4de3
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4a86
+	.long	0x4d8d
 	.uleb128 0x12
+	.ascii "__tag_SINT_FLAGS\0"
+	.byte	0x4
+	.byte	0x1f
+	.byte	0x7f
+	.byte	0x12
+	.long	0x4e54
+	.uleb128 0x1d
+	.secrel32	.LASF1
+	.byte	0x1f
+	.byte	0x81
+	.byte	0x12
+	.long	0x462
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1f
+	.byte	0
+	.uleb128 0x1d
+	.secrel32	.LASF2
+	.byte	0x1f
+	.byte	0x82
+	.byte	0x12
+	.long	0x462
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1e
+	.byte	0
+	.uleb128 0x1d
+	.secrel32	.LASF5
+	.byte	0x1f
+	.byte	0x83
+	.byte	0x12
+	.long	0x462
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1d
+	.byte	0
+	.uleb128 0x1d
+	.secrel32	.LASF3
+	.byte	0x1f
+	.byte	0x84
+	.byte	0x12
+	.long	0x462
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1c
+	.byte	0
+	.uleb128 0x1d
+	.secrel32	.LASF4
+	.byte	0x1f
+	.byte	0x85
+	.byte	0x12
+	.long	0x462
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1b
+	.byte	0
+	.byte	0
+	.uleb128 0x4
+	.long	0x4de9
+	.uleb128 0x1e
 	.ascii "__tag_PMC_HANDLE_SINT\0"
 	.byte	0x8
-	.byte	0x1e
-	.byte	0x7e
-	.byte	0x8
-	.long	0x4b02
-	.uleb128 0x13
-	.ascii "dummy\0"
-	.byte	0x1e
-	.byte	0x83
+	.byte	0x1f
+	.byte	0x7d
+	.byte	0x7
+	.long	0x4e97
+	.uleb128 0x1f
+	.ascii "FLAGS\0"
+	.byte	0x1f
+	.byte	0x86
+	.byte	0x7
+	.long	0x4e54
+	.uleb128 0x1f
+	.ascii "__dummy\0"
+	.byte	0x1f
+	.byte	0x8a
 	.byte	0xf
-	.long	0x4a01
-	.byte	0
+	.long	0x4cc5
 	.byte	0
 	.uleb128 0x3
 	.ascii "PMC_HANDLE_SINT\0"
-	.byte	0x1e
-	.byte	0x88
-	.byte	0x27
-	.long	0x4b1a
+	.byte	0x1f
+	.byte	0x8f
+	.byte	0x26
+	.long	0x4eaf
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4ad3
+	.long	0x4e59
 	.uleb128 0x12
 	.ascii "__tag_PMC_STATISTICS_INFO\0"
 	.byte	0x10
-	.byte	0x1e
-	.byte	0x8a
+	.byte	0x1f
+	.byte	0x91
 	.byte	0x10
-	.long	0x4b9c
+	.long	0x4f31
 	.uleb128 0x13
 	.ascii "COUNT_MULTI64\0"
-	.byte	0x1e
-	.byte	0x8c
+	.byte	0x1f
+	.byte	0x93
 	.byte	0xa
 	.long	0x141
 	.byte	0
 	.uleb128 0x13
 	.ascii "COUNT_MULTI32\0"
-	.byte	0x1e
-	.byte	0x8d
+	.byte	0x1f
+	.byte	0x94
 	.byte	0xa
 	.long	0x141
 	.byte	0x4
 	.uleb128 0x13
 	.ascii "COUNT_DIV64\0"
-	.byte	0x1e
-	.byte	0x8e
+	.byte	0x1f
+	.byte	0x95
 	.byte	0xa
 	.long	0x141
 	.byte	0x8
 	.uleb128 0x13
 	.ascii "COUNT_DIV32\0"
-	.byte	0x1e
-	.byte	0x8f
+	.byte	0x1f
+	.byte	0x96
 	.byte	0xa
 	.long	0x141
 	.byte	0xc
 	.byte	0
 	.uleb128 0x3
 	.ascii "PMC_STATISTICS_INFO\0"
-	.byte	0x1e
-	.byte	0x90
+	.byte	0x1f
+	.byte	0x97
 	.byte	0x3
-	.long	0x4b20
+	.long	0x4eb5
 	.uleb128 0x12
 	.ascii "__tag_PMC_NUMBER_FORMAT_OPTION\0"
 	.byte	0x28
-	.byte	0x1e
-	.byte	0x92
+	.byte	0x1f
+	.byte	0x99
 	.byte	0x10
-	.long	0x4c6a
+	.long	0x4fff
 	.uleb128 0x13
 	.ascii "DecimalDigits\0"
-	.byte	0x1e
-	.byte	0x94
+	.byte	0x1f
+	.byte	0x9b
 	.byte	0x9
 	.long	0x13a
 	.byte	0
 	.uleb128 0x13
 	.ascii "GroupSeparator\0"
-	.byte	0x1e
-	.byte	0x95
+	.byte	0x1f
+	.byte	0x9c
 	.byte	0xd
-	.long	0x4c6a
+	.long	0x4fff
 	.byte	0x4
 	.uleb128 0x13
 	.ascii "DecimalSeparator\0"
-	.byte	0x1e
-	.byte	0x96
+	.byte	0x1f
+	.byte	0x9d
 	.byte	0xd
-	.long	0x4c6a
+	.long	0x4fff
 	.byte	0xa
 	.uleb128 0x13
 	.ascii "PositiveSign\0"
-	.byte	0x1e
-	.byte	0x97
+	.byte	0x1f
+	.byte	0x9e
 	.byte	0xd
-	.long	0x4c6a
+	.long	0x4fff
 	.byte	0x10
 	.uleb128 0x13
 	.ascii "NegativeSign\0"
-	.byte	0x1e
-	.byte	0x98
+	.byte	0x1f
+	.byte	0x9f
 	.byte	0xd
-	.long	0x4c6a
+	.long	0x4fff
 	.byte	0x16
 	.uleb128 0x13
 	.ascii "GroupSizes\0"
-	.byte	0x1e
-	.byte	0x99
+	.byte	0x1f
+	.byte	0xa0
 	.byte	0xa
-	.long	0x4c7a
+	.long	0x500f
 	.byte	0x1c
 	.byte	0
 	.uleb128 0xe
 	.long	0x10a
-	.long	0x4c7a
+	.long	0x500f
 	.uleb128 0xf
 	.long	0xdf
 	.byte	0x2
 	.byte	0
 	.uleb128 0xe
 	.long	0xc8
-	.long	0x4c8a
+	.long	0x501f
 	.uleb128 0xf
 	.long	0xdf
 	.byte	0xa
 	.byte	0
 	.uleb128 0x3
 	.ascii "PMC_NUMBER_FORMAT_OPTION\0"
-	.byte	0x1e
-	.byte	0x9a
+	.byte	0x1f
+	.byte	0xa1
 	.byte	0x3
-	.long	0x4bb8
-	.uleb128 0x19
+	.long	0x4f4d
+	.uleb128 0x20
 	.ascii "__tag_PMC_UINT_ENTRY_POINTS\0"
-	.word	0x230
-	.byte	0x1e
-	.byte	0x9c
+	.word	0x228
+	.byte	0x1f
+	.byte	0xa3
 	.byte	0x10
-	.long	0x532e
-	.uleb128 0x1a
+	.long	0x5696
+	.uleb128 0x21
 	.ascii "PROCESSOR_FEATURE_POPCNT\0"
-	.byte	0x1e
-	.byte	0x9f
+	.byte	0x1f
+	.byte	0xa6
 	.byte	0xe
 	.long	0x462
 	.byte	0x4
 	.byte	0x1
 	.byte	0x1f
 	.byte	0
-	.uleb128 0x1a
+	.uleb128 0x21
 	.ascii "PROCESSOR_FEATURE_ADX\0"
-	.byte	0x1e
-	.byte	0xa0
+	.byte	0x1f
+	.byte	0xa7
 	.byte	0xe
 	.long	0x462
 	.byte	0x4
 	.byte	0x1
 	.byte	0x1e
 	.byte	0
-	.uleb128 0x1a
+	.uleb128 0x21
 	.ascii "PROCESSOR_FEATURE_BMI1\0"
-	.byte	0x1e
-	.byte	0xa1
+	.byte	0x1f
+	.byte	0xa8
 	.byte	0xe
 	.long	0x462
 	.byte	0x4
 	.byte	0x1
 	.byte	0x1d
 	.byte	0
-	.uleb128 0x1a
+	.uleb128 0x21
 	.ascii "PROCESSOR_FEATURE_BMI2\0"
-	.byte	0x1e
-	.byte	0xa2
+	.byte	0x1f
+	.byte	0xa9
 	.byte	0xe
 	.long	0x462
 	.byte	0x4
 	.byte	0x1
 	.byte	0x1c
 	.byte	0
-	.uleb128 0x1a
+	.uleb128 0x21
 	.ascii "PROCESSOR_FEATURE_ABM\0"
-	.byte	0x1e
-	.byte	0xa3
+	.byte	0x1f
+	.byte	0xaa
 	.byte	0xe
 	.long	0x462
 	.byte	0x4
 	.byte	0x1
 	.byte	0x1b
 	.byte	0
-	.uleb128 0x1b
-	.secrel32	.LASF1
-	.byte	0x1e
-	.byte	0xa6
+	.uleb128 0x22
+	.secrel32	.LASF6
+	.byte	0x1f
+	.byte	0xad
 	.byte	0xe
-	.long	0x533f
+	.long	0x56a7
 	.byte	0x8
 	.uleb128 0x13
 	.ascii "From_I\0"
-	.byte	0x1e
-	.byte	0xa9
+	.byte	0x1f
+	.byte	0xb0
 	.byte	0x19
-	.long	0x535f
+	.long	0x56c7
 	.byte	0x10
 	.uleb128 0x13
 	.ascii "From_L\0"
-	.byte	0x1e
-	.byte	0xac
+	.byte	0x1f
+	.byte	0xb3
 	.byte	0x19
-	.long	0x5379
+	.long	0x56e1
 	.byte	0x18
 	.uleb128 0x13
 	.ascii "Dispose\0"
-	.byte	0x1e
-	.byte	0xaf
+	.byte	0x1f
+	.byte	0xb6
 	.byte	0xe
-	.long	0x538a
+	.long	0x56f2
 	.byte	0x20
-	.uleb128 0x1b
-	.secrel32	.LASF2
-	.byte	0x1e
-	.byte	0xb2
-	.byte	0x19
-	.long	0x53aa
-	.byte	0x28
-	.uleb128 0x1b
-	.secrel32	.LASF3
-	.byte	0x1e
-	.byte	0xb5
-	.byte	0x19
-	.long	0x53c4
-	.byte	0x30
-	.uleb128 0x1b
-	.secrel32	.LASF4
-	.byte	0x1e
-	.byte	0xb8
-	.byte	0x19
-	.long	0x53e3
-	.byte	0x38
-	.uleb128 0x1b
-	.secrel32	.LASF5
-	.byte	0x1e
+	.uleb128 0x22
+	.secrel32	.LASF7
+	.byte	0x1f
 	.byte	0xb9
 	.byte	0x19
-	.long	0x540d
-	.byte	0x40
+	.long	0x570c
+	.byte	0x28
+	.uleb128 0x22
+	.secrel32	.LASF8
+	.byte	0x1f
+	.byte	0xbc
+	.byte	0x19
+	.long	0x572b
+	.byte	0x30
+	.uleb128 0x22
+	.secrel32	.LASF9
+	.byte	0x1f
+	.byte	0xbd
+	.byte	0x19
+	.long	0x5755
+	.byte	0x38
 	.uleb128 0x13
 	.ascii "FromByteArrayForSINT\0"
-	.byte	0x1e
-	.byte	0xba
+	.byte	0x1f
+	.byte	0xbe
 	.byte	0x18
-	.long	0x5431
-	.byte	0x48
+	.long	0x5779
+	.byte	0x40
 	.uleb128 0x13
 	.ascii "ToByteArrayForSINT\0"
-	.byte	0x1e
-	.byte	0xbb
+	.byte	0x1f
+	.byte	0xbf
 	.byte	0x18
-	.long	0x545a
-	.byte	0x50
+	.long	0x57a2
+	.byte	0x48
 	.uleb128 0x13
 	.ascii "Clone_X\0"
-	.byte	0x1e
-	.byte	0xbe
-	.byte	0x19
-	.long	0x5474
-	.byte	0x58
-	.uleb128 0x13
-	.ascii "To_X_I\0"
-	.byte	0x1e
-	.byte	0xc1
-	.byte	0x19
-	.long	0x5494
-	.byte	0x60
-	.uleb128 0x13
-	.ascii "To_X_L\0"
-	.byte	0x1e
+	.byte	0x1f
 	.byte	0xc2
 	.byte	0x19
-	.long	0x54b4
-	.byte	0x68
+	.long	0x57bc
+	.byte	0x50
 	.uleb128 0x13
-	.ascii "ToString\0"
-	.byte	0x1e
+	.ascii "To_X_I\0"
+	.byte	0x1f
 	.byte	0xc5
 	.byte	0x19
-	.long	0x54e8
-	.byte	0x70
+	.long	0x57dc
+	.byte	0x58
+	.uleb128 0x13
+	.ascii "To_X_L\0"
+	.byte	0x1f
+	.byte	0xc6
+	.byte	0x19
+	.long	0x57fc
+	.byte	0x60
+	.uleb128 0x13
+	.ascii "ToString\0"
+	.byte	0x1f
+	.byte	0xc9
+	.byte	0x19
+	.long	0x5830
+	.byte	0x68
 	.uleb128 0x13
 	.ascii "TryParse\0"
-	.byte	0x1e
-	.byte	0xc8
-	.byte	0x19
-	.long	0x550c
-	.byte	0x78
-	.uleb128 0x13
-	.ascii "Add_I_X\0"
-	.byte	0x1e
-	.byte	0xcb
-	.byte	0x19
-	.long	0x552b
-	.byte	0x80
-	.uleb128 0x13
-	.ascii "Add_L_X\0"
-	.byte	0x1e
+	.byte	0x1f
 	.byte	0xcc
 	.byte	0x19
-	.long	0x554a
-	.byte	0x88
+	.long	0x5854
+	.byte	0x70
 	.uleb128 0x13
-	.ascii "Add_X_I\0"
-	.byte	0x1e
-	.byte	0xcd
-	.byte	0x19
-	.long	0x5569
-	.byte	0x90
-	.uleb128 0x13
-	.ascii "Add_X_L\0"
-	.byte	0x1e
-	.byte	0xce
-	.byte	0x19
-	.long	0x5588
-	.byte	0x98
-	.uleb128 0x13
-	.ascii "Add_X_X\0"
-	.byte	0x1e
+	.ascii "Add_I_X\0"
+	.byte	0x1f
 	.byte	0xcf
 	.byte	0x19
-	.long	0x55a7
-	.byte	0xa0
-	.uleb128 0x1b
-	.secrel32	.LASF6
-	.byte	0x1e
+	.long	0x5873
+	.byte	0x78
+	.uleb128 0x13
+	.ascii "Add_L_X\0"
+	.byte	0x1f
+	.byte	0xd0
+	.byte	0x19
+	.long	0x5892
+	.byte	0x80
+	.uleb128 0x13
+	.ascii "Add_X_I\0"
+	.byte	0x1f
+	.byte	0xd1
+	.byte	0x19
+	.long	0x58b1
+	.byte	0x88
+	.uleb128 0x13
+	.ascii "Add_X_L\0"
+	.byte	0x1f
 	.byte	0xd2
 	.byte	0x19
-	.long	0x55c6
-	.byte	0xa8
-	.uleb128 0x1b
-	.secrel32	.LASF7
-	.byte	0x1e
+	.long	0x58d0
+	.byte	0x90
+	.uleb128 0x13
+	.ascii "Add_X_X\0"
+	.byte	0x1f
 	.byte	0xd3
 	.byte	0x19
-	.long	0x55e5
-	.byte	0xb0
-	.uleb128 0x1b
-	.secrel32	.LASF8
-	.byte	0x1e
-	.byte	0xd4
-	.byte	0x19
-	.long	0x5569
-	.byte	0xb8
-	.uleb128 0x1b
-	.secrel32	.LASF9
-	.byte	0x1e
-	.byte	0xd5
-	.byte	0x19
-	.long	0x5588
-	.byte	0xc0
-	.uleb128 0x1b
+	.long	0x58ef
+	.byte	0x98
+	.uleb128 0x22
 	.secrel32	.LASF10
-	.byte	0x1e
+	.byte	0x1f
 	.byte	0xd6
 	.byte	0x19
-	.long	0x55a7
-	.byte	0xc8
-	.uleb128 0x1b
+	.long	0x590e
+	.byte	0xa0
+	.uleb128 0x22
 	.secrel32	.LASF11
-	.byte	0x1e
+	.byte	0x1f
+	.byte	0xd7
+	.byte	0x19
+	.long	0x592d
+	.byte	0xa8
+	.uleb128 0x22
+	.secrel32	.LASF12
+	.byte	0x1f
+	.byte	0xd8
+	.byte	0x19
+	.long	0x58b1
+	.byte	0xb0
+	.uleb128 0x22
+	.secrel32	.LASF13
+	.byte	0x1f
 	.byte	0xd9
 	.byte	0x19
-	.long	0x552b
-	.byte	0xd0
-	.uleb128 0x1b
-	.secrel32	.LASF12
-	.byte	0x1e
+	.long	0x58d0
+	.byte	0xb8
+	.uleb128 0x22
+	.secrel32	.LASF14
+	.byte	0x1f
 	.byte	0xda
 	.byte	0x19
-	.long	0x554a
-	.byte	0xd8
-	.uleb128 0x1b
-	.secrel32	.LASF13
-	.byte	0x1e
-	.byte	0xdb
-	.byte	0x19
-	.long	0x5569
-	.byte	0xe0
-	.uleb128 0x1b
-	.secrel32	.LASF14
-	.byte	0x1e
-	.byte	0xdc
-	.byte	0x19
-	.long	0x5588
-	.byte	0xe8
-	.uleb128 0x1b
+	.long	0x58ef
+	.byte	0xc0
+	.uleb128 0x22
 	.secrel32	.LASF15
-	.byte	0x1e
+	.byte	0x1f
 	.byte	0xdd
 	.byte	0x19
-	.long	0x55a7
-	.byte	0xf0
-	.uleb128 0x13
-	.ascii "DivRem_I_X\0"
-	.byte	0x1e
+	.long	0x5873
+	.byte	0xc8
+	.uleb128 0x22
+	.secrel32	.LASF16
+	.byte	0x1f
+	.byte	0xde
+	.byte	0x19
+	.long	0x5892
+	.byte	0xd0
+	.uleb128 0x22
+	.secrel32	.LASF17
+	.byte	0x1f
+	.byte	0xdf
+	.byte	0x19
+	.long	0x58b1
+	.byte	0xd8
+	.uleb128 0x22
+	.secrel32	.LASF18
+	.byte	0x1f
 	.byte	0xe0
 	.byte	0x19
-	.long	0x5609
-	.byte	0xf8
-	.uleb128 0x1c
-	.ascii "DivRem_L_X\0"
-	.byte	0x1e
+	.long	0x58d0
+	.byte	0xe0
+	.uleb128 0x22
+	.secrel32	.LASF19
+	.byte	0x1f
 	.byte	0xe1
 	.byte	0x19
-	.long	0x562d
-	.word	0x100
-	.uleb128 0x1c
-	.ascii "DivRem_X_I\0"
-	.byte	0x1e
-	.byte	0xe2
-	.byte	0x19
-	.long	0x5651
-	.word	0x108
-	.uleb128 0x1c
-	.ascii "DivRem_X_L\0"
-	.byte	0x1e
-	.byte	0xe3
-	.byte	0x19
-	.long	0x5675
-	.word	0x110
-	.uleb128 0x1c
-	.ascii "DivRem_X_X\0"
-	.byte	0x1e
+	.long	0x58ef
+	.byte	0xe8
+	.uleb128 0x22
+	.secrel32	.LASF20
+	.byte	0x1f
 	.byte	0xe4
 	.byte	0x19
-	.long	0x5699
-	.word	0x118
-	.uleb128 0x1c
-	.ascii "LeftShift_X_I\0"
-	.byte	0x1e
+	.long	0x5951
+	.byte	0xf0
+	.uleb128 0x22
+	.secrel32	.LASF21
+	.byte	0x1f
+	.byte	0xe5
+	.byte	0x19
+	.long	0x5975
+	.byte	0xf8
+	.uleb128 0x23
+	.secrel32	.LASF22
+	.byte	0x1f
+	.byte	0xe6
+	.byte	0x19
+	.long	0x5999
+	.word	0x100
+	.uleb128 0x23
+	.secrel32	.LASF23
+	.byte	0x1f
 	.byte	0xe7
 	.byte	0x19
-	.long	0x5569
-	.word	0x120
-	.uleb128 0x1c
+	.long	0x59bd
+	.word	0x108
+	.uleb128 0x23
+	.secrel32	.LASF24
+	.byte	0x1f
+	.byte	0xe8
+	.byte	0x19
+	.long	0x59e1
+	.word	0x110
+	.uleb128 0x24
+	.ascii "LeftShift_X_I\0"
+	.byte	0x1f
+	.byte	0xeb
+	.byte	0x19
+	.long	0x58b1
+	.word	0x118
+	.uleb128 0x24
 	.ascii "RightShift_X_I\0"
-	.byte	0x1e
-	.byte	0xea
-	.byte	0x19
-	.long	0x5569
-	.word	0x128
-	.uleb128 0x1c
-	.ascii "BitwiseAnd_I_X\0"
-	.byte	0x1e
-	.byte	0xed
-	.byte	0x19
-	.long	0x55c6
-	.word	0x130
-	.uleb128 0x1c
-	.ascii "BitwiseAnd_L_X\0"
-	.byte	0x1e
+	.byte	0x1f
 	.byte	0xee
 	.byte	0x19
-	.long	0x55e5
-	.word	0x138
-	.uleb128 0x1c
-	.ascii "BitwiseAnd_X_I\0"
-	.byte	0x1e
-	.byte	0xef
-	.byte	0x19
-	.long	0x56b8
-	.word	0x140
-	.uleb128 0x1c
-	.ascii "BitwiseAnd_X_L\0"
-	.byte	0x1e
-	.byte	0xf0
-	.byte	0x19
-	.long	0x56d7
-	.word	0x148
-	.uleb128 0x1c
-	.ascii "BitwiseAnd_X_X\0"
-	.byte	0x1e
+	.long	0x58b1
+	.word	0x120
+	.uleb128 0x24
+	.ascii "BitwiseAnd_I_X\0"
+	.byte	0x1f
 	.byte	0xf1
 	.byte	0x19
-	.long	0x55a7
-	.word	0x150
-	.uleb128 0x1c
-	.ascii "BitwiseOr_I_X\0"
-	.byte	0x1e
+	.long	0x590e
+	.word	0x128
+	.uleb128 0x24
+	.ascii "BitwiseAnd_L_X\0"
+	.byte	0x1f
+	.byte	0xf2
+	.byte	0x19
+	.long	0x592d
+	.word	0x130
+	.uleb128 0x24
+	.ascii "BitwiseAnd_X_I\0"
+	.byte	0x1f
+	.byte	0xf3
+	.byte	0x19
+	.long	0x5a00
+	.word	0x138
+	.uleb128 0x24
+	.ascii "BitwiseAnd_X_L\0"
+	.byte	0x1f
 	.byte	0xf4
 	.byte	0x19
-	.long	0x552b
-	.word	0x158
-	.uleb128 0x1c
-	.ascii "BitwiseOr_L_X\0"
-	.byte	0x1e
+	.long	0x5a1f
+	.word	0x140
+	.uleb128 0x24
+	.ascii "BitwiseAnd_X_X\0"
+	.byte	0x1f
 	.byte	0xf5
 	.byte	0x19
-	.long	0x554a
-	.word	0x160
-	.uleb128 0x1c
-	.ascii "BitwiseOr_X_I\0"
-	.byte	0x1e
-	.byte	0xf6
-	.byte	0x19
-	.long	0x5569
-	.word	0x168
-	.uleb128 0x1c
-	.ascii "BitwiseOr_X_L\0"
-	.byte	0x1e
-	.byte	0xf7
-	.byte	0x19
-	.long	0x5588
-	.word	0x170
-	.uleb128 0x1c
-	.ascii "BitwiseOr_X_X\0"
-	.byte	0x1e
+	.long	0x58ef
+	.word	0x148
+	.uleb128 0x24
+	.ascii "BitwiseOr_I_X\0"
+	.byte	0x1f
 	.byte	0xf8
 	.byte	0x19
-	.long	0x55a7
-	.word	0x178
-	.uleb128 0x1c
-	.ascii "ExclusiveOr_I_X\0"
-	.byte	0x1e
+	.long	0x5873
+	.word	0x150
+	.uleb128 0x24
+	.ascii "BitwiseOr_L_X\0"
+	.byte	0x1f
+	.byte	0xf9
+	.byte	0x19
+	.long	0x5892
+	.word	0x158
+	.uleb128 0x24
+	.ascii "BitwiseOr_X_I\0"
+	.byte	0x1f
+	.byte	0xfa
+	.byte	0x19
+	.long	0x58b1
+	.word	0x160
+	.uleb128 0x24
+	.ascii "BitwiseOr_X_L\0"
+	.byte	0x1f
 	.byte	0xfb
 	.byte	0x19
-	.long	0x552b
-	.word	0x180
-	.uleb128 0x1c
-	.ascii "ExclusiveOr_L_X\0"
-	.byte	0x1e
+	.long	0x58d0
+	.word	0x168
+	.uleb128 0x24
+	.ascii "BitwiseOr_X_X\0"
+	.byte	0x1f
 	.byte	0xfc
 	.byte	0x19
-	.long	0x554a
-	.word	0x188
-	.uleb128 0x1c
-	.ascii "ExclusiveOr_X_I\0"
-	.byte	0x1e
-	.byte	0xfd
-	.byte	0x19
-	.long	0x5569
-	.word	0x190
-	.uleb128 0x1c
-	.ascii "ExclusiveOr_X_L\0"
-	.byte	0x1e
-	.byte	0xfe
-	.byte	0x19
-	.long	0x5588
-	.word	0x198
-	.uleb128 0x1c
-	.ascii "ExclusiveOr_X_X\0"
-	.byte	0x1e
+	.long	0x58ef
+	.word	0x170
+	.uleb128 0x24
+	.ascii "ExclusiveOr_I_X\0"
+	.byte	0x1f
 	.byte	0xff
 	.byte	0x19
-	.long	0x55a7
-	.word	0x1a0
+	.long	0x5873
+	.word	0x178
 	.uleb128 0xa
-	.ascii "Compare_I_X\0"
-	.byte	0x1e
+	.ascii "ExclusiveOr_L_X\0"
+	.byte	0x1f
+	.word	0x100
+	.byte	0x19
+	.long	0x5892
+	.word	0x180
+	.uleb128 0xa
+	.ascii "ExclusiveOr_X_I\0"
+	.byte	0x1f
+	.word	0x101
+	.byte	0x19
+	.long	0x58b1
+	.word	0x188
+	.uleb128 0xa
+	.ascii "ExclusiveOr_X_L\0"
+	.byte	0x1f
 	.word	0x102
 	.byte	0x19
-	.long	0x56fc
-	.word	0x1a8
+	.long	0x58d0
+	.word	0x190
 	.uleb128 0xa
-	.ascii "Compare_L_X\0"
-	.byte	0x1e
+	.ascii "ExclusiveOr_X_X\0"
+	.byte	0x1f
 	.word	0x103
 	.byte	0x19
-	.long	0x571b
-	.word	0x1b0
+	.long	0x58ef
+	.word	0x198
 	.uleb128 0xa
-	.ascii "Compare_X_I\0"
-	.byte	0x1e
-	.word	0x104
-	.byte	0x19
-	.long	0x573a
-	.word	0x1b8
-	.uleb128 0xa
-	.ascii "Compare_X_L\0"
-	.byte	0x1e
-	.word	0x105
-	.byte	0x19
-	.long	0x5759
-	.word	0x1c0
-	.uleb128 0xa
-	.ascii "Compare_X_X\0"
-	.byte	0x1e
+	.ascii "Compare_I_X\0"
+	.byte	0x1f
 	.word	0x106
 	.byte	0x19
-	.long	0x5778
-	.word	0x1c8
+	.long	0x5a44
+	.word	0x1a0
 	.uleb128 0xa
-	.ascii "Equals_I_X\0"
-	.byte	0x1e
+	.ascii "Compare_L_X\0"
+	.byte	0x1f
+	.word	0x107
+	.byte	0x19
+	.long	0x5a63
+	.word	0x1a8
+	.uleb128 0xa
+	.ascii "Compare_X_I\0"
+	.byte	0x1f
+	.word	0x108
+	.byte	0x19
+	.long	0x5a82
+	.word	0x1b0
+	.uleb128 0xa
+	.ascii "Compare_X_L\0"
+	.byte	0x1f
 	.word	0x109
 	.byte	0x19
-	.long	0x56fc
-	.word	0x1d0
+	.long	0x5aa1
+	.word	0x1b8
 	.uleb128 0xa
-	.ascii "Equals_L_X\0"
-	.byte	0x1e
+	.ascii "Compare_X_X\0"
+	.byte	0x1f
 	.word	0x10a
 	.byte	0x19
-	.long	0x571b
-	.word	0x1d8
+	.long	0x5ac0
+	.word	0x1c0
 	.uleb128 0xa
-	.ascii "Equals_X_I\0"
-	.byte	0x1e
-	.word	0x10b
-	.byte	0x19
-	.long	0x573a
-	.word	0x1e0
-	.uleb128 0xa
-	.ascii "Equals_X_L\0"
-	.byte	0x1e
-	.word	0x10c
-	.byte	0x19
-	.long	0x5759
-	.word	0x1e8
-	.uleb128 0xa
-	.ascii "Equals_X_X\0"
-	.byte	0x1e
+	.ascii "Equals_I_X\0"
+	.byte	0x1f
 	.word	0x10d
 	.byte	0x19
-	.long	0x5778
-	.word	0x1f0
+	.long	0x5a44
+	.word	0x1c8
 	.uleb128 0xa
-	.ascii "GreatestCommonDivisor_I_X\0"
-	.byte	0x1e
+	.ascii "Equals_L_X\0"
+	.byte	0x1f
+	.word	0x10e
+	.byte	0x19
+	.long	0x5a63
+	.word	0x1d0
+	.uleb128 0xa
+	.ascii "Equals_X_I\0"
+	.byte	0x1f
+	.word	0x10f
+	.byte	0x19
+	.long	0x5a82
+	.word	0x1d8
+	.uleb128 0xa
+	.ascii "Equals_X_L\0"
+	.byte	0x1f
 	.word	0x110
 	.byte	0x19
-	.long	0x552b
-	.word	0x1f8
+	.long	0x5aa1
+	.word	0x1e0
 	.uleb128 0xa
-	.ascii "GreatestCommonDivisor_L_X\0"
-	.byte	0x1e
+	.ascii "Equals_X_X\0"
+	.byte	0x1f
 	.word	0x111
 	.byte	0x19
-	.long	0x554a
-	.word	0x200
+	.long	0x5ac0
+	.word	0x1e8
 	.uleb128 0xa
-	.ascii "GreatestCommonDivisor_X_I\0"
-	.byte	0x1e
-	.word	0x112
-	.byte	0x19
-	.long	0x5569
-	.word	0x208
-	.uleb128 0xa
-	.ascii "GreatestCommonDivisor_X_L\0"
-	.byte	0x1e
-	.word	0x113
-	.byte	0x19
-	.long	0x5588
-	.word	0x210
-	.uleb128 0xa
-	.ascii "GreatestCommonDivisor_X_X\0"
-	.byte	0x1e
+	.ascii "GreatestCommonDivisor_I_X\0"
+	.byte	0x1f
 	.word	0x114
 	.byte	0x19
-	.long	0x55a7
-	.word	0x218
+	.long	0x5873
+	.word	0x1f0
 	.uleb128 0xa
-	.ascii "Pow_X_I\0"
-	.byte	0x1e
+	.ascii "GreatestCommonDivisor_L_X\0"
+	.byte	0x1f
+	.word	0x115
+	.byte	0x19
+	.long	0x5892
+	.word	0x1f8
+	.uleb128 0xa
+	.ascii "GreatestCommonDivisor_X_I\0"
+	.byte	0x1f
+	.word	0x116
+	.byte	0x19
+	.long	0x58b1
+	.word	0x200
+	.uleb128 0xa
+	.ascii "GreatestCommonDivisor_X_L\0"
+	.byte	0x1f
 	.word	0x117
 	.byte	0x19
-	.long	0x5569
-	.word	0x220
+	.long	0x58d0
+	.word	0x208
+	.uleb128 0xa
+	.ascii "GreatestCommonDivisor_X_X\0"
+	.byte	0x1f
+	.word	0x118
+	.byte	0x19
+	.long	0x58ef
+	.word	0x210
+	.uleb128 0xa
+	.ascii "Pow_X_I\0"
+	.byte	0x1f
+	.word	0x11b
+	.byte	0x19
+	.long	0x58b1
+	.word	0x218
 	.uleb128 0xa
 	.ascii "ModPow_X_X_X\0"
-	.byte	0x1e
-	.word	0x11a
+	.byte	0x1f
+	.word	0x11e
 	.byte	0x19
-	.long	0x579c
-	.word	0x228
+	.long	0x5ae4
+	.word	0x220
 	.byte	0
 	.uleb128 0x10
-	.long	0x5339
+	.long	0x56a1
 	.uleb128 0x11
-	.long	0x5339
+	.long	0x56a1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4b9c
+	.long	0x4f31
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x532e
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5359
+	.long	0x5696
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x56c1
 	.uleb128 0x11
-	.long	0x49ef
+	.long	0x4cb3
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5345
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5379
+	.long	0x56ad
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x56e1
 	.uleb128 0x11
-	.long	0x4a01
+	.long	0x4cc5
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5365
+	.long	0x56cd
 	.uleb128 0x10
-	.long	0x538a
+	.long	0x56f2
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x537f
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x53a4
+	.long	0x56e7
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x570c
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4cef
 	.uleb128 0x11
-	.long	0x53a4
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4a2b
-	.uleb128 0x6
-	.byte	0x8
-	.long	0x5390
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x53c4
-	.uleb128 0x11
-	.long	0x4a48
-	.uleb128 0x11
-	.long	0x5359
-	.byte	0
-	.uleb128 0x6
-	.byte	0x8
-	.long	0x53b0
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x53e3
+	.long	0x56f8
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x572b
 	.uleb128 0x11
 	.long	0x756
 	.uleb128 0x11
 	.long	0xd0
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x53ca
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5407
+	.long	0x5712
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x574f
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
 	.long	0x756
 	.uleb128 0x11
 	.long	0xd0
 	.uleb128 0x11
-	.long	0x5407
+	.long	0x574f
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
 	.long	0xd0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x53e9
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5431
+	.long	0x5731
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5779
 	.uleb128 0x11
 	.long	0x756
 	.uleb128 0x11
@@ -5395,72 +5670,72 @@ TEST_To_X_L:
 	.uleb128 0x11
 	.long	0x450
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5413
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x545a
+	.long	0x575b
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x57a2
 	.uleb128 0x11
 	.long	0xc8
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
 	.long	0x756
 	.uleb128 0x11
 	.long	0xd0
 	.uleb128 0x11
-	.long	0x5407
+	.long	0x574f
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5437
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5474
+	.long	0x577f
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x57bc
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5460
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x548e
+	.long	0x57a8
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x57d6
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x548e
+	.long	0x57d6
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x49ef
+	.long	0x4cb3
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x547a
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x54ae
+	.long	0x57c2
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x57f6
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x54ae
+	.long	0x57f6
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4a01
+	.long	0x4cc5
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x549a
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x54e2
+	.long	0x57e2
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x582a
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
 	.long	0x456
 	.uleb128 0x11
@@ -5470,917 +5745,1071 @@ TEST_To_X_L:
 	.uleb128 0x11
 	.long	0x13a
 	.uleb128 0x11
-	.long	0x54e2
+	.long	0x582a
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4c8a
+	.long	0x501f
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x54ba
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x550c
+	.long	0x5802
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5854
 	.uleb128 0x11
 	.long	0x456
 	.uleb128 0x11
-	.long	0x4a68
+	.long	0x4d0f
 	.uleb128 0x11
-	.long	0x54e2
+	.long	0x582a
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x54ee
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x552b
+	.long	0x5836
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5873
 	.uleb128 0x11
-	.long	0x49ef
+	.long	0x4cb3
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5512
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x554a
+	.long	0x585a
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5892
 	.uleb128 0x11
-	.long	0x4a01
+	.long	0x4cc5
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5531
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5569
+	.long	0x5879
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x58b1
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x49ef
+	.long	0x4cb3
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5550
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5588
+	.long	0x5898
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x58d0
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x4a01
+	.long	0x4cc5
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x556f
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x55a7
+	.long	0x58b7
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x58ef
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x558e
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x55c6
+	.long	0x58d6
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x590e
 	.uleb128 0x11
-	.long	0x49ef
+	.long	0x4cb3
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x548e
+	.long	0x57d6
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x55ad
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x55e5
+	.long	0x58f5
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x592d
 	.uleb128 0x11
-	.long	0x4a01
+	.long	0x4cc5
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x54ae
+	.long	0x57f6
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x55cc
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5609
+	.long	0x5914
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5951
 	.uleb128 0x11
-	.long	0x49ef
+	.long	0x4cb3
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x548e
+	.long	0x57d6
 	.uleb128 0x11
-	.long	0x548e
+	.long	0x57d6
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x55eb
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x562d
+	.long	0x5933
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5975
 	.uleb128 0x11
-	.long	0x4a01
+	.long	0x4cc5
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x54ae
+	.long	0x57f6
 	.uleb128 0x11
-	.long	0x54ae
+	.long	0x57f6
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x560f
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5651
+	.long	0x5957
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5999
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x49ef
+	.long	0x4cb3
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.uleb128 0x11
-	.long	0x548e
+	.long	0x57d6
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5633
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5675
+	.long	0x597b
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x59bd
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x4a01
+	.long	0x4cc5
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.uleb128 0x11
-	.long	0x54ae
+	.long	0x57f6
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5657
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5699
+	.long	0x599f
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x59e1
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x567b
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x56b8
+	.long	0x59c3
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5a00
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x49ef
+	.long	0x4cb3
 	.uleb128 0x11
-	.long	0x548e
+	.long	0x57d6
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x569f
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x56d7
+	.long	0x59e7
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5a1f
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x4a01
+	.long	0x4cc5
 	.uleb128 0x11
-	.long	0x54ae
+	.long	0x57f6
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x56be
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x56f6
+	.long	0x5a06
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5a3e
 	.uleb128 0x11
-	.long	0x49ef
+	.long	0x4cb3
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x56f6
+	.long	0x5a3e
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x49cd
+	.long	0x4c91
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x56dd
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x571b
+	.long	0x5a25
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5a63
 	.uleb128 0x11
-	.long	0x4a01
+	.long	0x4cc5
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x56f6
+	.long	0x5a3e
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5702
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x573a
+	.long	0x5a4a
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5a82
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x49ef
+	.long	0x4cb3
 	.uleb128 0x11
-	.long	0x56f6
+	.long	0x5a3e
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5721
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5759
+	.long	0x5a69
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5aa1
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x4a01
+	.long	0x4cc5
 	.uleb128 0x11
-	.long	0x56f6
+	.long	0x5a3e
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5740
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5778
+	.long	0x5a88
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5ac0
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x56f6
+	.long	0x5a3e
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x575f
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x579c
+	.long	0x5aa7
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5ae4
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x5359
+	.long	0x56c1
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x577e
+	.long	0x5ac6
 	.uleb128 0x5
 	.ascii "PMC_UINT_ENTRY_POINTS\0"
-	.byte	0x1e
-	.word	0x11c
+	.byte	0x1f
+	.word	0x120
 	.byte	0x3
-	.long	0x4cab
+	.long	0x5040
 	.uleb128 0x7
 	.ascii "__tag_PMC_SINT_ENTRY_POINTS\0"
-	.word	0x338
-	.byte	0x1e
-	.word	0x11e
+	.word	0x360
+	.byte	0x1f
+	.word	0x122
 	.byte	0x10
-	.long	0x5a46
+	.long	0x5e05
 	.uleb128 0x9
-	.ascii "uint\0"
-	.byte	0x1e
-	.word	0x121
+	.ascii "UINT_ENTRY_POINTS\0"
+	.byte	0x1f
+	.word	0x125
 	.byte	0x1b
-	.long	0x57a2
+	.long	0x5aea
 	.byte	0
-	.uleb128 0x1e
-	.secrel32	.LASF1
-	.byte	0x1e
-	.word	0x124
+	.uleb128 0x26
+	.secrel32	.LASF6
+	.byte	0x1f
+	.word	0x128
 	.byte	0xe
-	.long	0x533f
-	.word	0x230
+	.long	0x56a7
+	.word	0x228
 	.uleb128 0xa
 	.ascii "From_I\0"
-	.byte	0x1e
-	.word	0x127
+	.byte	0x1f
+	.word	0x12b
 	.byte	0x19
-	.long	0x5a60
-	.word	0x238
+	.long	0x5e1f
+	.word	0x230
 	.uleb128 0xa
 	.ascii "From_L\0"
-	.byte	0x1e
-	.word	0x12a
+	.byte	0x1f
+	.word	0x12e
 	.byte	0x19
-	.long	0x5a7a
-	.word	0x240
+	.long	0x5e39
+	.word	0x238
 	.uleb128 0xa
 	.ascii "Dispose\0"
-	.byte	0x1e
-	.word	0x12d
+	.byte	0x1f
+	.word	0x131
 	.byte	0xe
-	.long	0x5a8b
+	.long	0x5e4a
+	.word	0x240
+	.uleb128 0x26
+	.secrel32	.LASF7
+	.byte	0x1f
+	.word	0x134
+	.byte	0x19
+	.long	0x5e64
 	.word	0x248
-	.uleb128 0x1e
-	.secrel32	.LASF2
-	.byte	0x1e
-	.word	0x130
-	.byte	0x19
-	.long	0x5aa5
-	.word	0x250
-	.uleb128 0x1e
-	.secrel32	.LASF3
-	.byte	0x1e
-	.word	0x133
-	.byte	0x19
-	.long	0x5abf
-	.word	0x258
-	.uleb128 0x1e
-	.secrel32	.LASF4
-	.byte	0x1e
-	.word	0x136
-	.byte	0x19
-	.long	0x5ade
-	.word	0x260
-	.uleb128 0x1e
-	.secrel32	.LASF5
-	.byte	0x1e
+	.uleb128 0x26
+	.secrel32	.LASF8
+	.byte	0x1f
 	.word	0x137
 	.byte	0x19
-	.long	0x5b02
-	.word	0x268
+	.long	0x5e83
+	.word	0x250
+	.uleb128 0x26
+	.secrel32	.LASF9
+	.byte	0x1f
+	.word	0x138
+	.byte	0x19
+	.long	0x5ea7
+	.word	0x258
 	.uleb128 0xa
 	.ascii "Clone_X\0"
-	.byte	0x1e
-	.word	0x13a
+	.byte	0x1f
+	.word	0x13b
 	.byte	0x19
-	.long	0x5b1c
-	.word	0x270
+	.long	0x5ec1
+	.word	0x260
 	.uleb128 0xa
 	.ascii "To_X_I\0"
-	.byte	0x1e
-	.word	0x13d
-	.byte	0x19
-	.long	0x5b36
-	.word	0x278
-	.uleb128 0xa
-	.ascii "To_X_L\0"
-	.byte	0x1e
+	.byte	0x1f
 	.word	0x13e
 	.byte	0x19
-	.long	0x5b56
-	.word	0x280
+	.long	0x5edb
+	.word	0x268
+	.uleb128 0xa
+	.ascii "To_X_L\0"
+	.byte	0x1f
+	.word	0x13f
+	.byte	0x19
+	.long	0x5efb
+	.word	0x270
 	.uleb128 0xa
 	.ascii "Negate_X\0"
-	.byte	0x1e
-	.word	0x141
+	.byte	0x1f
+	.word	0x142
 	.byte	0x19
-	.long	0x5b1c
-	.word	0x288
+	.long	0x5ec1
+	.word	0x278
 	.uleb128 0xa
 	.ascii "Add_I_X\0"
-	.byte	0x1e
-	.word	0x14b
-	.byte	0x19
-	.long	0x5b75
-	.word	0x290
-	.uleb128 0xa
-	.ascii "Add_L_X\0"
-	.byte	0x1e
+	.byte	0x1f
 	.word	0x14c
 	.byte	0x19
-	.long	0x5b94
-	.word	0x298
+	.long	0x5f1a
+	.word	0x280
 	.uleb128 0xa
-	.ascii "Add_UX_X\0"
-	.byte	0x1e
+	.ascii "Add_L_X\0"
+	.byte	0x1f
 	.word	0x14d
 	.byte	0x19
-	.long	0x5bb3
-	.word	0x2a0
+	.long	0x5f39
+	.word	0x288
 	.uleb128 0xa
-	.ascii "Add_X_I\0"
-	.byte	0x1e
+	.ascii "Add_UX_X\0"
+	.byte	0x1f
 	.word	0x14e
 	.byte	0x19
-	.long	0x5bd2
-	.word	0x2a8
+	.long	0x5f58
+	.word	0x290
 	.uleb128 0xa
-	.ascii "Add_X_L\0"
-	.byte	0x1e
+	.ascii "Add_X_I\0"
+	.byte	0x1f
 	.word	0x14f
 	.byte	0x19
-	.long	0x5bf1
-	.word	0x2b0
+	.long	0x5f77
+	.word	0x298
 	.uleb128 0xa
-	.ascii "Add_X_UX\0"
-	.byte	0x1e
+	.ascii "Add_X_L\0"
+	.byte	0x1f
 	.word	0x150
 	.byte	0x19
-	.long	0x5c10
-	.word	0x2b8
+	.long	0x5f96
+	.word	0x2a0
 	.uleb128 0xa
-	.ascii "Add_X_X\0"
-	.byte	0x1e
+	.ascii "Add_X_UX\0"
+	.byte	0x1f
 	.word	0x151
 	.byte	0x19
-	.long	0x5c2f
-	.word	0x2c0
-	.uleb128 0x1e
-	.secrel32	.LASF6
-	.byte	0x1e
-	.word	0x154
+	.long	0x5fb5
+	.word	0x2a8
+	.uleb128 0xa
+	.ascii "Add_X_X\0"
+	.byte	0x1f
+	.word	0x152
 	.byte	0x19
-	.long	0x5b75
-	.word	0x2c8
-	.uleb128 0x1e
-	.secrel32	.LASF7
-	.byte	0x1e
+	.long	0x5fd4
+	.word	0x2b0
+	.uleb128 0x26
+	.secrel32	.LASF10
+	.byte	0x1f
 	.word	0x155
 	.byte	0x19
-	.long	0x5b94
-	.word	0x2d0
-	.uleb128 0xa
-	.ascii "Subtruct_UX_X\0"
-	.byte	0x1e
+	.long	0x5f1a
+	.word	0x2b8
+	.uleb128 0x26
+	.secrel32	.LASF11
+	.byte	0x1f
 	.word	0x156
 	.byte	0x19
-	.long	0x5bb3
-	.word	0x2d8
-	.uleb128 0x1e
-	.secrel32	.LASF8
-	.byte	0x1e
+	.long	0x5f39
+	.word	0x2c0
+	.uleb128 0xa
+	.ascii "Subtruct_UX_X\0"
+	.byte	0x1f
 	.word	0x157
 	.byte	0x19
-	.long	0x5bd2
-	.word	0x2e0
-	.uleb128 0x1e
-	.secrel32	.LASF9
-	.byte	0x1e
+	.long	0x5f58
+	.word	0x2c8
+	.uleb128 0x26
+	.secrel32	.LASF12
+	.byte	0x1f
 	.word	0x158
 	.byte	0x19
-	.long	0x5bf1
-	.word	0x2e8
-	.uleb128 0xa
-	.ascii "Subtruct_X_UX\0"
-	.byte	0x1e
+	.long	0x5f77
+	.word	0x2d0
+	.uleb128 0x26
+	.secrel32	.LASF13
+	.byte	0x1f
 	.word	0x159
 	.byte	0x19
-	.long	0x5c10
-	.word	0x2f0
-	.uleb128 0x1e
-	.secrel32	.LASF10
-	.byte	0x1e
+	.long	0x5f96
+	.word	0x2d8
+	.uleb128 0xa
+	.ascii "Subtruct_X_UX\0"
+	.byte	0x1f
 	.word	0x15a
 	.byte	0x19
-	.long	0x5c2f
-	.word	0x2f8
-	.uleb128 0x1e
-	.secrel32	.LASF11
-	.byte	0x1e
-	.word	0x15d
+	.long	0x5fb5
+	.word	0x2e0
+	.uleb128 0x26
+	.secrel32	.LASF14
+	.byte	0x1f
+	.word	0x15b
 	.byte	0x19
-	.long	0x5b75
-	.word	0x300
-	.uleb128 0x1e
-	.secrel32	.LASF12
-	.byte	0x1e
+	.long	0x5fd4
+	.word	0x2e8
+	.uleb128 0x26
+	.secrel32	.LASF15
+	.byte	0x1f
 	.word	0x15e
 	.byte	0x19
-	.long	0x5b94
-	.word	0x308
-	.uleb128 0xa
-	.ascii "Multiply_UX_X\0"
-	.byte	0x1e
+	.long	0x5f1a
+	.word	0x2f0
+	.uleb128 0x26
+	.secrel32	.LASF16
+	.byte	0x1f
 	.word	0x15f
 	.byte	0x19
-	.long	0x5bb3
-	.word	0x310
-	.uleb128 0x1e
-	.secrel32	.LASF13
-	.byte	0x1e
+	.long	0x5f39
+	.word	0x2f8
+	.uleb128 0xa
+	.ascii "Multiply_UX_X\0"
+	.byte	0x1f
 	.word	0x160
 	.byte	0x19
-	.long	0x5bd2
-	.word	0x318
-	.uleb128 0x1e
-	.secrel32	.LASF14
-	.byte	0x1e
+	.long	0x5f58
+	.word	0x300
+	.uleb128 0x26
+	.secrel32	.LASF17
+	.byte	0x1f
 	.word	0x161
 	.byte	0x19
-	.long	0x5bf1
-	.word	0x320
-	.uleb128 0xa
-	.ascii "Multiply_X_UX\0"
-	.byte	0x1e
+	.long	0x5f77
+	.word	0x308
+	.uleb128 0x26
+	.secrel32	.LASF18
+	.byte	0x1f
 	.word	0x162
 	.byte	0x19
-	.long	0x5c10
-	.word	0x328
-	.uleb128 0x1e
-	.secrel32	.LASF15
-	.byte	0x1e
+	.long	0x5f96
+	.word	0x310
+	.uleb128 0xa
+	.ascii "Multiply_X_UX\0"
+	.byte	0x1f
 	.word	0x163
 	.byte	0x19
-	.long	0x5c2f
+	.long	0x5fb5
+	.word	0x318
+	.uleb128 0x26
+	.secrel32	.LASF19
+	.byte	0x1f
+	.word	0x164
+	.byte	0x19
+	.long	0x5fd4
+	.word	0x320
+	.uleb128 0x26
+	.secrel32	.LASF20
+	.byte	0x1f
+	.word	0x167
+	.byte	0x19
+	.long	0x5ff8
+	.word	0x328
+	.uleb128 0x26
+	.secrel32	.LASF21
+	.byte	0x1f
+	.word	0x168
+	.byte	0x19
+	.long	0x601c
 	.word	0x330
+	.uleb128 0xa
+	.ascii "DivRem_UX_X\0"
+	.byte	0x1f
+	.word	0x169
+	.byte	0x19
+	.long	0x6040
+	.word	0x338
+	.uleb128 0x26
+	.secrel32	.LASF22
+	.byte	0x1f
+	.word	0x16a
+	.byte	0x19
+	.long	0x6064
+	.word	0x340
+	.uleb128 0x26
+	.secrel32	.LASF23
+	.byte	0x1f
+	.word	0x16b
+	.byte	0x19
+	.long	0x6088
+	.word	0x348
+	.uleb128 0xa
+	.ascii "DivRem_X_UX\0"
+	.byte	0x1f
+	.word	0x16c
+	.byte	0x19
+	.long	0x60ac
+	.word	0x350
+	.uleb128 0x26
+	.secrel32	.LASF24
+	.byte	0x1f
+	.word	0x16d
+	.byte	0x19
+	.long	0x60d0
+	.word	0x358
 	.byte	0
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5a5a
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5e19
 	.uleb128 0x11
-	.long	0x49cd
+	.long	0x4c91
 	.uleb128 0x11
-	.long	0x5a5a
+	.long	0x5e19
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5a46
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5a7a
+	.long	0x5e05
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5e39
 	.uleb128 0x11
-	.long	0x49de
+	.long	0x4ca2
 	.uleb128 0x11
-	.long	0x5a5a
+	.long	0x5e19
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5a66
+	.long	0x5e25
 	.uleb128 0x10
-	.long	0x5a8b
+	.long	0x5e4a
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5a80
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5aa5
+	.long	0x5e3f
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5e64
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4cef
 	.uleb128 0x11
-	.long	0x53a4
+	.long	0x5e19
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5a91
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5abf
-	.uleb128 0x11
-	.long	0x4a48
-	.uleb128 0x11
-	.long	0x5a5a
-	.byte	0
-	.uleb128 0x6
-	.byte	0x8
-	.long	0x5aab
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5ade
+	.long	0x5e50
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5e83
 	.uleb128 0x11
 	.long	0x756
 	.uleb128 0x11
 	.long	0xd0
 	.uleb128 0x11
-	.long	0x5a5a
+	.long	0x5e19
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5ac5
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5b02
+	.long	0x5e6a
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5ea7
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x11
 	.long	0x756
 	.uleb128 0x11
 	.long	0xd0
 	.uleb128 0x11
-	.long	0x5407
+	.long	0x574f
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5ae4
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5b1c
+	.long	0x5e89
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5ec1
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x11
-	.long	0x5a5a
+	.long	0x5e19
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5b08
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5b36
+	.long	0x5ead
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5edb
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x11
-	.long	0x56f6
+	.long	0x5a3e
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5b22
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5b50
+	.long	0x5ec7
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5ef5
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x11
-	.long	0x5b50
+	.long	0x5ef5
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x49de
+	.long	0x4ca2
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5b3c
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5b75
+	.long	0x5ee1
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5f1a
 	.uleb128 0x11
-	.long	0x49cd
+	.long	0x4c91
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x11
-	.long	0x5a5a
+	.long	0x5e19
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5b5c
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5b94
+	.long	0x5f01
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5f39
 	.uleb128 0x11
-	.long	0x49de
+	.long	0x4ca2
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x11
-	.long	0x5a5a
+	.long	0x5e19
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5b7b
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5bb3
+	.long	0x5f20
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5f58
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x11
-	.long	0x5a5a
+	.long	0x5e19
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5b9a
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5bd2
+	.long	0x5f3f
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5f77
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x11
-	.long	0x49cd
+	.long	0x4c91
 	.uleb128 0x11
-	.long	0x5a5a
+	.long	0x5e19
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5bb9
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5bf1
+	.long	0x5f5e
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5f96
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x11
-	.long	0x49de
+	.long	0x4ca2
 	.uleb128 0x11
-	.long	0x5a5a
+	.long	0x5e19
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5bd8
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5c10
+	.long	0x5f7d
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5fb5
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x11
-	.long	0x4ab5
+	.long	0x4dcb
 	.uleb128 0x11
-	.long	0x5a5a
+	.long	0x5e19
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5bf7
-	.uleb128 0x1d
-	.long	0x4a13
-	.long	0x5c2f
+	.long	0x5f9c
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5fd4
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x11
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x11
-	.long	0x5a5a
+	.long	0x5e19
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5c16
+	.long	0x5fbb
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x5ff8
+	.uleb128 0x11
+	.long	0x4c91
+	.uleb128 0x11
+	.long	0x4e97
+	.uleb128 0x11
+	.long	0x5e19
+	.uleb128 0x11
+	.long	0x5e19
+	.byte	0
+	.uleb128 0x6
+	.byte	0x8
+	.long	0x5fda
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x601c
+	.uleb128 0x11
+	.long	0x4ca2
+	.uleb128 0x11
+	.long	0x4e97
+	.uleb128 0x11
+	.long	0x5e19
+	.uleb128 0x11
+	.long	0x5e19
+	.byte	0
+	.uleb128 0x6
+	.byte	0x8
+	.long	0x5ffe
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x6040
+	.uleb128 0x11
+	.long	0x4dcb
+	.uleb128 0x11
+	.long	0x4e97
+	.uleb128 0x11
+	.long	0x5e19
+	.uleb128 0x11
+	.long	0x56c1
+	.byte	0
+	.uleb128 0x6
+	.byte	0x8
+	.long	0x6022
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x6064
+	.uleb128 0x11
+	.long	0x4e97
+	.uleb128 0x11
+	.long	0x4c91
+	.uleb128 0x11
+	.long	0x5e19
+	.uleb128 0x11
+	.long	0x5a3e
+	.byte	0
+	.uleb128 0x6
+	.byte	0x8
+	.long	0x6046
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x6088
+	.uleb128 0x11
+	.long	0x4e97
+	.uleb128 0x11
+	.long	0x4ca2
+	.uleb128 0x11
+	.long	0x5e19
+	.uleb128 0x11
+	.long	0x5ef5
+	.byte	0
+	.uleb128 0x6
+	.byte	0x8
+	.long	0x606a
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x60ac
+	.uleb128 0x11
+	.long	0x4e97
+	.uleb128 0x11
+	.long	0x4dcb
+	.uleb128 0x11
+	.long	0x5e19
+	.uleb128 0x11
+	.long	0x5e19
+	.byte	0
+	.uleb128 0x6
+	.byte	0x8
+	.long	0x608e
+	.uleb128 0x25
+	.long	0x4cd7
+	.long	0x60d0
+	.uleb128 0x11
+	.long	0x4e97
+	.uleb128 0x11
+	.long	0x4e97
+	.uleb128 0x11
+	.long	0x5e19
+	.uleb128 0x11
+	.long	0x5e19
+	.byte	0
+	.uleb128 0x6
+	.byte	0x8
+	.long	0x60b2
 	.uleb128 0x5
 	.ascii "PMC_SINT_ENTRY_POINTS\0"
-	.byte	0x1e
-	.word	0x1a2
+	.byte	0x1f
+	.word	0x1a6
 	.byte	0x3
-	.long	0x57c1
+	.long	0x5b09
 	.uleb128 0x12
 	.ascii "__tag_NUMBER_HEADER\0"
-	.byte	0x18
-	.byte	0x1f
+	.byte	0x20
+	.byte	0x20
 	.byte	0x2b
 	.byte	0x14
-	.long	0x5d3b
-	.uleb128 0x13
-	.ascii "SIGNATURE1\0"
-	.byte	0x1f
+	.long	0x61bc
+	.uleb128 0x1d
+	.secrel32	.LASF1
+	.byte	0x20
 	.byte	0x2d
-	.byte	0x13
-	.long	0x49ef
-	.byte	0
-	.uleb128 0x13
-	.ascii "SIGNATURE2\0"
-	.byte	0x1f
-	.byte	0x2e
-	.byte	0x13
-	.long	0x49ef
-	.byte	0x4
-	.uleb128 0x13
-	.ascii "ABS\0"
-	.byte	0x1f
-	.byte	0x2f
-	.byte	0x19
-	.long	0x4ab5
-	.byte	0x8
-	.uleb128 0x13
-	.ascii "SIGN\0"
-	.byte	0x1f
-	.byte	0x30
-	.byte	0xe
-	.long	0xc8
-	.byte	0x10
-	.uleb128 0x1a
-	.ascii "IS_STATIC\0"
-	.byte	0x1f
-	.byte	0x31
 	.byte	0x12
 	.long	0x462
 	.byte	0x4
 	.byte	0x1
 	.byte	0x1f
-	.byte	0x14
-	.uleb128 0x1a
-	.ascii "IS_ZERO\0"
-	.byte	0x1f
-	.byte	0x32
+	.byte	0
+	.uleb128 0x1d
+	.secrel32	.LASF2
+	.byte	0x20
+	.byte	0x2e
 	.byte	0x12
 	.long	0x462
 	.byte	0x4
 	.byte	0x1
 	.byte	0x1e
-	.byte	0x14
-	.uleb128 0x1a
-	.ascii "IS_ONE\0"
-	.byte	0x1f
-	.byte	0x33
+	.byte	0
+	.uleb128 0x1d
+	.secrel32	.LASF5
+	.byte	0x20
+	.byte	0x2f
 	.byte	0x12
 	.long	0x462
 	.byte	0x4
 	.byte	0x1
 	.byte	0x1d
-	.byte	0x14
-	.uleb128 0x1a
-	.ascii "IS_MINUS_ONE\0"
-	.byte	0x1f
-	.byte	0x34
+	.byte	0
+	.uleb128 0x1d
+	.secrel32	.LASF3
+	.byte	0x20
+	.byte	0x30
 	.byte	0x12
 	.long	0x462
 	.byte	0x4
 	.byte	0x1
 	.byte	0x1c
-	.byte	0x14
-	.uleb128 0x1a
-	.ascii "IS_EVEN\0"
-	.byte	0x1f
-	.byte	0x35
+	.byte	0
+	.uleb128 0x1d
+	.secrel32	.LASF4
+	.byte	0x20
+	.byte	0x31
 	.byte	0x12
 	.long	0x462
 	.byte	0x4
 	.byte	0x1
 	.byte	0x1b
-	.byte	0x14
-	.uleb128 0x1a
-	.ascii "IS_POWER_OF_TWO\0"
-	.byte	0x1f
+	.byte	0
+	.uleb128 0x13
+	.ascii "SIGNATURE1\0"
+	.byte	0x20
+	.byte	0x33
+	.byte	0x13
+	.long	0x4cb3
+	.byte	0x4
+	.uleb128 0x13
+	.ascii "SIGNATURE2\0"
+	.byte	0x20
+	.byte	0x34
+	.byte	0x13
+	.long	0x4cb3
+	.byte	0x8
+	.uleb128 0x13
+	.ascii "ABS\0"
+	.byte	0x20
 	.byte	0x36
+	.byte	0x19
+	.long	0x4dcb
+	.byte	0x10
+	.uleb128 0x13
+	.ascii "SIGN\0"
+	.byte	0x20
+	.byte	0x37
+	.byte	0xe
+	.long	0xc8
+	.byte	0x18
+	.uleb128 0x21
+	.ascii "IS_STATIC\0"
+	.byte	0x20
+	.byte	0x39
 	.byte	0x12
 	.long	0x462
 	.byte	0x4
 	.byte	0x1
-	.byte	0x1a
-	.byte	0x14
+	.byte	0x1f
+	.byte	0x1c
 	.byte	0
 	.uleb128 0x3
 	.ascii "NUMBER_HEADER\0"
-	.byte	0x1f
-	.byte	0x37
+	.byte	0x20
+	.byte	0x3a
 	.byte	0x7
-	.long	0x5c54
+	.long	0x60f5
 	.uleb128 0x15
 	.ascii "ep_uint\0"
-	.byte	0x1f
-	.byte	0x3d
+	.byte	0x20
+	.byte	0x40
 	.byte	0x22
-	.long	0x57a2
+	.long	0x5aea
 	.uleb128 0x15
 	.ascii "number_zero\0"
-	.byte	0x1f
-	.byte	0x40
-	.byte	0x1a
-	.long	0x5d3b
-	.uleb128 0x15
-	.ascii "number_one\0"
-	.byte	0x1f
+	.byte	0x20
 	.byte	0x43
 	.byte	0x1a
-	.long	0x5d3b
+	.long	0x61bc
 	.uleb128 0x15
-	.ascii "number_minus_one\0"
-	.byte	0x1f
+	.ascii "number_one\0"
+	.byte	0x20
 	.byte	0x46
 	.byte	0x1a
-	.long	0x5d3b
+	.long	0x61bc
+	.uleb128 0x15
+	.ascii "number_minus_one\0"
+	.byte	0x20
+	.byte	0x49
+	.byte	0x1a
+	.long	0x61bc
+	.uleb128 0x27
+	.ascii "uint_number_zero\0"
+	.byte	0x20
+	.byte	0x4c
+	.byte	0x15
+	.long	0x4dcb
+	.uleb128 0x9
+	.byte	0x3
+	.quad	uint_number_zero
+	.uleb128 0x27
+	.ascii "uint_number_one\0"
+	.byte	0x20
+	.byte	0x4f
+	.byte	0x15
+	.long	0x4dcb
+	.uleb128 0x9
+	.byte	0x3
+	.quad	uint_number_one
 	.uleb128 0x15
 	.ascii "statistics_info\0"
-	.byte	0x1f
-	.byte	0x49
 	.byte	0x20
-	.long	0x4b9c
+	.byte	0x52
+	.byte	0x20
+	.long	0x4f31
 	.uleb128 0x12
 	.ascii "__tag_PMC_DEBUG_ENVIRONMENT\0"
 	.byte	0x10
 	.byte	0x1
 	.byte	0x26
 	.byte	0x10
-	.long	0x5dfb
+	.long	0x62c1
 	.uleb128 0x13
 	.ascii "log\0"
 	.byte	0x1
 	.byte	0x28
 	.byte	0x27
-	.long	0x5e0b
+	.long	0x62d1
 	.byte	0
 	.uleb128 0x13
 	.ascii "pause\0"
@@ -6390,23 +6819,23 @@ TEST_To_X_L:
 	.long	0x81a
 	.byte	0x8
 	.byte	0
-	.uleb128 0x1d
+	.uleb128 0x25
 	.long	0x13a
-	.long	0x5e0b
+	.long	0x62d1
 	.uleb128 0x11
 	.long	0x821
-	.uleb128 0x1f
+	.uleb128 0x28
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5dfb
+	.long	0x62c1
 	.uleb128 0x3
 	.ascii "PMC_DEBUG_ENVIRONMENT\0"
 	.byte	0x1
 	.byte	0x2a
 	.byte	0x3
-	.long	0x5db9
-	.uleb128 0x20
+	.long	0x627f
+	.uleb128 0x29
 	.ascii "TEST_To_X_L\0"
 	.byte	0x2
 	.byte	0x4a
@@ -6415,26 +6844,26 @@ TEST_To_X_L:
 	.quad	.LFE4277-.LFB4277
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x5efa
-	.uleb128 0x21
+	.long	0x63c0
+	.uleb128 0x2a
 	.ascii "env\0"
 	.byte	0x2
 	.byte	0x4a
 	.byte	0x29
-	.long	0x5efa
+	.long	0x63c0
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "ep\0"
 	.byte	0x2
 	.byte	0x4a
 	.byte	0x45
-	.long	0x5f00
+	.long	0x63c6
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "no\0"
 	.byte	0x2
 	.byte	0x4a
@@ -6443,7 +6872,7 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 16
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "buf\0"
 	.byte	0x2
 	.byte	0x4a
@@ -6452,8 +6881,8 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 24
-	.uleb128 0x22
-	.secrel32	.LASF16
+	.uleb128 0x2b
+	.secrel32	.LASF25
 	.byte	0x2
 	.byte	0x4a
 	.byte	0x6b
@@ -6461,17 +6890,17 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 32
-	.uleb128 0x22
-	.secrel32	.LASF17
+	.uleb128 0x2b
+	.secrel32	.LASF26
 	.byte	0x2
 	.byte	0x4a
 	.byte	0x85
-	.long	0x4a13
+	.long	0x4cd7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 40
-	.uleb128 0x22
-	.secrel32	.LASF18
+	.uleb128 0x2b
+	.secrel32	.LASF27
 	.byte	0x2
 	.byte	0x4a
 	.byte	0xa1
@@ -6479,16 +6908,16 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 48
-	.uleb128 0x23
+	.uleb128 0x2c
 	.ascii "x\0"
 	.byte	0x2
 	.byte	0x4c
 	.byte	0x15
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -48
-	.uleb128 0x23
+	.uleb128 0x2c
 	.ascii "rvalue\0"
 	.byte	0x2
 	.byte	0x4d
@@ -6497,32 +6926,32 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -56
-	.uleb128 0x24
-	.secrel32	.LASF19
+	.uleb128 0x2d
+	.secrel32	.LASF28
 	.byte	0x2
 	.byte	0x4e
 	.byte	0x15
-	.long	0x4a13
+	.long	0x4cd7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -40
-	.uleb128 0x24
-	.secrel32	.LASF20
+	.uleb128 0x2d
+	.secrel32	.LASF29
 	.byte	0x2
 	.byte	0x4f
 	.byte	0x15
-	.long	0x4a13
+	.long	0x4cd7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -36
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5e11
+	.long	0x62d7
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x5c35
-	.uleb128 0x20
+	.long	0x60d6
+	.uleb128 0x29
 	.ascii "TEST_To_X_I\0"
 	.byte	0x2
 	.byte	0x3c
@@ -6531,26 +6960,26 @@ TEST_To_X_L:
 	.quad	.LFE4276-.LFB4276
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x5fd1
-	.uleb128 0x21
+	.long	0x6497
+	.uleb128 0x2a
 	.ascii "env\0"
 	.byte	0x2
 	.byte	0x3c
 	.byte	0x29
-	.long	0x5efa
+	.long	0x63c0
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "ep\0"
 	.byte	0x2
 	.byte	0x3c
 	.byte	0x45
-	.long	0x5f00
+	.long	0x63c6
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "no\0"
 	.byte	0x2
 	.byte	0x3c
@@ -6559,7 +6988,7 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 16
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "buf\0"
 	.byte	0x2
 	.byte	0x3c
@@ -6568,8 +6997,8 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 24
-	.uleb128 0x22
-	.secrel32	.LASF16
+	.uleb128 0x2b
+	.secrel32	.LASF25
 	.byte	0x2
 	.byte	0x3c
 	.byte	0x6b
@@ -6577,17 +7006,17 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 32
-	.uleb128 0x22
-	.secrel32	.LASF17
+	.uleb128 0x2b
+	.secrel32	.LASF26
 	.byte	0x2
 	.byte	0x3c
 	.byte	0x85
-	.long	0x4a13
+	.long	0x4cd7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 40
-	.uleb128 0x22
-	.secrel32	.LASF18
+	.uleb128 0x2b
+	.secrel32	.LASF27
 	.byte	0x2
 	.byte	0x3c
 	.byte	0xa1
@@ -6595,16 +7024,16 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 48
-	.uleb128 0x23
+	.uleb128 0x2c
 	.ascii "x\0"
 	.byte	0x2
 	.byte	0x3e
 	.byte	0x15
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -48
-	.uleb128 0x23
+	.uleb128 0x2c
 	.ascii "rvalue\0"
 	.byte	0x2
 	.byte	0x3f
@@ -6613,26 +7042,26 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -52
-	.uleb128 0x24
-	.secrel32	.LASF19
+	.uleb128 0x2d
+	.secrel32	.LASF28
 	.byte	0x2
 	.byte	0x40
 	.byte	0x15
-	.long	0x4a13
+	.long	0x4cd7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -40
-	.uleb128 0x24
-	.secrel32	.LASF20
+	.uleb128 0x2d
+	.secrel32	.LASF29
 	.byte	0x2
 	.byte	0x41
 	.byte	0x15
-	.long	0x4a13
+	.long	0x4cd7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -36
 	.byte	0
-	.uleb128 0x20
+	.uleb128 0x29
 	.ascii "TEST_From_L\0"
 	.byte	0x2
 	.byte	0x2e
@@ -6641,26 +7070,26 @@ TEST_To_X_L:
 	.quad	.LFE4275-.LFB4275
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x60a1
-	.uleb128 0x21
+	.long	0x6567
+	.uleb128 0x2a
 	.ascii "env\0"
 	.byte	0x2
 	.byte	0x2e
 	.byte	0x29
-	.long	0x5efa
+	.long	0x63c0
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "ep\0"
 	.byte	0x2
 	.byte	0x2e
 	.byte	0x45
-	.long	0x5f00
+	.long	0x63c6
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "no\0"
 	.byte	0x2
 	.byte	0x2e
@@ -6669,7 +7098,7 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 16
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "v\0"
 	.byte	0x2
 	.byte	0x2e
@@ -6678,7 +7107,7 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 24
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "buf\0"
 	.byte	0x2
 	.byte	0x2e
@@ -6687,8 +7116,8 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 32
-	.uleb128 0x22
-	.secrel32	.LASF16
+	.uleb128 0x2b
+	.secrel32	.LASF25
 	.byte	0x2
 	.byte	0x2e
 	.byte	0x75
@@ -6696,16 +7125,16 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 40
-	.uleb128 0x23
+	.uleb128 0x2c
 	.ascii "x\0"
 	.byte	0x2
 	.byte	0x30
 	.byte	0x15
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -48
-	.uleb128 0x23
+	.uleb128 0x2c
 	.ascii "rbuffer\0"
 	.byte	0x2
 	.byte	0x31
@@ -6714,7 +7143,7 @@ TEST_To_X_L:
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -304
-	.uleb128 0x23
+	.uleb128 0x2c
 	.ascii "rlength\0"
 	.byte	0x2
 	.byte	0x32
@@ -6723,26 +7152,26 @@ TEST_To_X_L:
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -312
-	.uleb128 0x24
-	.secrel32	.LASF19
+	.uleb128 0x2d
+	.secrel32	.LASF28
 	.byte	0x2
 	.byte	0x33
 	.byte	0x15
-	.long	0x4a13
+	.long	0x4cd7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -40
-	.uleb128 0x24
-	.secrel32	.LASF20
+	.uleb128 0x2d
+	.secrel32	.LASF29
 	.byte	0x2
 	.byte	0x34
 	.byte	0x15
-	.long	0x4a13
+	.long	0x4cd7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -36
 	.byte	0
-	.uleb128 0x20
+	.uleb128 0x29
 	.ascii "TEST_From_I\0"
 	.byte	0x2
 	.byte	0x20
@@ -6751,26 +7180,26 @@ TEST_To_X_L:
 	.quad	.LFE4274-.LFB4274
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x6171
-	.uleb128 0x21
+	.long	0x6637
+	.uleb128 0x2a
 	.ascii "env\0"
 	.byte	0x2
 	.byte	0x20
 	.byte	0x29
-	.long	0x5efa
+	.long	0x63c0
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "ep\0"
 	.byte	0x2
 	.byte	0x20
 	.byte	0x45
-	.long	0x5f00
+	.long	0x63c6
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "no\0"
 	.byte	0x2
 	.byte	0x20
@@ -6779,7 +7208,7 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 16
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "v\0"
 	.byte	0x2
 	.byte	0x20
@@ -6788,7 +7217,7 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 24
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "buf\0"
 	.byte	0x2
 	.byte	0x20
@@ -6797,8 +7226,8 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 32
-	.uleb128 0x22
-	.secrel32	.LASF16
+	.uleb128 0x2b
+	.secrel32	.LASF25
 	.byte	0x2
 	.byte	0x20
 	.byte	0x75
@@ -6806,16 +7235,16 @@ TEST_To_X_L:
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 40
-	.uleb128 0x23
+	.uleb128 0x2c
 	.ascii "x\0"
 	.byte	0x2
 	.byte	0x22
 	.byte	0x15
-	.long	0x4b02
+	.long	0x4e97
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -48
-	.uleb128 0x23
+	.uleb128 0x2c
 	.ascii "rbuffer\0"
 	.byte	0x2
 	.byte	0x23
@@ -6824,7 +7253,7 @@ TEST_To_X_L:
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -304
-	.uleb128 0x23
+	.uleb128 0x2c
 	.ascii "rlength\0"
 	.byte	0x2
 	.byte	0x24
@@ -6833,66 +7262,66 @@ TEST_To_X_L:
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -312
-	.uleb128 0x24
-	.secrel32	.LASF19
+	.uleb128 0x2d
+	.secrel32	.LASF28
 	.byte	0x2
 	.byte	0x25
 	.byte	0x15
-	.long	0x4a13
+	.long	0x4cd7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -40
-	.uleb128 0x24
-	.secrel32	.LASF20
+	.uleb128 0x2d
+	.secrel32	.LASF29
 	.byte	0x2
 	.byte	0x26
 	.byte	0x15
-	.long	0x4a13
+	.long	0x4cd7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -36
 	.byte	0
-	.uleb128 0x25
+	.uleb128 0x2e
 	.ascii "_EQUALS_MEMORY\0"
 	.byte	0x1
-	.byte	0x5e
+	.byte	0x6c
 	.byte	0x15
 	.long	0x13a
 	.quad	.LFB4273
 	.quad	.LFE4273-.LFB4273
 	.uleb128 0x1
 	.byte	0x9c
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "buffer1\0"
 	.byte	0x1
-	.byte	0x5e
+	.byte	0x6c
 	.byte	0x33
 	.long	0x756
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "count1\0"
 	.byte	0x1
-	.byte	0x5e
+	.byte	0x6c
 	.byte	0x43
 	.long	0xd0
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 8
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "buffer2\0"
 	.byte	0x1
-	.byte	0x5e
+	.byte	0x6c
 	.byte	0x5a
 	.long	0x756
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 16
-	.uleb128 0x21
+	.uleb128 0x2a
 	.ascii "count2\0"
 	.byte	0x1
-	.byte	0x5e
+	.byte	0x6c
 	.byte	0x6a
 	.long	0xd0
 	.uleb128 0x2
@@ -7213,6 +7642,121 @@ TEST_To_X_L:
 	.byte	0
 	.byte	0
 	.uleb128 0x19
+	.uleb128 0x4
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x1a
+	.uleb128 0x28
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x1c
+	.uleb128 0xb
+	.byte	0
+	.byte	0
+	.uleb128 0x1b
+	.uleb128 0x4
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x1c
+	.uleb128 0x28
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x1c
+	.uleb128 0x5
+	.byte	0
+	.byte	0
+	.uleb128 0x1d
+	.uleb128 0xd
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0xd
+	.uleb128 0xb
+	.uleb128 0xc
+	.uleb128 0xb
+	.uleb128 0x38
+	.uleb128 0xb
+	.byte	0
+	.byte	0
+	.uleb128 0x1e
+	.uleb128 0x17
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x1f
+	.uleb128 0xd
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x20
 	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x3
@@ -7229,7 +7773,7 @@ TEST_To_X_L:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x1a
+	.uleb128 0x21
 	.uleb128 0xd
 	.byte	0
 	.uleb128 0x3
@@ -7252,7 +7796,7 @@ TEST_To_X_L:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0x1b
+	.uleb128 0x22
 	.uleb128 0xd
 	.byte	0
 	.uleb128 0x3
@@ -7269,7 +7813,24 @@ TEST_To_X_L:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0x1c
+	.uleb128 0x23
+	.uleb128 0xd
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x38
+	.uleb128 0x5
+	.byte	0
+	.byte	0
+	.uleb128 0x24
 	.uleb128 0xd
 	.byte	0
 	.uleb128 0x3
@@ -7286,7 +7847,7 @@ TEST_To_X_L:
 	.uleb128 0x5
 	.byte	0
 	.byte	0
-	.uleb128 0x1d
+	.uleb128 0x25
 	.uleb128 0x15
 	.byte	0x1
 	.uleb128 0x27
@@ -7297,7 +7858,7 @@ TEST_To_X_L:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x1e
+	.uleb128 0x26
 	.uleb128 0xd
 	.byte	0
 	.uleb128 0x3
@@ -7314,12 +7875,31 @@ TEST_To_X_L:
 	.uleb128 0x5
 	.byte	0
 	.byte	0
-	.uleb128 0x1f
+	.uleb128 0x27
+	.uleb128 0x34
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x28
 	.uleb128 0x18
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x20
+	.uleb128 0x29
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -7346,7 +7926,7 @@ TEST_To_X_L:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x21
+	.uleb128 0x2a
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x3
@@ -7363,7 +7943,7 @@ TEST_To_X_L:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x22
+	.uleb128 0x2b
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x3
@@ -7380,7 +7960,7 @@ TEST_To_X_L:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x23
+	.uleb128 0x2c
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -7397,7 +7977,7 @@ TEST_To_X_L:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x24
+	.uleb128 0x2d
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -7414,7 +7994,7 @@ TEST_To_X_L:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x25
+	.uleb128 0x2e
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3
@@ -7455,47 +8035,65 @@ TEST_To_X_L:
 	.section	.debug_line,"dr"
 .Ldebug_line0:
 	.section	.debug_str,"dr"
-.LASF9:
-	.ascii "Subtruct_X_L\0"
-.LASF19:
-	.ascii "result\0"
-.LASF10:
-	.ascii "Subtruct_X_X\0"
-.LASF3:
-	.ascii "GetConstantValue_I\0"
-.LASF12:
-	.ascii "Multiply_L_X\0"
 .LASF13:
-	.ascii "Multiply_X_I\0"
+	.ascii "Subtruct_X_L\0"
+.LASF28:
+	.ascii "result\0"
 .LASF14:
+	.ascii "Subtruct_X_X\0"
+.LASF5:
+	.ascii "IS_MINUS_ONE\0"
+.LASF7:
+	.ascii "GetConstantValue_I\0"
+.LASF16:
+	.ascii "Multiply_L_X\0"
+.LASF4:
+	.ascii "IS_POWER_OF_TWO\0"
+.LASF17:
+	.ascii "Multiply_X_I\0"
+.LASF18:
 	.ascii "Multiply_X_L\0"
-.LASF15:
+.LASF19:
 	.ascii "Multiply_X_X\0"
 .LASF0:
 	.ascii "refcount\0"
-.LASF5:
-	.ascii "ToByteArray\0"
-.LASF2:
-	.ascii "GetNumberType_X\0"
-.LASF1:
-	.ascii "GetStatisticsInfo\0"
-.LASF18:
-	.ascii "desired_rvalue\0"
-.LASF16:
-	.ascii "buf_size\0"
-.LASF4:
-	.ascii "FromByteArray\0"
 .LASF20:
-	.ascii "x_result\0"
-.LASF11:
-	.ascii "Multiply_I_X\0"
+	.ascii "DivRem_I_X\0"
+.LASF9:
+	.ascii "ToByteArray\0"
+.LASF22:
+	.ascii "DivRem_X_I\0"
+.LASF23:
+	.ascii "DivRem_X_L\0"
 .LASF6:
-	.ascii "Subtruct_I_X\0"
-.LASF17:
-	.ascii "desired_result_code\0"
-.LASF7:
-	.ascii "Subtruct_L_X\0"
+	.ascii "GetStatisticsInfo\0"
+.LASF24:
+	.ascii "DivRem_X_X\0"
+.LASF2:
+	.ascii "IS_ONE\0"
+.LASF27:
+	.ascii "desired_rvalue\0"
+.LASF25:
+	.ascii "buf_size\0"
 .LASF8:
+	.ascii "FromByteArray\0"
+.LASF3:
+	.ascii "IS_EVEN\0"
+.LASF29:
+	.ascii "x_result\0"
+.LASF15:
+	.ascii "Multiply_I_X\0"
+.LASF10:
+	.ascii "Subtruct_I_X\0"
+.LASF26:
+	.ascii "desired_result_code\0"
+.LASF21:
+	.ascii "DivRem_L_X\0"
+.LASF11:
+	.ascii "Subtruct_L_X\0"
+.LASF1:
+	.ascii "IS_ZERO\0"
+.LASF12:
 	.ascii "Subtruct_X_I\0"
 	.ident	"GCC: (x86_64-win32-seh-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	FormatTestMesssage;	.scl	2;	.type	32;	.endef

@@ -20,11 +20,11 @@ LFB83:
 	testl	%eax, %eax
 	jne	L1
 	leal	28(%esp), %eax
-	movzbl	12(%ebx), %esi
+	movzbl	16(%ebx), %esi
 	movl	%eax, 4(%esp)
-	movl	8(%ebx), %eax
+	movl	12(%ebx), %eax
 	movl	%eax, (%esp)
-	call	*_ep_uint+48
+	call	*_ep_uint+44
 	.cfi_def_cfa_offset 40
 	subl	$8, %esp
 	.cfi_def_cfa_offset 48
@@ -99,11 +99,11 @@ LFB84:
 	testl	%eax, %eax
 	jne	L9
 	leal	24(%esp), %eax
-	movzbl	12(%ebx), %esi
+	movzbl	16(%ebx), %esi
 	movl	%eax, 4(%esp)
-	movl	8(%ebx), %eax
+	movl	12(%ebx), %eax
 	movl	%eax, (%esp)
-	call	*_ep_uint+52
+	call	*_ep_uint+48
 	.cfi_def_cfa_offset 40
 	subl	$8, %esp
 	.cfi_def_cfa_offset 48
@@ -167,5 +167,7 @@ L14:
 	jmp	L9
 	.cfi_endproc
 LFE84:
+	.comm	_uint_number_one, 4, 2
+	.comm	_uint_number_zero, 4, 2
 	.ident	"GCC: (i686-win32-dwarf-rev0, Built by MinGW-W64 project) 8.1.0"
 	.def	_CheckNumber;	.scl	2;	.type	32;	.endef

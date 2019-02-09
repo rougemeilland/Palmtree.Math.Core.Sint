@@ -8,17 +8,17 @@ EXTRN	__imp_HeapDestroy:PROC
 EXTRN	__imp_HeapAlloc:PROC
 EXTRN	__imp_HeapFree:PROC
 EXTRN	__imp_HeapCreate:PROC
-COMM	number_zero:BYTE:018H
-COMM	number_minus_one:BYTE:018H
-COMM	number_one:BYTE:018H
+COMM	number_zero:BYTE:020H
+COMM	number_minus_one:BYTE:020H
+COMM	number_one:BYTE:020H
 COMM	hLocalHeap:QWORD
 _DATA	ENDS
-PUBLIC	DeallocateNumber
 PUBLIC	DetatchNumber
 PUBLIC	AttatchNumber
 PUBLIC	PMC_GetConstantValue_I
 PUBLIC	PMC_Dispose
 PUBLIC	Initialize_Memory
+PUBLIC	DeallocateNumber
 PUBLIC	DuplicateNumber
 PUBLIC	CheckNumber
 PUBLIC	AllocateNumber
@@ -27,21 +27,9 @@ PUBLIC	AllocateHeapArea
 PUBLIC	DeallocateHeapArea
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$DeallocateNumber DD imagerel $LN29@Deallocate
-	DD	imagerel $LN29@Deallocate+74
-	DD	imagerel $unwind$DeallocateNumber
-pdata	ENDS
-;	COMDAT pdata
-pdata	SEGMENT
 $pdata$AttatchNumber DD imagerel $LN5@AttatchNum
-	DD	imagerel $LN5@AttatchNum+28
+	DD	imagerel $LN5@AttatchNum+26
 	DD	imagerel $unwind$AttatchNumber
-pdata	ENDS
-;	COMDAT pdata
-pdata	SEGMENT
-$pdata$InitializeNumber DD imagerel InitializeNumber
-	DD	imagerel InitializeNumber+211
-	DD	imagerel $unwind$InitializeNumber
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
@@ -93,45 +81,63 @@ $pdata$_ZERO_MEMORY_BYTE DD imagerel _ZERO_MEMORY_BYTE
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$PMC_Dispose DD imagerel $LN31@PMC_Dispos
-	DD	imagerel $LN31@PMC_Dispos+74
+$pdata$PMC_Dispose DD imagerel $LN41@PMC_Dispos
+	DD	imagerel $LN41@PMC_Dispos+78
 	DD	imagerel $unwind$PMC_Dispose
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$Initialize_Memory DD imagerel $LN49@Initialize
-	DD	imagerel $LN49@Initialize+242
+	DD	imagerel $LN49@Initialize+238
 	DD	imagerel $unwind$Initialize_Memory
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
+$pdata$DeallocateNumber DD imagerel $LN39@Deallocate
+	DD	imagerel $LN39@Deallocate+78
+	DD	imagerel $unwind$DeallocateNumber
+pdata	ENDS
+;	COMDAT pdata
+pdata	SEGMENT
 $pdata$DuplicateNumber DD imagerel $LN11@DuplicateN
-	DD	imagerel $LN11@DuplicateN+209
+	DD	imagerel $LN11@DuplicateN+210
 	DD	imagerel $unwind$DuplicateNumber
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$AllocateNumber DD imagerel $LN6@AllocateNu
-	DD	imagerel $LN6@AllocateNu+111
+	DD	imagerel $LN6@AllocateNu+117
 	DD	imagerel $unwind$AllocateNumber
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$Negate_Imp DD imagerel $LN16@Negate_Imp
-	DD	imagerel $LN16@Negate_Imp+129
+$pdata$Negate_Imp DD imagerel $LN15@Negate_Imp
+	DD	imagerel $LN15@Negate_Imp+140
 	DD	imagerel $unwind$Negate_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$1$Negate_Imp DD imagerel $LN16@Negate_Imp+129
-	DD	imagerel $LN16@Negate_Imp+242
-	DD	imagerel $chain$1$Negate_Imp
+$pdata$0$Negate_Imp DD imagerel $LN15@Negate_Imp+140
+	DD	imagerel $LN15@Negate_Imp+199
+	DD	imagerel $chain$0$Negate_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$2$Negate_Imp DD imagerel $LN16@Negate_Imp+242
-	DD	imagerel $LN16@Negate_Imp+253
+$pdata$2$Negate_Imp DD imagerel $LN15@Negate_Imp+199
+	DD	imagerel $LN15@Negate_Imp+249
 	DD	imagerel $chain$2$Negate_Imp
+pdata	ENDS
+;	COMDAT pdata
+pdata	SEGMENT
+$pdata$4$Negate_Imp DD imagerel $LN15@Negate_Imp+249
+	DD	imagerel $LN15@Negate_Imp+264
+	DD	imagerel $chain$4$Negate_Imp
+pdata	ENDS
+;	COMDAT pdata
+pdata	SEGMENT
+$pdata$5$Negate_Imp DD imagerel $LN15@Negate_Imp+264
+	DD	imagerel $LN15@Negate_Imp+275
+	DD	imagerel $chain$5$Negate_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
@@ -156,39 +162,58 @@ $unwind$AllocateHeapArea DD 010401H
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$chain$2$Negate_Imp DD 021H
-	DD	imagerel $LN16@Negate_Imp
-	DD	imagerel $LN16@Negate_Imp+129
+$chain$5$Negate_Imp DD 021H
+	DD	imagerel $LN15@Negate_Imp
+	DD	imagerel $LN15@Negate_Imp+140
 	DD	imagerel $unwind$Negate_Imp
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$chain$1$Negate_Imp DD 041321H
-	DD	086413H
-	DD	075405H
-	DD	imagerel $LN16@Negate_Imp
-	DD	imagerel $LN16@Negate_Imp+129
+$chain$4$Negate_Imp DD 020021H
+	DD	076400H
+	DD	imagerel $LN15@Negate_Imp
+	DD	imagerel $LN15@Negate_Imp+140
+	DD	imagerel $unwind$Negate_Imp
+xdata	ENDS
+;	COMDAT xdata
+xdata	SEGMENT
+$chain$2$Negate_Imp DD 020021H
+	DD	076400H
+	DD	imagerel $LN15@Negate_Imp
+	DD	imagerel $LN15@Negate_Imp+140
+	DD	imagerel $unwind$Negate_Imp
+xdata	ENDS
+;	COMDAT xdata
+xdata	SEGMENT
+$chain$0$Negate_Imp DD 020521H
+	DD	076405H
+	DD	imagerel $LN15@Negate_Imp
+	DD	imagerel $LN15@Negate_Imp+140
 	DD	imagerel $unwind$Negate_Imp
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
 $unwind$Negate_Imp DD 040a01H
-	DD	09340aH
+	DD	08340aH
 	DD	07006320aH
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$unwind$AllocateNumber DD 081401H
-	DD	086414H
-	DD	075414H
-	DD	063414H
-	DD	070103214H
+$unwind$AllocateNumber DD 060f01H
+	DD	07640fH
+	DD	06340fH
+	DD	0700b320fH
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
 $unwind$DuplicateNumber DD 040a01H
 	DD	07340aH
 	DD	07006320aH
+xdata	ENDS
+;	COMDAT xdata
+xdata	SEGMENT
+$unwind$DeallocateNumber DD 020a01H
+	DD	03006320aH
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
@@ -242,18 +267,6 @@ $unwind$_FILL_MEMORY_64 DD 020501H
 xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
-$unwind$InitializeNumber DD 060f01H
-	DD	08640fH
-	DD	06340fH
-	DD	0700b320fH
-xdata	ENDS
-;	COMDAT xdata
-xdata	SEGMENT
-$unwind$AttatchNumber DD 020601H
-	DD	030023206H
-xdata	ENDS
-;	COMDAT xdata
-xdata	SEGMENT
-$unwind$DeallocateNumber DD 020a01H
-	DD	03006320aH
+$unwind$AttatchNumber DD 010401H
+	DD	04204H
 END
