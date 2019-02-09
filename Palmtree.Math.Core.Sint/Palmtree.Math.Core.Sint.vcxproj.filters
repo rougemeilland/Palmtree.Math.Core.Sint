@@ -93,6 +93,12 @@
     <ClCompile Include="pmc_compare.c">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="pmc_greatestcommondivisor.c">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="TEST_op_GreatestCommonDivisor.c">
+      <Filter>ソース ファイル\テスト</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pmc_sint_internal.h">

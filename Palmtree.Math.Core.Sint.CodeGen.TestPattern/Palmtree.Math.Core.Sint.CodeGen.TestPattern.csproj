@@ -58,6 +58,7 @@
     <Compile Include="TestTerm.cs" />
     <Compile Include="TEST_Equals.cs" />
     <Compile Include="TEST_Compare.cs" />
+    <Compile Include="TEST_GreatestCommonDivisor.cs" />
     <Compile Include="TEST_Remainder.cs" />
     <Compile Include="TEST_DivRem.cs" />
     <Compile Include="TEST_Multiply.cs" />

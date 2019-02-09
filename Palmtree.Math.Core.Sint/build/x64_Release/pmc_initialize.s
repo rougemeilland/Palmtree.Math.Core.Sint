@@ -210,6 +210,20 @@ PMC_SINT_Initialize:
 	movq	%rax, 960+entry_points(%rip)
 	movq	.refptr.PMC_Equals_X_X(%rip), %rax
 	movq	%rax, 968+entry_points(%rip)
+	movq	.refptr.PMC_GreatestCommonDivisor_I_X(%rip), %rax
+	movq	%rax, 976+entry_points(%rip)
+	movq	.refptr.PMC_GreatestCommonDivisor_L_X(%rip), %rax
+	movq	%rax, 984+entry_points(%rip)
+	movq	.refptr.PMC_GreatestCommonDivisor_UX_X(%rip), %rax
+	movq	%rax, 992+entry_points(%rip)
+	movq	.refptr.PMC_GreatestCommonDivisor_X_I(%rip), %rax
+	movq	%rax, 1000+entry_points(%rip)
+	movq	.refptr.PMC_GreatestCommonDivisor_X_L(%rip), %rax
+	movq	%rax, 1008+entry_points(%rip)
+	movq	.refptr.PMC_GreatestCommonDivisor_X_UX(%rip), %rax
+	movq	%rax, 1016+entry_points(%rip)
+	movq	.refptr.PMC_GreatestCommonDivisor_X_X(%rip), %rax
+	movq	%rax, 1024+entry_points(%rip)
 	movq	.refptr.PMC_GetConstantValue_I(%rip), %rax
 	movq	%rax, 584+entry_points(%rip)
 	movq	.refptr.PMC_Clone_X(%rip), %rax
@@ -257,7 +271,7 @@ PMC_SINT_Initialize:
 .lcomm initialized,4,4
 .lcomm fp_PMC_UINT_Initialize,8,8
 .lcomm hLib_UINT,8,8
-.lcomm entry_points,976,32
+.lcomm entry_points,1032,32
 	.comm	ep_uint, 552, 5
 	.comm	uint_number_one, 8, 3
 	.comm	uint_number_zero, 8, 3
@@ -280,6 +294,41 @@ PMC_SINT_Initialize:
 	.linkonce	discard
 .refptr.PMC_GetConstantValue_I:
 	.quad	PMC_GetConstantValue_I
+	.section	.rdata$.refptr.PMC_GreatestCommonDivisor_X_X, "dr"
+	.globl	.refptr.PMC_GreatestCommonDivisor_X_X
+	.linkonce	discard
+.refptr.PMC_GreatestCommonDivisor_X_X:
+	.quad	PMC_GreatestCommonDivisor_X_X
+	.section	.rdata$.refptr.PMC_GreatestCommonDivisor_X_UX, "dr"
+	.globl	.refptr.PMC_GreatestCommonDivisor_X_UX
+	.linkonce	discard
+.refptr.PMC_GreatestCommonDivisor_X_UX:
+	.quad	PMC_GreatestCommonDivisor_X_UX
+	.section	.rdata$.refptr.PMC_GreatestCommonDivisor_X_L, "dr"
+	.globl	.refptr.PMC_GreatestCommonDivisor_X_L
+	.linkonce	discard
+.refptr.PMC_GreatestCommonDivisor_X_L:
+	.quad	PMC_GreatestCommonDivisor_X_L
+	.section	.rdata$.refptr.PMC_GreatestCommonDivisor_X_I, "dr"
+	.globl	.refptr.PMC_GreatestCommonDivisor_X_I
+	.linkonce	discard
+.refptr.PMC_GreatestCommonDivisor_X_I:
+	.quad	PMC_GreatestCommonDivisor_X_I
+	.section	.rdata$.refptr.PMC_GreatestCommonDivisor_UX_X, "dr"
+	.globl	.refptr.PMC_GreatestCommonDivisor_UX_X
+	.linkonce	discard
+.refptr.PMC_GreatestCommonDivisor_UX_X:
+	.quad	PMC_GreatestCommonDivisor_UX_X
+	.section	.rdata$.refptr.PMC_GreatestCommonDivisor_L_X, "dr"
+	.globl	.refptr.PMC_GreatestCommonDivisor_L_X
+	.linkonce	discard
+.refptr.PMC_GreatestCommonDivisor_L_X:
+	.quad	PMC_GreatestCommonDivisor_L_X
+	.section	.rdata$.refptr.PMC_GreatestCommonDivisor_I_X, "dr"
+	.globl	.refptr.PMC_GreatestCommonDivisor_I_X
+	.linkonce	discard
+.refptr.PMC_GreatestCommonDivisor_I_X:
+	.quad	PMC_GreatestCommonDivisor_I_X
 	.section	.rdata$.refptr.PMC_Equals_X_X, "dr"
 	.globl	.refptr.PMC_Equals_X_X
 	.linkonce	discard

@@ -196,15 +196,13 @@ PMC_EXPORT PMC_SINT_ENTRY_POINTS* __PMC_CALL PMC_SINT_Initialize(PMC_CONFIGURATI
         entry_points.Equals_X_L = PMC_Equals_X_L;
         entry_points.Equals_X_UX = PMC_Equals_X_UX;
         entry_points.Equals_X_X = PMC_Equals_X_X;
-        /*
         entry_points.GreatestCommonDivisor_I_X = PMC_GreatestCommonDivisor_I_X;
         entry_points.GreatestCommonDivisor_L_X = PMC_GreatestCommonDivisor_L_X;
+        entry_points.GreatestCommonDivisor_UX_X = PMC_GreatestCommonDivisor_UX_X;
         entry_points.GreatestCommonDivisor_X_I = PMC_GreatestCommonDivisor_X_I;
         entry_points.GreatestCommonDivisor_X_L = PMC_GreatestCommonDivisor_X_L;
+        entry_points.GreatestCommonDivisor_X_UX = PMC_GreatestCommonDivisor_X_UX;
         entry_points.GreatestCommonDivisor_X_X = PMC_GreatestCommonDivisor_X_X;
-        entry_points.Pow_X_I = PMC_Pow_X_I;
-        entry_points.ModPow_X_X_X = PMC_ModPow_X_X_X;
-        */
         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
         entry_points.Clone_X = PMC_Clone_X;
         entry_points.Negate_X = PMC_Negate_X;

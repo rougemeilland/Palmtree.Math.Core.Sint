@@ -1,12 +1,12 @@
  Palmtree.Math.Core.Sint
 
- Timestamp is 5c5ef024 (Sun Feb 10 00:22:12 2019)
+ Timestamp is 5c5eff7c (Sun Feb 10 01:27:40 2019)
 
  Preferred load address is 0000000180000000
 
  Start         Length     Name                   Class
- 0001:00000000 00004570H .text$mn                CODE
- 0001:00004570 00000012H .text$mn$00             CODE
+ 0001:00000000 00004840H .text$mn                CODE
+ 0001:00004840 00000012H .text$mn$00             CODE
  0002:00000000 00000080H .idata$5                DATA
  0002:00000080 00000010H .00cfg                  DATA
  0002:00000090 00000000H .gfids$y                DATA
@@ -19,7 +19,7 @@
  0002:00000ad0 00000080H .idata$4                DATA
  0002:00000b50 00000132H .idata$6                DATA
  0003:00000000 00000020H .data                   DATA
- 0003:00000020 00000bf8H .bss                    DATA
+ 0003:00000020 00000c38H .bss                    DATA
  0004:00000000 000007d4H .pdata                  DATA
  0005:00000000 000000a0H .rsrc$01                DATA
  0005:000000a0 000004a0H .rsrc$02                DATA
@@ -28,14 +28,14 @@
 
  0000:00000000       __dynamic_value_reloc_table 0000000000000000     <absolute>
  0000:00000000       __guard_longjmp_count      0000000000000000     <absolute>
+ 0000:00000000       ___safe_se_handler_count   0000000000000000     <absolute>
  0000:00000000       __guard_fids_count         0000000000000000     <absolute>
  0000:00000000       __hybrid_auxiliary_iat     0000000000000000     <absolute>
  0000:00000000       __guard_fids_table         0000000000000000     <absolute>
- 0000:00000000       ___safe_se_handler_count   0000000000000000     <absolute>
  0000:00000000       __hybrid_code_map_count    0000000000000000     <absolute>
  0000:00000000       __guard_longjmp_table      0000000000000000     <absolute>
- 0000:00000000       ___safe_se_handler_table   0000000000000000     <absolute>
  0000:00000000       __enclave_config           0000000000000000     <absolute>
+ 0000:00000000       ___safe_se_handler_table   0000000000000000     <absolute>
  0000:00000000       __hybrid_code_map          0000000000000000     <absolute>
  0000:00000000       __guard_iat_count          0000000000000000     <absolute>
  0000:00000000       __volatile_metadata        0000000000000000     <absolute>
@@ -86,29 +86,36 @@
  0001:00002f70       From_L_Imp                 0000000180003f70 f   pmc_from.obj
  0001:00003010       PMC_From_I                 0000000180004010 f   pmc_from.obj
  0001:000030f0       PMC_From_L                 00000001800040f0 f   pmc_from.obj
- 0001:000031d0       PMC_SINT_Initialize        00000001800041d0 f   pmc_initialize.obj
- 0001:00003750       AllocateNumber             0000000180004750 f   pmc_memory.obj
- 0001:000037c0       DeallocateNumber           00000001800047c0 f   pmc_memory.obj
- 0001:000037c0       PMC_Dispose                00000001800047c0 f   pmc_memory.obj
- 0001:00003810       DuplicateNumber            0000000180004810 f   pmc_memory.obj
- 0001:000038f0       Negate_Imp                 00000001800048f0 f   pmc_memory.obj
- 0001:00003a00       PMC_GetConstantValue_I     0000000180004a00 f   pmc_memory.obj
- 0001:00003c80       PMC_Multiply_I_X           0000000180004c80 f   pmc_multiply.obj
- 0001:00003d50       PMC_Multiply_L_X           0000000180004d50 f   pmc_multiply.obj
- 0001:00003e20       PMC_Multiply_UX_X          0000000180004e20 f   pmc_multiply.obj
- 0001:00003eb0       PMC_Multiply_X_I           0000000180004eb0 f   pmc_multiply.obj
- 0001:00003f90       PMC_Multiply_X_L           0000000180004f90 f   pmc_multiply.obj
- 0001:00004070       PMC_Multiply_X_UX          0000000180005070 f   pmc_multiply.obj
- 0001:00004100       PMC_Multiply_X_X           0000000180005100 f   pmc_multiply.obj
- 0001:000041e0       PMC_Negate_X               00000001800051e0 f   pmc_negate.obj
- 0001:00004240       PMC_GetStatisticsInfo      0000000180005240 f   pmc_statistics.obj
- 0001:00004250       PMC_To_X_I                 0000000180005250 f   pmc_to.obj
- 0001:000042f0       PMC_To_X_L                 00000001800052f0 f   pmc_to.obj
- 0001:000043c0       __security_check_cookie    00000001800053c0 f   MSVCRT:amdsecgs.obj
- 0001:000043e4       __raise_securityfailure    00000001800053e4 f   MSVCRT:gs_report.obj
- 0001:00004418       __report_gsfailure         0000000180005418 f   MSVCRT:gs_report.obj
- 0001:0000455d       IsProcessorFeaturePresent  000000018000555d f   kernel32:KERNEL32.dll
- 0001:00004580       _guard_dispatch_icall_nop  0000000180005580 f   MSVCRT:guard_dispatch.obj
+ 0001:000031d0       PMC_GreatestCommonDivisor_I_X 00000001800041d0 f   pmc_greatestcommondivisor.obj
+ 0001:00003230       PMC_GreatestCommonDivisor_L_X 0000000180004230 f   pmc_greatestcommondivisor.obj
+ 0001:000032a0       PMC_GreatestCommonDivisor_UX_X 00000001800042a0 f   pmc_greatestcommondivisor.obj
+ 0001:000032e0       PMC_GreatestCommonDivisor_X_I 00000001800042e0 f   pmc_greatestcommondivisor.obj
+ 0001:00003340       PMC_GreatestCommonDivisor_X_L 0000000180004340 f   pmc_greatestcommondivisor.obj
+ 0001:000033b0       PMC_GreatestCommonDivisor_X_UX 00000001800043b0 f   pmc_greatestcommondivisor.obj
+ 0001:000033f0       PMC_GreatestCommonDivisor_X_X 00000001800043f0 f   pmc_greatestcommondivisor.obj
+ 0001:00003440       PMC_SINT_Initialize        0000000180004440 f   pmc_initialize.obj
+ 0001:00003a20       AllocateNumber             0000000180004a20 f   pmc_memory.obj
+ 0001:00003a90       PMC_Dispose                0000000180004a90 f   pmc_memory.obj
+ 0001:00003a90       DeallocateNumber           0000000180004a90 f   pmc_memory.obj
+ 0001:00003ae0       DuplicateNumber            0000000180004ae0 f   pmc_memory.obj
+ 0001:00003bc0       Negate_Imp                 0000000180004bc0 f   pmc_memory.obj
+ 0001:00003cd0       PMC_GetConstantValue_I     0000000180004cd0 f   pmc_memory.obj
+ 0001:00003f50       PMC_Multiply_I_X           0000000180004f50 f   pmc_multiply.obj
+ 0001:00004020       PMC_Multiply_L_X           0000000180005020 f   pmc_multiply.obj
+ 0001:000040f0       PMC_Multiply_UX_X          00000001800050f0 f   pmc_multiply.obj
+ 0001:00004180       PMC_Multiply_X_I           0000000180005180 f   pmc_multiply.obj
+ 0001:00004260       PMC_Multiply_X_L           0000000180005260 f   pmc_multiply.obj
+ 0001:00004340       PMC_Multiply_X_UX          0000000180005340 f   pmc_multiply.obj
+ 0001:000043d0       PMC_Multiply_X_X           00000001800053d0 f   pmc_multiply.obj
+ 0001:000044b0       PMC_Negate_X               00000001800054b0 f   pmc_negate.obj
+ 0001:00004510       PMC_GetStatisticsInfo      0000000180005510 f   pmc_statistics.obj
+ 0001:00004520       PMC_To_X_I                 0000000180005520 f   pmc_to.obj
+ 0001:000045c0       PMC_To_X_L                 00000001800055c0 f   pmc_to.obj
+ 0001:00004690       __security_check_cookie    0000000180005690 f   MSVCRT:amdsecgs.obj
+ 0001:000046b4       __raise_securityfailure    00000001800056b4 f   MSVCRT:gs_report.obj
+ 0001:000046e8       __report_gsfailure         00000001800056e8 f   MSVCRT:gs_report.obj
+ 0001:0000482d       IsProcessorFeaturePresent  000000018000582d f   kernel32:KERNEL32.dll
+ 0001:00004850       _guard_dispatch_icall_nop  0000000180005850 f   MSVCRT:guard_dispatch.obj
  0002:00000000       __imp_LoadLibraryA         0000000180006000     kernel32:KERNEL32.dll
  0002:00000008       __imp_GetProcAddress       0000000180006008     kernel32:KERNEL32.dll
  0002:00000010       __imp_FreeLibrary          0000000180006010     kernel32:KERNEL32.dll
@@ -134,13 +141,13 @@
  0002:00000ab8       __NULL_IMPORT_DESCRIPTOR   0000000180006ab8     kernel32:KERNEL32.dll
  0003:00000000       __security_cookie_complement 0000000180007000     MSVCRT:gs_cookie.obj
  0003:00000008       __security_cookie          0000000180007008     MSVCRT:gs_cookie.obj
- 0003:00000978       hLocalHeap                 0000000180007978     <common>
- 0003:00000980       number_one                 0000000180007980     <common>
- 0003:000009a0       number_minus_one           00000001800079a0     <common>
- 0003:000009c0       number_zero                00000001800079c0     <common>
- 0003:000009e0       ep_uint                    00000001800079e0     <common>
- 0003:00000c08       uint_number_one            0000000180007c08     <common>
- 0003:00000c10       uint_number_zero           0000000180007c10     <common>
+ 0003:000009b0       hLocalHeap                 00000001800079b0     <common>
+ 0003:000009c0       number_one                 00000001800079c0     <common>
+ 0003:000009e0       number_minus_one           00000001800079e0     <common>
+ 0003:00000a00       number_zero                0000000180007a00     <common>
+ 0003:00000a20       ep_uint                    0000000180007a20     <common>
+ 0003:00000c48       uint_number_one            0000000180007c48     <common>
+ 0003:00000c50       uint_number_zero           0000000180007c50     <common>
 
  entry point at        0001:00000010
 
@@ -168,13 +175,13 @@
  0001:000002c0       SubtructU_X_I_Imp          00000001800012c0 f   pmc_add_sub.obj
  0001:000003f0       SubtructU_X_L_Imp          00000001800013f0 f   pmc_add_sub.obj
  0001:00000510       SubtructU_X_X_Imp          0000000180001510 f   pmc_add_sub.obj
- 0001:000036b0       InitializeNumber           00000001800046b0 f   pmc_memory.obj
- 0001:00003a40       MultiplyU_X_I_Imp          0000000180004a40 f   pmc_multiply.obj
- 0001:00003b00       MultiplyU_X_L_Imp          0000000180004b00 f   pmc_multiply.obj
- 0001:00003bc0       MultiplyU_X_X_Imp          0000000180004bc0 f   pmc_multiply.obj
- 0001:000043b0       $$000000                   00000001800053b0     MSVCRT:amdsecgs.obj
- 0001:000044ec       capture_previous_context   00000001800054ec f   MSVCRT:gs_report.obj
- 0001:00004570       $$000000                   0000000180005570     MSVCRT:guard_dispatch.obj
+ 0001:00003980       InitializeNumber           0000000180004980 f   pmc_memory.obj
+ 0001:00003d10       MultiplyU_X_I_Imp          0000000180004d10 f   pmc_multiply.obj
+ 0001:00003dd0       MultiplyU_X_L_Imp          0000000180004dd0 f   pmc_multiply.obj
+ 0001:00003e90       MultiplyU_X_X_Imp          0000000180004e90 f   pmc_multiply.obj
+ 0001:00004680       $$000000                   0000000180005680     MSVCRT:amdsecgs.obj
+ 0001:000047bc       capture_previous_context   00000001800057bc f   MSVCRT:gs_report.obj
+ 0001:00004840       $$000000                   0000000180005840     MSVCRT:guard_dispatch.obj
  0002:00000090       GS_ExceptionPointers       0000000180006090     MSVCRT:gs_report.obj
  0002:00000430       $unwind$PMC_Equals_X_L     0000000180006430     pmc_equals.obj
  0002:00000430       $unwind$PMC_Equals_X_X     0000000180006430     pmc_equals.obj
@@ -355,9 +362,9 @@
  0003:00000020       GS_ExceptionRecord         0000000180007020     MSVCRT:gs_report.obj
  0003:000000c0       GS_ContextRecord           00000001800070c0     MSVCRT:gs_report.obj
  0003:00000590       entry_points               0000000180007590     pmc_initialize.obj
- 0003:00000960       initialized                0000000180007960     pmc_initialize.obj
- 0003:00000968       hLib_UINT                  0000000180007968     pmc_initialize.obj
- 0003:00000970       fp_PMC_UINT_Initialize     0000000180007970     pmc_initialize.obj
+ 0003:00000998       initialized                0000000180007998     pmc_initialize.obj
+ 0003:000009a0       hLib_UINT                  00000001800079a0     pmc_initialize.obj
+ 0003:000009a8       fp_PMC_UINT_Initialize     00000001800079a8     pmc_initialize.obj
  0004:0000000c       $pdata$__report_gsfailure  000000018000800c     MSVCRT:gs_report.obj
  0004:00000018       $pdata$capture_previous_context 0000000180008018     MSVCRT:gs_report.obj
  0004:00000024       $pdata$__raise_securityfailure 0000000180008024     MSVCRT:gs_report.obj

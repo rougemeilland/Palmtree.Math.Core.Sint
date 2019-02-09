@@ -100479,7 +100479,15 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_X_L)(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
-# 428 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+
+
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * GreatestCommonDivisor_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * GreatestCommonDivisor_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * GreatestCommonDivisor_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * GreatestCommonDivisor_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_UINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * GreatestCommonDivisor_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_UINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * GreatestCommonDivisor_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * GreatestCommonDivisor_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
 } PMC_SINT_ENTRY_POINTS;
 #pragma endregion
 
@@ -100674,7 +100682,14 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_X_L(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
-# 207 "../pmc_sint_internal.h"
+
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_GreatestCommonDivisor_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_GreatestCommonDivisor_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_GreatestCommonDivisor_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_GreatestCommonDivisor_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_UINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_GreatestCommonDivisor_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_UINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_GreatestCommonDivisor_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_GreatestCommonDivisor_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
 #pragma endregion
 
 
@@ -101461,15 +101476,21 @@ __attribute__((dllexport)) PMC_SINT_ENTRY_POINTS* __attribute__((__stdcall__)) P
         entry_points.Equals_X_L = PMC_Equals_X_L;
         entry_points.Equals_X_UX = PMC_Equals_X_UX;
         entry_points.Equals_X_X = PMC_Equals_X_X;
-# 208 "../pmc_initialize.c"
+        entry_points.GreatestCommonDivisor_I_X = PMC_GreatestCommonDivisor_I_X;
+        entry_points.GreatestCommonDivisor_L_X = PMC_GreatestCommonDivisor_L_X;
+        entry_points.GreatestCommonDivisor_UX_X = PMC_GreatestCommonDivisor_UX_X;
+        entry_points.GreatestCommonDivisor_X_I = PMC_GreatestCommonDivisor_X_I;
+        entry_points.GreatestCommonDivisor_X_L = PMC_GreatestCommonDivisor_X_L;
+        entry_points.GreatestCommonDivisor_X_UX = PMC_GreatestCommonDivisor_X_UX;
+        entry_points.GreatestCommonDivisor_X_X = PMC_GreatestCommonDivisor_X_X;
         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
         entry_points.Clone_X = PMC_Clone_X;
         entry_points.Negate_X = PMC_Negate_X;
 
         initialized = 
-# 212 "../pmc_initialize.c" 3
+# 210 "../pmc_initialize.c" 3
                      1
-# 212 "../pmc_initialize.c"
+# 210 "../pmc_initialize.c"
                          ;
     }
 

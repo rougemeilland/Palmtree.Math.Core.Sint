@@ -175,6 +175,13 @@ L16:
 	movl	$_PMC_Equals_X_L@16, _entry_points+476
 	movl	$_PMC_Equals_X_UX@12, _entry_points+480
 	movl	$_PMC_Equals_X_X@12, _entry_points+484
+	movl	$_PMC_GreatestCommonDivisor_I_X@12, _entry_points+488
+	movl	$_PMC_GreatestCommonDivisor_L_X@16, _entry_points+492
+	movl	$_PMC_GreatestCommonDivisor_UX_X@12, _entry_points+496
+	movl	$_PMC_GreatestCommonDivisor_X_I@12, _entry_points+500
+	movl	$_PMC_GreatestCommonDivisor_X_L@16, _entry_points+504
+	movl	$_PMC_GreatestCommonDivisor_X_UX@12, _entry_points+508
+	movl	$_PMC_GreatestCommonDivisor_X_X@12, _entry_points+512
 	movl	$_PMC_GetConstantValue_I@8, _entry_points+292
 	movl	$_PMC_Clone_X@8, _entry_points+304
 	movl	$_PMC_Negate_X@8, _entry_points+316
@@ -248,7 +255,7 @@ LFE5484:
 .lcomm _initialized,4,4
 .lcomm _fp_PMC_UINT_Initialize,4,4
 .lcomm _hLib_UINT,4,4
-.lcomm _entry_points,488,32
+.lcomm _entry_points,516,32
 	.comm	_ep_uint, 276, 5
 	.comm	_uint_number_one, 4, 2
 	.comm	_uint_number_zero, 4, 2
@@ -304,6 +311,13 @@ LFE5484:
 	.def	_PMC_Equals_X_L@16;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Equals_X_UX@12;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Equals_X_X@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_GreatestCommonDivisor_I_X@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_GreatestCommonDivisor_L_X@16;	.scl	2;	.type	32;	.endef
+	.def	_PMC_GreatestCommonDivisor_UX_X@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_GreatestCommonDivisor_X_I@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_GreatestCommonDivisor_X_L@16;	.scl	2;	.type	32;	.endef
+	.def	_PMC_GreatestCommonDivisor_X_UX@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_GreatestCommonDivisor_X_X@12;	.scl	2;	.type	32;	.endef
 	.def	_PMC_GetConstantValue_I@8;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Clone_X@8;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Negate_X@8;	.scl	2;	.type	32;	.endef

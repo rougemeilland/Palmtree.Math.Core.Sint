@@ -222,6 +222,7 @@
     <ClCompile Include="pmc_divrem.c" />
     <ClCompile Include="pmc_equals.c" />
     <ClCompile Include="pmc_from.c" />
+    <ClCompile Include="pmc_greatestcommondivisor.c" />
     <ClCompile Include="pmc_initialize.c" />
     <ClCompile Include="pmc_memory.c" />
     <ClCompile Include="pmc_multiply.c" />
@@ -234,6 +235,7 @@
     <ClCompile Include="TEST_op_DivRem.c" />
     <ClCompile Include="TEST_op_Equals.c" />
     <ClCompile Include="TEST_op_From_To.c" />
+    <ClCompile Include="TEST_op_GreatestCommonDivisor.c" />
     <ClCompile Include="TEST_op_Multiply.c" />
     <ClCompile Include="TEST_op_Negate.c" />
     <ClCompile Include="TEST_op_Remainder.c" />

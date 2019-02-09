@@ -93,6 +93,13 @@ EXTRN	_PMC_Equals_X_I@12:PROC
 EXTRN	_PMC_Equals_X_L@16:PROC
 EXTRN	_PMC_Equals_X_UX@12:PROC
 EXTRN	_PMC_Equals_X_X@12:PROC
+EXTRN	_PMC_GreatestCommonDivisor_I_X@12:PROC
+EXTRN	_PMC_GreatestCommonDivisor_L_X@16:PROC
+EXTRN	_PMC_GreatestCommonDivisor_UX_X@12:PROC
+EXTRN	_PMC_GreatestCommonDivisor_X_I@12:PROC
+EXTRN	_PMC_GreatestCommonDivisor_X_L@16:PROC
+EXTRN	_PMC_GreatestCommonDivisor_X_UX@12:PROC
+EXTRN	_PMC_GreatestCommonDivisor_X_X@12:PROC
 EXTRN	@_RTC_CheckStackVars@8:PROC
 EXTRN	@__CheckForDebuggerJustMyCode@4:PROC
 EXTRN	@__security_check_cookie@4:PROC
@@ -101,7 +108,7 @@ EXTRN	__RTC_InitBase:PROC
 EXTRN	__RTC_Shutdown:PROC
 EXTRN	___security_cookie:DWORD
 _BSS	SEGMENT
-_entry_points DB 01e8H DUP (?)
+_entry_points DB 0204H DUP (?)
 _hLib_UINT DD	01H DUP (?)
 _fp_PMC_UINT_Initialize DD 01H DUP (?)
 _initialized DD	01H DUP (?)
@@ -983,41 +990,60 @@ $LN7@PMC_SINT_I:
 
 	mov	DWORD PTR _entry_points+484, OFFSET _PMC_Equals_X_X@12
 
-; 199  :         /*
-; 200  :         entry_points.GreatestCommonDivisor_I_X = PMC_GreatestCommonDivisor_I_X;
-; 201  :         entry_points.GreatestCommonDivisor_L_X = PMC_GreatestCommonDivisor_L_X;
+; 199  :         entry_points.GreatestCommonDivisor_I_X = PMC_GreatestCommonDivisor_I_X;
+
+	mov	DWORD PTR _entry_points+488, OFFSET _PMC_GreatestCommonDivisor_I_X@12
+
+; 200  :         entry_points.GreatestCommonDivisor_L_X = PMC_GreatestCommonDivisor_L_X;
+
+	mov	DWORD PTR _entry_points+492, OFFSET _PMC_GreatestCommonDivisor_L_X@16
+
+; 201  :         entry_points.GreatestCommonDivisor_UX_X = PMC_GreatestCommonDivisor_UX_X;
+
+	mov	DWORD PTR _entry_points+496, OFFSET _PMC_GreatestCommonDivisor_UX_X@12
+
 ; 202  :         entry_points.GreatestCommonDivisor_X_I = PMC_GreatestCommonDivisor_X_I;
+
+	mov	DWORD PTR _entry_points+500, OFFSET _PMC_GreatestCommonDivisor_X_I@12
+
 ; 203  :         entry_points.GreatestCommonDivisor_X_L = PMC_GreatestCommonDivisor_X_L;
-; 204  :         entry_points.GreatestCommonDivisor_X_X = PMC_GreatestCommonDivisor_X_X;
-; 205  :         entry_points.Pow_X_I = PMC_Pow_X_I;
-; 206  :         entry_points.ModPow_X_X_X = PMC_ModPow_X_X_X;
-; 207  :         */
-; 208  :         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
+
+	mov	DWORD PTR _entry_points+504, OFFSET _PMC_GreatestCommonDivisor_X_L@16
+
+; 204  :         entry_points.GreatestCommonDivisor_X_UX = PMC_GreatestCommonDivisor_X_UX;
+
+	mov	DWORD PTR _entry_points+508, OFFSET _PMC_GreatestCommonDivisor_X_UX@12
+
+; 205  :         entry_points.GreatestCommonDivisor_X_X = PMC_GreatestCommonDivisor_X_X;
+
+	mov	DWORD PTR _entry_points+512, OFFSET _PMC_GreatestCommonDivisor_X_X@12
+
+; 206  :         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
 
 	mov	DWORD PTR _entry_points+292, OFFSET _PMC_GetConstantValue_I@8
 
-; 209  :         entry_points.Clone_X = PMC_Clone_X;
+; 207  :         entry_points.Clone_X = PMC_Clone_X;
 
 	mov	DWORD PTR _entry_points+304, OFFSET _PMC_Clone_X@8
 
-; 210  :         entry_points.Negate_X = PMC_Negate_X;
+; 208  :         entry_points.Negate_X = PMC_Negate_X;
 
 	mov	DWORD PTR _entry_points+316, OFFSET _PMC_Negate_X@8
 
-; 211  : 
-; 212  :         initialized = TRUE;
+; 209  : 
+; 210  :         initialized = TRUE;
 
 	mov	DWORD PTR _initialized, 1
 $LN5@PMC_SINT_I:
 
-; 213  :     }
-; 214  : 
-; 215  :     return (&entry_points);
+; 211  :     }
+; 212  : 
+; 213  :     return (&entry_points);
 
 	mov	eax, OFFSET _entry_points
 $LN1@PMC_SINT_I:
 
-; 216  : }
+; 214  : }
 
 	pop	edi
 	pop	esi
