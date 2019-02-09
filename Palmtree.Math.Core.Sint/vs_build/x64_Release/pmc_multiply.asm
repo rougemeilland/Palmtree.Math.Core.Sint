@@ -26,19 +26,19 @@ pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$2$MultiplyU_X_X_Imp DD imagerel MultiplyU_X_X_Imp+117
-	DD	imagerel MultiplyU_X_X_Imp+167
+	DD	imagerel MultiplyU_X_X_Imp+164
 	DD	imagerel $chain$2$MultiplyU_X_X_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$4$MultiplyU_X_X_Imp DD imagerel MultiplyU_X_X_Imp+167
-	DD	imagerel MultiplyU_X_X_Imp+182
+$pdata$4$MultiplyU_X_X_Imp DD imagerel MultiplyU_X_X_Imp+164
+	DD	imagerel MultiplyU_X_X_Imp+178
 	DD	imagerel $chain$4$MultiplyU_X_X_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$5$MultiplyU_X_X_Imp DD imagerel MultiplyU_X_X_Imp+182
-	DD	imagerel MultiplyU_X_X_Imp+193
+$pdata$5$MultiplyU_X_X_Imp DD imagerel MultiplyU_X_X_Imp+178
+	DD	imagerel MultiplyU_X_X_Imp+189
 	DD	imagerel $chain$5$MultiplyU_X_X_Imp
 pdata	ENDS
 ;	COMDAT pdata
@@ -56,19 +56,19 @@ pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$2$MultiplyU_X_L_Imp DD imagerel MultiplyU_X_L_Imp+117
-	DD	imagerel MultiplyU_X_L_Imp+167
+	DD	imagerel MultiplyU_X_L_Imp+164
 	DD	imagerel $chain$2$MultiplyU_X_L_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$4$MultiplyU_X_L_Imp DD imagerel MultiplyU_X_L_Imp+167
-	DD	imagerel MultiplyU_X_L_Imp+182
+$pdata$4$MultiplyU_X_L_Imp DD imagerel MultiplyU_X_L_Imp+164
+	DD	imagerel MultiplyU_X_L_Imp+178
 	DD	imagerel $chain$4$MultiplyU_X_L_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$5$MultiplyU_X_L_Imp DD imagerel MultiplyU_X_L_Imp+182
-	DD	imagerel MultiplyU_X_L_Imp+193
+$pdata$5$MultiplyU_X_L_Imp DD imagerel MultiplyU_X_L_Imp+178
+	DD	imagerel MultiplyU_X_L_Imp+189
 	DD	imagerel $chain$5$MultiplyU_X_L_Imp
 pdata	ENDS
 ;	COMDAT pdata
@@ -86,19 +86,19 @@ pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$2$MultiplyU_X_I_Imp DD imagerel MultiplyU_X_I_Imp+116
-	DD	imagerel MultiplyU_X_I_Imp+166
+	DD	imagerel MultiplyU_X_I_Imp+163
 	DD	imagerel $chain$2$MultiplyU_X_I_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$4$MultiplyU_X_I_Imp DD imagerel MultiplyU_X_I_Imp+166
-	DD	imagerel MultiplyU_X_I_Imp+181
+$pdata$4$MultiplyU_X_I_Imp DD imagerel MultiplyU_X_I_Imp+163
+	DD	imagerel MultiplyU_X_I_Imp+177
 	DD	imagerel $chain$4$MultiplyU_X_I_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$5$MultiplyU_X_I_Imp DD imagerel MultiplyU_X_I_Imp+181
-	DD	imagerel MultiplyU_X_I_Imp+192
+$pdata$5$MultiplyU_X_I_Imp DD imagerel MultiplyU_X_I_Imp+177
+	DD	imagerel MultiplyU_X_I_Imp+188
 	DD	imagerel $chain$5$MultiplyU_X_I_Imp
 pdata	ENDS
 ;	COMDAT pdata

@@ -37,26 +37,26 @@ $pdata$5$PMC_DivRem_X_X DD imagerel $LN47@PMC_DivRem+485
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$PMC_DivRem_X_UX DD imagerel $LN39
-	DD	imagerel $LN39+85
+$pdata$PMC_DivRem_X_UX DD imagerel $LN39@PMC_DivRem
+	DD	imagerel $LN39@PMC_DivRem+85
 	DD	imagerel $unwind$PMC_DivRem_X_UX
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$2$PMC_DivRem_X_UX DD imagerel $LN39+85
-	DD	imagerel $LN39+327
+$pdata$2$PMC_DivRem_X_UX DD imagerel $LN39@PMC_DivRem+85
+	DD	imagerel $LN39@PMC_DivRem+327
 	DD	imagerel $chain$2$PMC_DivRem_X_UX
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$4$PMC_DivRem_X_UX DD imagerel $LN39+327
-	DD	imagerel $LN39+432
+$pdata$4$PMC_DivRem_X_UX DD imagerel $LN39@PMC_DivRem+327
+	DD	imagerel $LN39@PMC_DivRem+432
 	DD	imagerel $chain$4$PMC_DivRem_X_UX
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$5$PMC_DivRem_X_UX DD imagerel $LN39+432
-	DD	imagerel $LN39+458
+$pdata$5$PMC_DivRem_X_UX DD imagerel $LN39@PMC_DivRem+432
+	DD	imagerel $LN39@PMC_DivRem+458
 	DD	imagerel $chain$5$PMC_DivRem_X_UX
 pdata	ENDS
 ;	COMDAT pdata
@@ -366,8 +366,8 @@ xdata	ENDS
 ;	COMDAT xdata
 xdata	SEGMENT
 $chain$5$PMC_DivRem_X_UX DD 021H
-	DD	imagerel $LN39
-	DD	imagerel $LN39+85
+	DD	imagerel $LN39@PMC_DivRem
+	DD	imagerel $LN39@PMC_DivRem+85
 	DD	imagerel $unwind$PMC_DivRem_X_UX
 xdata	ENDS
 ;	COMDAT xdata
@@ -376,8 +376,8 @@ $chain$4$PMC_DivRem_X_UX DD 060021H
 	DD	086400H
 	DD	0e5400H
 	DD	0d3400H
-	DD	imagerel $LN39
-	DD	imagerel $LN39+85
+	DD	imagerel $LN39@PMC_DivRem
+	DD	imagerel $LN39@PMC_DivRem+85
 	DD	imagerel $unwind$PMC_DivRem_X_UX
 xdata	ENDS
 ;	COMDAT xdata
@@ -386,8 +386,8 @@ $chain$2$PMC_DivRem_X_UX DD 060f21H
 	DD	08640fH
 	DD	0e540aH
 	DD	0d3405H
-	DD	imagerel $LN39
-	DD	imagerel $LN39+85
+	DD	imagerel $LN39@PMC_DivRem
+	DD	imagerel $LN39@PMC_DivRem+85
 	DD	imagerel $unwind$PMC_DivRem_X_UX
 xdata	ENDS
 ;	COMDAT xdata
@@ -428,321 +428,4 @@ xdata	SEGMENT
 $unwind$PMC_DivRem_X_X DD 030801H
 	DD	0e0048208H
 	DD	07002H
-; Function compile flags: /Ogtpy
-; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_divrem.c
-; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_memory.c
-; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_divrem.c
-;	COMDAT PMC_DivRem_X_UX
-_TEXT	SEGMENT
-r_abs$1 = 32
-nr$ = 40
-nq$ = 48
-r_abs$2 = 96
-q_abs$3 = 96
-u$ = 96
-v$ = 104
-q$ = 112
-r$ = 120
-PMC_DivRem_X_UX PROC					; COMDAT
-
-; 344  : {
-
-$LN39:
-	push	rdi
-	push	r14
-	sub	rsp, 72					; 00000048H
-	mov	r14, r9
-	mov	rdi, r8
-
-; 345  :     if (u == NULL)
-
-	test	rcx, rcx
-	je	$LN31@PMC_DivRem
-
-; 346  :         return (PMC_STATUS_ARGUMENT_ERROR);
-; 347  :     if (v == NULL)
-
-	test	rdx, rdx
-	je	$LN31@PMC_DivRem
-
-; 348  :         return (PMC_STATUS_ARGUMENT_ERROR);
-; 349  :     if (r == NULL)
-
-	test	r9, r9
-	je	$LN31@PMC_DivRem
-; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_memory.c
-
-; 197  :     if (p->SIGNATURE1 != PMC_SIGNATURE || p->SIGNATURE2 != PMC_SINT_SIGNATURE)
-
-	cmp	DWORD PTR [rcx+4], 1231244656		; 49634d70H
-	jne	$LN28@PMC_DivRem
-	cmp	DWORD PTR [rcx+8], 1951287667		; 744e4973H
-	jne	$LN28@PMC_DivRem
-; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\pmc_divrem.c
-
-; 357  :     if (v->FLAGS.IS_ZERO)
-
-	test	BYTE PTR [rdx], 1
-	je	SHORT $LN6@PMC_DivRem
-
-; 358  :     {
-; 359  :         // v == 0 ‚Ìê‡
-; 360  : 
-; 361  :         // ƒGƒ‰[‚ð•Ô‚·
-; 362  :         return (PMC_STATUS_DIVISION_BY_ZERO);
-
-	mov	eax, -3
-
-; 415  : }
-
-	add	rsp, 72					; 00000048H
-	pop	r14
-	pop	rdi
-	ret	0
-$LN6@PMC_DivRem:
-	mov	QWORD PTR [rsp+104], rbx
-	mov	QWORD PTR [rsp+112], rbp
-	mov	QWORD PTR [rsp+64], rsi
-
-; 363  :     }
-; 364  :     if (nu->SIGN == 0)
-
-	movzx	esi, BYTE PTR [rcx+24]
-	test	sil, sil
-	jne	SHORT $LN7@PMC_DivRem
-
-; 365  :     {
-; 366  :         // u == 0 ‚Ìê‡
-; 367  : 
-; 368  :         nq = q != NULL ? nq = &number_zero : NULL;
-; 369  :         nr = &number_zero;
-
-	xor	ebx, ebx
-	lea	rax, OFFSET FLAT:number_zero
-	test	rdi, rdi
-	mov	rcx, rax
-	cmove	rcx, rbx
-
-; 370  :     }
-
-	jmp	$LN15@PMC_DivRem
-$LN7@PMC_DivRem:
-
-; 371  :     else
-; 372  :     {
-; 373  :         // u != 0 ‚Ìê‡
-; 374  : 
-; 375  :         if (q != NULL)
-
-	mov	rcx, QWORD PTR [rcx+16]
-	test	rdi, rdi
-	je	$LN9@PMC_DivRem
-
-; 376  :         {
-; 377  :             char q_sign = nu->SIGN;
-; 378  :             char r_sign = nu->SIGN;
-; 379  :             PMC_HANDLE_UINT q_abs;
-; 380  :             PMC_HANDLE_UINT r_abs;
-; 381  :             if ((result = ep_uint.DivRem_X_X(nu->ABS, v, &q_abs, &r_abs)) != PMC_STATUS_OK)
-
-	lea	r9, QWORD PTR r_abs$1[rsp]
-	lea	r8, QWORD PTR q_abs$3[rsp]
-	call	QWORD PTR ep_uint+272
-	test	eax, eax
-	jne	$LN36@PMC_DivRem
-
-; 382  :                 return (result);
-; 383  :             if ((result = AllocateNumber(&nq, q_abs->FLAGS.IS_ZERO ? 0 : q_sign, q_abs)) != PMC_STATUS_OK)
-
-	mov	r8, QWORD PTR q_abs$3[rsp]
-	lea	rcx, QWORD PTR nq$[rsp]
-	movzx	eax, sil
-	mov	ebx, 0
-	mov	edx, ebx
-	test	BYTE PTR [r8], 1
-	cmove	edx, eax
-	call	AllocateNumber
-	mov	ebp, eax
-	test	eax, eax
-	je	SHORT $LN12@PMC_DivRem
-
-; 384  :             {
-; 385  :                 ep_uint.Dispose(q_abs);
-
-	mov	rcx, QWORD PTR q_abs$3[rsp]
-	call	QWORD PTR ep_uint+32
-
-; 386  :                 ep_uint.Dispose(r_abs);
-
-	mov	rcx, QWORD PTR r_abs$1[rsp]
-	call	QWORD PTR ep_uint+32
-
-; 387  :                 return (result);
-
-	mov	eax, ebp
-	jmp	SHORT $LN36@PMC_DivRem
-$LN12@PMC_DivRem:
-
-; 388  :             }
-; 389  :             if ((result = AllocateNumber(&nr, r_abs->FLAGS.IS_ZERO ? 0 : r_sign, r_abs)) != PMC_STATUS_OK)
-
-	mov	r8, QWORD PTR r_abs$1[rsp]
-	lea	rcx, QWORD PTR nr$[rsp]
-	movzx	eax, sil
-	test	BYTE PTR [r8], 1
-	cmove	ebx, eax
-	movzx	edx, bl
-	call	AllocateNumber
-	mov	ebx, eax
-	test	eax, eax
-	je	SHORT $LN32@PMC_DivRem
-
-; 390  :             {
-; 391  :                 ep_uint.Dispose(q_abs);
-
-	mov	rcx, QWORD PTR q_abs$3[rsp]
-	call	QWORD PTR ep_uint+32
-
-; 392  :                 ep_uint.Dispose(r_abs);
-
-	mov	rcx, QWORD PTR r_abs$1[rsp]
-	call	QWORD PTR ep_uint+32
-
-; 393  :                 DeallocateNumber(nq);
-
-	mov	rcx, QWORD PTR nq$[rsp]
-	call	DeallocateNumber
-$LN37@PMC_DivRem:
-
-; 394  :                 return (result);
-
-	mov	eax, ebx
-$LN36@PMC_DivRem:
-	mov	rbp, QWORD PTR [rsp+112]
-	mov	rbx, QWORD PTR [rsp+104]
-	mov	rsi, QWORD PTR [rsp+64]
-
-; 415  : }
-
-	add	rsp, 72					; 00000048H
-	pop	r14
-	pop	rdi
-	ret	0
-$LN32@PMC_DivRem:
-
-; 388  :             }
-; 389  :             if ((result = AllocateNumber(&nr, r_abs->FLAGS.IS_ZERO ? 0 : r_sign, r_abs)) != PMC_STATUS_OK)
-
-	mov	rcx, QWORD PTR nq$[rsp]
-	mov	rax, QWORD PTR nr$[rsp]
-$LN15@PMC_DivRem:
-
-; 408  :             }
-; 409  :         }
-; 410  :     }
-; 411  :     if (q != NULL)
-
-	test	rdi, rdi
-	je	SHORT $LN16@PMC_DivRem
-
-; 412  :         *q = (PMC_HANDLE_SINT)nq;
-
-	mov	QWORD PTR [rdi], rcx
-
-; 413  :     *r = (PMC_HANDLE_SINT)nr;
-
-	mov	QWORD PTR [r14], rax
-
-; 414  :     return (PMC_STATUS_OK);
-
-	xor	eax, eax
-	jmp	SHORT $LN36@PMC_DivRem
-$LN9@PMC_DivRem:
-
-; 395  :             }
-; 396  :         }
-; 397  :         else
-; 398  :         {
-; 399  :             char r_sign = nu->SIGN;
-; 400  :             PMC_HANDLE_UINT r_abs;
-; 401  :             if ((result = ep_uint.DivRem_X_X(nu->ABS, v, NULL, &r_abs)) != PMC_STATUS_OK)
-
-	lea	r9, QWORD PTR r_abs$2[rsp]
-	xor	r8d, r8d
-	call	QWORD PTR ep_uint+272
-	test	eax, eax
-	jne	SHORT $LN36@PMC_DivRem
-
-; 402  :                 return (result);
-; 403  :             nq = NULL;
-; 404  :             if ((result = AllocateNumber(&nr, r_abs->FLAGS.IS_ZERO ? 0 : r_sign, r_abs)) != PMC_STATUS_OK)
-
-	mov	r8, QWORD PTR r_abs$2[rsp]
-	lea	rcx, QWORD PTR nr$[rsp]
-	mov	edx, 0
-	movzx	eax, sil
-	test	BYTE PTR [r8], 1
-	cmove	edx, eax
-	call	AllocateNumber
-	mov	ebx, eax
-	test	eax, eax
-	je	SHORT $LN33@PMC_DivRem
-
-; 405  :             {
-; 406  :                 ep_uint.Dispose(r_abs);
-
-	mov	rcx, QWORD PTR r_abs$2[rsp]
-	call	QWORD PTR ep_uint+32
-
-; 407  :                 return (result);
-
-	jmp	SHORT $LN37@PMC_DivRem
-$LN33@PMC_DivRem:
-
-; 402  :                 return (result);
-; 403  :             nq = NULL;
-; 404  :             if ((result = AllocateNumber(&nr, r_abs->FLAGS.IS_ZERO ? 0 : r_sign, r_abs)) != PMC_STATUS_OK)
-
-	mov	rax, QWORD PTR nr$[rsp]
-$LN16@PMC_DivRem:
-
-; 413  :     *r = (PMC_HANDLE_SINT)nr;
-
-	mov	QWORD PTR [r14], rax
-
-; 414  :     return (PMC_STATUS_OK);
-
-	xor	eax, eax
-	jmp	SHORT $LN36@PMC_DivRem
-$LN28@PMC_DivRem:
-
-; 351  :     PMC_STATUS_CODE result;
-; 352  :     NUMBER_HEADER* nu = (NUMBER_HEADER*)u;
-; 353  :     NUMBER_HEADER* nq;
-; 354  :     NUMBER_HEADER* nr;
-; 355  :     if ((result = CheckNumber(nu)) != PMC_STATUS_OK)
-; 356  :         return (result);
-
-	mov	eax, -257				; fffffffffffffeffH
-
-; 415  : }
-
-	add	rsp, 72					; 00000048H
-	pop	r14
-	pop	rdi
-	ret	0
-$LN31@PMC_DivRem:
-
-; 350  :         return (PMC_STATUS_ARGUMENT_ERROR);
-
-	mov	eax, -1
-
-; 415  : }
-
-	add	rsp, 72					; 00000048H
-	pop	r14
-	pop	rdi
-	ret	0
-PMC_DivRem_X_UX ENDP
-_TEXT	ENDS
 END

@@ -174,7 +174,6 @@ PMC_SINT_Initialize:
 	movq	.refptr.PMC_DivRem_UX_X(%rip), %rax
 	movq	%rax, 824+entry_points(%rip)
 	movq	.refptr.PMC_DivRem_X_I(%rip), %rax
-	movl	$1, initialized(%rip)
 	movq	%rax, 832+entry_points(%rip)
 	movq	.refptr.PMC_DivRem_X_L(%rip), %rax
 	movq	%rax, 840+entry_points(%rip)
@@ -182,6 +181,35 @@ PMC_SINT_Initialize:
 	movq	%rax, 848+entry_points(%rip)
 	movq	.refptr.PMC_DivRem_X_X(%rip), %rax
 	movq	%rax, 856+entry_points(%rip)
+	movq	.refptr.PMC_Compare_I_X(%rip), %rax
+	movq	%rax, 864+entry_points(%rip)
+	movq	.refptr.PMC_Compare_L_X(%rip), %rax
+	movq	%rax, 872+entry_points(%rip)
+	movq	.refptr.PMC_Compare_UX_X(%rip), %rax
+	movq	%rax, 880+entry_points(%rip)
+	movq	.refptr.PMC_Compare_X_I(%rip), %rax
+	movq	%rax, 888+entry_points(%rip)
+	movq	.refptr.PMC_Compare_X_L(%rip), %rax
+	movq	%rax, 896+entry_points(%rip)
+	movq	.refptr.PMC_Compare_X_UX(%rip), %rax
+	movq	%rax, 904+entry_points(%rip)
+	movq	.refptr.PMC_Compare_X_X(%rip), %rax
+	movq	%rax, 912+entry_points(%rip)
+	movq	.refptr.PMC_Equals_I_X(%rip), %rax
+	movq	%rax, 920+entry_points(%rip)
+	movq	.refptr.PMC_Equals_L_X(%rip), %rax
+	movq	%rax, 928+entry_points(%rip)
+	movq	.refptr.PMC_Equals_UX_X(%rip), %rax
+	movq	%rax, 936+entry_points(%rip)
+	movq	.refptr.PMC_Equals_X_I(%rip), %rax
+	movq	%rax, 944+entry_points(%rip)
+	movq	.refptr.PMC_Equals_X_L(%rip), %rax
+	movq	%rax, 952+entry_points(%rip)
+	movq	.refptr.PMC_Equals_X_UX(%rip), %rax
+	movl	$1, initialized(%rip)
+	movq	%rax, 960+entry_points(%rip)
+	movq	.refptr.PMC_Equals_X_X(%rip), %rax
+	movq	%rax, 968+entry_points(%rip)
 	movq	.refptr.PMC_GetConstantValue_I(%rip), %rax
 	movq	%rax, 584+entry_points(%rip)
 	movq	.refptr.PMC_Clone_X(%rip), %rax
@@ -229,7 +257,7 @@ PMC_SINT_Initialize:
 .lcomm initialized,4,4
 .lcomm fp_PMC_UINT_Initialize,8,8
 .lcomm hLib_UINT,8,8
-.lcomm entry_points,864,32
+.lcomm entry_points,976,32
 	.comm	ep_uint, 552, 5
 	.comm	uint_number_one, 8, 3
 	.comm	uint_number_zero, 8, 3
@@ -252,6 +280,76 @@ PMC_SINT_Initialize:
 	.linkonce	discard
 .refptr.PMC_GetConstantValue_I:
 	.quad	PMC_GetConstantValue_I
+	.section	.rdata$.refptr.PMC_Equals_X_X, "dr"
+	.globl	.refptr.PMC_Equals_X_X
+	.linkonce	discard
+.refptr.PMC_Equals_X_X:
+	.quad	PMC_Equals_X_X
+	.section	.rdata$.refptr.PMC_Equals_X_UX, "dr"
+	.globl	.refptr.PMC_Equals_X_UX
+	.linkonce	discard
+.refptr.PMC_Equals_X_UX:
+	.quad	PMC_Equals_X_UX
+	.section	.rdata$.refptr.PMC_Equals_X_L, "dr"
+	.globl	.refptr.PMC_Equals_X_L
+	.linkonce	discard
+.refptr.PMC_Equals_X_L:
+	.quad	PMC_Equals_X_L
+	.section	.rdata$.refptr.PMC_Equals_X_I, "dr"
+	.globl	.refptr.PMC_Equals_X_I
+	.linkonce	discard
+.refptr.PMC_Equals_X_I:
+	.quad	PMC_Equals_X_I
+	.section	.rdata$.refptr.PMC_Equals_UX_X, "dr"
+	.globl	.refptr.PMC_Equals_UX_X
+	.linkonce	discard
+.refptr.PMC_Equals_UX_X:
+	.quad	PMC_Equals_UX_X
+	.section	.rdata$.refptr.PMC_Equals_L_X, "dr"
+	.globl	.refptr.PMC_Equals_L_X
+	.linkonce	discard
+.refptr.PMC_Equals_L_X:
+	.quad	PMC_Equals_L_X
+	.section	.rdata$.refptr.PMC_Equals_I_X, "dr"
+	.globl	.refptr.PMC_Equals_I_X
+	.linkonce	discard
+.refptr.PMC_Equals_I_X:
+	.quad	PMC_Equals_I_X
+	.section	.rdata$.refptr.PMC_Compare_X_X, "dr"
+	.globl	.refptr.PMC_Compare_X_X
+	.linkonce	discard
+.refptr.PMC_Compare_X_X:
+	.quad	PMC_Compare_X_X
+	.section	.rdata$.refptr.PMC_Compare_X_UX, "dr"
+	.globl	.refptr.PMC_Compare_X_UX
+	.linkonce	discard
+.refptr.PMC_Compare_X_UX:
+	.quad	PMC_Compare_X_UX
+	.section	.rdata$.refptr.PMC_Compare_X_L, "dr"
+	.globl	.refptr.PMC_Compare_X_L
+	.linkonce	discard
+.refptr.PMC_Compare_X_L:
+	.quad	PMC_Compare_X_L
+	.section	.rdata$.refptr.PMC_Compare_X_I, "dr"
+	.globl	.refptr.PMC_Compare_X_I
+	.linkonce	discard
+.refptr.PMC_Compare_X_I:
+	.quad	PMC_Compare_X_I
+	.section	.rdata$.refptr.PMC_Compare_UX_X, "dr"
+	.globl	.refptr.PMC_Compare_UX_X
+	.linkonce	discard
+.refptr.PMC_Compare_UX_X:
+	.quad	PMC_Compare_UX_X
+	.section	.rdata$.refptr.PMC_Compare_L_X, "dr"
+	.globl	.refptr.PMC_Compare_L_X
+	.linkonce	discard
+.refptr.PMC_Compare_L_X:
+	.quad	PMC_Compare_L_X
+	.section	.rdata$.refptr.PMC_Compare_I_X, "dr"
+	.globl	.refptr.PMC_Compare_I_X
+	.linkonce	discard
+.refptr.PMC_Compare_I_X:
+	.quad	PMC_Compare_I_X
 	.section	.rdata$.refptr.PMC_DivRem_X_X, "dr"
 	.globl	.refptr.PMC_DivRem_X_X
 	.linkonce	discard

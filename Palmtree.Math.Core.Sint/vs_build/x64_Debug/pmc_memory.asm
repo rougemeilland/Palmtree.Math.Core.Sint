@@ -177,7 +177,7 @@ pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$InitializeNumber DD imagerel InitializeNumber
-	DD	imagerel InitializeNumber+568
+	DD	imagerel InitializeNumber+610
 	DD	imagerel $unwind$InitializeNumber
 pdata	ENDS
 ;	COMDAT pdata
@@ -440,7 +440,7 @@ _TEXT	SEGMENT
 p$ = 224
 DetatchNumber PROC					; COMDAT
 
-; 180  : {
+; 185  : {
 
 $LN5:
 	mov	QWORD PTR [rsp+8], rcx
@@ -456,7 +456,7 @@ $LN5:
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 181  :     if (p == NULL || !p->IS_STATIC)
+; 186  :     if (p == NULL || !p->IS_STATIC)
 
 	cmp	QWORD PTR p$[rbp], 0
 	je	SHORT $LN3@DetatchNum
@@ -467,18 +467,18 @@ $LN5:
 	jne	SHORT $LN2@DetatchNum
 $LN3@DetatchNum:
 
-; 182  :         return;
+; 187  :         return;
 
 	jmp	SHORT $LN1@DetatchNum
 $LN2@DetatchNum:
 
-; 183  :     CleanUpNumber(p);
+; 188  :     CleanUpNumber(p);
 
 	mov	rcx, QWORD PTR p$[rbp]
 	call	CleanUpNumber
 $LN1@DetatchNum:
 
-; 184  : }
+; 189  : }
 
 	lea	rsp, QWORD PTR [rbp+200]
 	pop	rdi
@@ -496,7 +496,7 @@ sign$ = 264
 abs$ = 272
 AttatchNumber PROC					; COMDAT
 
-; 158  : {
+; 163  : {
 
 $LN4:
 	mov	QWORD PTR [rsp+24], r8
@@ -514,7 +514,7 @@ $LN4:
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 159  :     PMC_STATUS_CODE result = InitializeNumber(p, sign, abs);
+; 164  :     PMC_STATUS_CODE result = InitializeNumber(p, sign, abs);
 
 	mov	r8, QWORD PTR abs$[rbp]
 	movzx	edx, BYTE PTR sign$[rbp]
@@ -522,18 +522,18 @@ $LN4:
 	call	InitializeNumber
 	mov	DWORD PTR result$[rbp], eax
 
-; 160  :     if (result != PMC_STATUS_OK)
+; 165  :     if (result != PMC_STATUS_OK)
 
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN2@AttatchNum
 
-; 161  :         return (result);
+; 166  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@AttatchNum
 $LN2@AttatchNum:
 
-; 162  :     p->IS_STATIC = TRUE;
+; 167  :     p->IS_STATIC = TRUE;
 
 	mov	rax, QWORD PTR p$[rbp]
 	mov	eax, DWORD PTR [rax+28]
@@ -541,12 +541,12 @@ $LN2@AttatchNum:
 	mov	rcx, QWORD PTR p$[rbp]
 	mov	DWORD PTR [rcx+28], eax
 
-; 163  :     return (PMC_STATUS_OK);
+; 168  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@AttatchNum:
 
-; 164  : }
+; 169  : }
 
 	lea	rsp, QWORD PTR [rbp+232]
 	pop	rdi
@@ -561,7 +561,7 @@ _TEXT	SEGMENT
 p$ = 224
 CleanUpNumber PROC					; COMDAT
 
-; 153  : {
+; 158  : {
 
 	mov	QWORD PTR [rsp+8], rcx
 	push	rbp
@@ -576,13 +576,13 @@ CleanUpNumber PROC					; COMDAT
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 154  :     ep_uint.Dispose(p->ABS);
+; 159  :     ep_uint.Dispose(p->ABS);
 
 	mov	rax, QWORD PTR p$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
 	call	QWORD PTR ep_uint+32
 
-; 155  : }
+; 160  : }
 
 	lea	rsp, QWORD PTR [rbp+200]
 	pop	rdi
@@ -666,18 +666,18 @@ InitializeNumber PROC					; COMDAT
 
 	movsx	eax, BYTE PTR sign$[rbp]
 	test	eax, eax
-	jge	SHORT $LN5@Initialize
+	jge	SHORT $LN6@Initialize
 	mov	rax, QWORD PTR abs$[rbp]
 	mov	eax, DWORD PTR [rax]
 	shr	eax, 1
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $LN5@Initialize
+	je	SHORT $LN6@Initialize
 	mov	DWORD PTR tv85[rbp], 1
-	jmp	SHORT $LN6@Initialize
-$LN5@Initialize:
-	mov	DWORD PTR tv85[rbp], 0
+	jmp	SHORT $LN7@Initialize
 $LN6@Initialize:
+	mov	DWORD PTR tv85[rbp], 0
+$LN7@Initialize:
 	mov	eax, DWORD PTR tv85[rbp]
 	and	eax, 1
 	shl	eax, 2
@@ -693,18 +693,18 @@ $LN6@Initialize:
 
 	movsx	eax, BYTE PTR sign$[rbp]
 	test	eax, eax
-	jle	SHORT $LN7@Initialize
+	jle	SHORT $LN8@Initialize
 	mov	rax, QWORD PTR abs$[rbp]
 	mov	eax, DWORD PTR [rax]
 	shr	eax, 1
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $LN7@Initialize
+	je	SHORT $LN8@Initialize
 	mov	DWORD PTR tv130[rbp], 1
-	jmp	SHORT $LN8@Initialize
-$LN7@Initialize:
-	mov	DWORD PTR tv130[rbp], 0
+	jmp	SHORT $LN9@Initialize
 $LN8@Initialize:
+	mov	DWORD PTR tv130[rbp], 0
+$LN9@Initialize:
 	mov	eax, DWORD PTR tv130[rbp]
 	and	eax, 1
 	shl	eax, 1
@@ -720,18 +720,18 @@ $LN8@Initialize:
 
 	movsx	eax, BYTE PTR sign$[rbp]
 	test	eax, eax
-	jle	SHORT $LN9@Initialize
+	jle	SHORT $LN10@Initialize
 	mov	rax, QWORD PTR abs$[rbp]
 	mov	eax, DWORD PTR [rax]
 	shr	eax, 3
 	and	eax, 1
 	test	eax, eax
-	je	SHORT $LN9@Initialize
+	je	SHORT $LN10@Initialize
 	mov	DWORD PTR tv143[rbp], 1
-	jmp	SHORT $LN10@Initialize
-$LN9@Initialize:
-	mov	DWORD PTR tv143[rbp], 0
+	jmp	SHORT $LN11@Initialize
 $LN10@Initialize:
+	mov	DWORD PTR tv143[rbp], 0
+$LN11@Initialize:
 	mov	eax, DWORD PTR tv143[rbp]
 	and	eax, 1
 	shl	eax, 4
@@ -758,48 +758,69 @@ $LN10@Initialize:
 	mov	DWORD PTR [rcx], eax
 
 ; 142  : 
-; 143  :     if (sign != 0 && p->IS_ZERO)
+; 143  : #ifdef _DEBUG
+; 144  :     if (sign != -1 && sign != 0 && sign != 1)
 
+	movsx	eax, BYTE PTR sign$[rbp]
+	cmp	eax, -1
+	je	SHORT $LN2@Initialize
 	movsx	eax, BYTE PTR sign$[rbp]
 	test	eax, eax
 	je	SHORT $LN2@Initialize
-	mov	rax, QWORD PTR p$[rbp]
-	mov	eax, DWORD PTR [rax]
-	and	eax, 1
-	test	eax, eax
+	movsx	eax, BYTE PTR sign$[rbp]
+	cmp	eax, 1
 	je	SHORT $LN2@Initialize
 
-; 144  :         return (PMC_STATUS_INTERNAL_ERROR);
+; 145  :         return (PMC_STATUS_INTERNAL_ERROR);
 
 	mov	eax, -256				; ffffffffffffff00H
 	jmp	SHORT $LN1@Initialize
 $LN2@Initialize:
 
-; 145  : 
-; 146  :     if (sign == 0 && !p->IS_ZERO)
+; 146  : 
+; 147  :     if (sign != 0 && p->IS_ZERO)
 
 	movsx	eax, BYTE PTR sign$[rbp]
 	test	eax, eax
-	jne	SHORT $LN3@Initialize
+	je	SHORT $LN3@Initialize
 	mov	rax, QWORD PTR p$[rbp]
 	mov	eax, DWORD PTR [rax]
 	and	eax, 1
 	test	eax, eax
-	jne	SHORT $LN3@Initialize
+	je	SHORT $LN3@Initialize
 
-; 147  :         return (PMC_STATUS_INTERNAL_ERROR);
+; 148  :         return (PMC_STATUS_INTERNAL_ERROR);
 
 	mov	eax, -256				; ffffffffffffff00H
 	jmp	SHORT $LN1@Initialize
 $LN3@Initialize:
 
-; 148  : 
-; 149  :     return (PMC_STATUS_OK);
+; 149  : 
+; 150  :     if (sign == 0 && !p->IS_ZERO)
+
+	movsx	eax, BYTE PTR sign$[rbp]
+	test	eax, eax
+	jne	SHORT $LN4@Initialize
+	mov	rax, QWORD PTR p$[rbp]
+	mov	eax, DWORD PTR [rax]
+	and	eax, 1
+	test	eax, eax
+	jne	SHORT $LN4@Initialize
+
+; 151  :         return (PMC_STATUS_INTERNAL_ERROR);
+
+	mov	eax, -256				; ffffffffffffff00H
+	jmp	SHORT $LN1@Initialize
+$LN4@Initialize:
+
+; 152  : #endif
+; 153  : 
+; 154  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@Initialize:
 
-; 150  : }
+; 155  : }
 
 	lea	rsp, QWORD PTR [rbp+216]
 	pop	rdi
@@ -1542,7 +1563,7 @@ type$ = 240
 o$ = 248
 PMC_GetConstantValue_I PROC				; COMDAT
 
-; 270  : {
+; 275  : {
 
 $LN9:
 	mov	QWORD PTR [rsp+16], rdx
@@ -1559,7 +1580,7 @@ $LN9:
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 271  :     switch (type)
+; 276  :     switch (type)
 
 	mov	eax, DWORD PTR type$[rbp]
 	mov	DWORD PTR tv64[rbp], eax
@@ -1572,54 +1593,54 @@ $LN9:
 	jmp	SHORT $LN7@PMC_GetCon
 $LN4@PMC_GetCon:
 
-; 272  :     {
-; 273  :     case PMC_CONSTANT_ZERO:
-; 274  :         *o = (PMC_HANDLE_SINT)&number_zero;
+; 277  :     {
+; 278  :     case PMC_CONSTANT_ZERO:
+; 279  :         *o = (PMC_HANDLE_SINT)&number_zero;
 
 	mov	rax, QWORD PTR o$[rbp]
 	lea	rcx, OFFSET FLAT:number_zero
 	mov	QWORD PTR [rax], rcx
 
-; 275  :         return (PMC_STATUS_OK);
+; 280  :         return (PMC_STATUS_OK);
 
 	xor	eax, eax
 	jmp	SHORT $LN1@PMC_GetCon
 $LN5@PMC_GetCon:
 
-; 276  :     case PMC_CONSTANT_ONE:
-; 277  :         *o = (PMC_HANDLE_SINT)&number_one;
+; 281  :     case PMC_CONSTANT_ONE:
+; 282  :         *o = (PMC_HANDLE_SINT)&number_one;
 
 	mov	rax, QWORD PTR o$[rbp]
 	lea	rcx, OFFSET FLAT:number_one
 	mov	QWORD PTR [rax], rcx
 
-; 278  :         return (PMC_STATUS_OK);
+; 283  :         return (PMC_STATUS_OK);
 
 	xor	eax, eax
 	jmp	SHORT $LN1@PMC_GetCon
 $LN6@PMC_GetCon:
 
-; 279  :     case PMC_CONSTANT_MINUS_ONE:
-; 280  :         *o = (PMC_HANDLE_SINT)&number_minus_one;
+; 284  :     case PMC_CONSTANT_MINUS_ONE:
+; 285  :         *o = (PMC_HANDLE_SINT)&number_minus_one;
 
 	mov	rax, QWORD PTR o$[rbp]
 	lea	rcx, OFFSET FLAT:number_minus_one
 	mov	QWORD PTR [rax], rcx
 
-; 281  :         return (PMC_STATUS_OK);
+; 286  :         return (PMC_STATUS_OK);
 
 	xor	eax, eax
 	jmp	SHORT $LN1@PMC_GetCon
 $LN7@PMC_GetCon:
 
-; 282  :     default:
-; 283  :         return (PMC_STATUS_ARGUMENT_ERROR);
+; 287  :     default:
+; 288  :         return (PMC_STATUS_ARGUMENT_ERROR);
 
 	mov	eax, -1
 $LN1@PMC_GetCon:
 
-; 284  :     }
-; 285  : }
+; 289  :     }
+; 290  : }
 
 	lea	rsp, QWORD PTR [rbp+216]
 	pop	rdi
@@ -1635,7 +1656,7 @@ np$ = 8
 p$ = 256
 PMC_Dispose PROC					; COMDAT
 
-; 288  : {
+; 293  : {
 
 $LN3:
 	mov	QWORD PTR [rsp+8], rcx
@@ -1651,18 +1672,18 @@ $LN3:
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 289  :     NUMBER_HEADER* np = (NUMBER_HEADER*)p;
+; 294  :     NUMBER_HEADER* np = (NUMBER_HEADER*)p;
 
 	mov	rax, QWORD PTR p$[rbp]
 	mov	QWORD PTR np$[rbp], rax
 
-; 290  :     DeallocateNumber(np);
+; 295  :     DeallocateNumber(np);
 
 	mov	rcx, QWORD PTR np$[rbp]
 	call	DeallocateNumber
 
-; 291  :     return;
-; 292  : }
+; 296  :     return;
+; 297  : }
 
 	lea	rsp, QWORD PTR [rbp+232]
 	pop	rdi
@@ -1682,7 +1703,7 @@ number_one_ok$ = 132
 number_minus_one_ok$ = 164
 Initialize_Memory PROC					; COMDAT
 
-; 295  : {
+; 300  : {
 
 $LN17:
 	push	rbp
@@ -1696,39 +1717,39 @@ $LN17:
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 296  :     PMC_STATUS_CODE result = PMC_STATUS_OK;
+; 301  :     PMC_STATUS_CODE result = PMC_STATUS_OK;
 
 	mov	DWORD PTR result$[rbp], 0
 
-; 297  : 
-; 298  :     BOOL number_unsigned_zero_ok = TRUE;
+; 302  : 
+; 303  :     BOOL number_unsigned_zero_ok = TRUE;
 
 	mov	DWORD PTR number_unsigned_zero_ok$[rbp], 1
 
-; 299  :     BOOL number_unsigned_one_ok = TRUE;
+; 304  :     BOOL number_unsigned_one_ok = TRUE;
 
 	mov	DWORD PTR number_unsigned_one_ok$[rbp], 1
 
-; 300  :     BOOL number_zero_ok = TRUE;
+; 305  :     BOOL number_zero_ok = TRUE;
 
 	mov	DWORD PTR number_zero_ok$[rbp], 1
 
-; 301  :     BOOL number_one_ok = TRUE;
+; 306  :     BOOL number_one_ok = TRUE;
 
 	mov	DWORD PTR number_one_ok$[rbp], 1
 
-; 302  :     BOOL number_minus_one_ok = TRUE;
+; 307  :     BOOL number_minus_one_ok = TRUE;
 
 	mov	DWORD PTR number_minus_one_ok$[rbp], 1
 
-; 303  : 
-; 304  :     if (result == PMC_STATUS_OK)
+; 308  : 
+; 309  :     if (result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN2@Initialize
 
-; 305  :     {
-; 306  :         if ((result = ep_uint.GetConstantValue_I(PMC_CONSTANT_ZERO, &uint_number_zero)) == PMC_STATUS_OK)
+; 310  :     {
+; 311  :         if ((result = ep_uint.GetConstantValue_I(PMC_CONSTANT_ZERO, &uint_number_zero)) == PMC_STATUS_OK)
 
 	lea	rdx, OFFSET FLAT:uint_number_zero
 	mov	ecx, 1
@@ -1737,21 +1758,21 @@ $LN17:
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN3@Initialize
 
-; 307  :             number_unsigned_zero_ok = TRUE;
+; 312  :             number_unsigned_zero_ok = TRUE;
 
 	mov	DWORD PTR number_unsigned_zero_ok$[rbp], 1
 $LN3@Initialize:
 $LN2@Initialize:
 
-; 308  :     }
-; 309  : 
-; 310  :     if (result == PMC_STATUS_OK)
+; 313  :     }
+; 314  : 
+; 315  :     if (result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN4@Initialize
 
-; 311  :     {
-; 312  :         if ((result = ep_uint.GetConstantValue_I(PMC_CONSTANT_ONE, &uint_number_one)) == PMC_STATUS_OK)
+; 316  :     {
+; 317  :         if ((result = ep_uint.GetConstantValue_I(PMC_CONSTANT_ONE, &uint_number_one)) == PMC_STATUS_OK)
 
 	lea	rdx, OFFSET FLAT:uint_number_one
 	mov	ecx, 2
@@ -1760,21 +1781,21 @@ $LN2@Initialize:
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN5@Initialize
 
-; 313  :             number_unsigned_one_ok = TRUE;
+; 318  :             number_unsigned_one_ok = TRUE;
 
 	mov	DWORD PTR number_unsigned_one_ok$[rbp], 1
 $LN5@Initialize:
 $LN4@Initialize:
 
-; 314  :     }
-; 315  : 
-; 316  :     if (result == PMC_STATUS_OK)
+; 319  :     }
+; 320  : 
+; 321  :     if (result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN6@Initialize
 
-; 317  :     {
-; 318  :         if ((result = AttatchNumber(&number_zero, 0, uint_number_zero)) == PMC_STATUS_OK)
+; 322  :     {
+; 323  :         if ((result = AttatchNumber(&number_zero, 0, uint_number_zero)) == PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR uint_number_zero
 	xor	edx, edx
@@ -1784,21 +1805,21 @@ $LN4@Initialize:
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN7@Initialize
 
-; 319  :             number_zero_ok = TRUE;
+; 324  :             number_zero_ok = TRUE;
 
 	mov	DWORD PTR number_zero_ok$[rbp], 1
 $LN7@Initialize:
 $LN6@Initialize:
 
-; 320  :     }
-; 321  : 
-; 322  :     if (result == PMC_STATUS_OK)
+; 325  :     }
+; 326  : 
+; 327  :     if (result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN8@Initialize
 
-; 323  :     {
-; 324  :         if ((result = AttatchNumber(&number_one, 1, uint_number_one)) == PMC_STATUS_OK)
+; 328  :     {
+; 329  :         if ((result = AttatchNumber(&number_one, 1, uint_number_one)) == PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR uint_number_one
 	mov	dl, 1
@@ -1808,21 +1829,21 @@ $LN6@Initialize:
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN9@Initialize
 
-; 325  :             number_one_ok = TRUE;
+; 330  :             number_one_ok = TRUE;
 
 	mov	DWORD PTR number_one_ok$[rbp], 1
 $LN9@Initialize:
 $LN8@Initialize:
 
-; 326  :     }
-; 327  : 
-; 328  :     if (result == PMC_STATUS_OK)
+; 331  :     }
+; 332  : 
+; 333  :     if (result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN10@Initialize
 
-; 329  :     {
-; 330  :         if ((result = AttatchNumber(&number_minus_one, -1, uint_number_one)) == PMC_STATUS_OK)
+; 334  :     {
+; 335  :         if ((result = AttatchNumber(&number_minus_one, -1, uint_number_one)) == PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR uint_number_one
 	mov	dl, -1
@@ -1832,61 +1853,61 @@ $LN8@Initialize:
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN11@Initialize
 
-; 331  :             number_minus_one_ok = TRUE;
+; 336  :             number_minus_one_ok = TRUE;
 
 	mov	DWORD PTR number_minus_one_ok$[rbp], 1
 $LN11@Initialize:
 $LN10@Initialize:
 
-; 332  :     }
-; 333  : 
-; 334  :     if (result != PMC_STATUS_OK)
+; 337  :     }
+; 338  : 
+; 339  :     if (result != PMC_STATUS_OK)
 
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN12@Initialize
 
-; 335  :     {
-; 336  :         if (number_zero_ok)
+; 340  :     {
+; 341  :         if (number_zero_ok)
 
 	cmp	DWORD PTR number_zero_ok$[rbp], 0
 	je	SHORT $LN13@Initialize
 
-; 337  :             DetatchNumber(&number_zero);
+; 342  :             DetatchNumber(&number_zero);
 
 	lea	rcx, OFFSET FLAT:number_zero
 	call	DetatchNumber
 $LN13@Initialize:
 
-; 338  :         if (number_one_ok)
+; 343  :         if (number_one_ok)
 
 	cmp	DWORD PTR number_one_ok$[rbp], 0
 	je	SHORT $LN14@Initialize
 
-; 339  :             DetatchNumber(&number_one);
+; 344  :             DetatchNumber(&number_one);
 
 	lea	rcx, OFFSET FLAT:number_one
 	call	DetatchNumber
 $LN14@Initialize:
 
-; 340  :         if (number_minus_one_ok)
+; 345  :         if (number_minus_one_ok)
 
 	cmp	DWORD PTR number_minus_one_ok$[rbp], 0
 	je	SHORT $LN15@Initialize
 
-; 341  :             DetatchNumber(&number_minus_one);
+; 346  :             DetatchNumber(&number_minus_one);
 
 	lea	rcx, OFFSET FLAT:number_minus_one
 	call	DetatchNumber
 $LN15@Initialize:
 $LN12@Initialize:
 
-; 342  :     }
-; 343  : 
-; 344  :     return (result);
+; 347  :     }
+; 348  : 
+; 349  :     return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 
-; 345  : }
+; 350  : }
 
 	lea	rsp, QWORD PTR [rbp+392]
 	pop	rdi
@@ -1906,7 +1927,7 @@ x$ = 320
 op$ = 328
 Negate_Imp PROC						; COMDAT
 
-; 239  : {
+; 244  : {
 
 $LN8:
 	mov	QWORD PTR [rsp+16], rdx
@@ -1926,7 +1947,7 @@ $LN8:
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 240  :     if (x->IS_ZERO)
+; 245  :     if (x->IS_ZERO)
 
 	mov	rax, QWORD PTR x$[rbp]
 	mov	eax, DWORD PTR [rax]
@@ -1934,21 +1955,21 @@ $LN8:
 	test	eax, eax
 	je	SHORT $LN2@Negate_Imp
 
-; 241  :     {
-; 242  :         *op = &number_zero;
+; 246  :     {
+; 247  :         *op = &number_zero;
 
 	mov	rax, QWORD PTR op$[rbp]
 	lea	rcx, OFFSET FLAT:number_zero
 	mov	QWORD PTR [rax], rcx
 
-; 243  :         return (PMC_STATUS_OK);
+; 248  :         return (PMC_STATUS_OK);
 
 	xor	eax, eax
 	jmp	$LN1@Negate_Imp
 $LN2@Negate_Imp:
 
-; 244  :     }
-; 245  :     if (x->IS_ONE)
+; 249  :     }
+; 250  :     if (x->IS_ONE)
 
 	mov	rax, QWORD PTR x$[rbp]
 	mov	eax, DWORD PTR [rax]
@@ -1957,21 +1978,21 @@ $LN2@Negate_Imp:
 	test	eax, eax
 	je	SHORT $LN3@Negate_Imp
 
-; 246  :     {
-; 247  :         *op = &number_minus_one;
+; 251  :     {
+; 252  :         *op = &number_minus_one;
 
 	mov	rax, QWORD PTR op$[rbp]
 	lea	rcx, OFFSET FLAT:number_minus_one
 	mov	QWORD PTR [rax], rcx
 
-; 248  :         return (PMC_STATUS_OK);
+; 253  :         return (PMC_STATUS_OK);
 
 	xor	eax, eax
 	jmp	$LN1@Negate_Imp
 $LN3@Negate_Imp:
 
-; 249  :     }
-; 250  :     if (x->IS_MINUS_ONE)
+; 254  :     }
+; 255  :     if (x->IS_MINUS_ONE)
 
 	mov	rax, QWORD PTR x$[rbp]
 	mov	eax, DWORD PTR [rax]
@@ -1980,23 +2001,23 @@ $LN3@Negate_Imp:
 	test	eax, eax
 	je	SHORT $LN4@Negate_Imp
 
-; 251  :     {
-; 252  :         *op = &number_one;
+; 256  :     {
+; 257  :         *op = &number_one;
 
 	mov	rax, QWORD PTR op$[rbp]
 	lea	rcx, OFFSET FLAT:number_one
 	mov	QWORD PTR [rax], rcx
 
-; 253  :         return (PMC_STATUS_OK);
+; 258  :         return (PMC_STATUS_OK);
 
 	xor	eax, eax
 	jmp	SHORT $LN1@Negate_Imp
 $LN4@Negate_Imp:
 
-; 254  :     }
-; 255  :     PMC_STATUS_CODE result;
-; 256  :     PMC_HANDLE_UINT new_abs;
-; 257  :     if ((result = ep_uint.Clone_X(x->ABS, &new_abs)) != PMC_STATUS_OK)
+; 259  :     }
+; 260  :     PMC_STATUS_CODE result;
+; 261  :     PMC_HANDLE_UINT new_abs;
+; 262  :     if ((result = ep_uint.Clone_X(x->ABS, &new_abs)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR new_abs$[rbp]
 	mov	rax, QWORD PTR x$[rbp]
@@ -2006,14 +2027,14 @@ $LN4@Negate_Imp:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@Negate_Imp
 
-; 258  :         return (result);
+; 263  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@Negate_Imp
 $LN5@Negate_Imp:
 
-; 259  :     NUMBER_HEADER* o;
-; 260  :     if ((result = AllocateNumber(&o, -x->SIGN, new_abs)) != PMC_STATUS_OK)
+; 264  :     NUMBER_HEADER* o;
+; 265  :     if ((result = AllocateNumber(&o, -x->SIGN, new_abs)) != PMC_STATUS_OK)
 
 	mov	rax, QWORD PTR x$[rbp]
 	movsx	eax, BYTE PTR [rax+24]
@@ -2026,31 +2047,31 @@ $LN5@Negate_Imp:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN6@Negate_Imp
 
-; 261  :     {
-; 262  :         ep_uint.Dispose(new_abs);
+; 266  :     {
+; 267  :         ep_uint.Dispose(new_abs);
 
 	mov	rcx, QWORD PTR new_abs$[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 263  :         return (result);
+; 268  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@Negate_Imp
 $LN6@Negate_Imp:
 
-; 264  :     }
-; 265  :     *op = o;
+; 269  :     }
+; 270  :     *op = o;
 
 	mov	rax, QWORD PTR op$[rbp]
 	mov	rcx, QWORD PTR o$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 266  :     return (PMC_STATUS_OK);
+; 271  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@Negate_Imp:
 
-; 267  : }
+; 272  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -2078,7 +2099,7 @@ x$ = 320
 op$ = 328
 DuplicateNumber PROC					; COMDAT
 
-; 203  : {
+; 208  : {
 
 $LN9:
 	mov	QWORD PTR [rsp+16], rdx
@@ -2098,7 +2119,7 @@ $LN9:
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 204  :     if (x->IS_STATIC)
+; 209  :     if (x->IS_STATIC)
 
 	mov	rax, QWORD PTR x$[rbp]
 	mov	eax, DWORD PTR [rax+28]
@@ -2106,21 +2127,21 @@ $LN9:
 	test	eax, eax
 	je	SHORT $LN2@DuplicateN
 
-; 205  :     {
-; 206  :         *op = x;
+; 210  :     {
+; 211  :         *op = x;
 
 	mov	rax, QWORD PTR op$[rbp]
 	mov	rcx, QWORD PTR x$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 207  :         return (PMC_STATUS_OK);
+; 212  :         return (PMC_STATUS_OK);
 
 	xor	eax, eax
 	jmp	$LN1@DuplicateN
 $LN2@DuplicateN:
 
-; 208  :     }
-; 209  :     if (x->IS_ZERO)
+; 213  :     }
+; 214  :     if (x->IS_ZERO)
 
 	mov	rax, QWORD PTR x$[rbp]
 	mov	eax, DWORD PTR [rax]
@@ -2128,21 +2149,21 @@ $LN2@DuplicateN:
 	test	eax, eax
 	je	SHORT $LN3@DuplicateN
 
-; 210  :     {
-; 211  :         *op = &number_zero;
+; 215  :     {
+; 216  :         *op = &number_zero;
 
 	mov	rax, QWORD PTR op$[rbp]
 	lea	rcx, OFFSET FLAT:number_zero
 	mov	QWORD PTR [rax], rcx
 
-; 212  :         return (PMC_STATUS_OK);
+; 217  :         return (PMC_STATUS_OK);
 
 	xor	eax, eax
 	jmp	$LN1@DuplicateN
 $LN3@DuplicateN:
 
-; 213  :     }
-; 214  :     if (x->IS_ONE)
+; 218  :     }
+; 219  :     if (x->IS_ONE)
 
 	mov	rax, QWORD PTR x$[rbp]
 	mov	eax, DWORD PTR [rax]
@@ -2151,21 +2172,21 @@ $LN3@DuplicateN:
 	test	eax, eax
 	je	SHORT $LN4@DuplicateN
 
-; 215  :     {
-; 216  :         *op = &number_one;
+; 220  :     {
+; 221  :         *op = &number_one;
 
 	mov	rax, QWORD PTR op$[rbp]
 	lea	rcx, OFFSET FLAT:number_one
 	mov	QWORD PTR [rax], rcx
 
-; 217  :         return (PMC_STATUS_OK);
+; 222  :         return (PMC_STATUS_OK);
 
 	xor	eax, eax
 	jmp	$LN1@DuplicateN
 $LN4@DuplicateN:
 
-; 218  :     }
-; 219  :     if (x->IS_MINUS_ONE)
+; 223  :     }
+; 224  :     if (x->IS_MINUS_ONE)
 
 	mov	rax, QWORD PTR x$[rbp]
 	mov	eax, DWORD PTR [rax]
@@ -2174,23 +2195,23 @@ $LN4@DuplicateN:
 	test	eax, eax
 	je	SHORT $LN5@DuplicateN
 
-; 220  :     {
-; 221  :         *op = &number_minus_one;
+; 225  :     {
+; 226  :         *op = &number_minus_one;
 
 	mov	rax, QWORD PTR op$[rbp]
 	lea	rcx, OFFSET FLAT:number_minus_one
 	mov	QWORD PTR [rax], rcx
 
-; 222  :         return (PMC_STATUS_OK);
+; 227  :         return (PMC_STATUS_OK);
 
 	xor	eax, eax
 	jmp	SHORT $LN1@DuplicateN
 $LN5@DuplicateN:
 
-; 223  :     }
-; 224  :     PMC_STATUS_CODE result;
-; 225  :     PMC_HANDLE_UINT new_abs;
-; 226  :     if ((result = ep_uint.Clone_X(x->ABS, &new_abs)) != PMC_STATUS_OK)
+; 228  :     }
+; 229  :     PMC_STATUS_CODE result;
+; 230  :     PMC_HANDLE_UINT new_abs;
+; 231  :     if ((result = ep_uint.Clone_X(x->ABS, &new_abs)) != PMC_STATUS_OK)
 
 	lea	rdx, QWORD PTR new_abs$[rbp]
 	mov	rax, QWORD PTR x$[rbp]
@@ -2200,14 +2221,14 @@ $LN5@DuplicateN:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN6@DuplicateN
 
-; 227  :         return (result);
+; 232  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@DuplicateN
 $LN6@DuplicateN:
 
-; 228  :     NUMBER_HEADER* o;
-; 229  :     if ((result = AllocateNumber(&o, x->SIGN, new_abs)) != PMC_STATUS_OK)
+; 233  :     NUMBER_HEADER* o;
+; 234  :     if ((result = AllocateNumber(&o, x->SIGN, new_abs)) != PMC_STATUS_OK)
 
 	mov	r8, QWORD PTR new_abs$[rbp]
 	mov	rax, QWORD PTR x$[rbp]
@@ -2218,31 +2239,31 @@ $LN6@DuplicateN:
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN7@DuplicateN
 
-; 230  :     {
-; 231  :         ep_uint.Dispose(new_abs);
+; 235  :     {
+; 236  :         ep_uint.Dispose(new_abs);
 
 	mov	rcx, QWORD PTR new_abs$[rbp]
 	call	QWORD PTR ep_uint+32
 
-; 232  :         return (result);
+; 237  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@DuplicateN
 $LN7@DuplicateN:
 
-; 233  :     }
-; 234  :     *op = o;
+; 238  :     }
+; 239  :     *op = o;
 
 	mov	rax, QWORD PTR op$[rbp]
 	mov	rcx, QWORD PTR o$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 235  :     return (PMC_STATUS_OK);
+; 240  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@DuplicateN:
 
-; 236  : }
+; 241  : }
 
 	mov	rdi, rax
 	lea	rcx, QWORD PTR [rbp-32]
@@ -2265,7 +2286,7 @@ _TEXT	SEGMENT
 p$ = 224
 CheckNumber PROC					; COMDAT
 
-; 196  : {
+; 201  : {
 
 $LN5:
 	mov	QWORD PTR [rsp+8], rcx
@@ -2281,7 +2302,7 @@ $LN5:
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 197  :     if (p->SIGNATURE1 != PMC_SIGNATURE || p->SIGNATURE2 != PMC_SINT_SIGNATURE)
+; 202  :     if (p->SIGNATURE1 != PMC_SIGNATURE || p->SIGNATURE2 != PMC_SINT_SIGNATURE)
 
 	mov	rax, QWORD PTR p$[rbp]
 	cmp	DWORD PTR [rax+4], 1231244656		; 49634d70H
@@ -2291,18 +2312,18 @@ $LN5:
 	je	SHORT $LN2@CheckNumbe
 $LN3@CheckNumbe:
 
-; 198  :         return (PMC_STATUS_BAD_BUFFER);
+; 203  :         return (PMC_STATUS_BAD_BUFFER);
 
 	mov	eax, -257				; fffffffffffffeffH
 	jmp	SHORT $LN1@CheckNumbe
 $LN2@CheckNumbe:
 
-; 199  :     return (PMC_STATUS_OK);
+; 204  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@CheckNumbe:
 
-; 200  : }
+; 205  : }
 
 	lea	rsp, QWORD PTR [rbp+200]
 	pop	rdi
@@ -2317,7 +2338,7 @@ _TEXT	SEGMENT
 p$ = 224
 DeallocateNumber PROC					; COMDAT
 
-; 187  : {
+; 192  : {
 
 $LN5:
 	mov	QWORD PTR [rsp+8], rcx
@@ -2333,7 +2354,7 @@ $LN5:
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 188  :     if (p == NULL || p->IS_STATIC)
+; 193  :     if (p == NULL || p->IS_STATIC)
 
 	cmp	QWORD PTR p$[rbp], 0
 	je	SHORT $LN3@Deallocate
@@ -2344,22 +2365,22 @@ $LN5:
 	je	SHORT $LN2@Deallocate
 $LN3@Deallocate:
 
-; 189  :         return;
+; 194  :         return;
 
 	jmp	SHORT $LN1@Deallocate
 $LN2@Deallocate:
 
-; 190  :     CleanUpNumber(p);
+; 195  :     CleanUpNumber(p);
 
 	mov	rcx, QWORD PTR p$[rbp]
 	call	CleanUpNumber
 
-; 191  :     FillNumberHeader(p);
+; 196  :     FillNumberHeader(p);
 
 	mov	rcx, QWORD PTR p$[rbp]
 	call	FillNumberHeader
 
-; 192  :     HeapFree(hLocalHeap, 0, p);
+; 197  :     HeapFree(hLocalHeap, 0, p);
 
 	mov	r8, QWORD PTR p$[rbp]
 	xor	edx, edx
@@ -2367,7 +2388,7 @@ $LN2@Deallocate:
 	call	QWORD PTR __imp_HeapFree
 $LN1@Deallocate:
 
-; 193  : }
+; 198  : }
 
 	lea	rsp, QWORD PTR [rbp+200]
 	pop	rdi
@@ -2386,7 +2407,7 @@ sign$ = 296
 abs$ = 304
 AllocateNumber PROC					; COMDAT
 
-; 167  : {
+; 172  : {
 
 $LN5:
 	mov	QWORD PTR [rsp+24], r8
@@ -2404,7 +2425,7 @@ $LN5:
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 168  :     NUMBER_HEADER* p = (NUMBER_HEADER*)HeapAlloc(hLocalHeap, HEAP_ZERO_MEMORY, sizeof(NUMBER_HEADER));
+; 173  :     NUMBER_HEADER* p = (NUMBER_HEADER*)HeapAlloc(hLocalHeap, HEAP_ZERO_MEMORY, sizeof(NUMBER_HEADER));
 
 	mov	r8d, 32					; 00000020H
 	mov	edx, 8
@@ -2412,18 +2433,18 @@ $LN5:
 	call	QWORD PTR __imp_HeapAlloc
 	mov	QWORD PTR p$[rbp], rax
 
-; 169  :     if (p == NULL)
+; 174  :     if (p == NULL)
 
 	cmp	QWORD PTR p$[rbp], 0
 	jne	SHORT $LN2@AllocateNu
 
-; 170  :         return (PMC_STATUS_NOT_ENOUGH_MEMORY);
+; 175  :         return (PMC_STATUS_NOT_ENOUGH_MEMORY);
 
 	mov	eax, -5
 	jmp	SHORT $LN1@AllocateNu
 $LN2@AllocateNu:
 
-; 171  :     PMC_STATUS_CODE result = InitializeNumber(p, sign, abs);
+; 176  :     PMC_STATUS_CODE result = InitializeNumber(p, sign, abs);
 
 	mov	r8, QWORD PTR abs$[rbp]
 	movzx	edx, BYTE PTR sign$[rbp]
@@ -2431,18 +2452,18 @@ $LN2@AllocateNu:
 	call	InitializeNumber
 	mov	DWORD PTR result$[rbp], eax
 
-; 172  :     if (result != PMC_STATUS_OK)
+; 177  :     if (result != PMC_STATUS_OK)
 
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN3@AllocateNu
 
-; 173  :         return (result);
+; 178  :         return (result);
 
 	mov	eax, DWORD PTR result$[rbp]
 	jmp	SHORT $LN1@AllocateNu
 $LN3@AllocateNu:
 
-; 174  :     p->IS_STATIC = FALSE;
+; 179  :     p->IS_STATIC = FALSE;
 
 	mov	rax, QWORD PTR p$[rbp]
 	mov	eax, DWORD PTR [rax+28]
@@ -2450,18 +2471,18 @@ $LN3@AllocateNu:
 	mov	rcx, QWORD PTR p$[rbp]
 	mov	DWORD PTR [rcx+28], eax
 
-; 175  :     *pp = p;
+; 180  :     *pp = p;
 
 	mov	rax, QWORD PTR pp$[rbp]
 	mov	rcx, QWORD PTR p$[rbp]
 	mov	QWORD PTR [rax], rcx
 
-; 176  :     return (PMC_STATUS_OK);
+; 181  :     return (PMC_STATUS_OK);
 
 	xor	eax, eax
 $LN1@AllocateNu:
 
-; 177  : }
+; 182  : }
 
 	lea	rsp, QWORD PTR [rbp+264]
 	pop	rdi
@@ -2475,7 +2496,7 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 DeallocateHeapArea PROC					; COMDAT
 
-; 356  : {
+; 361  : {
 
 $LN4:
 	push	rbp
@@ -2489,24 +2510,24 @@ $LN4:
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 357  :     if (hLocalHeap != NULL)
+; 362  :     if (hLocalHeap != NULL)
 
 	cmp	QWORD PTR hLocalHeap, 0
 	je	SHORT $LN2@Deallocate
 
-; 358  :     {
-; 359  :         HeapDestroy(hLocalHeap);
+; 363  :     {
+; 364  :         HeapDestroy(hLocalHeap);
 
 	mov	rcx, QWORD PTR hLocalHeap
 	call	QWORD PTR __imp_HeapDestroy
 
-; 360  :         hLocalHeap = NULL;
+; 365  :         hLocalHeap = NULL;
 
 	mov	QWORD PTR hLocalHeap, 0
 $LN2@Deallocate:
 
-; 361  :     }
-; 362  : }
+; 366  :     }
+; 367  : }
 
 	lea	rsp, QWORD PTR [rbp+200]
 	pop	rdi
@@ -2520,7 +2541,7 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 AllocateHeapArea PROC					; COMDAT
 
-; 348  : {
+; 353  : {
 
 $LN4:
 	push	rbp
@@ -2534,7 +2555,7 @@ $LN4:
 	lea	rcx, OFFSET FLAT:__16A7E60D_pmc_memory@c
 	call	__CheckForDebuggerJustMyCode
 
-; 349  :     hLocalHeap = HeapCreate(0, 0x1000, 0);
+; 354  :     hLocalHeap = HeapCreate(0, 0x1000, 0);
 
 	xor	r8d, r8d
 	mov	edx, 4096				; 00001000H
@@ -2542,23 +2563,23 @@ $LN4:
 	call	QWORD PTR __imp_HeapCreate
 	mov	QWORD PTR hLocalHeap, rax
 
-; 350  :     if (hLocalHeap == NULL)
+; 355  :     if (hLocalHeap == NULL)
 
 	cmp	QWORD PTR hLocalHeap, 0
 	jne	SHORT $LN2@AllocateHe
 
-; 351  :         return (FALSE);
+; 356  :         return (FALSE);
 
 	xor	eax, eax
 	jmp	SHORT $LN1@AllocateHe
 $LN2@AllocateHe:
 
-; 352  :     return (TRUE);
+; 357  :     return (TRUE);
 
 	mov	eax, 1
 $LN1@AllocateHe:
 
-; 353  : }
+; 358  : }
 
 	lea	rsp, QWORD PTR [rbp+200]
 	pop	rdi

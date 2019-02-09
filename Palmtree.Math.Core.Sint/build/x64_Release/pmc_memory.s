@@ -20,7 +20,7 @@ InitializeNumber:
 	orl	%r9d, %eax
 	testb	%dl, %dl
 	movb	%al, (%rcx)
-	js	.L24
+	js	.L12
 	movl	%eax, %r9d
 	andl	$-5, %r9d
 	testb	%dl, %dl
@@ -30,49 +30,33 @@ InitializeNumber:
 	andl	$-7, %eax
 	testb	$2, %r8b
 	cmovne	%r9d, %eax
-	movl	%r8d, %edx
-	andl	$1, %edx
-	andl	$8, %r8d
 	movb	%al, (%rcx)
-	je	.L25
-	orl	$16, %eax
-	andl	$-2, %eax
+	movl	%r8d, %eax
+	shrb	$3, %al
+	andl	$1, %eax
+.L9:
+	sall	$4, %eax
+	andl	$1, %r8d
+	movl	%eax, %edx
+	movzbl	(%rcx), %eax
+	andl	$-18, %eax
 	orl	%edx, %eax
+	orl	%r8d, %eax
 	movb	%al, (%rcx)
-.L10:
-	testb	$1, (%rcx)
-	jne	.L15
-.L8:
 	xorl	%eax, %eax
 	ret
 	.p2align 4,,10
-.L25:
-	andl	$-18, %eax
-	orl	%edx, %eax
-	movb	%al, (%rcx)
-	jmp	.L10
-.L5:
-	andl	$1, %r8d
-	andl	$-24, %eax
-	orl	%r8d, %eax
-	testb	$1, %al
-	movb	%al, (%rcx)
-	jne	.L8
-.L15:
-	movl	$-256, %eax
-	ret
-	.p2align 4,,10
-.L24:
+.L12:
 	movl	%eax, %edx
 	andl	$-5, %eax
 	orl	$4, %edx
 	testb	$2, %r8b
 	cmovne	%edx, %eax
-	andl	$1, %r8d
-	andl	$-20, %eax
-	orl	%r8d, %eax
 	movb	%al, (%rcx)
-	jmp	.L10
+.L5:
+	andb	$-3, (%rcx)
+	xorl	%eax, %eax
+	jmp	.L9
 	.seh_endproc
 	.p2align 4,,15
 	.def	DetatchNumber.part.1;	.scl	3;	.type	32;	.endef
@@ -119,9 +103,9 @@ AttatchNumber:
 	movsbl	%dl, %edx
 	call	InitializeNumber
 	testl	%eax, %eax
-	jne	.L28
+	jne	.L15
 	orb	$1, 28(%rcx)
-.L28:
+.L15:
 	addq	$40, %rsp
 	ret
 	.seh_endproc
@@ -148,24 +132,24 @@ AllocateNumber:
 	call	*__imp_HeapAlloc(%rip)
 	testq	%rax, %rax
 	movq	%rax, %r10
-	je	.L32
+	je	.L19
 	movsbl	%bl, %edx
 	movq	%rsi, %r8
 	movq	%rax, %rcx
 	call	InitializeNumber
 	testl	%eax, %eax
-	jne	.L30
+	jne	.L17
 	andb	$-2, 28(%r10)
 	movq	%r10, (%rdi)
-.L30:
+.L17:
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi
 	popq	%rdi
 	ret
-.L32:
+.L19:
 	movl	$-5, %eax
-	jmp	.L30
+	jmp	.L17
 	.seh_endproc
 	.p2align 4,,15
 	.globl	DetatchNumber
@@ -174,12 +158,12 @@ AllocateNumber:
 DetatchNumber:
 	.seh_endprologue
 	testq	%rcx, %rcx
-	je	.L33
+	je	.L20
 	testb	$1, 28(%rcx)
-	je	.L33
+	je	.L20
 	jmp	DetatchNumber.part.1
 	.p2align 4,,10
-.L33:
+.L20:
 	ret
 	.seh_endproc
 	.p2align 4,,15
@@ -189,12 +173,12 @@ DetatchNumber:
 DeallocateNumber:
 	.seh_endprologue
 	testq	%rcx, %rcx
-	je	.L41
+	je	.L28
 	testb	$1, 28(%rcx)
-	jne	.L41
+	jne	.L28
 	jmp	DeallocateNumber.part.2
 	.p2align 4,,10
-.L41:
+.L28:
 	ret
 	.seh_endproc
 	.p2align 4,,15
@@ -204,14 +188,14 @@ DeallocateNumber:
 CheckNumber:
 	.seh_endprologue
 	cmpl	$1231244656, 4(%rcx)
-	jne	.L48
+	jne	.L35
 	cmpl	$1951287667, 8(%rcx)
 	movl	$0, %edx
 	movl	$-257, %eax
 	cmove	%edx, %eax
 	ret
 	.p2align 4,,10
-.L48:
+.L35:
 	movl	$-257, %eax
 	ret
 	.seh_endproc
@@ -232,42 +216,42 @@ DuplicateNumber:
 	testb	$1, 28(%rcx)
 	movq	%rcx, %rbx
 	movq	%rdx, %rsi
-	jne	.L57
+	jne	.L44
 	movzbl	(%rcx), %eax
 	testb	$1, %al
-	jne	.L58
+	jne	.L45
 	testb	$2, %al
-	jne	.L59
+	jne	.L46
 	testb	$4, %al
-	jne	.L60
+	jne	.L47
 	movq	.refptr.ep_uint(%rip), %rdi
 	leaq	48(%rsp), %rdx
 	movq	16(%rcx), %rcx
 	call	*80(%rdi)
 	testl	%eax, %eax
-	jne	.L50
+	jne	.L37
 	movsbl	24(%rbx), %edx
 	leaq	56(%rsp), %rcx
 	movq	48(%rsp), %r8
 	call	AllocateNumber
 	testl	%eax, %eax
-	jne	.L61
+	jne	.L48
 	movq	56(%rsp), %rdx
 	movq	%rdx, (%rsi)
-	jmp	.L50
+	jmp	.L37
 	.p2align 4,,10
-.L58:
+.L45:
 	leaq	number_zero(%rip), %rax
 	movq	%rax, (%rdx)
 	xorl	%eax, %eax
-.L50:
+.L37:
 	addq	$64, %rsp
 	popq	%rbx
 	popq	%rsi
 	popq	%rdi
 	ret
 	.p2align 4,,10
-.L57:
+.L44:
 	xorl	%eax, %eax
 	movq	%rcx, (%rsi)
 	addq	$64, %rsp
@@ -276,13 +260,13 @@ DuplicateNumber:
 	popq	%rdi
 	ret
 	.p2align 4,,10
-.L60:
+.L47:
 	leaq	number_minus_one(%rip), %rax
 	movq	%rax, (%rdx)
 	xorl	%eax, %eax
-	jmp	.L50
+	jmp	.L37
 	.p2align 4,,10
-.L59:
+.L46:
 	leaq	number_one(%rip), %rax
 	movq	%rax, (%rdx)
 	xorl	%eax, %eax
@@ -292,12 +276,12 @@ DuplicateNumber:
 	popq	%rdi
 	ret
 	.p2align 4,,10
-.L61:
+.L48:
 	movl	%eax, 44(%rsp)
 	movq	48(%rsp), %rcx
 	call	*32(%rdi)
 	movl	44(%rsp), %eax
-	jmp	.L50
+	jmp	.L37
 	.seh_endproc
 	.p2align 4,,15
 	.globl	Negate_Imp
@@ -317,17 +301,17 @@ Negate_Imp:
 	testb	$1, %al
 	movq	%rcx, %rbx
 	movq	%rdx, %rsi
-	jne	.L68
+	jne	.L55
 	testb	$2, %al
-	jne	.L69
+	jne	.L56
 	testb	$4, %al
-	jne	.L70
+	jne	.L57
 	movq	.refptr.ep_uint(%rip), %rdi
 	leaq	48(%rsp), %rdx
 	movq	16(%rcx), %rcx
 	call	*80(%rdi)
 	testl	%eax, %eax
-	jne	.L62
+	jne	.L49
 	movzbl	24(%rbx), %edx
 	leaq	56(%rsp), %rcx
 	movq	48(%rsp), %r8
@@ -335,23 +319,23 @@ Negate_Imp:
 	movsbl	%dl, %edx
 	call	AllocateNumber
 	testl	%eax, %eax
-	jne	.L71
+	jne	.L58
 	movq	56(%rsp), %rdx
 	movq	%rdx, (%rsi)
-	jmp	.L62
+	jmp	.L49
 	.p2align 4,,10
-.L69:
+.L56:
 	leaq	number_minus_one(%rip), %rax
 	movq	%rax, (%rdx)
 	xorl	%eax, %eax
-.L62:
+.L49:
 	addq	$64, %rsp
 	popq	%rbx
 	popq	%rsi
 	popq	%rdi
 	ret
 	.p2align 4,,10
-.L68:
+.L55:
 	leaq	number_zero(%rip), %rax
 	movq	%rax, (%rdx)
 	xorl	%eax, %eax
@@ -361,7 +345,7 @@ Negate_Imp:
 	popq	%rdi
 	ret
 	.p2align 4,,10
-.L70:
+.L57:
 	leaq	number_one(%rip), %rax
 	movq	%rax, (%rdx)
 	xorl	%eax, %eax
@@ -371,12 +355,12 @@ Negate_Imp:
 	popq	%rdi
 	ret
 	.p2align 4,,10
-.L71:
+.L58:
 	movl	%eax, 44(%rsp)
 	movq	48(%rsp), %rcx
 	call	*32(%rdi)
 	movl	44(%rsp), %eax
-	jmp	.L62
+	jmp	.L49
 	.seh_endproc
 	.p2align 4,,15
 	.globl	PMC_GetConstantValue_I
@@ -385,27 +369,27 @@ Negate_Imp:
 PMC_GetConstantValue_I:
 	.seh_endprologue
 	cmpl	$2, %ecx
-	je	.L73
+	je	.L60
 	cmpl	$3, %ecx
-	je	.L74
+	je	.L61
 	cmpl	$1, %ecx
 	movl	$-1, %eax
-	je	.L77
+	je	.L64
 	ret
 	.p2align 4,,10
-.L77:
+.L64:
 	leaq	number_zero(%rip), %rax
 	movq	%rax, (%rdx)
 	xorl	%eax, %eax
 	ret
 	.p2align 4,,10
-.L74:
+.L61:
 	leaq	number_minus_one(%rip), %rax
 	movq	%rax, (%rdx)
 	xorl	%eax, %eax
 	ret
 	.p2align 4,,10
-.L73:
+.L60:
 	leaq	number_one(%rip), %rax
 	movq	%rax, (%rdx)
 	xorl	%eax, %eax
@@ -418,12 +402,12 @@ PMC_GetConstantValue_I:
 PMC_Dispose:
 	.seh_endprologue
 	testq	%rcx, %rcx
-	je	.L78
+	je	.L65
 	testb	$1, 28(%rcx)
-	jne	.L78
+	jne	.L65
 	jmp	DeallocateNumber.part.2
 	.p2align 4,,10
-.L78:
+.L65:
 	ret
 	.seh_endproc
 	.p2align 4,,15
@@ -443,12 +427,12 @@ Initialize_Memory:
 	movl	$1, %ecx
 	call	*40(%rbx)
 	testl	%eax, %eax
-	jne	.L107
+	jne	.L94
 	leaq	uint_number_one(%rip), %rdx
 	movl	$2, %ecx
 	call	*40(%rbx)
 	testl	%eax, %eax
-	jne	.L107
+	jne	.L94
 	movq	uint_number_zero(%rip), %r8
 	leaq	number_zero(%rip), %r10
 	xorl	%edx, %edx
@@ -457,7 +441,7 @@ Initialize_Memory:
 	leaq	number_minus_one(%rip), %rbx
 	call	InitializeNumber
 	testl	%eax, %eax
-	jne	.L84
+	jne	.L71
 	movq	uint_number_one(%rip), %r8
 	leaq	number_one(%rip), %rsi
 	movl	$1, %edx
@@ -466,7 +450,7 @@ Initialize_Memory:
 	leaq	number_minus_one(%rip), %rbx
 	call	InitializeNumber
 	testl	%eax, %eax
-	jne	.L84
+	jne	.L71
 	movq	uint_number_one(%rip), %r8
 	leaq	number_minus_one(%rip), %rbx
 	movl	$-1, %edx
@@ -474,35 +458,35 @@ Initialize_Memory:
 	movq	%rbx, %rcx
 	call	InitializeNumber
 	testl	%eax, %eax
-	jne	.L84
+	jne	.L71
 	orb	$1, 28+number_minus_one(%rip)
-.L83:
+.L70:
 	addq	$56, %rsp
 	popq	%rbx
 	popq	%rsi
 	ret
 	.p2align 4,,10
-.L107:
+.L94:
 	leaq	number_zero(%rip), %r10
 	leaq	number_one(%rip), %rsi
 	leaq	number_minus_one(%rip), %rbx
-.L84:
+.L71:
 	testb	$1, 28+number_zero(%rip)
-	je	.L87
+	je	.L74
 	movq	%r10, %rcx
 	movl	%eax, 44(%rsp)
 	call	DetatchNumber.part.1
 	movl	44(%rsp), %eax
-.L87:
+.L74:
 	testb	$1, 28+number_one(%rip)
-	je	.L86
+	je	.L73
 	movq	%rsi, %rcx
 	movl	%eax, 44(%rsp)
 	call	DetatchNumber.part.1
 	movl	44(%rsp), %eax
-.L86:
+.L73:
 	testb	$1, 28+number_minus_one(%rip)
-	je	.L83
+	je	.L70
 	movq	%rbx, %rcx
 	movl	%eax, 44(%rsp)
 	call	DetatchNumber.part.1
@@ -541,10 +525,10 @@ DeallocateHeapArea:
 	.seh_endprologue
 	movq	hLocalHeap(%rip), %rcx
 	testq	%rcx, %rcx
-	je	.L109
+	je	.L96
 	call	*__imp_HeapDestroy(%rip)
 	movq	$0, hLocalHeap(%rip)
-.L109:
+.L96:
 	addq	$40, %rsp
 	ret
 	.seh_endproc

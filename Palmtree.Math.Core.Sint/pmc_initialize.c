@@ -181,16 +181,22 @@ PMC_EXPORT PMC_SINT_ENTRY_POINTS* __PMC_CALL PMC_SINT_Initialize(PMC_CONFIGURATI
         entry_points.ExclusiveOr_X_I = PMC_ExclusiveOr_X_I;
         entry_points.ExclusiveOr_X_L = PMC_ExclusiveOr_X_L;
         entry_points.ExclusiveOr_X_X = PMC_ExclusiveOr_X_X;
+        */
         entry_points.Compare_I_X = PMC_Compare_I_X;
         entry_points.Compare_L_X = PMC_Compare_L_X;
+        entry_points.Compare_UX_X = PMC_Compare_UX_X;
         entry_points.Compare_X_I = PMC_Compare_X_I;
         entry_points.Compare_X_L = PMC_Compare_X_L;
+        entry_points.Compare_X_UX = PMC_Compare_X_UX;
         entry_points.Compare_X_X = PMC_Compare_X_X;
         entry_points.Equals_I_X = PMC_Equals_I_X;
         entry_points.Equals_L_X = PMC_Equals_L_X;
+        entry_points.Equals_UX_X = PMC_Equals_UX_X;
         entry_points.Equals_X_I = PMC_Equals_X_I;
         entry_points.Equals_X_L = PMC_Equals_X_L;
+        entry_points.Equals_X_UX = PMC_Equals_X_UX;
         entry_points.Equals_X_X = PMC_Equals_X_X;
+        /*
         entry_points.GreatestCommonDivisor_I_X = PMC_GreatestCommonDivisor_I_X;
         entry_points.GreatestCommonDivisor_L_X = PMC_GreatestCommonDivisor_L_X;
         entry_points.GreatestCommonDivisor_X_I = PMC_GreatestCommonDivisor_X_I;

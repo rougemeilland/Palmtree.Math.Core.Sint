@@ -28,7 +28,7 @@ PUBLIC	DeallocateHeapArea
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$AttatchNumber DD imagerel $LN5@AttatchNum
-	DD	imagerel $LN5@AttatchNum+26
+	DD	imagerel $LN5@AttatchNum+22
 	DD	imagerel $unwind$AttatchNumber
 pdata	ENDS
 ;	COMDAT pdata
@@ -106,7 +106,7 @@ pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$AllocateNumber DD imagerel $LN6@AllocateNu
-	DD	imagerel $LN6@AllocateNu+117
+	DD	imagerel $LN6@AllocateNu+112
 	DD	imagerel $unwind$AllocateNumber
 pdata	ENDS
 ;	COMDAT pdata
@@ -124,19 +124,19 @@ pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$2$Negate_Imp DD imagerel $LN15@Negate_Imp+199
-	DD	imagerel $LN15@Negate_Imp+249
+	DD	imagerel $LN15@Negate_Imp+246
 	DD	imagerel $chain$2$Negate_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$4$Negate_Imp DD imagerel $LN15@Negate_Imp+249
-	DD	imagerel $LN15@Negate_Imp+264
+$pdata$4$Negate_Imp DD imagerel $LN15@Negate_Imp+246
+	DD	imagerel $LN15@Negate_Imp+260
 	DD	imagerel $chain$4$Negate_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
-$pdata$5$Negate_Imp DD imagerel $LN15@Negate_Imp+264
-	DD	imagerel $LN15@Negate_Imp+275
+$pdata$5$Negate_Imp DD imagerel $LN15@Negate_Imp+260
+	DD	imagerel $LN15@Negate_Imp+271
 	DD	imagerel $chain$5$Negate_Imp
 pdata	ENDS
 ;	COMDAT pdata

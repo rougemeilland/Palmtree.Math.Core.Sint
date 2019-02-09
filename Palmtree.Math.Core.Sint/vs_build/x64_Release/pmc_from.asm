@@ -11,25 +11,25 @@ PUBLIC	From_L_Imp
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$PMC_From_L DD imagerel $LN47@PMC_From_L
-	DD	imagerel $LN47@PMC_From_L+227
+	DD	imagerel $LN47@PMC_From_L+218
 	DD	imagerel $unwind$PMC_From_L
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$PMC_From_I DD imagerel $LN47@PMC_From_I
-	DD	imagerel $LN47@PMC_From_I+225
+	DD	imagerel $LN47@PMC_From_I+216
 	DD	imagerel $unwind$PMC_From_I
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$From_I_Imp DD imagerel $LN13@From_I_Imp
-	DD	imagerel $LN13@From_I_Imp+150
+	DD	imagerel $LN13@From_I_Imp+145
 	DD	imagerel $unwind$From_I_Imp
 pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$From_L_Imp DD imagerel $LN13@From_L_Imp
-	DD	imagerel $LN13@From_L_Imp+152
+	DD	imagerel $LN13@From_L_Imp+147
 	DD	imagerel $unwind$From_L_Imp
 ;	COMDAT xdata
 xdata	SEGMENT

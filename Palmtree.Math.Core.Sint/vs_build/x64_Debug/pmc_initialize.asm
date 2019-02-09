@@ -74,6 +74,20 @@ EXTRN	PMC_DivRem_X_I:PROC
 EXTRN	PMC_DivRem_X_L:PROC
 EXTRN	PMC_DivRem_X_UX:PROC
 EXTRN	PMC_DivRem_X_X:PROC
+EXTRN	PMC_Compare_I_X:PROC
+EXTRN	PMC_Compare_L_X:PROC
+EXTRN	PMC_Compare_UX_X:PROC
+EXTRN	PMC_Compare_X_I:PROC
+EXTRN	PMC_Compare_X_L:PROC
+EXTRN	PMC_Compare_X_UX:PROC
+EXTRN	PMC_Compare_X_X:PROC
+EXTRN	PMC_Equals_I_X:PROC
+EXTRN	PMC_Equals_L_X:PROC
+EXTRN	PMC_Equals_UX_X:PROC
+EXTRN	PMC_Equals_X_I:PROC
+EXTRN	PMC_Equals_X_L:PROC
+EXTRN	PMC_Equals_X_UX:PROC
+EXTRN	PMC_Equals_X_X:PROC
 EXTRN	_RTC_CheckStackVars:PROC
 EXTRN	_RTC_InitBase:PROC
 EXTRN	_RTC_Shutdown:PROC
@@ -82,7 +96,7 @@ EXTRN	__GSHandlerCheck:PROC
 EXTRN	__security_check_cookie:PROC
 EXTRN	__security_cookie:QWORD
 _BSS	SEGMENT
-entry_points DB	0360H DUP (?)
+entry_points DB	03d0H DUP (?)
 hLib_UINT DQ	01H DUP (?)
 fp_PMC_UINT_Initialize DQ 01H DUP (?)
 initialized DD	01H DUP (?)
@@ -90,7 +104,7 @@ _BSS	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$PMC_SINT_Initialize DD imagerel $LN9
-	DD	imagerel $LN9+767
+	DD	imagerel $LN9+963
 	DD	imagerel $unwind$PMC_SINT_Initialize
 pdata	ENDS
 ;	COMDAT pdata
@@ -1053,53 +1067,115 @@ $LN7@PMC_SINT_I:
 ; 181  :         entry_points.ExclusiveOr_X_I = PMC_ExclusiveOr_X_I;
 ; 182  :         entry_points.ExclusiveOr_X_L = PMC_ExclusiveOr_X_L;
 ; 183  :         entry_points.ExclusiveOr_X_X = PMC_ExclusiveOr_X_X;
-; 184  :         entry_points.Compare_I_X = PMC_Compare_I_X;
-; 185  :         entry_points.Compare_L_X = PMC_Compare_L_X;
-; 186  :         entry_points.Compare_X_I = PMC_Compare_X_I;
-; 187  :         entry_points.Compare_X_L = PMC_Compare_X_L;
-; 188  :         entry_points.Compare_X_X = PMC_Compare_X_X;
-; 189  :         entry_points.Equals_I_X = PMC_Equals_I_X;
-; 190  :         entry_points.Equals_L_X = PMC_Equals_L_X;
-; 191  :         entry_points.Equals_X_I = PMC_Equals_X_I;
-; 192  :         entry_points.Equals_X_L = PMC_Equals_X_L;
-; 193  :         entry_points.Equals_X_X = PMC_Equals_X_X;
-; 194  :         entry_points.GreatestCommonDivisor_I_X = PMC_GreatestCommonDivisor_I_X;
-; 195  :         entry_points.GreatestCommonDivisor_L_X = PMC_GreatestCommonDivisor_L_X;
-; 196  :         entry_points.GreatestCommonDivisor_X_I = PMC_GreatestCommonDivisor_X_I;
-; 197  :         entry_points.GreatestCommonDivisor_X_L = PMC_GreatestCommonDivisor_X_L;
-; 198  :         entry_points.GreatestCommonDivisor_X_X = PMC_GreatestCommonDivisor_X_X;
-; 199  :         entry_points.Pow_X_I = PMC_Pow_X_I;
-; 200  :         entry_points.ModPow_X_X_X = PMC_ModPow_X_X_X;
-; 201  :         */
-; 202  :         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
+; 184  :         */
+; 185  :         entry_points.Compare_I_X = PMC_Compare_I_X;
+
+	lea	rax, OFFSET FLAT:PMC_Compare_I_X
+	mov	QWORD PTR entry_points+864, rax
+
+; 186  :         entry_points.Compare_L_X = PMC_Compare_L_X;
+
+	lea	rax, OFFSET FLAT:PMC_Compare_L_X
+	mov	QWORD PTR entry_points+872, rax
+
+; 187  :         entry_points.Compare_UX_X = PMC_Compare_UX_X;
+
+	lea	rax, OFFSET FLAT:PMC_Compare_UX_X
+	mov	QWORD PTR entry_points+880, rax
+
+; 188  :         entry_points.Compare_X_I = PMC_Compare_X_I;
+
+	lea	rax, OFFSET FLAT:PMC_Compare_X_I
+	mov	QWORD PTR entry_points+888, rax
+
+; 189  :         entry_points.Compare_X_L = PMC_Compare_X_L;
+
+	lea	rax, OFFSET FLAT:PMC_Compare_X_L
+	mov	QWORD PTR entry_points+896, rax
+
+; 190  :         entry_points.Compare_X_UX = PMC_Compare_X_UX;
+
+	lea	rax, OFFSET FLAT:PMC_Compare_X_UX
+	mov	QWORD PTR entry_points+904, rax
+
+; 191  :         entry_points.Compare_X_X = PMC_Compare_X_X;
+
+	lea	rax, OFFSET FLAT:PMC_Compare_X_X
+	mov	QWORD PTR entry_points+912, rax
+
+; 192  :         entry_points.Equals_I_X = PMC_Equals_I_X;
+
+	lea	rax, OFFSET FLAT:PMC_Equals_I_X
+	mov	QWORD PTR entry_points+920, rax
+
+; 193  :         entry_points.Equals_L_X = PMC_Equals_L_X;
+
+	lea	rax, OFFSET FLAT:PMC_Equals_L_X
+	mov	QWORD PTR entry_points+928, rax
+
+; 194  :         entry_points.Equals_UX_X = PMC_Equals_UX_X;
+
+	lea	rax, OFFSET FLAT:PMC_Equals_UX_X
+	mov	QWORD PTR entry_points+936, rax
+
+; 195  :         entry_points.Equals_X_I = PMC_Equals_X_I;
+
+	lea	rax, OFFSET FLAT:PMC_Equals_X_I
+	mov	QWORD PTR entry_points+944, rax
+
+; 196  :         entry_points.Equals_X_L = PMC_Equals_X_L;
+
+	lea	rax, OFFSET FLAT:PMC_Equals_X_L
+	mov	QWORD PTR entry_points+952, rax
+
+; 197  :         entry_points.Equals_X_UX = PMC_Equals_X_UX;
+
+	lea	rax, OFFSET FLAT:PMC_Equals_X_UX
+	mov	QWORD PTR entry_points+960, rax
+
+; 198  :         entry_points.Equals_X_X = PMC_Equals_X_X;
+
+	lea	rax, OFFSET FLAT:PMC_Equals_X_X
+	mov	QWORD PTR entry_points+968, rax
+
+; 199  :         /*
+; 200  :         entry_points.GreatestCommonDivisor_I_X = PMC_GreatestCommonDivisor_I_X;
+; 201  :         entry_points.GreatestCommonDivisor_L_X = PMC_GreatestCommonDivisor_L_X;
+; 202  :         entry_points.GreatestCommonDivisor_X_I = PMC_GreatestCommonDivisor_X_I;
+; 203  :         entry_points.GreatestCommonDivisor_X_L = PMC_GreatestCommonDivisor_X_L;
+; 204  :         entry_points.GreatestCommonDivisor_X_X = PMC_GreatestCommonDivisor_X_X;
+; 205  :         entry_points.Pow_X_I = PMC_Pow_X_I;
+; 206  :         entry_points.ModPow_X_X_X = PMC_ModPow_X_X_X;
+; 207  :         */
+; 208  :         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
 
 	lea	rax, OFFSET FLAT:PMC_GetConstantValue_I
 	mov	QWORD PTR entry_points+584, rax
 
-; 203  :         entry_points.Clone_X = PMC_Clone_X;
+; 209  :         entry_points.Clone_X = PMC_Clone_X;
 
 	lea	rax, OFFSET FLAT:PMC_Clone_X
 	mov	QWORD PTR entry_points+608, rax
 
-; 204  :         entry_points.Negate_X = PMC_Negate_X;
+; 210  :         entry_points.Negate_X = PMC_Negate_X;
 
 	lea	rax, OFFSET FLAT:PMC_Negate_X
 	mov	QWORD PTR entry_points+632, rax
 
-; 205  : 
-; 206  :         initialized = TRUE;
+; 211  : 
+; 212  :         initialized = TRUE;
 
 	mov	DWORD PTR initialized, 1
 $LN5@PMC_SINT_I:
 
-; 207  :     }
-; 208  : 
-; 209  :     return (&entry_points);
+; 213  :     }
+; 214  : 
+; 215  :     return (&entry_points);
 
 	lea	rax, OFFSET FLAT:entry_points
 $LN1@PMC_SINT_I:
 
-; 210  : }
+; 216  : }
 
 	lea	rsp, QWORD PTR [rbp+232]
 	pop	rdi

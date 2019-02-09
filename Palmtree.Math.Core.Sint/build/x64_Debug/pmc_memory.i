@@ -87823,7 +87823,24 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
     PMC_STATUS_CODE ( * DivRem_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
     PMC_STATUS_CODE ( * DivRem_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
     PMC_STATUS_CODE ( * DivRem_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
-# 422 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 397 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+    PMC_STATUS_CODE ( * Compare_I_X)(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE ( * Compare_L_X)(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE ( * Compare_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE ( * Compare_X_I)(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    PMC_STATUS_CODE ( * Compare_X_L)(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    PMC_STATUS_CODE ( * Compare_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    PMC_STATUS_CODE ( * Compare_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+
+
+    PMC_STATUS_CODE ( * Equals_I_X)(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE ( * Equals_L_X)(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE ( * Equals_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE ( * Equals_X_I)(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    PMC_STATUS_CODE ( * Equals_X_L)(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    PMC_STATUS_CODE ( * Equals_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    PMC_STATUS_CODE ( * Equals_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+# 428 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 } PMC_SINT_ENTRY_POINTS;
 #pragma endregion
 
@@ -88004,7 +88021,23 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern PMC_STATUS_CODE PMC_DivRem_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
     extern PMC_STATUS_CODE PMC_DivRem_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
     extern PMC_STATUS_CODE PMC_DivRem_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
-# 209 "../pmc_sint_internal.h"
+# 181 "../pmc_sint_internal.h"
+    extern PMC_STATUS_CODE PMC_Compare_I_X(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Compare_L_X(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Compare_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Compare_X_I(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Compare_X_L(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Compare_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Compare_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+
+    extern PMC_STATUS_CODE PMC_Equals_I_X(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Equals_L_X(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Equals_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Equals_X_I(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Equals_X_L(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Equals_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Equals_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+# 207 "../pmc_sint_internal.h"
 #pragma endregion
 
 
@@ -89749,11 +89782,16 @@ static PMC_STATUS_CODE InitializeNumber(NUMBER_HEADER* p, char sign, PMC_HANDLE_
     p->IS_POWER_OF_TWO = sign > 0 && abs->FLAGS.IS_POWER_OF_TWO;
     p->IS_ZERO = abs->FLAGS.IS_ZERO;
 
+
+    if (sign != -1 && sign != 0 && sign != 1)
+        return ((-256));
+
     if (sign != 0 && p->IS_ZERO)
         return ((-256));
 
     if (sign == 0 && !p->IS_ZERO)
         return ((-256));
+
 
     return ((0));
 }
@@ -89769,9 +89807,9 @@ PMC_STATUS_CODE AttatchNumber(NUMBER_HEADER* p, char sign, PMC_HANDLE_UINT abs)
     if (result != (0))
         return (result);
     p->IS_STATIC = 
-# 162 "../pmc_memory.c" 3
+# 167 "../pmc_memory.c" 3
                   1
-# 162 "../pmc_memory.c"
+# 167 "../pmc_memory.c"
                       ;
     return ((0));
 }
@@ -89779,23 +89817,23 @@ PMC_STATUS_CODE AttatchNumber(NUMBER_HEADER* p, char sign, PMC_HANDLE_UINT abs)
 PMC_STATUS_CODE AllocateNumber(NUMBER_HEADER** pp, char sign, PMC_HANDLE_UINT abs)
 {
     NUMBER_HEADER* p = (NUMBER_HEADER*)HeapAlloc(hLocalHeap, 
-# 168 "../pmc_memory.c" 3
+# 173 "../pmc_memory.c" 3
                                                             0x00000008
-# 168 "../pmc_memory.c"
+# 173 "../pmc_memory.c"
                                                                             , sizeof(NUMBER_HEADER));
     if (p == 
-# 169 "../pmc_memory.c" 3 4
+# 174 "../pmc_memory.c" 3 4
             ((void *)0)
-# 169 "../pmc_memory.c"
+# 174 "../pmc_memory.c"
                 )
         return ((-5));
     PMC_STATUS_CODE result = InitializeNumber(p, sign, abs);
     if (result != (0))
         return (result);
     p->IS_STATIC = 
-# 174 "../pmc_memory.c" 3
+# 179 "../pmc_memory.c" 3
                   0
-# 174 "../pmc_memory.c"
+# 179 "../pmc_memory.c"
                        ;
     *pp = p;
     return ((0));
@@ -89804,9 +89842,9 @@ PMC_STATUS_CODE AllocateNumber(NUMBER_HEADER** pp, char sign, PMC_HANDLE_UINT ab
 void DetatchNumber(NUMBER_HEADER* p)
 {
     if (p == 
-# 181 "../pmc_memory.c" 3 4
+# 186 "../pmc_memory.c" 3 4
             ((void *)0) 
-# 181 "../pmc_memory.c"
+# 186 "../pmc_memory.c"
                  || !p->IS_STATIC)
         return;
     CleanUpNumber(p);
@@ -89815,9 +89853,9 @@ void DetatchNumber(NUMBER_HEADER* p)
 void DeallocateNumber(NUMBER_HEADER* p)
 {
     if (p == 
-# 188 "../pmc_memory.c" 3 4
+# 193 "../pmc_memory.c" 3 4
             ((void *)0) 
-# 188 "../pmc_memory.c"
+# 193 "../pmc_memory.c"
                  || p->IS_STATIC)
         return;
     CleanUpNumber(p);
@@ -89929,38 +89967,38 @@ PMC_STATUS_CODE Initialize_Memory(void)
     PMC_STATUS_CODE result = (0);
 
     BOOL number_unsigned_zero_ok = 
-# 298 "../pmc_memory.c" 3
+# 303 "../pmc_memory.c" 3
                                   1
-# 298 "../pmc_memory.c"
+# 303 "../pmc_memory.c"
                                       ;
     BOOL number_unsigned_one_ok = 
-# 299 "../pmc_memory.c" 3
+# 304 "../pmc_memory.c" 3
                                  1
-# 299 "../pmc_memory.c"
+# 304 "../pmc_memory.c"
                                      ;
     BOOL number_zero_ok = 
-# 300 "../pmc_memory.c" 3
+# 305 "../pmc_memory.c" 3
                          1
-# 300 "../pmc_memory.c"
+# 305 "../pmc_memory.c"
                              ;
     BOOL number_one_ok = 
-# 301 "../pmc_memory.c" 3
+# 306 "../pmc_memory.c" 3
                         1
-# 301 "../pmc_memory.c"
+# 306 "../pmc_memory.c"
                             ;
     BOOL number_minus_one_ok = 
-# 302 "../pmc_memory.c" 3
+# 307 "../pmc_memory.c" 3
                               1
-# 302 "../pmc_memory.c"
+# 307 "../pmc_memory.c"
                                   ;
 
     if (result == (0))
     {
         if ((result = ep_uint.GetConstantValue_I((1), &uint_number_zero)) == (0))
             number_unsigned_zero_ok = 
-# 307 "../pmc_memory.c" 3
+# 312 "../pmc_memory.c" 3
                                      1
-# 307 "../pmc_memory.c"
+# 312 "../pmc_memory.c"
                                          ;
     }
 
@@ -89968,9 +90006,9 @@ PMC_STATUS_CODE Initialize_Memory(void)
     {
         if ((result = ep_uint.GetConstantValue_I((2), &uint_number_one)) == (0))
             number_unsigned_one_ok = 
-# 313 "../pmc_memory.c" 3
+# 318 "../pmc_memory.c" 3
                                     1
-# 313 "../pmc_memory.c"
+# 318 "../pmc_memory.c"
                                         ;
     }
 
@@ -89978,9 +90016,9 @@ PMC_STATUS_CODE Initialize_Memory(void)
     {
         if ((result = AttatchNumber(&number_zero, 0, uint_number_zero)) == (0))
             number_zero_ok = 
-# 319 "../pmc_memory.c" 3
+# 324 "../pmc_memory.c" 3
                             1
-# 319 "../pmc_memory.c"
+# 324 "../pmc_memory.c"
                                 ;
     }
 
@@ -89988,9 +90026,9 @@ PMC_STATUS_CODE Initialize_Memory(void)
     {
         if ((result = AttatchNumber(&number_one, 1, uint_number_one)) == (0))
             number_one_ok = 
-# 325 "../pmc_memory.c" 3
+# 330 "../pmc_memory.c" 3
                            1
-# 325 "../pmc_memory.c"
+# 330 "../pmc_memory.c"
                                ;
     }
 
@@ -89998,9 +90036,9 @@ PMC_STATUS_CODE Initialize_Memory(void)
     {
         if ((result = AttatchNumber(&number_minus_one, -1, uint_number_one)) == (0))
             number_minus_one_ok = 
-# 331 "../pmc_memory.c" 3
+# 336 "../pmc_memory.c" 3
                                  1
-# 331 "../pmc_memory.c"
+# 336 "../pmc_memory.c"
                                      ;
     }
 
@@ -90021,35 +90059,35 @@ BOOL AllocateHeapArea()
 {
     hLocalHeap = HeapCreate(0, 0x1000, 0);
     if (hLocalHeap == 
-# 350 "../pmc_memory.c" 3 4
+# 355 "../pmc_memory.c" 3 4
                      ((void *)0)
-# 350 "../pmc_memory.c"
+# 355 "../pmc_memory.c"
                          )
         return (
-# 351 "../pmc_memory.c" 3
+# 356 "../pmc_memory.c" 3
                0
-# 351 "../pmc_memory.c"
+# 356 "../pmc_memory.c"
                     );
     return (
-# 352 "../pmc_memory.c" 3
+# 357 "../pmc_memory.c" 3
            1
-# 352 "../pmc_memory.c"
+# 357 "../pmc_memory.c"
                );
 }
 
 void DeallocateHeapArea()
 {
     if (hLocalHeap != 
-# 357 "../pmc_memory.c" 3 4
+# 362 "../pmc_memory.c" 3 4
                      ((void *)0)
-# 357 "../pmc_memory.c"
+# 362 "../pmc_memory.c"
                          )
     {
         HeapDestroy(hLocalHeap);
         hLocalHeap = 
-# 360 "../pmc_memory.c" 3 4
+# 365 "../pmc_memory.c" 3 4
                     ((void *)0)
-# 360 "../pmc_memory.c"
+# 365 "../pmc_memory.c"
                         ;
     }
 }

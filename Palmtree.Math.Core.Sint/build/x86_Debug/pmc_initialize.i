@@ -87578,7 +87578,24 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
-# 422 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 397 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_I_X)(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_L_X)(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_X_I)(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_X_L)(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+
+
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_I_X)(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_L_X)(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_X_I)(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_X_L)(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+# 428 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 } PMC_SINT_ENTRY_POINTS;
 #pragma endregion
 
@@ -87757,7 +87774,23 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
-# 209 "../pmc_sint_internal.h"
+# 181 "../pmc_sint_internal.h"
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_I_X(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_L_X(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_X_I(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_X_L(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_I_X(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_L_X(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_X_I(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_X_L(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+# 207 "../pmc_sint_internal.h"
 #pragma endregion
 
 
@@ -88529,15 +88562,30 @@ __attribute__((dllexport)) PMC_SINT_ENTRY_POINTS* __attribute__((__stdcall__)) P
         entry_points.DivRem_X_L = PMC_DivRem_X_L;
         entry_points.DivRem_X_UX = PMC_DivRem_X_UX;
         entry_points.DivRem_X_X = PMC_DivRem_X_X;
-# 202 "../pmc_initialize.c"
+# 185 "../pmc_initialize.c"
+        entry_points.Compare_I_X = PMC_Compare_I_X;
+        entry_points.Compare_L_X = PMC_Compare_L_X;
+        entry_points.Compare_UX_X = PMC_Compare_UX_X;
+        entry_points.Compare_X_I = PMC_Compare_X_I;
+        entry_points.Compare_X_L = PMC_Compare_X_L;
+        entry_points.Compare_X_UX = PMC_Compare_X_UX;
+        entry_points.Compare_X_X = PMC_Compare_X_X;
+        entry_points.Equals_I_X = PMC_Equals_I_X;
+        entry_points.Equals_L_X = PMC_Equals_L_X;
+        entry_points.Equals_UX_X = PMC_Equals_UX_X;
+        entry_points.Equals_X_I = PMC_Equals_X_I;
+        entry_points.Equals_X_L = PMC_Equals_X_L;
+        entry_points.Equals_X_UX = PMC_Equals_X_UX;
+        entry_points.Equals_X_X = PMC_Equals_X_X;
+# 208 "../pmc_initialize.c"
         entry_points.GetConstantValue_I = PMC_GetConstantValue_I;
         entry_points.Clone_X = PMC_Clone_X;
         entry_points.Negate_X = PMC_Negate_X;
 
         initialized = 
-# 206 "../pmc_initialize.c" 3
+# 212 "../pmc_initialize.c" 3
                      1
-# 206 "../pmc_initialize.c"
+# 212 "../pmc_initialize.c"
                          ;
     }
 

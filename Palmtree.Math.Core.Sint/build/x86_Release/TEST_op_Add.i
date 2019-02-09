@@ -49062,7 +49062,24 @@ typedef struct __tag_PMC_SINT_ENTRY_POINTS
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
     PMC_STATUS_CODE (__attribute__((__stdcall__)) * DivRem_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
-# 422 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 397 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_I_X)(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_L_X)(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_X_I)(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_X_L)(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Compare_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+
+
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_I_X)(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_L_X)(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_X_I)(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_X_L)(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    PMC_STATUS_CODE (__attribute__((__stdcall__)) * Equals_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+# 428 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 } PMC_SINT_ENTRY_POINTS;
 #pragma endregion
 
@@ -49249,7 +49266,23 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
     extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_DivRem_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
-# 209 "../pmc_sint_internal.h"
+# 181 "../pmc_sint_internal.h"
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_I_X(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_L_X(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_X_I(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_X_L(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Compare_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_I_X(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_L_X(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_X_I(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_X_L(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE __attribute__((__stdcall__)) PMC_Equals_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+# 207 "../pmc_sint_internal.h"
 #pragma endregion
 
 
@@ -49267,11 +49300,11 @@ typedef struct __tag_PMC_DEBUG_ENVIRONMENT
 
 
 #pragma region 宣言
-# 103 "../pmc_sint_debug.h"
+# 119 "../pmc_sint_debug.h"
 #pragma endregion
 
 
 #pragma region インライン関数の定義
-# 123 "../pmc_sint_debug.h"
+# 139 "../pmc_sint_debug.h"
 #pragma endregion
 # 29 "../TEST_op_Add.c" 2

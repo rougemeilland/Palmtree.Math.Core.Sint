@@ -161,6 +161,20 @@ L16:
 	movl	$_PMC_DivRem_X_L@20, _entry_points+420
 	movl	$_PMC_DivRem_X_UX@16, _entry_points+424
 	movl	$_PMC_DivRem_X_X@16, _entry_points+428
+	movl	$_PMC_Compare_I_X@12, _entry_points+432
+	movl	$_PMC_Compare_L_X@16, _entry_points+436
+	movl	$_PMC_Compare_UX_X@12, _entry_points+440
+	movl	$_PMC_Compare_X_I@12, _entry_points+444
+	movl	$_PMC_Compare_X_L@16, _entry_points+448
+	movl	$_PMC_Compare_X_UX@12, _entry_points+452
+	movl	$_PMC_Compare_X_X@12, _entry_points+456
+	movl	$_PMC_Equals_I_X@12, _entry_points+460
+	movl	$_PMC_Equals_L_X@16, _entry_points+464
+	movl	$_PMC_Equals_UX_X@12, _entry_points+468
+	movl	$_PMC_Equals_X_I@12, _entry_points+472
+	movl	$_PMC_Equals_X_L@16, _entry_points+476
+	movl	$_PMC_Equals_X_UX@12, _entry_points+480
+	movl	$_PMC_Equals_X_X@12, _entry_points+484
 	movl	$_PMC_GetConstantValue_I@8, _entry_points+292
 	movl	$_PMC_Clone_X@8, _entry_points+304
 	movl	$_PMC_Negate_X@8, _entry_points+316
@@ -234,7 +248,7 @@ LFE5484:
 .lcomm _initialized,4,4
 .lcomm _fp_PMC_UINT_Initialize,4,4
 .lcomm _hLib_UINT,4,4
-.lcomm _entry_points,432,32
+.lcomm _entry_points,488,32
 	.comm	_ep_uint, 276, 5
 	.comm	_uint_number_one, 4, 2
 	.comm	_uint_number_zero, 4, 2
@@ -276,6 +290,20 @@ LFE5484:
 	.def	_PMC_DivRem_X_L@20;	.scl	2;	.type	32;	.endef
 	.def	_PMC_DivRem_X_UX@16;	.scl	2;	.type	32;	.endef
 	.def	_PMC_DivRem_X_X@16;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Compare_I_X@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Compare_L_X@16;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Compare_UX_X@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Compare_X_I@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Compare_X_L@16;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Compare_X_UX@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Compare_X_X@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Equals_I_X@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Equals_L_X@16;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Equals_UX_X@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Equals_X_I@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Equals_X_L@16;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Equals_X_UX@12;	.scl	2;	.type	32;	.endef
+	.def	_PMC_Equals_X_X@12;	.scl	2;	.type	32;	.endef
 	.def	_PMC_GetConstantValue_I@8;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Clone_X@8;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Negate_X@8;	.scl	2;	.type	32;	.endef

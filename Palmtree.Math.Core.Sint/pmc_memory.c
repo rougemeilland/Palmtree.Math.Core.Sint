@@ -140,11 +140,16 @@ static PMC_STATUS_CODE InitializeNumber(NUMBER_HEADER* p, char sign, PMC_HANDLE_
     p->IS_POWER_OF_TWO = sign > 0 && abs->FLAGS.IS_POWER_OF_TWO;
     p->IS_ZERO = abs->FLAGS.IS_ZERO;
 
+#ifdef _DEBUG
+    if (sign != -1 && sign != 0 && sign != 1)
+        return (PMC_STATUS_INTERNAL_ERROR);
+
     if (sign != 0 && p->IS_ZERO)
         return (PMC_STATUS_INTERNAL_ERROR);
 
     if (sign == 0 && !p->IS_ZERO)
         return (PMC_STATUS_INTERNAL_ERROR);
+#endif
 
     return (PMC_STATUS_OK);
 }

@@ -84,6 +84,15 @@
     <ClCompile Include="debug.c">
       <Filter>ソース ファイル\テスト</Filter>
     </ClCompile>
+    <ClCompile Include="TEST_op_Equals.c">
+      <Filter>ソース ファイル\テスト</Filter>
+    </ClCompile>
+    <ClCompile Include="pmc_equals.c">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="pmc_compare.c">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pmc_sint_internal.h">
@@ -115,5 +124,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Palmtree.Math.Core.Sint.def" />
+    <None Include="TEST_op_Compare.c">
+      <Filter>ソース ファイル\テスト</Filter>
+    </None>
   </ItemGroup>
 </Project>
