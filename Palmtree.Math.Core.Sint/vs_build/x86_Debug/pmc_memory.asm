@@ -1546,7 +1546,7 @@ $LN4@Negate_Imp:
 	mov	ecx, DWORD PTR _x$[ebp]
 	mov	edx, DWORD PTR [ecx+12]
 	push	edx
-	call	DWORD PTR _ep_uint+40
+	call	DWORD PTR _ep_uint+32
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -1773,7 +1773,7 @@ $LN5@DuplicateN:
 	mov	ecx, DWORD PTR _x$[ebp]
 	mov	edx, DWORD PTR [ecx+12]
 	push	edx
-	call	DWORD PTR _ep_uint+40
+	call	DWORD PTR _ep_uint+32
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax

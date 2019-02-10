@@ -133,8 +133,8 @@ PMC_EXPORT PMC_SINT_ENTRY_POINTS* __PMC_CALL PMC_SINT_Initialize(PMC_CONFIGURATI
         entry_points.ToByteArray = PMC_ToByteArray;
         /*
         entry_points.ToString = PMC_ToString;
-        entry_points.TryParse = PMC_TryParse;
         */
+        entry_points.TryParse = PMC_TryParse;
         entry_points.Add_I_X = PMC_Add_I_X;
         entry_points.Add_L_X = PMC_Add_L_X;
         entry_points.Add_UX_X = PMC_Add_UX_X;

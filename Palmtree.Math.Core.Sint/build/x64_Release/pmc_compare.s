@@ -51,7 +51,7 @@ PMC_Compare_I_X:
 	leaq	44(%rsp), %r8
 	movl	%edi, %edx
 	movq	16(%rbx), %rcx
-	call	*432(%rax)
+	call	*416(%rax)
 	testl	%eax, %eax
 	jne	.L1
 	movl	44(%rsp), %edx
@@ -76,7 +76,7 @@ PMC_Compare_I_X:
 	movq	.refptr.ep_uint(%rip), %rax
 	leaq	44(%rsp), %r8
 	movq	16(%rbx), %rcx
-	call	*432(%rax)
+	call	*416(%rax)
 	testl	%eax, %eax
 	jne	.L1
 	movl	44(%rsp), %edx
@@ -138,7 +138,7 @@ PMC_Compare_L_X:
 	leaq	44(%rsp), %r8
 	movq	%rdi, %rdx
 	movq	16(%rbx), %rcx
-	call	*440(%rax)
+	call	*424(%rax)
 	testl	%eax, %eax
 	jne	.L20
 	movl	44(%rsp), %edx
@@ -163,7 +163,7 @@ PMC_Compare_L_X:
 	movq	.refptr.ep_uint(%rip), %rax
 	leaq	44(%rsp), %r8
 	movq	16(%rbx), %rcx
-	call	*440(%rax)
+	call	*424(%rax)
 	testl	%eax, %eax
 	jne	.L20
 	movl	44(%rsp), %edx
@@ -218,7 +218,7 @@ PMC_Compare_UX_X:
 	leaq	44(%rsp), %r8
 	movq	%rdi, %rcx
 	movq	16(%rbx), %rdx
-	call	*448(%rax)
+	call	*432(%rax)
 	testl	%eax, %eax
 	jne	.L38
 	movl	44(%rsp), %edx
@@ -289,7 +289,7 @@ PMC_Compare_X_I:
 	leaq	44(%rsp), %r8
 	movl	%edi, %edx
 	movq	16(%rbx), %rcx
-	call	*432(%rax)
+	call	*416(%rax)
 	testl	%eax, %eax
 	jne	.L45
 	movl	44(%rsp), %edx
@@ -339,7 +339,7 @@ PMC_Compare_X_I:
 	leaq	44(%rsp), %r8
 	movl	%edi, %edx
 	movq	16(%rbx), %rcx
-	call	*432(%rax)
+	call	*416(%rax)
 	testl	%eax, %eax
 	jne	.L45
 	movl	44(%rsp), %edx
@@ -399,7 +399,7 @@ PMC_Compare_X_L:
 	leaq	44(%rsp), %r8
 	movq	%rdi, %rdx
 	movq	16(%rbx), %rcx
-	call	*440(%rax)
+	call	*424(%rax)
 	testl	%eax, %eax
 	jne	.L68
 	movl	44(%rsp), %edx
@@ -450,7 +450,7 @@ PMC_Compare_X_L:
 	leaq	44(%rsp), %r8
 	movq	%rdi, %rdx
 	movq	16(%rbx), %rcx
-	call	*440(%rax)
+	call	*424(%rax)
 	testl	%eax, %eax
 	jne	.L68
 	movl	44(%rsp), %edx
@@ -522,7 +522,7 @@ PMC_Compare_X_UX:
 	leaq	44(%rsp), %r8
 	movq	%rdi, %rdx
 	movq	16(%rbx), %rcx
-	call	*448(%rax)
+	call	*432(%rax)
 	testl	%eax, %eax
 	jne	.L91
 	movl	44(%rsp), %edx
@@ -583,7 +583,7 @@ PMC_Compare_X_X:
 	leaq	44(%rsp), %r8
 	movq	16(%rsi), %rdx
 	movq	16(%rbx), %rcx
-	call	*448(%rax)
+	call	*432(%rax)
 	testl	%eax, %eax
 	jne	.L101
 	movl	44(%rsp), %edx
@@ -597,7 +597,7 @@ PMC_Compare_X_X:
 	leaq	44(%rsp), %r8
 	movq	16(%rsi), %rdx
 	movq	16(%rbx), %rcx
-	call	*448(%rax)
+	call	*432(%rax)
 	testl	%eax, %eax
 	jne	.L101
 	movl	44(%rsp), %edx

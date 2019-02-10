@@ -126,7 +126,7 @@ $LN2@PMC_To_X_L:
 	mov	ecx, DWORD PTR _np$[ebp]
 	mov	edx, DWORD PTR [ecx+12]
 	push	edx
-	call	DWORD PTR _ep_uint+48
+	call	DWORD PTR _ep_uint+40
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -328,7 +328,7 @@ $LN2@PMC_To_X_I:
 	mov	ecx, DWORD PTR _np$[ebp]
 	mov	edx, DWORD PTR [ecx+12]
 	push	edx
-	call	DWORD PTR _ep_uint+44
+	call	DWORD PTR _ep_uint+36
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax

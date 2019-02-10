@@ -13,7 +13,7 @@ PUBLIC	??_C@_0BE@LMKJAMNH@PMC_UINT_Initialize@		; `string'
 EXTRN	__imp__FreeLibrary@4:PROC
 EXTRN	__imp__GetProcAddress@8:PROC
 EXTRN	__imp__LoadLibraryA@4:PROC
-COMM	_ep_uint:BYTE:0114H
+COMM	_ep_uint:BYTE:0118H
 _DATA	ENDS
 ;	COMDAT ??_C@_0BE@LMKJAMNH@PMC_UINT_Initialize@
 CONST	SEGMENT
@@ -25,7 +25,7 @@ CONST	SEGMENT
 	DB	'e.Uint.dll', 00H				; `string'
 CONST	ENDS
 PUBLIC	_PMC_SINT_Initialize@4
-_entry_points DB 0204H DUP (?)
+_entry_points DB 020cH DUP (?)
 _initialized DD	01H DUP (?)
 _hLib_UINT DD	01H DUP (?)
 _fp_PMC_UINT_Initialize DD 01H DUP (?)

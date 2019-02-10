@@ -59,6 +59,8 @@
     <Compile Include="TEST_Equals.cs" />
     <Compile Include="TEST_Compare.cs" />
     <Compile Include="TEST_GreatestCommonDivisor.cs" />
+    <Compile Include="TEST_ParseDN2.cs" />
+    <Compile Include="TEST_ParseDN1.cs" />
     <Compile Include="TEST_Remainder.cs" />
     <Compile Include="TEST_DivRem.cs" />
     <Compile Include="TEST_Multiply.cs" />
@@ -67,6 +69,7 @@
     <Compile Include="TEST_Clone.cs" />
     <Compile Include="TEST_From.cs" />
     <Compile Include="TEST_Subtruct.cs" />
+    <Compile Include="TEST_ParseX.cs" />
     <Compile Include="TEST_To.cs" />
   </ItemGroup>
   <ItemGroup>

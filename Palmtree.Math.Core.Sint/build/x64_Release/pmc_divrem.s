@@ -52,7 +52,7 @@ PMC_DivRem_I_X:
 	leaq	60(%rsp), %r9
 	xorl	%r8d, %r8d
 	movq	16(%rbx), %rdx
-	call	*240(%rax)
+	call	*224(%rax)
 	testl	%eax, %eax
 	jne	.L15
 	movl	60(%rsp), %edx
@@ -101,7 +101,7 @@ PMC_DivRem_I_X:
 	leaq	60(%rsp), %r9
 	movq	16(%rbx), %rdx
 	leaq	56(%rsp), %r8
-	call	*240(%rax)
+	call	*224(%rax)
 	testl	%eax, %eax
 	jne	.L15
 	movl	56(%rsp), %edx
@@ -213,7 +213,7 @@ PMC_DivRem_L_X:
 	leaq	72(%rsp), %r9
 	xorl	%r8d, %r8d
 	movq	16(%rbx), %rdx
-	call	*248(%rax)
+	call	*232(%rax)
 	testl	%eax, %eax
 	jne	.L49
 	movq	72(%rsp), %rdx
@@ -262,7 +262,7 @@ PMC_DivRem_L_X:
 	leaq	72(%rsp), %r9
 	movq	16(%rbx), %rdx
 	leaq	64(%rsp), %r8
-	call	*248(%rax)
+	call	*232(%rax)
 	testl	%eax, %eax
 	jne	.L49
 	movq	64(%rsp), %rdx
@@ -393,7 +393,7 @@ PMC_DivRem_UX_X:
 	testq	%r14, %r14
 	movq	%r12, %r9
 	movq	16(%rbx), %rdx
-	movq	272(%r15), %rax
+	movq	256(%r15), %rax
 	je	.L73
 	leaq	56(%rsp), %r8
 	movq	%rdi, %rcx
@@ -514,7 +514,7 @@ PMC_DivRem_X_I:
 	movq	.refptr.ep_uint(%rip), %r14
 	testq	%r12, %r12
 	movq	16(%rbx), %rcx
-	movq	256(%r14), %rax
+	movq	240(%r14), %rax
 	je	.L93
 	leaq	60(%rsp), %r9
 	movl	%r13d, %r8d
@@ -644,7 +644,7 @@ PMC_DivRem_X_L:
 	movq	.refptr.ep_uint(%rip), %rdi
 	testq	%r12, %r12
 	movq	16(%rbx), %rcx
-	movq	264(%rdi), %rax
+	movq	248(%rdi), %rax
 	je	.L119
 	leaq	72(%rsp), %r9
 	movl	%r13d, %r8d
@@ -784,7 +784,7 @@ PMC_DivRem_X_UX:
 	leaq	72(%rsp), %r9
 	testq	%r15, %r15
 	movq	16(%rbx), %rcx
-	movq	272(%r14), %rax
+	movq	256(%r14), %rax
 	je	.L141
 	leaq	64(%rsp), %r8
 	movq	%rdi, %rdx
@@ -946,7 +946,7 @@ PMC_DivRem_X_X:
 	testq	%r12, %r12
 	movq	16(%rdi), %rdx
 	movq	16(%rsi), %rcx
-	movq	272(%r15), %rax
+	movq	256(%r15), %rax
 	je	.L166
 	movzbl	24(%rdi), %esi
 	leaq	72(%rsp), %r9

@@ -23,7 +23,7 @@ PMC_To_X_I:
 	leaq	44(%rsp), %rdx
 	movzbl	24(%rbx), %edi
 	movq	16(%rbx), %rcx
-	call	*88(%rax)
+	call	*72(%rax)
 	testl	%eax, %eax
 	jne	.L1
 	testb	%dil, %dil
@@ -82,7 +82,7 @@ PMC_To_X_L:
 	leaq	40(%rsp), %rdx
 	movzbl	24(%rbx), %edi
 	movq	16(%rbx), %rcx
-	call	*96(%rax)
+	call	*80(%rax)
 	testl	%eax, %eax
 	jne	.L10
 	testb	%dil, %dil

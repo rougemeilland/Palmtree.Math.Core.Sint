@@ -191,7 +191,7 @@ buffer2$ = 240
 count2$ = 248
 _EQUALS_MEMORY PROC					; COMDAT
 
-; 133  : {
+; 138  : {
 
 	mov	QWORD PTR [rsp+32], r9
 	mov	QWORD PTR [rsp+24], r8
@@ -209,26 +209,26 @@ _EQUALS_MEMORY PROC					; COMDAT
 	lea	rcx, OFFSET FLAT:__059414E1_pmc_sint_debug@h
 	call	__CheckForDebuggerJustMyCode
 
-; 134  :     if (count1 != count2)
+; 139  :     if (count1 != count2)
 
 	mov	rax, QWORD PTR count2$[rbp]
 	cmp	QWORD PTR count1$[rbp], rax
 	je	SHORT $LN4@EQUALS_MEM
 
-; 135  :         return (-1);
+; 140  :         return (-1);
 
 	mov	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN4@EQUALS_MEM:
 $LN2@EQUALS_MEM:
 
-; 136  :     while (count1 > 0)
+; 141  :     while (count1 > 0)
 
 	cmp	QWORD PTR count1$[rbp], 0
 	jbe	SHORT $LN3@EQUALS_MEM
 
-; 137  :     {
-; 138  :         if (*buffer1 != *buffer2)
+; 142  :     {
+; 143  :         if (*buffer1 != *buffer2)
 
 	mov	rax, QWORD PTR buffer1$[rbp]
 	movzx	eax, BYTE PTR [rax]
@@ -237,41 +237,41 @@ $LN2@EQUALS_MEM:
 	cmp	eax, ecx
 	je	SHORT $LN5@EQUALS_MEM
 
-; 139  :             return (-1);
+; 144  :             return (-1);
 
 	mov	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN5@EQUALS_MEM:
 
-; 140  :         ++buffer1;
+; 145  :         ++buffer1;
 
 	mov	rax, QWORD PTR buffer1$[rbp]
 	inc	rax
 	mov	QWORD PTR buffer1$[rbp], rax
 
-; 141  :         ++buffer2;
+; 146  :         ++buffer2;
 
 	mov	rax, QWORD PTR buffer2$[rbp]
 	inc	rax
 	mov	QWORD PTR buffer2$[rbp], rax
 
-; 142  :         --count1;
+; 147  :         --count1;
 
 	mov	rax, QWORD PTR count1$[rbp]
 	dec	rax
 	mov	QWORD PTR count1$[rbp], rax
 
-; 143  :     }
+; 148  :     }
 
 	jmp	SHORT $LN2@EQUALS_MEM
 $LN3@EQUALS_MEM:
 
-; 144  :     return (0);
+; 149  :     return (0);
 
 	xor	eax, eax
 $LN1@EQUALS_MEM:
 
-; 145  : }
+; 150  : }
 
 	lea	rsp, QWORD PTR [rbp+200]
 	pop	rdi
@@ -307,7 +307,7 @@ desired_o_buf$ = 760
 desired_o_buf_size$ = 768
 TEST_Clone_X PROC					; COMDAT
 
-; 33   : {
+; 32   : {
 
 $LN13:
 	mov	QWORD PTR [rsp+32], r9
@@ -329,20 +329,20 @@ $LN13:
 	lea	rcx, OFFSET FLAT:__07425A21_test_op_clone@c
 	call	__CheckForDebuggerJustMyCode
 
-; 34   :     PMC_HANDLE_SINT x;
-; 35   :     PMC_HANDLE_SINT o;
-; 36   :     unsigned char actual_o_buf[256];
-; 37   :     size_t actual_o_buf_size;
-; 38   :     PMC_STATUS_CODE result;
-; 39   :     PMC_STATUS_CODE x_result;
-; 40   :     PMC_STATUS_CODE o_result;
-; 41   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 1), (x_result = ep->FromByteArray(x_buf, x_buf_size, &x)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", x_result));
+; 33   :     PMC_HANDLE_SINT x;
+; 34   :     PMC_HANDLE_SINT o;
+; 35   :     unsigned char actual_o_buf[256];
+; 36   :     size_t actual_o_buf_size;
+; 37   :     PMC_STATUS_CODE result;
+; 38   :     PMC_STATUS_CODE x_result;
+; 39   :     PMC_STATUS_CODE o_result;
+; 40   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 1), (x_result = ep->FromByteArray(x_buf, x_buf_size, &x)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", x_result));
 
 	lea	r8, QWORD PTR x$[rbp]
 	mov	rdx, QWORD PTR x_buf_size$[rbp]
 	mov	rcx, QWORD PTR x_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+592]
+	call	QWORD PTR [rax+600]
 	mov	DWORD PTR x_result$[rbp], eax
 	cmp	DWORD PTR x_result$[rbp], 0
 	jne	SHORT $LN5@TEST_Clone
@@ -366,12 +366,12 @@ $LN6@TEST_Clone:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 42   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 2), (o_result = ep->Clone_X(x, &o)) == PMC_STATUS_OK, FormatTestMesssage(L"Clone_Xの復帰コードが期待通りではない(%d)", o_result));
+; 41   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 2), (o_result = ep->Clone_X(x, &o)) == PMC_STATUS_OK, FormatTestMesssage(L"Clone_Xの復帰コードが期待通りではない(%d)", o_result));
 
 	lea	rdx, QWORD PTR o$[rbp]
 	mov	rcx, QWORD PTR x$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+608]
+	call	QWORD PTR [rax+616]
 	mov	DWORD PTR o_result$[rbp], eax
 	cmp	DWORD PTR o_result$[rbp], 0
 	jne	SHORT $LN7@TEST_Clone
@@ -395,14 +395,14 @@ $LN8@TEST_Clone:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 43   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 3), (result = ep->ToByteArray(o, actual_o_buf, sizeof(actual_o_buf), &actual_o_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
+; 42   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 3), (result = ep->ToByteArray(o, actual_o_buf, sizeof(actual_o_buf), &actual_o_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
 
 	lea	r9, QWORD PTR actual_o_buf_size$[rbp]
 	mov	r8d, 256				; 00000100H
 	lea	rdx, QWORD PTR actual_o_buf$[rbp]
 	mov	rcx, QWORD PTR o$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+600]
+	call	QWORD PTR [rax+608]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN9@TEST_Clone
@@ -426,7 +426,7 @@ $LN10@TEST_Clone:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 44   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_o_buf, actual_o_buf_size, desired_o_buf, desired_o_buf_size) == 0, L"データの内容が一致しない");
+; 43   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_o_buf, actual_o_buf_size, desired_o_buf, desired_o_buf_size) == 0, L"データの内容が一致しない");
 
 	mov	r9, QWORD PTR desired_o_buf_size$[rbp]
 	mov	r8, QWORD PTR desired_o_buf$[rbp]
@@ -450,31 +450,31 @@ $LN12@TEST_Clone:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 45   :     if (o_result == PMC_STATUS_OK)
+; 44   :     if (o_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR o_result$[rbp], 0
 	jne	SHORT $LN2@TEST_Clone
 
-; 46   :         ep->Dispose(o);
+; 45   :         ep->Dispose(o);
 
 	mov	rcx, QWORD PTR o$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+576]
+	call	QWORD PTR [rax+584]
 $LN2@TEST_Clone:
 
-; 47   :     if (x_result == PMC_STATUS_OK)
+; 46   :     if (x_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR x_result$[rbp], 0
 	jne	SHORT $LN3@TEST_Clone
 
-; 48   :         ep->Dispose(x);
+; 47   :         ep->Dispose(x);
 
 	mov	rcx, QWORD PTR x$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+576]
+	call	QWORD PTR [rax+584]
 $LN3@TEST_Clone:
 
-; 49   : }
+; 48   : }
 
 	lea	rcx, QWORD PTR [rbp-32]
 	lea	rdx, OFFSET FLAT:TEST_Clone_X$rtcFrameData

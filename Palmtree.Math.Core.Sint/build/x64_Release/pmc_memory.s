@@ -227,7 +227,7 @@ DuplicateNumber:
 	movq	.refptr.ep_uint(%rip), %rdi
 	leaq	48(%rsp), %rdx
 	movq	16(%rcx), %rcx
-	call	*80(%rdi)
+	call	*64(%rdi)
 	testl	%eax, %eax
 	jne	.L37
 	movsbl	24(%rbx), %edx
@@ -309,7 +309,7 @@ Negate_Imp:
 	movq	.refptr.ep_uint(%rip), %rdi
 	leaq	48(%rsp), %rdx
 	movq	16(%rcx), %rcx
-	call	*80(%rdi)
+	call	*64(%rdi)
 	testl	%eax, %eax
 	jne	.L49
 	movzbl	24(%rbx), %edx

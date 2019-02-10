@@ -34,7 +34,7 @@ PMC_GreatestCommonDivisor_I_X:
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	%rsi, %r8
 	movq	16(%rbx), %rdx
-	movq	496(%rax), %rax
+	movq	480(%rax), %rax
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi
@@ -92,7 +92,7 @@ PMC_GreatestCommonDivisor_L_X:
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	%rsi, %r8
 	movq	16(%rbx), %rdx
-	movq	504(%rax), %rax
+	movq	488(%rax), %rax
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi
@@ -149,7 +149,7 @@ PMC_GreatestCommonDivisor_UX_X:
 	movq	%rsi, %r8
 	movq	%rdi, %rcx
 	movq	16(%rbx), %rdx
-	movq	528(%rax), %rax
+	movq	512(%rax), %rax
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi
@@ -198,7 +198,7 @@ PMC_GreatestCommonDivisor_X_I:
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	%rsi, %r8
 	movq	16(%rbx), %rcx
-	movq	512(%rax), %rax
+	movq	496(%rax), %rax
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi
@@ -255,7 +255,7 @@ PMC_GreatestCommonDivisor_X_L:
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	%rsi, %r8
 	movq	16(%rbx), %rcx
-	movq	520(%rax), %rax
+	movq	504(%rax), %rax
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi
@@ -311,7 +311,7 @@ PMC_GreatestCommonDivisor_X_UX:
 	movq	%rdi, %r8
 	movq	%rsi, %rdx
 	movq	16(%rbx), %rcx
-	movq	528(%rax), %rax
+	movq	512(%rax), %rax
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi
@@ -371,7 +371,7 @@ PMC_GreatestCommonDivisor_X_X:
 	movq	%rdi, %r8
 	movq	16(%rsi), %rdx
 	movq	16(%rbx), %rcx
-	movq	528(%rax), %rax
+	movq	512(%rax), %rax
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi

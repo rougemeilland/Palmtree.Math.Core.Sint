@@ -87470,6 +87470,12 @@ typedef struct _MODEMSETTINGS {
   WINBOOL ImmDisableTextFrameService(DWORD idThread);
 # 131 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/x86_64-w64-mingw32/include/windows.h" 2 3
 # 27 "../TEST_op_Remainder.c" 2
+# 1 "../pmc_sint_debug.h" 1
+# 26 "../pmc_sint_debug.h"
+# 1 "../pmc_sint_internal.h" 1
+# 31 "../pmc_sint_internal.h"
+# 1 "../pmc_sint.h" 1
+# 30 "../pmc_sint.h"
 # 1 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h" 1
 # 30 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 # 1 "C:/GNU/MINGW64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/stdint.h" 1 3 4
@@ -87567,45 +87573,6 @@ typedef int PMC_CONSTANT_VALUE_CODE;
 
 typedef int PMC_NUMBER_STYLE_CODE;
 
-union __tag_PMC_HANDLE_UINT
-{
-    const struct __tag_UINT_FLAGS
-    {
-        unsigned IS_ZERO : 1;
-        unsigned IS_ONE : 1;
-        unsigned IS_EVEN : 1;
-        unsigned IS_POWER_OF_TWO : 1;
-    } FLAGS;
-
-
-
-    _UINT64_T __dummy;
-
-
-
-};
-typedef union __tag_PMC_HANDLE_UINT* PMC_HANDLE_UINT;
-
-union __tag_PMC_HANDLE_SINT
-{
-    const struct __tag_SINT_FLAGS
-    {
-        unsigned IS_ZERO : 1;
-        unsigned IS_ONE : 1;
-        unsigned IS_MINUS_ONE : 1;
-        unsigned IS_EVEN : 1;
-        unsigned IS_POWER_OF_TWO : 1;
-    } FLAGS;
-
-
-
-    _UINT64_T __dummy;
-
-
-
-};
-typedef union __tag_PMC_HANDLE_SINT* PMC_HANDLE_SINT;
-
 typedef struct __tag_PMC_STATISTICS_INFO
 {
     long COUNT_MULTI64;
@@ -87621,241 +87588,522 @@ typedef struct __tag_PMC_NUMBER_FORMAT_OPTION
     wchar_t DecimalSeparator[3];
     wchar_t PositiveSign[3];
     wchar_t NegativeSign[3];
-    char GroupSizes[11];
+    wchar_t GroupSizes[11];
 } PMC_NUMBER_FORMAT_OPTION;
+#pragma endregion
+# 31 "../pmc_sint.h" 2
+# 1 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint.h" 1
+# 29 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint.h"
+# 1 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h" 1
+# 30 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint.h" 2
 
-typedef struct __tag_PMC_UINT_ENTRY_POINTS
-{
 
-    unsigned PROCESSOR_FEATURE_POPCNT : 1;
-    unsigned PROCESSOR_FEATURE_ADX : 1;
-    unsigned PROCESSOR_FEATURE_BMI1 : 1;
-    unsigned PROCESSOR_FEATURE_BMI2 : 1;
-    unsigned PROCESSOR_FEATURE_ABM : 1;
 
 
-    void ( * GetStatisticsInfo)(PMC_STATISTICS_INFO* statistics_info);
 
+#pragma region 型の定義
+    union __tag_PMC_HANDLE_UINT
+    {
+        const struct __tag_UINT_FLAGS
+        {
+            unsigned IS_ZERO : 1;
+            unsigned IS_ONE : 1;
+            unsigned IS_EVEN : 1;
+            unsigned IS_POWER_OF_TWO : 1;
+        } FLAGS;
 
-    PMC_STATUS_CODE ( * From_I)(_UINT32_T x, PMC_HANDLE_UINT* pp);
 
 
-    PMC_STATUS_CODE ( * From_L)(_UINT64_T x, PMC_HANDLE_UINT* pp);
+        _UINT64_T __dummy;
 
 
-    void ( * Dispose)(PMC_HANDLE_UINT p);
 
+    };
+    typedef union __tag_PMC_HANDLE_UINT* PMC_HANDLE_UINT;
 
-    PMC_STATUS_CODE ( * GetConstantValue_I)(PMC_CONSTANT_VALUE_CODE type, PMC_HANDLE_UINT* o);
+    typedef struct __tag_PMC_UINT_ENTRY_POINTS
+    {
 
+        unsigned PROCESSOR_FEATURE_POPCNT : 1;
+        unsigned PROCESSOR_FEATURE_ADX : 1;
+        unsigned PROCESSOR_FEATURE_BMI1 : 1;
+        unsigned PROCESSOR_FEATURE_BMI2 : 1;
+        unsigned PROCESSOR_FEATURE_ABM : 1;
 
-    PMC_STATUS_CODE ( * FromByteArray)(unsigned char* buffer, size_t count, PMC_HANDLE_UINT* pp);
-    PMC_STATUS_CODE ( * ToByteArray)(PMC_HANDLE_UINT p, unsigned char* buffer, size_t buffer_size, size_t *count);
-    PMC_STATUS_CODE( * FromByteArrayForSINT)(unsigned char* buffer, size_t count, char* o_sign, PMC_HANDLE_UINT* o_abs);
-    PMC_STATUS_CODE( * ToByteArrayForSINT)(char p_sign, PMC_HANDLE_UINT p, unsigned char* buffer, size_t buffer_size, size_t *count);
 
+        void ( * GetStatisticsInfo)(PMC_STATISTICS_INFO* statistics_info);
 
-    PMC_STATUS_CODE ( * Clone_X)(PMC_HANDLE_UINT x, PMC_HANDLE_UINT* o);
 
+        PMC_STATUS_CODE ( * From_I)(_UINT32_T x, PMC_HANDLE_UINT* pp);
 
-    PMC_STATUS_CODE ( * To_X_I)(PMC_HANDLE_UINT p, _UINT32_T* o);
-    PMC_STATUS_CODE ( * To_X_L)(PMC_HANDLE_UINT p, _UINT64_T* o);
 
+        PMC_STATUS_CODE ( * From_L)(_UINT64_T x, PMC_HANDLE_UINT* pp);
 
-    PMC_STATUS_CODE ( * ToString)(PMC_HANDLE_UINT x, wchar_t* buffer, size_t buffer_size, char format, int width, PMC_NUMBER_FORMAT_OPTION* format_option);
 
+        void ( * Dispose)(PMC_HANDLE_UINT p);
 
-    PMC_STATUS_CODE ( * TryParse)(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_OPTION* format_option, PMC_HANDLE_UINT* o);
 
+        PMC_STATUS_CODE ( * GetConstantValue_I)(PMC_CONSTANT_VALUE_CODE type, PMC_HANDLE_UINT* o);
 
-    PMC_STATUS_CODE ( * Add_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * Add_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * Add_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * Add_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * Add_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
+        PMC_STATUS_CODE ( * FromByteArray)(unsigned char* buffer, size_t count, PMC_HANDLE_UINT* pp);
+        PMC_STATUS_CODE ( * ToByteArray)(PMC_HANDLE_UINT p, unsigned char* buffer, size_t buffer_size, size_t *count);
 
-    PMC_STATUS_CODE ( * Subtruct_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, _UINT32_T* w);
-    PMC_STATUS_CODE ( * Subtruct_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, _UINT64_T* w);
-    PMC_STATUS_CODE ( * Subtruct_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * Subtruct_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * Subtruct_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
+        PMC_STATUS_CODE ( * Clone_X)(PMC_HANDLE_UINT x, PMC_HANDLE_UINT* o);
 
-    PMC_STATUS_CODE ( * Multiply_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * Multiply_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * Multiply_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * Multiply_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * Multiply_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
+        PMC_STATUS_CODE ( * To_X_I)(PMC_HANDLE_UINT p, _UINT32_T* o);
+        PMC_STATUS_CODE ( * To_X_L)(PMC_HANDLE_UINT p, _UINT64_T* o);
 
-    PMC_STATUS_CODE ( * DivRem_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, _UINT32_T* q, _UINT32_T* r);
-    PMC_STATUS_CODE ( * DivRem_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, _UINT64_T* q, _UINT64_T* r);
-    PMC_STATUS_CODE ( * DivRem_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* q, _UINT32_T* r);
-    PMC_STATUS_CODE ( * DivRem_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* q, _UINT64_T* r);
-    PMC_STATUS_CODE ( * DivRem_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* q, PMC_HANDLE_UINT* r);
 
+        PMC_STATUS_CODE ( * ToString)(PMC_HANDLE_UINT x, wchar_t* buffer, size_t buffer_size, char format, int width, PMC_NUMBER_FORMAT_OPTION* format_option);
 
-    PMC_STATUS_CODE ( * LeftShift_X_I)(PMC_HANDLE_UINT p, _UINT32_T n, PMC_HANDLE_UINT* o);
 
+        PMC_STATUS_CODE ( * TryParse)(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_OPTION* format_option, PMC_HANDLE_UINT* o);
 
-    PMC_STATUS_CODE ( * RightShift_X_I)(PMC_HANDLE_UINT p, _UINT32_T n, PMC_HANDLE_UINT* o);
 
+        PMC_STATUS_CODE ( * Add_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * Add_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * Add_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * Add_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * Add_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
-    PMC_STATUS_CODE ( * BitwiseAnd_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, _UINT32_T* w);
-    PMC_STATUS_CODE ( * BitwiseAnd_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, _UINT64_T* w);
-    PMC_STATUS_CODE ( * BitwiseAnd_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, _UINT32_T* w);
-    PMC_STATUS_CODE ( * BitwiseAnd_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, _UINT64_T* w);
-    PMC_STATUS_CODE ( * BitwiseAnd_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
+        PMC_STATUS_CODE ( * Subtruct_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, _UINT32_T* w);
+        PMC_STATUS_CODE ( * Subtruct_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, _UINT64_T* w);
+        PMC_STATUS_CODE ( * Subtruct_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * Subtruct_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * Subtruct_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
-    PMC_STATUS_CODE ( * BitwiseOr_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * BitwiseOr_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * BitwiseOr_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * BitwiseOr_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * BitwiseOr_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
+        PMC_STATUS_CODE ( * Multiply_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * Multiply_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * Multiply_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * Multiply_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * Multiply_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
-    PMC_STATUS_CODE ( * ExclusiveOr_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * ExclusiveOr_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * ExclusiveOr_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * ExclusiveOr_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * ExclusiveOr_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
+        PMC_STATUS_CODE ( * DivRem_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, _UINT32_T* q, _UINT32_T* r);
+        PMC_STATUS_CODE ( * DivRem_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, _UINT64_T* q, _UINT64_T* r);
+        PMC_STATUS_CODE ( * DivRem_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* q, _UINT32_T* r);
+        PMC_STATUS_CODE ( * DivRem_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* q, _UINT64_T* r);
+        PMC_STATUS_CODE ( * DivRem_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* q, PMC_HANDLE_UINT* r);
 
-    PMC_STATUS_CODE ( * Compare_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Compare_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Compare_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Compare_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Compare_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, _INT32_T* w);
 
+        PMC_STATUS_CODE ( * LeftShift_X_I)(PMC_HANDLE_UINT p, _UINT32_T n, PMC_HANDLE_UINT* o);
 
-    PMC_STATUS_CODE ( * Equals_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Equals_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Equals_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Equals_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Equals_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, _INT32_T* w);
 
+        PMC_STATUS_CODE ( * RightShift_X_I)(PMC_HANDLE_UINT p, _UINT32_T n, PMC_HANDLE_UINT* o);
 
-    PMC_STATUS_CODE ( * GreatestCommonDivisor_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * GreatestCommonDivisor_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * GreatestCommonDivisor_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * GreatestCommonDivisor_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * GreatestCommonDivisor_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
+        PMC_STATUS_CODE ( * BitwiseAnd_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, _UINT32_T* w);
+        PMC_STATUS_CODE ( * BitwiseAnd_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, _UINT64_T* w);
+        PMC_STATUS_CODE ( * BitwiseAnd_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, _UINT32_T* w);
+        PMC_STATUS_CODE ( * BitwiseAnd_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, _UINT64_T* w);
+        PMC_STATUS_CODE ( * BitwiseAnd_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
-    PMC_STATUS_CODE ( * Pow_X_I)(PMC_HANDLE_UINT x, _UINT32_T n, PMC_HANDLE_UINT* z);
 
+        PMC_STATUS_CODE ( * BitwiseOr_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * BitwiseOr_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * BitwiseOr_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * BitwiseOr_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * BitwiseOr_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
-    PMC_STATUS_CODE ( * ModPow_X_X_X)(PMC_HANDLE_UINT v, PMC_HANDLE_UINT e, PMC_HANDLE_UINT m, PMC_HANDLE_UINT* r);
 
-} PMC_UINT_ENTRY_POINTS;
+        PMC_STATUS_CODE ( * ExclusiveOr_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * ExclusiveOr_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * ExclusiveOr_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * ExclusiveOr_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * ExclusiveOr_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
-typedef struct __tag_PMC_SINT_ENTRY_POINTS
-{
 
-    PMC_UINT_ENTRY_POINTS UINT_ENTRY_POINTS;
+        PMC_STATUS_CODE ( * Compare_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, _INT32_T* w);
+        PMC_STATUS_CODE ( * Compare_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, _INT32_T* w);
+        PMC_STATUS_CODE ( * Compare_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, _INT32_T* w);
+        PMC_STATUS_CODE ( * Compare_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, _INT32_T* w);
+        PMC_STATUS_CODE ( * Compare_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, _INT32_T* w);
 
 
-    void ( * GetStatisticsInfo)(PMC_STATISTICS_INFO* statistics_info);
+        PMC_STATUS_CODE ( * Equals_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, _INT32_T* w);
+        PMC_STATUS_CODE ( * Equals_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, _INT32_T* w);
+        PMC_STATUS_CODE ( * Equals_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, _INT32_T* w);
+        PMC_STATUS_CODE ( * Equals_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, _INT32_T* w);
+        PMC_STATUS_CODE ( * Equals_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, _INT32_T* w);
 
 
-    PMC_STATUS_CODE ( * From_I)(_INT32_T x, PMC_HANDLE_SINT* pp);
+        PMC_STATUS_CODE ( * GreatestCommonDivisor_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * GreatestCommonDivisor_L_X)(_UINT64_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * GreatestCommonDivisor_X_I)(PMC_HANDLE_UINT u, _UINT32_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * GreatestCommonDivisor_X_L)(PMC_HANDLE_UINT u, _UINT64_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE ( * GreatestCommonDivisor_X_X)(PMC_HANDLE_UINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
 
 
-    PMC_STATUS_CODE ( * From_L)(_INT64_T x, PMC_HANDLE_SINT* pp);
+        PMC_STATUS_CODE ( * Pow_X_I)(PMC_HANDLE_UINT x, _UINT32_T n, PMC_HANDLE_UINT* z);
 
 
-    void ( * Dispose)(PMC_HANDLE_SINT p);
+        PMC_STATUS_CODE ( * ModPow_X_X_X)(PMC_HANDLE_UINT v, PMC_HANDLE_UINT e, PMC_HANDLE_UINT m, PMC_HANDLE_UINT* r);
 
 
-    PMC_STATUS_CODE ( * GetConstantValue_I)(PMC_CONSTANT_VALUE_CODE type, PMC_HANDLE_SINT* o);
-
-
-    PMC_STATUS_CODE ( * FromByteArray)(unsigned char* buffer, size_t count, PMC_HANDLE_SINT* pp);
-    PMC_STATUS_CODE ( * ToByteArray)(PMC_HANDLE_SINT p, unsigned char* buffer, size_t buffer_size, size_t *count);
-
-
-    PMC_STATUS_CODE ( * Clone_X)(PMC_HANDLE_SINT x, PMC_HANDLE_SINT* o);
-
-
-    PMC_STATUS_CODE ( * To_X_I)(PMC_HANDLE_SINT p, _INT32_T* o);
-    PMC_STATUS_CODE ( * To_X_L)(PMC_HANDLE_SINT p, _INT64_T* o);
-
-
-    PMC_STATUS_CODE ( * Negate_X)(PMC_HANDLE_SINT x, PMC_HANDLE_SINT* o);
-# 332 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
-    PMC_STATUS_CODE ( * Add_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Add_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Add_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Add_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Add_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Add_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Add_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-
-
-    PMC_STATUS_CODE ( * Subtruct_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Subtruct_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Subtruct_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Subtruct_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Subtruct_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Subtruct_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Subtruct_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-
-
-    PMC_STATUS_CODE ( * Multiply_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Multiply_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Multiply_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Multiply_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Multiply_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Multiply_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
-    PMC_STATUS_CODE ( * Multiply_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
-
-
-    PMC_STATUS_CODE ( * DivRem_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
-    PMC_STATUS_CODE ( * DivRem_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
-    PMC_STATUS_CODE ( * DivRem_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_UINT* r);
-    PMC_STATUS_CODE ( * DivRem_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* q, _INT32_T* r);
-    PMC_STATUS_CODE ( * DivRem_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
-    PMC_STATUS_CODE ( * DivRem_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
-    PMC_STATUS_CODE ( * DivRem_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
-# 397 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
-    PMC_STATUS_CODE ( * Compare_I_X)(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Compare_L_X)(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Compare_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Compare_X_I)(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Compare_X_L)(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Compare_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Compare_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
-
-
-    PMC_STATUS_CODE ( * Equals_I_X)(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Equals_L_X)(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Equals_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Equals_X_I)(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Equals_X_L)(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Equals_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
-    PMC_STATUS_CODE ( * Equals_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
-
-
-    PMC_STATUS_CODE ( * GreatestCommonDivisor_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * GreatestCommonDivisor_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * GreatestCommonDivisor_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * GreatestCommonDivisor_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * GreatestCommonDivisor_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * GreatestCommonDivisor_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
-    PMC_STATUS_CODE ( * GreatestCommonDivisor_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
-} PMC_SINT_ENTRY_POINTS;
+        PMC_STATUS_CODE ( * FromByteArrayForSINT)(unsigned char* buffer, size_t count, char* o_sign, PMC_HANDLE_UINT* o_abs);
+        PMC_STATUS_CODE ( * ToByteArrayForSINT)(char p_sign, PMC_HANDLE_UINT p, unsigned char* buffer, size_t buffer_size, size_t *count);
+        PMC_STATUS_CODE ( * TryParseForSINT)(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_OPTION* format_option, char* o_sign, PMC_HANDLE_UINT* o_abs);
+    } PMC_UINT_ENTRY_POINTS;
 #pragma endregion
 
 
 #pragma region 宣言
- PMC_UINT_ENTRY_POINTS* PMC_UINT_Initialize(PMC_CONFIGURATION_INFO*);
- PMC_SINT_ENTRY_POINTS* PMC_SINT_Initialize(PMC_CONFIGURATION_INFO*);
+    PMC_UINT_ENTRY_POINTS* PMC_UINT_Initialize(PMC_CONFIGURATION_INFO*);
 #pragma endregion
-# 28 "../TEST_op_Remainder.c" 2
-# 1 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 1
-# 34 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
+# 197 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint.h"
+       
+# 32 "../pmc_sint.h" 2
+
+
+
+
+
+#pragma region 型の定義
+    union __tag_PMC_HANDLE_SINT
+    {
+        const struct __tag_SINT_FLAGS
+        {
+            unsigned IS_ZERO : 1;
+            unsigned IS_ONE : 1;
+            unsigned IS_MINUS_ONE : 1;
+            unsigned IS_EVEN : 1;
+            unsigned IS_POWER_OF_TWO : 1;
+        } FLAGS;
+
+
+
+        _UINT64_T __dummy;
+
+
+
+    };
+    typedef union __tag_PMC_HANDLE_SINT* PMC_HANDLE_SINT;
+
+    typedef struct __tag_PMC_SINT_ENTRY_POINTS
+    {
+
+        PMC_UINT_ENTRY_POINTS UINT_ENTRY_POINTS;
+
+
+        void ( * GetStatisticsInfo)(PMC_STATISTICS_INFO* statistics_info);
+
+
+        PMC_STATUS_CODE( * From_I)(_INT32_T x, PMC_HANDLE_SINT* pp);
+
+
+        PMC_STATUS_CODE( * From_L)(_INT64_T x, PMC_HANDLE_SINT* pp);
+
+
+        void ( * Dispose)(PMC_HANDLE_SINT p);
+
+
+        PMC_STATUS_CODE( * GetConstantValue_I)(PMC_CONSTANT_VALUE_CODE type, PMC_HANDLE_SINT* o);
+
+
+        PMC_STATUS_CODE( * FromByteArray)(unsigned char* buffer, size_t count, PMC_HANDLE_SINT* pp);
+        PMC_STATUS_CODE( * ToByteArray)(PMC_HANDLE_SINT p, unsigned char* buffer, size_t buffer_size, size_t *count);
+
+
+        PMC_STATUS_CODE( * Clone_X)(PMC_HANDLE_SINT x, PMC_HANDLE_SINT* o);
+
+
+        PMC_STATUS_CODE( * To_X_I)(PMC_HANDLE_SINT p, _INT32_T* o);
+        PMC_STATUS_CODE( * To_X_L)(PMC_HANDLE_SINT p, _INT64_T* o);
+
+
+        PMC_STATUS_CODE( * Negate_X)(PMC_HANDLE_SINT x, PMC_HANDLE_SINT* o);
+
+
+
+
+
+
+
+        PMC_STATUS_CODE ( * TryParse)(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_OPTION* format_option, PMC_HANDLE_SINT* o);
+
+
+        PMC_STATUS_CODE( * Add_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Add_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Add_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Add_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Add_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Add_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Add_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+
+
+        PMC_STATUS_CODE( * Subtruct_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Subtruct_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Subtruct_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Subtruct_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Subtruct_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Subtruct_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Subtruct_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+
+
+        PMC_STATUS_CODE( * Multiply_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Multiply_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Multiply_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Multiply_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Multiply_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Multiply_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+        PMC_STATUS_CODE( * Multiply_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+
+
+        PMC_STATUS_CODE( * DivRem_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+        PMC_STATUS_CODE( * DivRem_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+        PMC_STATUS_CODE( * DivRem_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_UINT* r);
+        PMC_STATUS_CODE( * DivRem_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* q, _INT32_T* r);
+        PMC_STATUS_CODE( * DivRem_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
+        PMC_STATUS_CODE( * DivRem_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+        PMC_STATUS_CODE( * DivRem_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+# 166 "../pmc_sint.h"
+        PMC_STATUS_CODE( * Compare_I_X)(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+        PMC_STATUS_CODE( * Compare_L_X)(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+        PMC_STATUS_CODE( * Compare_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+        PMC_STATUS_CODE( * Compare_X_I)(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+        PMC_STATUS_CODE( * Compare_X_L)(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+        PMC_STATUS_CODE( * Compare_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+        PMC_STATUS_CODE( * Compare_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+
+
+        PMC_STATUS_CODE( * Equals_I_X)(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+        PMC_STATUS_CODE( * Equals_L_X)(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+        PMC_STATUS_CODE( * Equals_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+        PMC_STATUS_CODE( * Equals_X_I)(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+        PMC_STATUS_CODE( * Equals_X_L)(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+        PMC_STATUS_CODE( * Equals_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+        PMC_STATUS_CODE( * Equals_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+
+
+        PMC_STATUS_CODE( * GreatestCommonDivisor_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE( * GreatestCommonDivisor_L_X)(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE( * GreatestCommonDivisor_UX_X)(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE( * GreatestCommonDivisor_X_I)(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE( * GreatestCommonDivisor_X_L)(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE( * GreatestCommonDivisor_X_UX)(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+        PMC_STATUS_CODE( * GreatestCommonDivisor_X_X)(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+    } PMC_SINT_ENTRY_POINTS;
+#pragma endregion
+
+
+#pragma region 宣言
+    PMC_SINT_ENTRY_POINTS* PMC_SINT_Initialize(PMC_CONFIGURATION_INFO*);
+#pragma endregion
+# 32 "../pmc_sint_internal.h" 2
+# 1 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_internal.h" 1
+# 32 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_internal.h"
+# 1 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_cpuid.h" 1
+# 35 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_cpuid.h"
+typedef struct _tag_PROCESSOR_FEATURES
+{
+
+    unsigned PROCESSOR_FEATURE_POPCNT : 1;
+
+
+    unsigned PROCESSOR_FEATURE_ADX : 1;
+
+
+    unsigned PROCESSOR_FEATURE_BMI1 : 1;
+
+
+    unsigned PROCESSOR_FEATURE_BMI2 : 1;
+
+
+    unsigned PROCESSOR_FEATURE_ABM : 1;
+} PROCESSOR_FEATURES;
+
+extern void GetCPUInfo(PROCESSOR_FEATURES* feature);
+# 33 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_internal.h" 2
+
+
+
+
+
+
+#pragma region マクロの定義
+
+
+
+
+
+#pragma endregion
+
+
+#pragma region 型の定義
+
+
+
+typedef _UINT64_T __UNIT_TYPE;
+# 62 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_internal.h"
+typedef __UNIT_TYPE __UNIT_TYPE_DIV;
+
+
+
+
+#pragma endregion
+# 33 "../pmc_sint_internal.h" 2
+
+
+
+
+
+
+#pragma region マクロの定義
+
+#pragma endregion
+
+
+#pragma region 型の定義
+    typedef struct __tag_NUMBER_HEADER
+    {
+        unsigned IS_ZERO : 1;
+        unsigned IS_ONE : 1;
+        unsigned IS_MINUS_ONE : 1;
+        unsigned IS_EVEN : 1;
+        unsigned IS_POWER_OF_TWO : 1;
+
+        _UINT32_T SIGNATURE1;
+        _UINT32_T SIGNATURE2;
+
+        PMC_HANDLE_UINT ABS;
+        char SIGN;
+
+        unsigned IS_STATIC : 1;
+    } NUMBER_HEADER;
+#pragma endregion
+
+
+#pragma region 共用関数/変数の宣言
+
+    extern PMC_UINT_ENTRY_POINTS ep_uint;
+
+
+    extern NUMBER_HEADER number_zero;
+
+
+    extern NUMBER_HEADER number_one;
+
+
+    extern NUMBER_HEADER number_minus_one;
+
+
+    PMC_HANDLE_UINT uint_number_zero;
+
+
+    PMC_HANDLE_UINT uint_number_one;
+
+
+    extern PMC_STATISTICS_INFO statistics_info;
+
+    extern BOOL AllocateHeapArea();
+    extern void DeallocateHeapArea();
+    extern PMC_STATUS_CODE AllocateNumber(NUMBER_HEADER** pp, char sign, PMC_HANDLE_UINT abs);
+    extern void DeallocateNumber(NUMBER_HEADER* p);
+    extern PMC_STATUS_CODE CheckNumber(NUMBER_HEADER* p);
+    extern PMC_STATUS_CODE DuplicateNumber(NUMBER_HEADER* x, NUMBER_HEADER** op);
+    extern PMC_STATUS_CODE Negate_Imp(NUMBER_HEADER* x, NUMBER_HEADER** o);
+    extern PMC_STATUS_CODE From_I_Imp(char x_sign, _UINT32_T x_abs, NUMBER_HEADER** o);
+    extern PMC_STATUS_CODE From_L_Imp(char x_sign, _UINT64_T x_abs, NUMBER_HEADER** o);
+#pragma endregion
+
+
+#pragma region 初期化関数の宣言
+    extern PMC_STATUS_CODE Initialize_Memory(void);
+#pragma endregion
+
+
+#pragma region エントリポイントに登録される関数の宣言
+    extern void PMC_GetStatisticsInfo(PMC_STATISTICS_INFO* p);
+
+    extern PMC_STATUS_CODE PMC_From_I(_INT32_T x, PMC_HANDLE_SINT* o);
+    extern PMC_STATUS_CODE PMC_From_L(_INT64_T x, PMC_HANDLE_SINT* o);
+
+    extern void PMC_Dispose(PMC_HANDLE_SINT p);
+
+    extern PMC_STATUS_CODE PMC_GetConstantValue_I(PMC_CONSTANT_VALUE_CODE type, PMC_HANDLE_SINT* o);
+
+    extern PMC_STATUS_CODE PMC_FromByteArray(unsigned char* buffer, size_t count, PMC_HANDLE_SINT* o);
+    extern PMC_STATUS_CODE PMC_ToByteArray(PMC_HANDLE_SINT p, unsigned char* buffer, size_t buffer_size, size_t *count);
+
+    extern PMC_STATUS_CODE PMC_Clone_X(PMC_HANDLE_SINT x, PMC_HANDLE_SINT* o);
+
+    extern PMC_STATUS_CODE PMC_To_X_I(PMC_HANDLE_SINT p, _INT32_T* o);
+    extern PMC_STATUS_CODE PMC_To_X_L(PMC_HANDLE_SINT p, _INT64_T* o);
+
+    extern PMC_STATUS_CODE PMC_Negate_X(PMC_HANDLE_SINT x, PMC_HANDLE_SINT* o);
+
+
+
+
+    extern PMC_STATUS_CODE PMC_TryParse(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_OPTION* format_option, PMC_HANDLE_SINT* o);
+
+    extern PMC_STATUS_CODE PMC_Add_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Add_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Add_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Add_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Add_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Add_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Add_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+
+    extern PMC_STATUS_CODE PMC_Subtruct_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Subtruct_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Subtruct_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Subtruct_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Subtruct_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Subtruct_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Subtruct_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+
+    extern PMC_STATUS_CODE PMC_Multiply_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* w);
+    extern PMC_STATUS_CODE PMC_Multiply_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
+
+    extern PMC_STATUS_CODE PMC_DivRem_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+    extern PMC_STATUS_CODE PMC_DivRem_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT*r);
+    extern PMC_STATUS_CODE PMC_DivRem_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_UINT* r);
+    extern PMC_STATUS_CODE PMC_DivRem_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_SINT* q, _INT32_T* r);
+    extern PMC_STATUS_CODE PMC_DivRem_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_SINT* q, _INT64_T* r);
+    extern PMC_STATUS_CODE PMC_DivRem_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+    extern PMC_STATUS_CODE PMC_DivRem_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* q, PMC_HANDLE_SINT* r);
+# 183 "../pmc_sint_internal.h"
+    extern PMC_STATUS_CODE PMC_Compare_I_X(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Compare_L_X(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Compare_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Compare_X_I(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Compare_X_L(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Compare_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Compare_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+
+    extern PMC_STATUS_CODE PMC_Equals_I_X(_INT32_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Equals_L_X(_INT64_T u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Equals_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Equals_X_I(PMC_HANDLE_SINT u, _INT32_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Equals_X_L(PMC_HANDLE_SINT u, _INT64_T v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Equals_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, _INT32_T* w);
+    extern PMC_STATUS_CODE PMC_Equals_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, _INT32_T* w);
+
+    extern PMC_STATUS_CODE PMC_GreatestCommonDivisor_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+    extern PMC_STATUS_CODE PMC_GreatestCommonDivisor_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+    extern PMC_STATUS_CODE PMC_GreatestCommonDivisor_UX_X(PMC_HANDLE_UINT u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+    extern PMC_STATUS_CODE PMC_GreatestCommonDivisor_X_I(PMC_HANDLE_SINT u, _INT32_T v, PMC_HANDLE_UINT* w);
+    extern PMC_STATUS_CODE PMC_GreatestCommonDivisor_X_L(PMC_HANDLE_SINT u, _INT64_T v, PMC_HANDLE_UINT* w);
+    extern PMC_STATUS_CODE PMC_GreatestCommonDivisor_X_UX(PMC_HANDLE_SINT u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
+    extern PMC_STATUS_CODE PMC_GreatestCommonDivisor_X_X(PMC_HANDLE_SINT u, PMC_HANDLE_SINT v, PMC_HANDLE_UINT* w);
+#pragma endregion
+
+
+#pragma region インライン関数の定義
+#pragma endregion
+# 27 "../pmc_sint_debug.h" 2
+# 37 "../pmc_sint_debug.h"
 #pragma region 型の定義
 typedef struct __tag_PMC_DEBUG_ENVIRONMENT
 {
@@ -87867,413 +88115,305 @@ typedef struct __tag_PMC_DEBUG_ENVIRONMENT
 
 #pragma region 宣言
 
-extern void TEST_autogenerated(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep);
+extern void TEST_autogenerated(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep);
 extern void TEST_Assert(PMC_DEBUG_ENVIRONMENT *env, const wchar_t* test_name, BOOL condition, const wchar_t* reason);
 extern wchar_t* FormatTestLabel(const wchar_t* format, int n1, int n2);
 extern wchar_t* FormatTestMesssage(const wchar_t* format, PMC_STATUS_CODE return_value);
 
-extern void INTERNALTEST_DivRem_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u, size_t u_count, unsigned char* v, size_t v_count, unsigned char *desired_q, size_t desired_q_count, unsigned char *desired_r, size_t desired_r_count);
+extern void TEST_Add_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 53 "../pmc_sint_debug.h" 3
+                                                                                       int 
+# 53 "../pmc_sint_debug.h"
+                                                                                               u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Add_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 54 "../pmc_sint_debug.h" 3
+                                                                                       long long 
+# 54 "../pmc_sint_debug.h"
+                                                                                               u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Add_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Add_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 56 "../pmc_sint_debug.h" 3
+                                                                                                                                int 
+# 56 "../pmc_sint_debug.h"
+                                                                                                                                        v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Add_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 57 "../pmc_sint_debug.h" 3
+                                                                                                                                long long 
+# 57 "../pmc_sint_debug.h"
+                                                                                                                                        v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Add_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Add_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 
-extern void INTERNALTEST_Multiply_X_X_Imp(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u, size_t u_count, unsigned char* v, size_t v_count, unsigned char *desired_w, size_t desired_w_count);
-
-extern void TEST_PMC_Add_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 54 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                    int 
-# 54 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                            u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_Add_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 55 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                    long long 
-# 55 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                            u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_Add_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 56 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                             int 
-# 56 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                     v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_Add_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 57 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                             long long 
-# 57 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                     v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_Add_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-
-extern void TEST_PMC_BitwiseAnd_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 60 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                           int 
-# 60 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                   u, unsigned char* v_buf, size_t v_buf_size, unsigned 
-# 60 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                        int 
-# 60 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                desired_w);
-extern void TEST_PMC_BitwiseAnd_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 61 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                           long long 
-# 61 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                   u, unsigned char* v_buf, size_t v_buf_size, unsigned 
-# 61 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                        long long 
-# 61 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                desired_w);
-extern void TEST_PMC_BitwiseAnd_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 62 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                    int 
-# 62 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                            v, unsigned 
-# 62 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                        int 
-# 62 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                desired_w);
-extern void TEST_PMC_BitwiseAnd_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 63 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                    long long 
-# 63 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                            v, unsigned 
-# 63 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                        long long 
-# 63 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                desired_w);
-extern void TEST_PMC_BitwiseAnd_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-
-extern void TEST_PMC_BitwiseOr_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 66 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                          int 
-# 66 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                  u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_BitwiseOr_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 67 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                          long long 
-# 67 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                  u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_BitwiseOr_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 68 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                   int 
-# 68 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                           v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_BitwiseOr_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 69 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                   long long 
-# 69 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                           v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_BitwiseOr_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-
-extern void TEST_PMC_Clone_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char*x_buf, size_t x_buf_size, unsigned char*desired_o_buf, size_t desired_o_buf_size);
-
-extern void TEST_PMC_Compare_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 74 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                        int 
-# 74 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                u, unsigned char* v_buf, size_t v_buf_size, 
-# 74 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                            int 
-# 74 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                    desired_w);
-extern void TEST_PMC_Compare_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 75 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                        long long 
-# 75 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                u, unsigned char* v_buf, size_t v_buf_size, 
-# 75 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                            int 
-# 75 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                    desired_w);
-extern void TEST_PMC_Compare_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 76 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                 int 
-# 76 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                         v, 
-# 76 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                            int 
-# 76 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                    desired_w);
-extern void TEST_PMC_Compare_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 77 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                 long long 
-# 77 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                         v, 
-# 77 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                            int 
-# 77 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                    desired_w);
-extern void TEST_PMC_Compare_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, 
-# 78 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                 int 
-# 78 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                         desired_w);
-
-extern void TEST_PMC_DivRem_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 80 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                       int 
-# 80 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                               v, unsigned char* u_buf, size_t u_buf_size, PMC_STATUS_CODE desired_return_code, unsigned 
-# 80 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                                         int 
-# 80 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                                                 desired_q, unsigned 
-# 80 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                                                                     int 
-# 80 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                                                                             desired_r);
-extern void TEST_PMC_DivRem_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 81 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                       long long 
-# 81 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                               v, unsigned char* u_buf, size_t u_buf_size, PMC_STATUS_CODE desired_return_code, unsigned 
-# 81 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                                         long long 
-# 81 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                                                 desired_q, unsigned 
-# 81 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                                                                     long long 
-# 81 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                                                                             desired_r);
-extern void TEST_PMC_DivRem_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 82 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                int 
-# 82 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                        v, PMC_STATUS_CODE desired_return_code, unsigned char* desired_q_buf, size_t desired_q_buf_size, unsigned 
-# 82 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                                                                                                  int 
-# 82 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                                                                                                          desired_r);
-extern void TEST_PMC_DivRem_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 83 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                long long 
-# 83 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                        v, PMC_STATUS_CODE desired_return_code, unsigned char* desired_q_buf, size_t desired_q_buf_size, unsigned 
-# 83 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                                                                                                  long long 
-# 83 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                                                                                                          desired_r);
-extern void TEST_PMC_DivRem_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char* desired_q_buf, size_t desired_q_buf_size, unsigned char* desired_r_buf, size_t desired_r_buf_size);
-
-extern void TEST_PMC_Equals_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 86 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                       int 
-# 86 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                               u, unsigned char* v_buf, size_t v_buf_size, 
-# 86 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                           int 
-# 86 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                   desired_w);
-extern void TEST_PMC_Equals_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 87 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                       long long 
-# 87 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                               u, unsigned char* v_buf, size_t v_buf_size, 
-# 87 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                           int 
-# 87 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                   desired_w);
-extern void TEST_PMC_Equals_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 88 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                int 
-# 88 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                        v, 
-# 88 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                           int 
-# 88 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                   desired_w);
-extern void TEST_PMC_Equals_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 89 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                long long 
-# 89 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                        v, 
-# 89 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                           int 
-# 89 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                   desired_w);
-extern void TEST_PMC_Equals_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, 
-# 90 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                int 
-# 90 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                        desired_w);
-
-extern void TEST_PMC_ExclusiveOr_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 92 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                            int 
-# 92 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                    u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_ExclusiveOr_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 93 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                            long long 
-# 93 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                    u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_ExclusiveOr_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 94 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                     int 
-# 94 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                             v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_ExclusiveOr_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 95 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                     long long 
-# 95 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                             v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_ExclusiveOr_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-
-extern void TEST_PMC_From_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 98 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                   int 
-# 98 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                           v, unsigned char* buf, size_t buf_size);
-extern void TEST_PMC_From_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 99 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                   long long 
-# 99 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                           v, unsigned char* buf, size_t buf_size);
-
-extern void TEST_PMC_GreatestCommonDivisor_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 101 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                      int 
-# 101 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                              u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_result_code, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_GreatestCommonDivisor_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 102 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                      long long 
-# 102 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                              u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_result_code, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_GreatestCommonDivisor_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 103 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                               int 
-# 103 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                       v, PMC_STATUS_CODE desired_result_code, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_GreatestCommonDivisor_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 104 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                               long long 
-# 104 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                       v, PMC_STATUS_CODE desired_result_code, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_GreatestCommonDivisor_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_result_code, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-
-extern void TEST_PMC_To_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* buf, size_t buf_size, PMC_STATUS_CODE desired_result_code, unsigned 
-# 107 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
+extern void TEST_Compare_I_X(PMC_DEBUG_ENVIRONMENT* env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 61 "../pmc_sint_debug.h" 3
+                                                                                           int 
+# 61 "../pmc_sint_debug.h"
+                                                                                                   u, unsigned char* v_buf, size_t v_buf_size, 
+# 61 "../pmc_sint_debug.h" 3
+                                                                                                                                               int 
+# 61 "../pmc_sint_debug.h"
+                                                                                                                                                       desired_w);
+extern void TEST_Compare_L_X(PMC_DEBUG_ENVIRONMENT* env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 62 "../pmc_sint_debug.h" 3
+                                                                                           long long 
+# 62 "../pmc_sint_debug.h"
+                                                                                                   u, unsigned char* v_buf, size_t v_buf_size, 
+# 62 "../pmc_sint_debug.h" 3
+                                                                                                                                               int 
+# 62 "../pmc_sint_debug.h"
+                                                                                                                                                       desired_w);
+extern void TEST_Compare_UX_X(PMC_DEBUG_ENVIRONMENT* env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, 
+# 63 "../pmc_sint_debug.h" 3
+                                                                                                                                                                              int 
+# 63 "../pmc_sint_debug.h"
+                                                                                                                                                                                      desired_w);
+extern void TEST_Compare_X_I(PMC_DEBUG_ENVIRONMENT* env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 64 "../pmc_sint_debug.h" 3
+                                                                                                                                    int 
+# 64 "../pmc_sint_debug.h"
+                                                                                                                                            v, 
+# 64 "../pmc_sint_debug.h" 3
+                                                                                                                                               int 
+# 64 "../pmc_sint_debug.h"
+                                                                                                                                                       desired_w);
+extern void TEST_Compare_X_L(PMC_DEBUG_ENVIRONMENT* env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 65 "../pmc_sint_debug.h" 3
+                                                                                                                                    long long 
+# 65 "../pmc_sint_debug.h"
+                                                                                                                                            v, 
+# 65 "../pmc_sint_debug.h" 3
+                                                                                                                                               int 
+# 65 "../pmc_sint_debug.h"
+                                                                                                                                                       desired_w);
+extern void TEST_Compare_X_UX(PMC_DEBUG_ENVIRONMENT* env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, 
+# 66 "../pmc_sint_debug.h" 3
+                                                                                                                                                                              int 
+# 66 "../pmc_sint_debug.h"
+                                                                                                                                                                                      desired_w);
+extern void TEST_Compare_X_X(PMC_DEBUG_ENVIRONMENT* env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, 
+# 67 "../pmc_sint_debug.h" 3
                                                                                                                                                                              int 
-# 107 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                     desired_rvalue);
-extern void TEST_PMC_To_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* buf, size_t buf_size, PMC_STATUS_CODE desired_result_code, unsigned 
-# 108 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                             long long 
-# 108 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                     desired_rvalue);
+# 67 "../pmc_sint_debug.h"
+                                                                                                                                                                                     desired_w);
 
-extern void TEST_PMC_ModPow_X_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char*v_buf, size_t v_buf_size, unsigned char*e_buf, size_t e_buf_size, unsigned char*m_buf, size_t m_buf_size, PMC_STATUS_CODE desired_result_code, unsigned char*desired_r_buf, size_t desired_r_buf_size);
+extern void TEST_Clone_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*x_buf, size_t x_buf_size, unsigned char*desired_o_buf, size_t desired_o_buf_size);
 
-extern void TEST_PMC_Multiply_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 112 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
+extern void TEST_DivRem_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 71 "../pmc_sint_debug.h" 3
+                                                                                          int 
+# 71 "../pmc_sint_debug.h"
+                                                                                                  u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_q_buf, size_t desired_q_buf_size, unsigned char*desired_r_buf, size_t desired_r_buf_size);
+extern void TEST_DivRem_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 72 "../pmc_sint_debug.h" 3
+                                                                                          long long 
+# 72 "../pmc_sint_debug.h"
+                                                                                                  u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_q_buf, size_t desired_q_buf_size, unsigned char*desired_r_buf, size_t desired_r_buf_size);
+extern void TEST_DivRem_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_q_buf, size_t desired_q_buf_size, unsigned char*desired_r_buf, size_t desired_r_buf_size);
+extern void TEST_DivRem_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 74 "../pmc_sint_debug.h" 3
+                                                                                                                                   int 
+# 74 "../pmc_sint_debug.h"
+                                                                                                                                           v, PMC_STATUS_CODE desired_return_code, unsigned char*desired_q_buf, size_t desired_q_buf_size, 
+# 74 "../pmc_sint_debug.h" 3
+                                                                                                                                                                                                                                           int 
+# 74 "../pmc_sint_debug.h"
+                                                                                                                                                                                                                                                   desired_r);
+extern void TEST_DivRem_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 75 "../pmc_sint_debug.h" 3
+                                                                                                                                   long long 
+# 75 "../pmc_sint_debug.h"
+                                                                                                                                           v, PMC_STATUS_CODE desired_return_code, unsigned char*desired_q_buf, size_t desired_q_buf_size, 
+# 75 "../pmc_sint_debug.h" 3
+                                                                                                                                                                                                                                           long long 
+# 75 "../pmc_sint_debug.h"
+                                                                                                                                                                                                                                                   desired_r);
+extern void TEST_DivRem_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_q_buf, size_t desired_q_buf_size, unsigned char*desired_r_buf, size_t desired_r_buf_size);
+extern void TEST_DivRem_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_q_buf, size_t desired_q_buf_size, unsigned char*desired_r_buf, size_t desired_r_buf_size);
+
+extern void TEST_Equals_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 79 "../pmc_sint_debug.h" 3
+                                                                                          int 
+# 79 "../pmc_sint_debug.h"
+                                                                                                  u, unsigned char* v_buf, size_t v_buf_size, 
+# 79 "../pmc_sint_debug.h" 3
+                                                                                                                                              int 
+# 79 "../pmc_sint_debug.h"
+                                                                                                                                                      desired_w);
+extern void TEST_Equals_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 80 "../pmc_sint_debug.h" 3
+                                                                                          long long 
+# 80 "../pmc_sint_debug.h"
+                                                                                                  u, unsigned char* v_buf, size_t v_buf_size, 
+# 80 "../pmc_sint_debug.h" 3
+                                                                                                                                              int 
+# 80 "../pmc_sint_debug.h"
+                                                                                                                                                      desired_w);
+extern void TEST_Equals_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, 
+# 81 "../pmc_sint_debug.h" 3
+                                                                                                                                                                           int 
+# 81 "../pmc_sint_debug.h"
+                                                                                                                                                                                   desired_w);
+extern void TEST_Equals_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, 
+# 82 "../pmc_sint_debug.h" 3
+                                                                                                                                  int 
+# 82 "../pmc_sint_debug.h"
+                                                                                                                                          v, 
+# 82 "../pmc_sint_debug.h" 3
+                                                                                                                                             int 
+# 82 "../pmc_sint_debug.h"
+                                                                                                                                                     desired_w);
+extern void TEST_Equals_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, 
+# 83 "../pmc_sint_debug.h" 3
+                                                                                                                                  long long 
+# 83 "../pmc_sint_debug.h"
+                                                                                                                                          v, 
+# 83 "../pmc_sint_debug.h" 3
+                                                                                                                                             int 
+# 83 "../pmc_sint_debug.h"
+                                                                                                                                                     desired_w);
+extern void TEST_Equals_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, 
+# 84 "../pmc_sint_debug.h" 3
+                                                                                                                                                                           int 
+# 84 "../pmc_sint_debug.h"
+                                                                                                                                                                                   desired_w);
+extern void TEST_Equals_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, 
+# 85 "../pmc_sint_debug.h" 3
+                                                                                                                                                                          int 
+# 85 "../pmc_sint_debug.h"
+                                                                                                                                                                                  desired_w);
+
+extern void TEST_From_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 87 "../pmc_sint_debug.h" 3
+                                                                                      int 
+# 87 "../pmc_sint_debug.h"
+                                                                                              v, unsigned char* buf, size_t buf_size);
+extern void TEST_From_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 88 "../pmc_sint_debug.h" 3
+                                                                                      long long 
+# 88 "../pmc_sint_debug.h"
+                                                                                              v, unsigned char* buf, size_t buf_size);
+
+extern void TEST_GreatestCommonDivisor_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 90 "../pmc_sint_debug.h" 3
                                                                                                          int 
-# 112 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                 u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_Multiply_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 113 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
+# 90 "../pmc_sint_debug.h"
+                                                                                                                 u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_status, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_GreatestCommonDivisor_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 91 "../pmc_sint_debug.h" 3
                                                                                                          long long 
-# 113 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                 u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_Multiply_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 114 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                  int 
-# 114 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                          v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_Multiply_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 115 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                  long long 
-# 115 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                          v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_Multiply_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+# 91 "../pmc_sint_debug.h"
+                                                                                                                 u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_status, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_GreatestCommonDivisor_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_status, unsigned char*desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_GreatestCommonDivisor_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, 
+# 93 "../pmc_sint_debug.h" 3
+                                                                                                                                                 int 
+# 93 "../pmc_sint_debug.h"
+                                                                                                                                                         v, PMC_STATUS_CODE desired_status, unsigned char*desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_GreatestCommonDivisor_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, 
+# 94 "../pmc_sint_debug.h" 3
+                                                                                                                                                 long long 
+# 94 "../pmc_sint_debug.h"
+                                                                                                                                                         v, PMC_STATUS_CODE desired_status, unsigned char*desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_GreatestCommonDivisor_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_status, unsigned char*desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_GreatestCommonDivisor_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_status, unsigned char*desired_w_buf, size_t desired_w_buf_size);
 
-extern void TEST_PMC_ParseDN1(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, wchar_t* str, unsigned int styles, wchar_t* group_separator, wchar_t* decimal_separator, wchar_t* positive_sign, wchar_t* negative_sign, PMC_STATUS_CODE desired_result_code, unsigned char* desired_buf, size_t desired_buf_size);
-extern void TEST_PMC_ParseDN2(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, wchar_t* str, unsigned int styles, PMC_STATUS_CODE desired_result_code, unsigned char* desired_buf, size_t desired_buf_size);
+extern void TEST_Multiply_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 98 "../pmc_sint_debug.h" 3
+                                                                                            int 
+# 98 "../pmc_sint_debug.h"
+                                                                                                    u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 99 "../pmc_sint_debug.h" 3
+                                                                                            long long 
+# 99 "../pmc_sint_debug.h"
+                                                                                                    u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 101 "../pmc_sint_debug.h" 3
+                                                                                                                                     int 
+# 101 "../pmc_sint_debug.h"
+                                                                                                                                             v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 102 "../pmc_sint_debug.h" 3
+                                                                                                                                     long long 
+# 102 "../pmc_sint_debug.h"
+                                                                                                                                             v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Multiply_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 
-extern void TEST_PMC_ParseX(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, wchar_t* str, unsigned int styles, PMC_STATUS_CODE desired_result_code, unsigned char* desired_buf, size_t desired_buf_size);
+extern void TEST_Negate_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*x_buf, size_t x_buf_size, unsigned char*desired_o_buf, size_t desired_o_buf_size);
 
-extern void TEST_PMC_Pow_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char*x_buf, size_t x_buf_size, unsigned 
-# 123 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                            int 
-# 123 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                    y, PMC_STATUS_CODE desired_result_code, unsigned char*desired_z_buf, size_t desired_z_buf_size);
+extern void TEST_ParseDN1(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, wchar_t* str, unsigned int styles, wchar_t* group_separator, wchar_t* decimal_separator, wchar_t* positive_sign, wchar_t* negative_sign, PMC_STATUS_CODE desired_result_code, unsigned char* desired_buf, size_t desired_buf_size);
+extern void TEST_ParseDN2(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, wchar_t* str, unsigned int styles, PMC_STATUS_CODE desired_result_code, unsigned char* desired_buf, size_t desired_buf_size);
 
-extern void TEST_PMC_Remainder_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 125 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                          int 
-# 125 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                  u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned 
-# 125 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                                            int 
-# 125 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                                                    desired_r);
-extern void TEST_PMC_Remainder_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 126 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                          long long 
-# 126 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                  u, unsigned char*v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned 
-# 126 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                                           long long 
-# 126 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                                                   desired_r);
-extern void TEST_PMC_Remainder_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned 
-# 127 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                  int 
-# 127 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                          v, PMC_STATUS_CODE desired_return_code, unsigned 
-# 127 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                                           int 
-# 127 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                                                   desired_r);
-extern void TEST_PMC_Remainder_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned 
-# 128 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                  long long 
-# 128 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                          v, PMC_STATUS_CODE desired_return_code, unsigned 
-# 128 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                                           long long 
-# 128 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                                                   desired_r);
-extern void TEST_PMC_Remainder_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_r_buf, size_t desired_r_buf_size);
+extern void TEST_ParseX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, wchar_t* str, unsigned int styles, PMC_STATUS_CODE desired_result_code, unsigned char* desired_buf, size_t desired_buf_size);
 
-extern void TEST_PMC_RightShift_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 131 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                    int 
-# 131 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                            n, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Remainder_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 113 "../pmc_sint_debug.h" 3
+                                                                                             int 
+# 113 "../pmc_sint_debug.h"
+                                                                                                     u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_r_buf, size_t desired_r_buf_size);
+extern void TEST_Remainder_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 114 "../pmc_sint_debug.h" 3
+                                                                                             long long 
+# 114 "../pmc_sint_debug.h"
+                                                                                                     u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_r_buf, size_t desired_r_buf_size);
+extern void TEST_Remainder_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_r_buf, size_t desired_r_buf_size);
+extern void TEST_Remainder_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 116 "../pmc_sint_debug.h" 3
+                                                                                                                                      int 
+# 116 "../pmc_sint_debug.h"
+                                                                                                                                              v, PMC_STATUS_CODE desired_return_code, 
+# 116 "../pmc_sint_debug.h" 3
+                                                                                                                                                                                      int 
+# 116 "../pmc_sint_debug.h"
+                                                                                                                                                                                              desired_r);
+extern void TEST_Remainder_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 117 "../pmc_sint_debug.h" 3
+                                                                                                                                      long long 
+# 117 "../pmc_sint_debug.h"
+                                                                                                                                              v, PMC_STATUS_CODE desired_return_code, 
+# 117 "../pmc_sint_debug.h" 3
+                                                                                                                                                                                      long long 
+# 117 "../pmc_sint_debug.h"
+                                                                                                                                                                                              desired_r);
+extern void TEST_Remainder_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_r_buf, size_t desired_r_buf_size);
+extern void TEST_Remainder_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char*u_buf, size_t u_buf_size, unsigned char*v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_r_buf, size_t desired_r_buf_size);
 
-extern void TEST_PMC_LeftShift_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 133 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                   int 
-# 133 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                           n, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Subtruct_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 121 "../pmc_sint_debug.h" 3
+                                                                                            int 
+# 121 "../pmc_sint_debug.h"
+                                                                                                    u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Subtruct_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
+# 122 "../pmc_sint_debug.h" 3
+                                                                                            long long 
+# 122 "../pmc_sint_debug.h"
+                                                                                                    u, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Subtruct_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Subtruct_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 124 "../pmc_sint_debug.h" 3
+                                                                                                                                     int 
+# 124 "../pmc_sint_debug.h"
+                                                                                                                                             v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Subtruct_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
+# 125 "../pmc_sint_debug.h" 3
+                                                                                                                                     long long 
+# 125 "../pmc_sint_debug.h"
+                                                                                                                                             v, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Subtruct_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
+extern void TEST_Subtruct_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, unsigned char* desired_w_buf, size_t desired_w_buf_size);
 
-extern void TEST_PMC_Subtruct_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 135 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                         int 
-# 135 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                 u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_result_code, unsigned 
-# 135 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                                           int 
-# 135 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                                                   desired_w);
-extern void TEST_PMC_Subtruct_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned 
-# 136 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                         long long 
-# 136 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                 u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_result_code, unsigned 
-# 136 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                                                                           long long 
-# 136 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                                                                                   desired_w);
-extern void TEST_PMC_Subtruct_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 137 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                  int 
-# 137 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                          v, PMC_STATUS_CODE desired_result_code, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_Subtruct_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned 
-# 138 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h" 3
-                                                                                                                                                  long long 
-# 138 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint_debug.h"
-                                                                                                                                                          v, PMC_STATUS_CODE desired_result_code, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-extern void TEST_PMC_Subtruct_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_result_code, unsigned char* desired_w_buf, size_t desired_w_buf_size);
-
-extern void TEST_PMC_ToStringD(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* buf, size_t buf_size, char format_spec, int min_width, wchar_t* desired_str);
-extern void TEST_PMC_ToStringN(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* buf, size_t buf_size, char format_spec, int width, wchar_t* group_separator, char* group_sizes, wchar_t* decimal_separator, int decimal_digits, wchar_t* desired_str);
-extern void TEST_PMC_ToStringX(PMC_DEBUG_ENVIRONMENT *env, PMC_UINT_ENTRY_POINTS* ep, int no, unsigned char* buf, size_t buf_size, char format_spec, int min_width, wchar_t* desired_str);
+extern void TEST_To_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* buf, size_t buf_size, PMC_STATUS_CODE desired_result_code, 
+# 129 "../pmc_sint_debug.h" 3
+                                                                                                                                                                int 
+# 129 "../pmc_sint_debug.h"
+                                                                                                                                                                        desired_rvalue);
+extern void TEST_To_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* buf, size_t buf_size, PMC_STATUS_CODE desired_result_code, 
+# 130 "../pmc_sint_debug.h" 3
+                                                                                                                                                                long long 
+# 130 "../pmc_sint_debug.h"
+                                                                                                                                                                        desired_rvalue);
 
 #pragma endregion
 
@@ -88296,14 +88436,14 @@ __inline static int _EQUALS_MEMORY(unsigned char* buffer1, size_t count1, unsign
 }
 
 #pragma endregion
-# 29 "../TEST_op_Remainder.c" 2
+# 28 "../TEST_op_Remainder.c" 2
 
 
 
 void TEST_Remainder_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
-# 32 "../TEST_op_Remainder.c" 3
+# 31 "../TEST_op_Remainder.c" 3
                                                                                       int 
-# 32 "../TEST_op_Remainder.c"
+# 31 "../TEST_op_Remainder.c"
                                                                                               u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_r_buf, size_t desired_r_buf_size)
 {
     PMC_HANDLE_SINT v;
@@ -88315,9 +88455,9 @@ void TEST_Remainder_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, i
     PMC_STATUS_CODE r_result;
     TEST_Assert(env, FormatTestLabel(L"Remainder_I_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
     TEST_Assert(env, FormatTestLabel(L"Remainder_I_X (%d.%d)", no, 2), (r_result = ep->DivRem_I_X(u, v, 
-# 42 "../TEST_op_Remainder.c" 3 4
+# 41 "../TEST_op_Remainder.c" 3 4
                                                                                                        ((void *)0)
-# 42 "../TEST_op_Remainder.c"
+# 41 "../TEST_op_Remainder.c"
                                                                                                            , &r)) == desired_return_code, FormatTestMesssage(L"DivRem_I_Xの復帰コードが期待通りではない(%d)", r_result));
     if (desired_return_code == (0))
     {
@@ -88331,9 +88471,9 @@ void TEST_Remainder_I_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, i
 }
 
 void TEST_Remainder_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, 
-# 54 "../TEST_op_Remainder.c" 3
+# 53 "../TEST_op_Remainder.c" 3
                                                                                       long long 
-# 54 "../TEST_op_Remainder.c"
+# 53 "../TEST_op_Remainder.c"
                                                                                               u, unsigned char* v_buf, size_t v_buf_size, PMC_STATUS_CODE desired_return_code, unsigned char*desired_r_buf, size_t desired_r_buf_size)
 {
     PMC_HANDLE_SINT v;
@@ -88345,9 +88485,9 @@ void TEST_Remainder_L_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, i
     PMC_STATUS_CODE r_result;
     TEST_Assert(env, FormatTestLabel(L"Remainder_L_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
     TEST_Assert(env, FormatTestLabel(L"Remainder_L_X (%d.%d)", no, 2), (r_result = ep->DivRem_L_X(u, v, 
-# 64 "../TEST_op_Remainder.c" 3 4
+# 63 "../TEST_op_Remainder.c" 3 4
                                                                                                        ((void *)0)
-# 64 "../TEST_op_Remainder.c"
+# 63 "../TEST_op_Remainder.c"
                                                                                                            , &r)) == desired_return_code, FormatTestMesssage(L"DivRem_L_Xの復帰コードが期待通りではない(%d)", r_result));
     if (desired_return_code == (0))
     {
@@ -88374,9 +88514,9 @@ void TEST_Remainder_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, 
     TEST_Assert(env, FormatTestLabel(L"Remainder_UX_X (%d.%d)", no, 1), (u_result = ep->UINT_ENTRY_POINTS.FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
     TEST_Assert(env, FormatTestLabel(L"Remainder_UX_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
     TEST_Assert(env, FormatTestLabel(L"Remainder_UX_X (%d.%d)", no, 3), (r_result = ep->DivRem_UX_X(u, v, 
-# 89 "../TEST_op_Remainder.c" 3 4
+# 88 "../TEST_op_Remainder.c" 3 4
                                                                                                          ((void *)0)
-# 89 "../TEST_op_Remainder.c"
+# 88 "../TEST_op_Remainder.c"
                                                                                                              , &r)) == desired_return_code, FormatTestMesssage(L"DivRem_UX_Xの復帰コードが期待通りではない(%d)", r_result));
     if (desired_return_code == (0))
     {
@@ -88392,28 +88532,28 @@ void TEST_Remainder_UX_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, 
 }
 
 void TEST_Remainder_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
-# 103 "../TEST_op_Remainder.c" 3
+# 102 "../TEST_op_Remainder.c" 3
                                                                                                                                int 
-# 103 "../TEST_op_Remainder.c"
+# 102 "../TEST_op_Remainder.c"
                                                                                                                                        v, PMC_STATUS_CODE desired_return_code, 
-# 103 "../TEST_op_Remainder.c" 3
+# 102 "../TEST_op_Remainder.c" 3
                                                                                                                                                                                int 
-# 103 "../TEST_op_Remainder.c"
+# 102 "../TEST_op_Remainder.c"
                                                                                                                                                                                        desired_r)
 {
     PMC_HANDLE_SINT u;
     
-# 106 "../TEST_op_Remainder.c" 3
+# 105 "../TEST_op_Remainder.c" 3
    int 
-# 106 "../TEST_op_Remainder.c"
+# 105 "../TEST_op_Remainder.c"
            actual_r;
     PMC_STATUS_CODE result;
     PMC_STATUS_CODE u_result;
     TEST_Assert(env, FormatTestLabel(L"Remainder_X_I (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
     TEST_Assert(env, FormatTestLabel(L"Remainder_X_I (%d.%d)", no, 2), (result = ep->DivRem_X_I(u, v, 
-# 110 "../TEST_op_Remainder.c" 3 4
+# 109 "../TEST_op_Remainder.c" 3 4
                                                                                                      ((void *)0)
-# 110 "../TEST_op_Remainder.c"
+# 109 "../TEST_op_Remainder.c"
                                                                                                          , &actual_r)) == desired_return_code, FormatTestMesssage(L"DivRem_X_Iの復帰コードが期待通りではない(%d)", result));
     if (desired_return_code == (0))
     {
@@ -88424,28 +88564,28 @@ void TEST_Remainder_X_I(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, i
 }
 
 void TEST_Remainder_X_L(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, unsigned char* u_buf, size_t u_buf_size, 
-# 119 "../TEST_op_Remainder.c" 3
+# 118 "../TEST_op_Remainder.c" 3
                                                                                                                                long long 
-# 119 "../TEST_op_Remainder.c"
+# 118 "../TEST_op_Remainder.c"
                                                                                                                                        v, PMC_STATUS_CODE desired_return_code, 
-# 119 "../TEST_op_Remainder.c" 3
+# 118 "../TEST_op_Remainder.c" 3
                                                                                                                                                                                long long 
-# 119 "../TEST_op_Remainder.c"
+# 118 "../TEST_op_Remainder.c"
                                                                                                                                                                                        desired_r)
 {
     PMC_HANDLE_SINT u;
     
-# 122 "../TEST_op_Remainder.c" 3
+# 121 "../TEST_op_Remainder.c" 3
    long long 
-# 122 "../TEST_op_Remainder.c"
+# 121 "../TEST_op_Remainder.c"
            actual_r;
     PMC_STATUS_CODE result;
     PMC_STATUS_CODE u_result;
     TEST_Assert(env, FormatTestLabel(L"Remainder_X_L (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
     TEST_Assert(env, FormatTestLabel(L"Remainder_X_L (%d.%d)", no, 2), (result = ep->DivRem_X_L(u, v, 
-# 126 "../TEST_op_Remainder.c" 3 4
+# 125 "../TEST_op_Remainder.c" 3 4
                                                                                                      ((void *)0)
-# 126 "../TEST_op_Remainder.c"
+# 125 "../TEST_op_Remainder.c"
                                                                                                          , &actual_r)) == desired_return_code, FormatTestMesssage(L"DivRem_X_Lの復帰コードが期待通りではない(%d)", result));
     if (desired_return_code == (0))
     {
@@ -88469,9 +88609,9 @@ void TEST_Remainder_X_UX(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, 
     TEST_Assert(env, FormatTestLabel(L"Remainder_X_UX (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
     TEST_Assert(env, FormatTestLabel(L"Remainder_X_UX (%d.%d)", no, 2), (v_result = ep->UINT_ENTRY_POINTS.FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
     TEST_Assert(env, FormatTestLabel(L"Remainder_X_UX (%d.%d)", no, 3), (r_result = ep->DivRem_X_UX(u, v, 
-# 148 "../TEST_op_Remainder.c" 3 4
+# 147 "../TEST_op_Remainder.c" 3 4
                                                                                                          ((void *)0)
-# 148 "../TEST_op_Remainder.c"
+# 147 "../TEST_op_Remainder.c"
                                                                                                              , &r)) == desired_return_code, FormatTestMesssage(L"DivRem_X_UXの復帰コードが期待通りではない(%d)", r_result));
     if (desired_return_code == (0))
     {
@@ -88500,9 +88640,9 @@ void TEST_Remainder_X_X(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, i
     TEST_Assert(env, FormatTestLabel(L"Remainder_X_X (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
     TEST_Assert(env, FormatTestLabel(L"Remainder_X_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == (0), FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
     TEST_Assert(env, FormatTestLabel(L"Remainder_X_X (%d.%d)", no, 3), (r_result = ep->DivRem_X_X(u, v, 
-# 175 "../TEST_op_Remainder.c" 3 4
+# 174 "../TEST_op_Remainder.c" 3 4
                                                                                                        ((void *)0)
-# 175 "../TEST_op_Remainder.c"
+# 174 "../TEST_op_Remainder.c"
                                                                                                            , &r)) == desired_return_code, FormatTestMesssage(L"DivRem_X_Xの復帰コードが期待通りではない(%d)", r_result));
     if (desired_return_code == (0))
     {

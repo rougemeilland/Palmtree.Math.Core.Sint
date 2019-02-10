@@ -264,7 +264,7 @@ _TEST_Compare_X_X PROC					; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+296]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -306,7 +306,7 @@ $LN6@TEST_Compa:
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+296]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -348,7 +348,7 @@ $LN8@TEST_Compa:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+456]
+	mov	ecx, DWORD PTR [eax+464]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -416,7 +416,7 @@ $LN12@TEST_Compa:
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+288]
+	mov	edx, DWORD PTR [ecx+292]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -433,7 +433,7 @@ $LN2@TEST_Compa:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+288]
+	mov	edx, DWORD PTR [ecx+292]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -551,7 +551,7 @@ _TEST_Compare_X_UX PROC					; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+296]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -635,7 +635,7 @@ $LN8@TEST_Compa:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+452]
+	mov	ecx, DWORD PTR [eax+460]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -720,7 +720,7 @@ $LN2@TEST_Compa:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+288]
+	mov	edx, DWORD PTR [ecx+292]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -832,7 +832,7 @@ _TEST_Compare_X_L PROC					; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+296]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -876,7 +876,7 @@ $LN5@TEST_Compa:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+448]
+	mov	edx, DWORD PTR [ecx+456]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -944,7 +944,7 @@ $LN9@TEST_Compa:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+288]
+	mov	edx, DWORD PTR [ecx+292]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1050,7 +1050,7 @@ _TEST_Compare_X_I PROC					; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+296]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1092,7 +1092,7 @@ $LN5@TEST_Compa:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+444]
+	mov	ecx, DWORD PTR [eax+452]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1160,7 +1160,7 @@ $LN9@TEST_Compa:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+288]
+	mov	edx, DWORD PTR [ecx+292]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1314,7 +1314,7 @@ $LN6@TEST_Compa:
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+296]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1356,7 +1356,7 @@ $LN8@TEST_Compa:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+440]
+	mov	ecx, DWORD PTR [eax+448]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1424,7 +1424,7 @@ $LN12@TEST_Compa:
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+288]
+	mov	edx, DWORD PTR [ecx+292]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1553,7 +1553,7 @@ _TEST_Compare_L_X PROC					; COMDAT
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+296]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1597,7 +1597,7 @@ $LN5@TEST_Compa:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+436]
+	mov	edx, DWORD PTR [ecx+444]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1665,7 +1665,7 @@ $LN9@TEST_Compa:
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+288]
+	mov	edx, DWORD PTR [ecx+292]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1771,7 +1771,7 @@ _TEST_Compare_I_X PROC					; COMDAT
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+296]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1813,7 +1813,7 @@ $LN5@TEST_Compa:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+432]
+	mov	ecx, DWORD PTR [eax+440]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1881,7 +1881,7 @@ $LN9@TEST_Compa:
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+288]
+	mov	edx, DWORD PTR [ecx+292]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp

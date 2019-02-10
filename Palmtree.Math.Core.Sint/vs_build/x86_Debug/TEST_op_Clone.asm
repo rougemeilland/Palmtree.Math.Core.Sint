@@ -112,7 +112,7 @@ _buffer2$ = 16						; size = 4
 _count2$ = 20						; size = 4
 __EQUALS_MEMORY PROC					; COMDAT
 
-; 133  : {
+; 138  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -127,25 +127,25 @@ __EQUALS_MEMORY PROC					; COMDAT
 	mov	ecx, OFFSET __059414E1_pmc_sint_debug@h
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 134  :     if (count1 != count2)
+; 139  :     if (count1 != count2)
 
 	mov	eax, DWORD PTR _count1$[ebp]
 	cmp	eax, DWORD PTR _count2$[ebp]
 	je	SHORT $LN2@EQUALS_MEM
 
-; 135  :         return (-1);
+; 140  :         return (-1);
 
 	or	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN2@EQUALS_MEM:
 
-; 136  :     while (count1 > 0)
+; 141  :     while (count1 > 0)
 
 	cmp	DWORD PTR _count1$[ebp], 0
 	jbe	SHORT $LN3@EQUALS_MEM
 
-; 137  :     {
-; 138  :         if (*buffer1 != *buffer2)
+; 142  :     {
+; 143  :         if (*buffer1 != *buffer2)
 
 	mov	eax, DWORD PTR _buffer1$[ebp]
 	movzx	ecx, BYTE PTR [eax]
@@ -154,41 +154,41 @@ $LN2@EQUALS_MEM:
 	cmp	ecx, eax
 	je	SHORT $LN5@EQUALS_MEM
 
-; 139  :             return (-1);
+; 144  :             return (-1);
 
 	or	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN5@EQUALS_MEM:
 
-; 140  :         ++buffer1;
+; 145  :         ++buffer1;
 
 	mov	eax, DWORD PTR _buffer1$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _buffer1$[ebp], eax
 
-; 141  :         ++buffer2;
+; 146  :         ++buffer2;
 
 	mov	eax, DWORD PTR _buffer2$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _buffer2$[ebp], eax
 
-; 142  :         --count1;
+; 147  :         --count1;
 
 	mov	eax, DWORD PTR _count1$[ebp]
 	sub	eax, 1
 	mov	DWORD PTR _count1$[ebp], eax
 
-; 143  :     }
+; 148  :     }
 
 	jmp	SHORT $LN2@EQUALS_MEM
 $LN3@EQUALS_MEM:
 
-; 144  :     return (0);
+; 149  :     return (0);
 
 	xor	eax, eax
 $LN1@EQUALS_MEM:
 
-; 145  : }
+; 150  : }
 
 	pop	edi
 	pop	esi
@@ -226,7 +226,7 @@ _desired_o_buf$ = 28					; size = 4
 _desired_o_buf_size$ = 32				; size = 4
 _TEST_Clone_X PROC					; COMDAT
 
-; 33   : {
+; 32   : {
 
 	push	ebp
 	mov	ebp, esp
@@ -244,14 +244,14 @@ _TEST_Clone_X PROC					; COMDAT
 	mov	ecx, OFFSET __07425A21_test_op_clone@c
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 34   :     PMC_HANDLE_SINT x;
-; 35   :     PMC_HANDLE_SINT o;
-; 36   :     unsigned char actual_o_buf[256];
-; 37   :     size_t actual_o_buf_size;
-; 38   :     PMC_STATUS_CODE result;
-; 39   :     PMC_STATUS_CODE x_result;
-; 40   :     PMC_STATUS_CODE o_result;
-; 41   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 1), (x_result = ep->FromByteArray(x_buf, x_buf_size, &x)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", x_result));
+; 33   :     PMC_HANDLE_SINT x;
+; 34   :     PMC_HANDLE_SINT o;
+; 35   :     unsigned char actual_o_buf[256];
+; 36   :     size_t actual_o_buf_size;
+; 37   :     PMC_STATUS_CODE result;
+; 38   :     PMC_STATUS_CODE x_result;
+; 39   :     PMC_STATUS_CODE o_result;
+; 40   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 1), (x_result = ep->FromByteArray(x_buf, x_buf_size, &x)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", x_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _x$[ebp]
@@ -261,7 +261,7 @@ _TEST_Clone_X PROC					; COMDAT
 	mov	edx, DWORD PTR _x_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+296]
+	mov	ecx, DWORD PTR [eax+300]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -293,7 +293,7 @@ $LN6@TEST_Clone:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 42   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 2), (o_result = ep->Clone_X(x, &o)) == PMC_STATUS_OK, FormatTestMesssage(L"Clone_Xの復帰コードが期待通りではない(%d)", o_result));
+; 41   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 2), (o_result = ep->Clone_X(x, &o)) == PMC_STATUS_OK, FormatTestMesssage(L"Clone_Xの復帰コードが期待通りではない(%d)", o_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _o$[ebp]
@@ -301,7 +301,7 @@ $LN6@TEST_Clone:
 	mov	ecx, DWORD PTR _x$[ebp]
 	push	ecx
 	mov	edx, DWORD PTR _ep$[ebp]
-	mov	eax, DWORD PTR [edx+304]
+	mov	eax, DWORD PTR [edx+308]
 	call	eax
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -333,7 +333,7 @@ $LN8@TEST_Clone:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 43   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 3), (result = ep->ToByteArray(o, actual_o_buf, sizeof(actual_o_buf), &actual_o_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
+; 42   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 3), (result = ep->ToByteArray(o, actual_o_buf, sizeof(actual_o_buf), &actual_o_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"ToByteArrayの復帰コードが期待通りではない(%d)", result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _actual_o_buf_size$[ebp]
@@ -344,7 +344,7 @@ $LN8@TEST_Clone:
 	mov	edx, DWORD PTR _o$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+300]
+	mov	ecx, DWORD PTR [eax+304]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -376,7 +376,7 @@ $LN10@TEST_Clone:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 44   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_o_buf, actual_o_buf_size, desired_o_buf, desired_o_buf_size) == 0, L"データの内容が一致しない");
+; 43   :     TEST_Assert(env, FormatTestLabel(L"Clone_X (%d.%d)", no, 4), _EQUALS_MEMORY(actual_o_buf, actual_o_buf_size, desired_o_buf, desired_o_buf_size) == 0, L"データの内容が一致しない");
 
 	mov	eax, DWORD PTR _desired_o_buf_size$[ebp]
 	push	eax
@@ -410,41 +410,41 @@ $LN12@TEST_Clone:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 45   :     if (o_result == PMC_STATUS_OK)
+; 44   :     if (o_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR _o_result$[ebp], 0
 	jne	SHORT $LN2@TEST_Clone
 
-; 46   :         ep->Dispose(o);
+; 45   :         ep->Dispose(o);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _o$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+288]
+	mov	edx, DWORD PTR [ecx+292]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 $LN2@TEST_Clone:
 
-; 47   :     if (x_result == PMC_STATUS_OK)
+; 46   :     if (x_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR _x_result$[ebp], 0
 	jne	SHORT $LN1@TEST_Clone
 
-; 48   :         ep->Dispose(x);
+; 47   :         ep->Dispose(x);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _x$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+288]
+	mov	edx, DWORD PTR [ecx+292]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 $LN1@TEST_Clone:
 
-; 49   : }
+; 48   : }
 
 	push	edx
 	mov	ecx, ebp

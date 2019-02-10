@@ -298,7 +298,7 @@ LFB5490:
 	movl	%eax, 4(%esp)
 	movl	12(%ebx), %eax
 	movl	%eax, (%esp)
-	call	*_ep_uint+40
+	call	*_ep_uint+32
 	.cfi_def_cfa_offset 56
 	subl	$8, %esp
 	.cfi_def_cfa_offset 64
@@ -399,7 +399,7 @@ LFB5491:
 	movl	%eax, 4(%esp)
 	movl	12(%ebx), %eax
 	movl	%eax, (%esp)
-	call	*_ep_uint+40
+	call	*_ep_uint+32
 	.cfi_def_cfa_offset 56
 	subl	$8, %esp
 	.cfi_def_cfa_offset 64

@@ -955,7 +955,7 @@ $LN3@SubtructU_:
 	lea	r8, QWORD PTR c$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+448
+	call	QWORD PTR ep_uint+432
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@SubtructU_
@@ -981,7 +981,7 @@ $LN4@SubtructU_:
 	lea	r8, QWORD PTR w_abs$6[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+192
+	call	QWORD PTR ep_uint+176
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN7@SubtructU_
@@ -1051,7 +1051,7 @@ $LN9@SubtructU_:
 	lea	r8, QWORD PTR w_abs$7[rbp]
 	mov	rdx, QWORD PTR u$[rbp]
 	mov	rcx, QWORD PTR v$[rbp]
-	call	QWORD PTR ep_uint+192
+	call	QWORD PTR ep_uint+176
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN11@SubtructU_
@@ -1182,7 +1182,7 @@ $LN3@SubtructU_:
 	lea	r8, QWORD PTR c$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+440
+	call	QWORD PTR ep_uint+424
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@SubtructU_
@@ -1208,7 +1208,7 @@ $LN4@SubtructU_:
 	lea	r8, QWORD PTR w_abs$7[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+184
+	call	QWORD PTR ep_uint+168
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN7@SubtructU_
@@ -1278,7 +1278,7 @@ $LN9@SubtructU_:
 	lea	r8, QWORD PTR t$8[rbp]
 	mov	rdx, QWORD PTR u$[rbp]
 	mov	rcx, QWORD PTR v$[rbp]
-	call	QWORD PTR ep_uint+168
+	call	QWORD PTR ep_uint+152
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN11@SubtructU_
@@ -1425,7 +1425,7 @@ $LN3@SubtructU_:
 	lea	r8, QWORD PTR c$[rbp]
 	mov	edx, DWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+432
+	call	QWORD PTR ep_uint+416
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@SubtructU_
@@ -1451,7 +1451,7 @@ $LN4@SubtructU_:
 	lea	r8, QWORD PTR w_abs$7[rbp]
 	mov	edx, DWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+176
+	call	QWORD PTR ep_uint+160
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN7@SubtructU_
@@ -1521,7 +1521,7 @@ $LN9@SubtructU_:
 	lea	r8, QWORD PTR t$8[rbp]
 	mov	rdx, QWORD PTR u$[rbp]
 	mov	ecx, DWORD PTR v$[rbp]
-	call	QWORD PTR ep_uint+160
+	call	QWORD PTR ep_uint+144
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN11@SubtructU_
@@ -1668,7 +1668,7 @@ $LN3@AddU_X_X_I:
 	lea	r8, QWORD PTR w_abs$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+152
+	call	QWORD PTR ep_uint+136
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@AddU_X_X_I
@@ -1791,7 +1791,7 @@ $LN3@AddU_X_L_I:
 	lea	r8, QWORD PTR w_abs$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+144
+	call	QWORD PTR ep_uint+128
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@AddU_X_L_I
@@ -1914,7 +1914,7 @@ $LN3@AddU_X_I_I:
 	lea	r8, QWORD PTR w_abs$[rbp]
 	mov	edx, DWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+136
+	call	QWORD PTR ep_uint+120
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@AddU_X_I_I
@@ -2701,7 +2701,7 @@ $LN8@PMC_Subtru:
 
 	lea	rdx, QWORD PTR new_v$5[rbp]
 	mov	rcx, QWORD PTR v$[rbp]
-	call	QWORD PTR ep_uint+80
+	call	QWORD PTR ep_uint+64
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN10@PMC_Subtru
@@ -3823,7 +3823,7 @@ $LN6@PMC_Subtru:
 
 	lea	rdx, QWORD PTR new_u$5[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+80
+	call	QWORD PTR ep_uint+64
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN13@PMC_Subtru
@@ -5235,7 +5235,7 @@ $LN8@PMC_Add_X_:
 
 	lea	rdx, QWORD PTR new_v$5[rbp]
 	mov	rcx, QWORD PTR v$[rbp]
-	call	QWORD PTR ep_uint+80
+	call	QWORD PTR ep_uint+64
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN10@PMC_Add_X_
@@ -6341,7 +6341,7 @@ $LN5@PMC_Add_UX:
 
 	lea	rdx, QWORD PTR new_u$5[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+80
+	call	QWORD PTR ep_uint+64
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN12@PMC_Add_UX

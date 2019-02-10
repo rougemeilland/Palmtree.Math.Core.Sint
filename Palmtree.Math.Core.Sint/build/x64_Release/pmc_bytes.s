@@ -24,7 +24,7 @@ PMC_FromByteArray:
 	movq	.refptr.ep_uint(%rip), %rsi
 	leaq	64(%rsp), %r9
 	leaq	63(%rsp), %r8
-	call	*64(%rsi)
+	call	*536(%rsi)
 	testl	%eax, %eax
 	je	.L6
 .L1:
@@ -92,7 +92,7 @@ PMC_ToByteArray:
 	movq	%rsi, %r8
 	movq	.refptr.ep_uint(%rip), %rax
 	movsbl	24(%rbx), %ecx
-	call	*72(%rax)
+	call	*544(%rax)
 .L8:
 	addq	$56, %rsp
 	popq	%rbx

@@ -9,7 +9,7 @@ PUBLIC	??_C@_0BE@LMKJAMNH@PMC_UINT_Initialize@		; `string'
 EXTRN	__imp_FreeLibrary:PROC
 EXTRN	__imp_GetProcAddress:PROC
 EXTRN	__imp_LoadLibraryA:PROC
-COMM	ep_uint:BYTE:0228H
+COMM	ep_uint:BYTE:0230H
 _DATA	ENDS
 ;	COMDAT ??_C@_0BE@LMKJAMNH@PMC_UINT_Initialize@
 CONST	SEGMENT
@@ -21,7 +21,7 @@ CONST	SEGMENT
 	DB	'e.Uint.dll', 00H				; `string'
 CONST	ENDS
 PUBLIC	PMC_SINT_Initialize
-entry_points DB	0408H DUP (?)
+entry_points DB	0418H DUP (?)
 initialized DD	01H DUP (?)
 	ALIGN	8
 
@@ -43,7 +43,7 @@ pdata	ENDS
 ;	COMDAT pdata
 pdata	SEGMENT
 $pdata$1$PMC_SINT_Initialize DD imagerel $LN103@PMC_SINT_I+279
-	DD	imagerel $LN103@PMC_SINT_I+1342
+	DD	imagerel $LN103@PMC_SINT_I+1356
 	DD	imagerel $chain$1$PMC_SINT_Initialize
 pdata	ENDS
 ;	COMDAT pdata

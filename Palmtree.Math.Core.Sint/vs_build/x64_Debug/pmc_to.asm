@@ -180,7 +180,7 @@ $LN2@PMC_To_X_L:
 	lea	rdx, QWORD PTR p_abs$[rbp]
 	mov	rax, QWORD PTR np$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+96
+	call	QWORD PTR ep_uint+80
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN3@PMC_To_X_L
@@ -344,7 +344,7 @@ $LN2@PMC_To_X_I:
 	lea	rdx, QWORD PTR p_abs$[rbp]
 	mov	rax, QWORD PTR np$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+88
+	call	QWORD PTR ep_uint+72
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN3@PMC_To_X_I

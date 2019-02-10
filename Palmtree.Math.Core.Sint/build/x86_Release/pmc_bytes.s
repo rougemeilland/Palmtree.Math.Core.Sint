@@ -31,7 +31,7 @@ LFB83:
 	leal	39(%esp), %ecx
 	movl	%ecx, 8(%esp)
 	movl	%edx, (%esp)
-	call	*_ep_uint+32
+	call	*_ep_uint+268
 	.cfi_def_cfa_offset 48
 	subl	$16, %esp
 	.cfi_def_cfa_offset 64
@@ -128,7 +128,7 @@ LFB84:
 	movl	%eax, 4(%esp)
 	movsbl	16(%ebx), %eax
 	movl	%eax, (%esp)
-	call	*_ep_uint+36
+	call	*_ep_uint+272
 	.cfi_def_cfa_offset 28
 	subl	$20, %esp
 	.cfi_def_cfa_offset 48

@@ -15,7 +15,7 @@ LFB5481:
 	movl	%ecx, 4(%esp)
 	movl	%eax, 8(%esp)
 	movl	%edx, (%esp)
-	call	*_ep_uint+108
+	call	*_ep_uint+100
 	.cfi_def_cfa_offset 52
 	subl	$12, %esp
 	.cfi_def_cfa_offset 64
@@ -81,7 +81,7 @@ LFB5482:
 	movl	%eax, 12(%esp)
 	movl	%esi, 4(%esp)
 	movl	%edi, 8(%esp)
-	call	*_ep_uint+112
+	call	*_ep_uint+104
 	.cfi_def_cfa_offset 48
 	subl	$16, %esp
 	.cfi_def_cfa_offset 64
@@ -150,7 +150,7 @@ LFB5483:
 	movl	%ecx, 4(%esp)
 	movl	%eax, 8(%esp)
 	movl	%edx, (%esp)
-	call	*_ep_uint+116
+	call	*_ep_uint+108
 	.cfi_def_cfa_offset 52
 	subl	$12, %esp
 	.cfi_def_cfa_offset 64

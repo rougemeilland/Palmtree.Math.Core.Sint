@@ -527,7 +527,7 @@ v_buf_size$ = 480
 desired_w$ = 488
 TEST_Equals_X_X PROC					; COMDAT
 
-; 121  : {
+; 120  : {
 
 $LN13:
 	mov	QWORD PTR [rsp+32], r9
@@ -549,19 +549,19 @@ $LN13:
 	lea	rcx, OFFSET FLAT:__2415E362_test_op_equals@c
 	call	__CheckForDebuggerJustMyCode
 
-; 122  :     PMC_HANDLE_SINT u;
-; 123  :     PMC_HANDLE_SINT v;
-; 124  :     __int32 actual_w;
-; 125  :     PMC_STATUS_CODE result;
-; 126  :     PMC_STATUS_CODE u_result;
-; 127  :     PMC_STATUS_CODE v_result;
-; 128  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_X (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+; 121  :     PMC_HANDLE_SINT u;
+; 122  :     PMC_HANDLE_SINT v;
+; 123  :     __int32 actual_w;
+; 124  :     PMC_STATUS_CODE result;
+; 125  :     PMC_STATUS_CODE u_result;
+; 126  :     PMC_STATUS_CODE v_result;
+; 127  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_X (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
 
 	lea	r8, QWORD PTR u$[rbp]
 	mov	rdx, QWORD PTR u_buf_size$[rbp]
 	mov	rcx, QWORD PTR u_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+592]
+	call	QWORD PTR [rax+600]
 	mov	DWORD PTR u_result$[rbp], eax
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN5@TEST_Equal
@@ -585,13 +585,13 @@ $LN6@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 129  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+; 128  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
 
 	lea	r8, QWORD PTR v$[rbp]
 	mov	rdx, QWORD PTR v_buf_size$[rbp]
 	mov	rcx, QWORD PTR v_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+592]
+	call	QWORD PTR [rax+600]
 	mov	DWORD PTR v_result$[rbp], eax
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN7@TEST_Equal
@@ -615,13 +615,13 @@ $LN8@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 130  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_X (%d.%d)", no, 3), (result = ep->Equals_X_X(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_X_Xの復帰コードが期待通りではない(%d)", result));
+; 129  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_X (%d.%d)", no, 3), (result = ep->Equals_X_X(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_X_Xの復帰コードが期待通りではない(%d)", result));
 
 	lea	r8, QWORD PTR actual_w$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+968]
+	call	QWORD PTR [rax+984]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN9@TEST_Equal
@@ -645,7 +645,7 @@ $LN10@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 131  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_X (%d.%d)", no, 4), actual_w == desired_w, L"データの内容が一致しない");
+; 130  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_X (%d.%d)", no, 4), actual_w == desired_w, L"データの内容が一致しない");
 
 	mov	eax, DWORD PTR desired_w$[rbp]
 	cmp	DWORD PTR actual_w$[rbp], eax
@@ -665,31 +665,31 @@ $LN12@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 132  :     if (v_result == PMC_STATUS_OK)
+; 131  :     if (v_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN2@TEST_Equal
 
-; 133  :         ep->Dispose(v);
+; 132  :         ep->Dispose(v);
 
 	mov	rcx, QWORD PTR v$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+576]
+	call	QWORD PTR [rax+584]
 $LN2@TEST_Equal:
 
-; 134  :     if (u_result == PMC_STATUS_OK)
+; 133  :     if (u_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN3@TEST_Equal
 
-; 135  :         ep->Dispose(u);
+; 134  :         ep->Dispose(u);
 
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+576]
+	call	QWORD PTR [rax+584]
 $LN3@TEST_Equal:
 
-; 136  : }
+; 135  : }
 
 	lea	rcx, QWORD PTR [rbp-32]
 	lea	rdx, OFFSET FLAT:TEST_Equals_X_X$rtcFrameData
@@ -731,7 +731,7 @@ v_buf_size$ = 480
 desired_w$ = 488
 TEST_Equals_X_UX PROC					; COMDAT
 
-; 103  : {
+; 102  : {
 
 $LN13:
 	mov	QWORD PTR [rsp+32], r9
@@ -753,19 +753,19 @@ $LN13:
 	lea	rcx, OFFSET FLAT:__2415E362_test_op_equals@c
 	call	__CheckForDebuggerJustMyCode
 
-; 104  :     PMC_HANDLE_SINT u;
-; 105  :     PMC_HANDLE_UINT v;
-; 106  :     __int32 actual_w;
-; 107  :     PMC_STATUS_CODE result;
-; 108  :     PMC_STATUS_CODE u_result;
-; 109  :     PMC_STATUS_CODE v_result;
-; 110  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_UX (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+; 103  :     PMC_HANDLE_SINT u;
+; 104  :     PMC_HANDLE_UINT v;
+; 105  :     __int32 actual_w;
+; 106  :     PMC_STATUS_CODE result;
+; 107  :     PMC_STATUS_CODE u_result;
+; 108  :     PMC_STATUS_CODE v_result;
+; 109  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_UX (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
 
 	lea	r8, QWORD PTR u$[rbp]
 	mov	rdx, QWORD PTR u_buf_size$[rbp]
 	mov	rcx, QWORD PTR u_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+592]
+	call	QWORD PTR [rax+600]
 	mov	DWORD PTR u_result$[rbp], eax
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN5@TEST_Equal
@@ -789,7 +789,7 @@ $LN6@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 111  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_UX (%d.%d)", no, 2), (v_result = ep->UINT_ENTRY_POINTS.FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+; 110  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_UX (%d.%d)", no, 2), (v_result = ep->UINT_ENTRY_POINTS.FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
 
 	lea	r8, QWORD PTR v$[rbp]
 	mov	rdx, QWORD PTR v_buf_size$[rbp]
@@ -819,13 +819,13 @@ $LN8@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 112  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_UX (%d.%d)", no, 3), (result = ep->Equals_X_UX(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_X_UXの復帰コードが期待通りではない(%d)", result));
+; 111  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_UX (%d.%d)", no, 3), (result = ep->Equals_X_UX(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_X_UXの復帰コードが期待通りではない(%d)", result));
 
 	lea	r8, QWORD PTR actual_w$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+960]
+	call	QWORD PTR [rax+976]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN9@TEST_Equal
@@ -849,7 +849,7 @@ $LN10@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 113  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_UX (%d.%d)", no, 4), actual_w == desired_w, L"データの内容が一致しない");
+; 112  :     TEST_Assert(env, FormatTestLabel(L"Equals_X_UX (%d.%d)", no, 4), actual_w == desired_w, L"データの内容が一致しない");
 
 	mov	eax, DWORD PTR desired_w$[rbp]
 	cmp	DWORD PTR actual_w$[rbp], eax
@@ -869,31 +869,31 @@ $LN12@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 114  :     if (v_result == PMC_STATUS_OK)
+; 113  :     if (v_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN2@TEST_Equal
 
-; 115  :         ep->UINT_ENTRY_POINTS.Dispose(v);
+; 114  :         ep->UINT_ENTRY_POINTS.Dispose(v);
 
 	mov	rcx, QWORD PTR v$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
 	call	QWORD PTR [rax+32]
 $LN2@TEST_Equal:
 
-; 116  :     if (u_result == PMC_STATUS_OK)
+; 115  :     if (u_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN3@TEST_Equal
 
-; 117  :         ep->Dispose(u);
+; 116  :         ep->Dispose(u);
 
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+576]
+	call	QWORD PTR [rax+584]
 $LN3@TEST_Equal:
 
-; 118  : }
+; 117  : }
 
 	lea	rcx, QWORD PTR [rbp-32]
 	lea	rdx, OFFSET FLAT:TEST_Equals_X_UX$rtcFrameData
@@ -930,7 +930,7 @@ v$ = 408
 desired_w$ = 416
 TEST_Equals_X_L PROC					; COMDAT
 
-; 90   : {
+; 89   : {
 
 $LN10:
 	mov	QWORD PTR [rsp+32], r9
@@ -952,17 +952,17 @@ $LN10:
 	lea	rcx, OFFSET FLAT:__2415E362_test_op_equals@c
 	call	__CheckForDebuggerJustMyCode
 
-; 91   :     PMC_HANDLE_SINT u;
-; 92   :     __int32 actual_w;
-; 93   :     PMC_STATUS_CODE result;
-; 94   :     PMC_STATUS_CODE u_result;
-; 95   :     TEST_Assert(env, FormatTestLabel(L"Equals_X_L (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+; 90   :     PMC_HANDLE_SINT u;
+; 91   :     __int32 actual_w;
+; 92   :     PMC_STATUS_CODE result;
+; 93   :     PMC_STATUS_CODE u_result;
+; 94   :     TEST_Assert(env, FormatTestLabel(L"Equals_X_L (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
 
 	lea	r8, QWORD PTR u$[rbp]
 	mov	rdx, QWORD PTR u_buf_size$[rbp]
 	mov	rcx, QWORD PTR u_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+592]
+	call	QWORD PTR [rax+600]
 	mov	DWORD PTR u_result$[rbp], eax
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN4@TEST_Equal
@@ -986,13 +986,13 @@ $LN5@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 96   :     TEST_Assert(env, FormatTestLabel(L"Equals_X_L (%d.%d)", no, 2), (result = ep->Equals_X_L(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_X_Lの復帰コードが期待通りではない(%d)", result));
+; 95   :     TEST_Assert(env, FormatTestLabel(L"Equals_X_L (%d.%d)", no, 2), (result = ep->Equals_X_L(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_X_Lの復帰コードが期待通りではない(%d)", result));
 
 	lea	r8, QWORD PTR actual_w$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+952]
+	call	QWORD PTR [rax+968]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN6@TEST_Equal
@@ -1016,7 +1016,7 @@ $LN7@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 97   :     TEST_Assert(env, FormatTestLabel(L"Equals_X_L (%d.%d)", no, 3), actual_w == desired_w, L"データの内容が一致しない");
+; 96   :     TEST_Assert(env, FormatTestLabel(L"Equals_X_L (%d.%d)", no, 3), actual_w == desired_w, L"データの内容が一致しない");
 
 	mov	eax, DWORD PTR desired_w$[rbp]
 	cmp	DWORD PTR actual_w$[rbp], eax
@@ -1036,19 +1036,19 @@ $LN9@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 98   :     if (u_result == PMC_STATUS_OK)
+; 97   :     if (u_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN2@TEST_Equal
 
-; 99   :         ep->Dispose(u);
+; 98   :         ep->Dispose(u);
 
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+576]
+	call	QWORD PTR [rax+584]
 $LN2@TEST_Equal:
 
-; 100  : }
+; 99   : }
 
 	lea	rcx, QWORD PTR [rbp-32]
 	lea	rdx, OFFSET FLAT:TEST_Equals_X_L$rtcFrameData
@@ -1085,7 +1085,7 @@ v$ = 408
 desired_w$ = 416
 TEST_Equals_X_I PROC					; COMDAT
 
-; 77   : {
+; 76   : {
 
 $LN10:
 	mov	QWORD PTR [rsp+32], r9
@@ -1107,17 +1107,17 @@ $LN10:
 	lea	rcx, OFFSET FLAT:__2415E362_test_op_equals@c
 	call	__CheckForDebuggerJustMyCode
 
-; 78   :     PMC_HANDLE_SINT u;
-; 79   :     __int32 actual_w;
-; 80   :     PMC_STATUS_CODE result;
-; 81   :     PMC_STATUS_CODE u_result;
-; 82   :     TEST_Assert(env, FormatTestLabel(L"Equals_X_I (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+; 77   :     PMC_HANDLE_SINT u;
+; 78   :     __int32 actual_w;
+; 79   :     PMC_STATUS_CODE result;
+; 80   :     PMC_STATUS_CODE u_result;
+; 81   :     TEST_Assert(env, FormatTestLabel(L"Equals_X_I (%d.%d)", no, 1), (u_result = ep->FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
 
 	lea	r8, QWORD PTR u$[rbp]
 	mov	rdx, QWORD PTR u_buf_size$[rbp]
 	mov	rcx, QWORD PTR u_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+592]
+	call	QWORD PTR [rax+600]
 	mov	DWORD PTR u_result$[rbp], eax
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN4@TEST_Equal
@@ -1141,13 +1141,13 @@ $LN5@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 83   :     TEST_Assert(env, FormatTestLabel(L"Equals_X_I (%d.%d)", no, 2), (result = ep->Equals_X_I(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_X_Iの復帰コードが期待通りではない(%d)", result));
+; 82   :     TEST_Assert(env, FormatTestLabel(L"Equals_X_I (%d.%d)", no, 2), (result = ep->Equals_X_I(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_X_Iの復帰コードが期待通りではない(%d)", result));
 
 	lea	r8, QWORD PTR actual_w$[rbp]
 	mov	edx, DWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+944]
+	call	QWORD PTR [rax+960]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN6@TEST_Equal
@@ -1171,7 +1171,7 @@ $LN7@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 84   :     TEST_Assert(env, FormatTestLabel(L"Equals_X_I (%d.%d)", no, 3), actual_w == desired_w, L"データの内容が一致しない");
+; 83   :     TEST_Assert(env, FormatTestLabel(L"Equals_X_I (%d.%d)", no, 3), actual_w == desired_w, L"データの内容が一致しない");
 
 	mov	eax, DWORD PTR desired_w$[rbp]
 	cmp	DWORD PTR actual_w$[rbp], eax
@@ -1191,19 +1191,19 @@ $LN9@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 85   :     if (u_result == PMC_STATUS_OK)
+; 84   :     if (u_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN2@TEST_Equal
 
-; 86   :         ep->Dispose(u);
+; 85   :         ep->Dispose(u);
 
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+576]
+	call	QWORD PTR [rax+584]
 $LN2@TEST_Equal:
 
-; 87   : }
+; 86   : }
 
 	lea	rcx, QWORD PTR [rbp-32]
 	lea	rdx, OFFSET FLAT:TEST_Equals_X_I$rtcFrameData
@@ -1245,7 +1245,7 @@ v_buf_size$ = 480
 desired_w$ = 488
 TEST_Equals_UX_X PROC					; COMDAT
 
-; 59   : {
+; 58   : {
 
 $LN13:
 	mov	QWORD PTR [rsp+32], r9
@@ -1267,13 +1267,13 @@ $LN13:
 	lea	rcx, OFFSET FLAT:__2415E362_test_op_equals@c
 	call	__CheckForDebuggerJustMyCode
 
-; 60   :     PMC_HANDLE_UINT u;
-; 61   :     PMC_HANDLE_SINT v;
-; 62   :     __int32 actual_w;
-; 63   :     PMC_STATUS_CODE result;
-; 64   :     PMC_STATUS_CODE u_result;
-; 65   :     PMC_STATUS_CODE v_result;
-; 66   :     TEST_Assert(env, FormatTestLabel(L"Equals_UX_X (%d.%d)", no, 1), (u_result = ep->UINT_ENTRY_POINTS.FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
+; 59   :     PMC_HANDLE_UINT u;
+; 60   :     PMC_HANDLE_SINT v;
+; 61   :     __int32 actual_w;
+; 62   :     PMC_STATUS_CODE result;
+; 63   :     PMC_STATUS_CODE u_result;
+; 64   :     PMC_STATUS_CODE v_result;
+; 65   :     TEST_Assert(env, FormatTestLabel(L"Equals_UX_X (%d.%d)", no, 1), (u_result = ep->UINT_ENTRY_POINTS.FromByteArray(u_buf, u_buf_size, &u)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", u_result));
 
 	lea	r8, QWORD PTR u$[rbp]
 	mov	rdx, QWORD PTR u_buf_size$[rbp]
@@ -1303,13 +1303,13 @@ $LN6@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 67   :     TEST_Assert(env, FormatTestLabel(L"Equals_UX_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+; 66   :     TEST_Assert(env, FormatTestLabel(L"Equals_UX_X (%d.%d)", no, 2), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
 
 	lea	r8, QWORD PTR v$[rbp]
 	mov	rdx, QWORD PTR v_buf_size$[rbp]
 	mov	rcx, QWORD PTR v_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+592]
+	call	QWORD PTR [rax+600]
 	mov	DWORD PTR v_result$[rbp], eax
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN7@TEST_Equal
@@ -1333,13 +1333,13 @@ $LN8@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 68   :     TEST_Assert(env, FormatTestLabel(L"Equals_UX_X (%d.%d)", no, 3), (result = ep->Equals_UX_X(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_UX_Xの復帰コードが期待通りではない(%d)", result));
+; 67   :     TEST_Assert(env, FormatTestLabel(L"Equals_UX_X (%d.%d)", no, 3), (result = ep->Equals_UX_X(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_UX_Xの復帰コードが期待通りではない(%d)", result));
 
 	lea	r8, QWORD PTR actual_w$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+936]
+	call	QWORD PTR [rax+952]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN9@TEST_Equal
@@ -1363,7 +1363,7 @@ $LN10@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 69   :     TEST_Assert(env, FormatTestLabel(L"Equals_UX_X (%d.%d)", no, 4), actual_w == desired_w, L"データの内容が一致しない");
+; 68   :     TEST_Assert(env, FormatTestLabel(L"Equals_UX_X (%d.%d)", no, 4), actual_w == desired_w, L"データの内容が一致しない");
 
 	mov	eax, DWORD PTR desired_w$[rbp]
 	cmp	DWORD PTR actual_w$[rbp], eax
@@ -1383,31 +1383,31 @@ $LN12@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 70   :     if (v_result == PMC_STATUS_OK)
+; 69   :     if (v_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN2@TEST_Equal
 
-; 71   :         ep->Dispose(v);
+; 70   :         ep->Dispose(v);
 
 	mov	rcx, QWORD PTR v$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+576]
+	call	QWORD PTR [rax+584]
 $LN2@TEST_Equal:
 
-; 72   :     if (u_result == PMC_STATUS_OK)
+; 71   :     if (u_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN3@TEST_Equal
 
-; 73   :         ep->UINT_ENTRY_POINTS.Dispose(u);
+; 72   :         ep->UINT_ENTRY_POINTS.Dispose(u);
 
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
 	call	QWORD PTR [rax+32]
 $LN3@TEST_Equal:
 
-; 74   : }
+; 73   : }
 
 	lea	rcx, QWORD PTR [rbp-32]
 	lea	rdx, OFFSET FLAT:TEST_Equals_UX_X$rtcFrameData
@@ -1444,7 +1444,7 @@ v_buf_size$ = 408
 desired_w$ = 416
 TEST_Equals_L_X PROC					; COMDAT
 
-; 46   : {
+; 45   : {
 
 $LN10:
 	mov	QWORD PTR [rsp+32], r9
@@ -1466,17 +1466,17 @@ $LN10:
 	lea	rcx, OFFSET FLAT:__2415E362_test_op_equals@c
 	call	__CheckForDebuggerJustMyCode
 
-; 47   :     PMC_HANDLE_SINT v;
-; 48   :     __int32 actual_w;
-; 49   :     PMC_STATUS_CODE result;
-; 50   :     PMC_STATUS_CODE v_result;
-; 51   :     TEST_Assert(env, FormatTestLabel(L"Equals_L_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+; 46   :     PMC_HANDLE_SINT v;
+; 47   :     __int32 actual_w;
+; 48   :     PMC_STATUS_CODE result;
+; 49   :     PMC_STATUS_CODE v_result;
+; 50   :     TEST_Assert(env, FormatTestLabel(L"Equals_L_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
 
 	lea	r8, QWORD PTR v$[rbp]
 	mov	rdx, QWORD PTR v_buf_size$[rbp]
 	mov	rcx, QWORD PTR v_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+592]
+	call	QWORD PTR [rax+600]
 	mov	DWORD PTR v_result$[rbp], eax
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN4@TEST_Equal
@@ -1500,13 +1500,13 @@ $LN5@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 52   :     TEST_Assert(env, FormatTestLabel(L"Equals_L_X (%d.%d)", no, 2), (result = ep->Equals_L_X(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_L_Xの復帰コードが期待通りではない(%d)", result));
+; 51   :     TEST_Assert(env, FormatTestLabel(L"Equals_L_X (%d.%d)", no, 2), (result = ep->Equals_L_X(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_L_Xの復帰コードが期待通りではない(%d)", result));
 
 	lea	r8, QWORD PTR actual_w$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+928]
+	call	QWORD PTR [rax+944]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN6@TEST_Equal
@@ -1530,7 +1530,7 @@ $LN7@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 53   :     TEST_Assert(env, FormatTestLabel(L"Equals_I_X (%d.%d)", no, 3), actual_w == desired_w, L"データの内容が一致しない");
+; 52   :     TEST_Assert(env, FormatTestLabel(L"Equals_I_X (%d.%d)", no, 3), actual_w == desired_w, L"データの内容が一致しない");
 
 	mov	eax, DWORD PTR desired_w$[rbp]
 	cmp	DWORD PTR actual_w$[rbp], eax
@@ -1550,19 +1550,19 @@ $LN9@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 54   :     if (v_result == PMC_STATUS_OK)
+; 53   :     if (v_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN2@TEST_Equal
 
-; 55   :         ep->Dispose(v);
+; 54   :         ep->Dispose(v);
 
 	mov	rcx, QWORD PTR v$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+576]
+	call	QWORD PTR [rax+584]
 $LN2@TEST_Equal:
 
-; 56   : }
+; 55   : }
 
 	lea	rcx, QWORD PTR [rbp-32]
 	lea	rdx, OFFSET FLAT:TEST_Equals_L_X$rtcFrameData
@@ -1599,7 +1599,7 @@ v_buf_size$ = 408
 desired_w$ = 416
 TEST_Equals_I_X PROC					; COMDAT
 
-; 33   : {
+; 32   : {
 
 $LN10:
 	mov	DWORD PTR [rsp+32], r9d
@@ -1621,17 +1621,17 @@ $LN10:
 	lea	rcx, OFFSET FLAT:__2415E362_test_op_equals@c
 	call	__CheckForDebuggerJustMyCode
 
-; 34   :     PMC_HANDLE_SINT v;
-; 35   :     __int32 actual_w;
-; 36   :     PMC_STATUS_CODE result;
-; 37   :     PMC_STATUS_CODE v_result;
-; 38   :     TEST_Assert(env, FormatTestLabel(L"Equals_I_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
+; 33   :     PMC_HANDLE_SINT v;
+; 34   :     __int32 actual_w;
+; 35   :     PMC_STATUS_CODE result;
+; 36   :     PMC_STATUS_CODE v_result;
+; 37   :     TEST_Assert(env, FormatTestLabel(L"Equals_I_X (%d.%d)", no, 1), (v_result = ep->FromByteArray(v_buf, v_buf_size, &v)) == PMC_STATUS_OK, FormatTestMesssage(L"FromByteArrayの復帰コードが期待通りではない(%d)", v_result));
 
 	lea	r8, QWORD PTR v$[rbp]
 	mov	rdx, QWORD PTR v_buf_size$[rbp]
 	mov	rcx, QWORD PTR v_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+592]
+	call	QWORD PTR [rax+600]
 	mov	DWORD PTR v_result$[rbp], eax
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN4@TEST_Equal
@@ -1655,13 +1655,13 @@ $LN5@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 39   :     TEST_Assert(env, FormatTestLabel(L"Equals_I_X (%d.%d)", no, 2), (result = ep->Equals_I_X(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_I_Xの復帰コードが期待通りではない(%d)", result));
+; 38   :     TEST_Assert(env, FormatTestLabel(L"Equals_I_X (%d.%d)", no, 2), (result = ep->Equals_I_X(u, v, &actual_w)) == PMC_STATUS_OK, FormatTestMesssage(L"Equals_I_Xの復帰コードが期待通りではない(%d)", result));
 
 	lea	r8, QWORD PTR actual_w$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	ecx, DWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+920]
+	call	QWORD PTR [rax+936]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN6@TEST_Equal
@@ -1685,7 +1685,7 @@ $LN7@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 40   :     TEST_Assert(env, FormatTestLabel(L"Equals_I_X (%d.%d)", no, 3), actual_w == desired_w, L"データの内容が一致しない");
+; 39   :     TEST_Assert(env, FormatTestLabel(L"Equals_I_X (%d.%d)", no, 3), actual_w == desired_w, L"データの内容が一致しない");
 
 	mov	eax, DWORD PTR desired_w$[rbp]
 	cmp	DWORD PTR actual_w$[rbp], eax
@@ -1705,19 +1705,19 @@ $LN9@TEST_Equal:
 	mov	rcx, QWORD PTR env$[rbp]
 	call	TEST_Assert
 
-; 41   :     if (v_result == PMC_STATUS_OK)
+; 40   :     if (v_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN2@TEST_Equal
 
-; 42   :         ep->Dispose(v);
+; 41   :         ep->Dispose(v);
 
 	mov	rcx, QWORD PTR v$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+576]
+	call	QWORD PTR [rax+584]
 $LN2@TEST_Equal:
 
-; 43   : }
+; 42   : }
 
 	lea	rcx, QWORD PTR [rbp-32]
 	lea	rdx, OFFSET FLAT:TEST_Equals_I_X$rtcFrameData

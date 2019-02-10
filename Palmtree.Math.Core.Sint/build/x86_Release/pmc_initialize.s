@@ -103,88 +103,89 @@ L16:
 	rep stosb
  # 0 "" 2
 /NO_APP
-	movl	$276, %eax
+	movl	$70, %eax
 	orb	$1, 24(%esp)
 	movl	$_ep_uint, %edi
 	movl	%edx, %esi
 	movl	%eax, %ecx
 /APP
- # 1755 "C:/GNU/MINGW64/i686-8.1.0-win32-dwarf-rt_v6-rev0/mingw32/i686-w64-mingw32/include/psdk_inc/intrin-impl.h" 1
-	rep movsb
+ # 1773 "C:/GNU/MINGW64/i686-8.1.0-win32-dwarf-rt_v6-rev0/mingw32/i686-w64-mingw32/include/psdk_inc/intrin-impl.h" 1
+	rep movsd
  # 0 "" 2
 /NO_APP
 	movl	%ebx, %edi
 	movl	%edx, %esi
 	movl	%eax, %ecx
 /APP
- # 1755 "C:/GNU/MINGW64/i686-8.1.0-win32-dwarf-rt_v6-rev0/mingw32/i686-w64-mingw32/include/psdk_inc/intrin-impl.h" 1
-	rep movsb
+ # 1773 "C:/GNU/MINGW64/i686-8.1.0-win32-dwarf-rt_v6-rev0/mingw32/i686-w64-mingw32/include/psdk_inc/intrin-impl.h" 1
+	rep movsd
  # 0 "" 2
 /NO_APP
 	call	_Initialize_Memory
 	testl	%eax, %eax
 	jne	L6
-	movl	$_PMC_GetStatisticsInfo@4, _entry_points+276
+	movl	$_PMC_GetStatisticsInfo@4, _entry_points+280
 	movl	%ebx, %eax
-	movl	$_PMC_From_I@8, _entry_points+280
-	movl	$_PMC_From_L@12, _entry_points+284
-	movl	$_PMC_FromByteArray@12, _entry_points+296
-	movl	$_PMC_Dispose@4, _entry_points+288
-	movl	$_PMC_To_X_I@8, _entry_points+308
-	movl	$_PMC_To_X_L@8, _entry_points+312
-	movl	$_PMC_ToByteArray@16, _entry_points+300
-	movl	$_PMC_Add_I_X@12, _entry_points+320
-	movl	$_PMC_Add_L_X@16, _entry_points+324
-	movl	$_PMC_Add_UX_X@12, _entry_points+328
-	movl	$_PMC_Add_X_I@12, _entry_points+332
-	movl	$_PMC_Add_X_L@16, _entry_points+336
-	movl	$_PMC_Add_X_UX@12, _entry_points+340
-	movl	$_PMC_Add_X_X@12, _entry_points+344
-	movl	$_PMC_Subtruct_I_X@12, _entry_points+348
-	movl	$_PMC_Subtruct_L_X@16, _entry_points+352
-	movl	$_PMC_Subtruct_UX_X@12, _entry_points+356
-	movl	$_PMC_Subtruct_X_I@12, _entry_points+360
-	movl	$_PMC_Subtruct_X_L@16, _entry_points+364
-	movl	$_PMC_Subtruct_X_UX@12, _entry_points+368
-	movl	$_PMC_Subtruct_X_X@12, _entry_points+372
-	movl	$_PMC_Multiply_I_X@12, _entry_points+376
-	movl	$_PMC_Multiply_L_X@16, _entry_points+380
-	movl	$_PMC_Multiply_UX_X@12, _entry_points+384
-	movl	$_PMC_Multiply_X_I@12, _entry_points+388
-	movl	$_PMC_Multiply_X_L@16, _entry_points+392
-	movl	$_PMC_Multiply_X_UX@12, _entry_points+396
-	movl	$_PMC_Multiply_X_X@12, _entry_points+400
-	movl	$_PMC_DivRem_I_X@16, _entry_points+404
-	movl	$_PMC_DivRem_L_X@20, _entry_points+408
-	movl	$_PMC_DivRem_UX_X@16, _entry_points+412
-	movl	$_PMC_DivRem_X_I@16, _entry_points+416
-	movl	$_PMC_DivRem_X_L@20, _entry_points+420
-	movl	$_PMC_DivRem_X_UX@16, _entry_points+424
-	movl	$_PMC_DivRem_X_X@16, _entry_points+428
-	movl	$_PMC_Compare_I_X@12, _entry_points+432
-	movl	$_PMC_Compare_L_X@16, _entry_points+436
-	movl	$_PMC_Compare_UX_X@12, _entry_points+440
-	movl	$_PMC_Compare_X_I@12, _entry_points+444
-	movl	$_PMC_Compare_X_L@16, _entry_points+448
-	movl	$_PMC_Compare_X_UX@12, _entry_points+452
-	movl	$_PMC_Compare_X_X@12, _entry_points+456
-	movl	$_PMC_Equals_I_X@12, _entry_points+460
-	movl	$_PMC_Equals_L_X@16, _entry_points+464
-	movl	$_PMC_Equals_UX_X@12, _entry_points+468
-	movl	$_PMC_Equals_X_I@12, _entry_points+472
-	movl	$_PMC_Equals_X_L@16, _entry_points+476
-	movl	$_PMC_Equals_X_UX@12, _entry_points+480
-	movl	$_PMC_Equals_X_X@12, _entry_points+484
-	movl	$_PMC_GreatestCommonDivisor_I_X@12, _entry_points+488
-	movl	$_PMC_GreatestCommonDivisor_L_X@16, _entry_points+492
-	movl	$_PMC_GreatestCommonDivisor_UX_X@12, _entry_points+496
-	movl	$_PMC_GreatestCommonDivisor_X_I@12, _entry_points+500
-	movl	$_PMC_GreatestCommonDivisor_X_L@16, _entry_points+504
-	movl	$_PMC_GreatestCommonDivisor_X_UX@12, _entry_points+508
-	movl	$_PMC_GreatestCommonDivisor_X_X@12, _entry_points+512
-	movl	$_PMC_GetConstantValue_I@8, _entry_points+292
-	movl	$_PMC_Clone_X@8, _entry_points+304
-	movl	$_PMC_Negate_X@8, _entry_points+316
+	movl	$_PMC_From_I@8, _entry_points+284
+	movl	$_PMC_From_L@12, _entry_points+288
+	movl	$_PMC_FromByteArray@12, _entry_points+300
+	movl	$_PMC_Dispose@4, _entry_points+292
+	movl	$_PMC_To_X_I@8, _entry_points+312
+	movl	$_PMC_To_X_L@8, _entry_points+316
+	movl	$_PMC_ToByteArray@16, _entry_points+304
+	movl	$_PMC_TryParse@16, _entry_points+324
+	movl	$_PMC_Add_I_X@12, _entry_points+328
+	movl	$_PMC_Add_L_X@16, _entry_points+332
+	movl	$_PMC_Add_UX_X@12, _entry_points+336
+	movl	$_PMC_Add_X_I@12, _entry_points+340
+	movl	$_PMC_Add_X_L@16, _entry_points+344
+	movl	$_PMC_Add_X_UX@12, _entry_points+348
+	movl	$_PMC_Add_X_X@12, _entry_points+352
+	movl	$_PMC_Subtruct_I_X@12, _entry_points+356
+	movl	$_PMC_Subtruct_L_X@16, _entry_points+360
+	movl	$_PMC_Subtruct_UX_X@12, _entry_points+364
+	movl	$_PMC_Subtruct_X_I@12, _entry_points+368
+	movl	$_PMC_Subtruct_X_L@16, _entry_points+372
+	movl	$_PMC_Subtruct_X_UX@12, _entry_points+376
+	movl	$_PMC_Subtruct_X_X@12, _entry_points+380
+	movl	$_PMC_Multiply_I_X@12, _entry_points+384
+	movl	$_PMC_Multiply_L_X@16, _entry_points+388
+	movl	$_PMC_Multiply_UX_X@12, _entry_points+392
+	movl	$_PMC_Multiply_X_I@12, _entry_points+396
+	movl	$_PMC_Multiply_X_L@16, _entry_points+400
+	movl	$_PMC_Multiply_X_UX@12, _entry_points+404
+	movl	$_PMC_Multiply_X_X@12, _entry_points+408
+	movl	$_PMC_DivRem_I_X@16, _entry_points+412
+	movl	$_PMC_DivRem_L_X@20, _entry_points+416
+	movl	$_PMC_DivRem_UX_X@16, _entry_points+420
+	movl	$_PMC_DivRem_X_I@16, _entry_points+424
+	movl	$_PMC_DivRem_X_L@20, _entry_points+428
+	movl	$_PMC_DivRem_X_UX@16, _entry_points+432
+	movl	$_PMC_DivRem_X_X@16, _entry_points+436
+	movl	$_PMC_Compare_I_X@12, _entry_points+440
+	movl	$_PMC_Compare_L_X@16, _entry_points+444
+	movl	$_PMC_Compare_UX_X@12, _entry_points+448
+	movl	$_PMC_Compare_X_I@12, _entry_points+452
+	movl	$_PMC_Compare_X_L@16, _entry_points+456
+	movl	$_PMC_Compare_X_UX@12, _entry_points+460
+	movl	$_PMC_Compare_X_X@12, _entry_points+464
+	movl	$_PMC_Equals_I_X@12, _entry_points+468
+	movl	$_PMC_Equals_L_X@16, _entry_points+472
+	movl	$_PMC_Equals_UX_X@12, _entry_points+476
+	movl	$_PMC_Equals_X_I@12, _entry_points+480
+	movl	$_PMC_Equals_X_L@16, _entry_points+484
+	movl	$_PMC_Equals_X_UX@12, _entry_points+488
+	movl	$_PMC_Equals_X_X@12, _entry_points+492
+	movl	$_PMC_GreatestCommonDivisor_I_X@12, _entry_points+496
+	movl	$_PMC_GreatestCommonDivisor_L_X@16, _entry_points+500
+	movl	$_PMC_GreatestCommonDivisor_UX_X@12, _entry_points+504
+	movl	$_PMC_GreatestCommonDivisor_X_I@12, _entry_points+508
+	movl	$_PMC_GreatestCommonDivisor_X_L@16, _entry_points+512
+	movl	$_PMC_GreatestCommonDivisor_X_UX@12, _entry_points+516
+	movl	$_PMC_GreatestCommonDivisor_X_X@12, _entry_points+520
+	movl	$_PMC_GetConstantValue_I@8, _entry_points+296
+	movl	$_PMC_Clone_X@8, _entry_points+308
+	movl	$_PMC_Negate_X@8, _entry_points+320
 	movl	$1, _initialized
 	addl	$48, %esp
 	.cfi_remember_state
@@ -255,8 +256,8 @@ LFE5484:
 .lcomm _initialized,4,4
 .lcomm _fp_PMC_UINT_Initialize,4,4
 .lcomm _hLib_UINT,4,4
-.lcomm _entry_points,516,32
-	.comm	_ep_uint, 276, 5
+.lcomm _entry_points,524,32
+	.comm	_ep_uint, 280, 5
 	.comm	_uint_number_one, 4, 2
 	.comm	_uint_number_zero, 4, 2
 	.ident	"GCC: (i686-win32-dwarf-rev0, Built by MinGW-W64 project) 8.1.0"
@@ -269,6 +270,7 @@ LFE5484:
 	.def	_PMC_To_X_I@8;	.scl	2;	.type	32;	.endef
 	.def	_PMC_To_X_L@8;	.scl	2;	.type	32;	.endef
 	.def	_PMC_ToByteArray@16;	.scl	2;	.type	32;	.endef
+	.def	_PMC_TryParse@16;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Add_I_X@12;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Add_L_X@16;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Add_UX_X@12;	.scl	2;	.type	32;	.endef
@@ -321,5 +323,3 @@ LFE5484:
 	.def	_PMC_GetConstantValue_I@8;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Clone_X@8;	.scl	2;	.type	32;	.endef
 	.def	_PMC_Negate_X@8;	.scl	2;	.type	32;	.endef
-	.section .drectve
-	.ascii " -export:\"PMC_SINT_Initialize@4\""

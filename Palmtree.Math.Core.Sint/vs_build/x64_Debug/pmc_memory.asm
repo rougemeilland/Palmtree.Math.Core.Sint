@@ -2022,7 +2022,7 @@ $LN4@Negate_Imp:
 	lea	rdx, QWORD PTR new_abs$[rbp]
 	mov	rax, QWORD PTR x$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+80
+	call	QWORD PTR ep_uint+64
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@Negate_Imp
@@ -2216,7 +2216,7 @@ $LN5@DuplicateN:
 	lea	rdx, QWORD PTR new_abs$[rbp]
 	mov	rax, QWORD PTR x$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+80
+	call	QWORD PTR ep_uint+64
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN6@DuplicateN

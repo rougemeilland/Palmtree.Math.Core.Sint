@@ -134,7 +134,7 @@ $LN3@PMC_ToByte:
 	mov	edx, DWORD PTR _np$[ebp]
 	movzx	eax, BYTE PTR [edx+16]
 	push	eax
-	call	DWORD PTR _ep_uint+36
+	call	DWORD PTR _ep_uint+272
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -244,7 +244,7 @@ $LN4@PMC_FromBy:
 	push	edx
 	mov	eax, DWORD PTR _buffer$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+32
+	call	DWORD PTR _ep_uint+268
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax

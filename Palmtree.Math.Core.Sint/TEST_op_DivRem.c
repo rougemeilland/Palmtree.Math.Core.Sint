@@ -24,8 +24,7 @@
 
 
 #include <windows.h>
-#include "pmc.h"
-#include "pmc_uint_debug.h"
+#include "pmc_sint_debug.h"
 
 
 #ifdef _DEBUG

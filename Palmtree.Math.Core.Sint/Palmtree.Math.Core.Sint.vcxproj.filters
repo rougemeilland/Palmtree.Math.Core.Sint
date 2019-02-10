@@ -99,6 +99,18 @@
     <ClCompile Include="TEST_op_GreatestCommonDivisor.c">
       <Filter>ソース ファイル\テスト</Filter>
     </ClCompile>
+    <ClCompile Include="TEST_op_Compare.c">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="pmc_parse.c">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="TEST_op_ParseX.c">
+      <Filter>ソース ファイル\テスト</Filter>
+    </ClCompile>
+    <ClCompile Include="TEST_op_ParseDN.c">
+      <Filter>ソース ファイル\テスト</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pmc_sint_internal.h">
@@ -119,6 +131,12 @@
     <ClInclude Include="pmc_sint_debug.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="pmc_sint.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Palmtree.Math.Core.Uint\Palmtree.Math.Core.Uint\pmc_uint.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="mymakefile.xml" />
@@ -130,8 +148,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Palmtree.Math.Core.Sint.def" />
-    <None Include="TEST_op_Compare.c">
-      <Filter>ソース ファイル\テスト</Filter>
-    </None>
   </ItemGroup>
 </Project>

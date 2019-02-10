@@ -106,7 +106,7 @@ _CompareU_X_X_Imp PROC					; COMDAT
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+224
+	call	DWORD PTR _ep_uint+216
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -245,7 +245,7 @@ _CompareU_X_L_Imp PROC					; COMDAT
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+220
+	call	DWORD PTR _ep_uint+212
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -382,7 +382,7 @@ _CompareU_X_I_Imp PROC					; COMDAT
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+216
+	call	DWORD PTR _ep_uint+208
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
