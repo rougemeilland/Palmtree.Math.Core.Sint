@@ -136,7 +136,7 @@ $LN3@MultiplyU_:
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+108
+	call	DWORD PTR _ep_uint+112
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -293,7 +293,7 @@ $LN3@MultiplyU_:
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+104
+	call	DWORD PTR _ep_uint+108
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -448,7 +448,7 @@ $LN3@MultiplyU_:
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+100
+	call	DWORD PTR _ep_uint+104
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax

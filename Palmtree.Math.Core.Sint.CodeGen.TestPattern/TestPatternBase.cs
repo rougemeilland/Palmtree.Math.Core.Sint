@@ -39,6 +39,14 @@ namespace Palmtree.Math.Core.Sint.CodeGen.TestPattern
 
         protected abstract string Id { get; }
 
+        protected virtual int GroupNumber
+        {
+            get
+            {
+                return (1);
+            }
+        }
+
         protected virtual IEnumerable<BigInteger> CreateAdditionalInputTestData()
         {
             return (new BigInteger[0]);
@@ -48,26 +56,38 @@ namespace Palmtree.Math.Core.Sint.CodeGen.TestPattern
 
         private IEnumerable<InputTestData> CreateInputDataSource()
         {
-            var in_data_dic = new[]
+            var in_data_dic = new Dictionary<BigInteger, object>();
+
+            // 0と1
+            in_data_dic[0] = null;
+            in_data_dic[1] = null;
+
+            // ワード境界値
+            in_data_dic[new BigInteger(1) << 32] = null;
+            in_data_dic[(new BigInteger(1) << 32) - 1] = null;
+            in_data_dic[new BigInteger(1) << 64] = null;
+            in_data_dic[(new BigInteger(1) << 64) - 1] = null;
+
+            // 長いデータ(最長で512bit程度)
+            // 最大で512bitのデータを作る 10進数10桁で2進数33桁≒32桁＝4バイト。
+            var data_str_1 = "9999999999";
+            var data_str_2 = "1234567890";
+            var limit = new BigInteger(1) << 512;
+            for (; ; )
             {
-                BigInteger.Zero,
-                BigInteger.One,
-                BigInteger.One << 31,
-                (BigInteger.One << 31) - 1,
-                BigInteger.One << 32,
-                (BigInteger.One << 32) - 1,
-                BigInteger.One << 63,
-                (BigInteger.One << 63) - 1,
-                BigInteger.One << 64,
-                (BigInteger.One << 64) - 1,
-                BigInteger.One << 127,
-                (BigInteger.One << 127) - 1,
-                BigInteger.One << 128,
-                (BigInteger.One << 128) - 1,
+                BigInteger data_1;
+                BigInteger data_2;
+                if (!BigInteger.TryParse(data_str_1, out data_1))
+                    throw new ApplicationException();
+                if (!BigInteger.TryParse(data_str_2, out data_2))
+                    throw new ApplicationException();
+                in_data_dic[data_1] = null;
+                in_data_dic[data_2] = null;
+                if (data_1 >= limit || data_2 >= limit)
+                    break;
+                data_str_1 += data_str_1;
+                data_str_2 += data_str_2;
             }
-            .SelectMany(n => new[] { n, -n })
-            .Distinct()
-            .ToDictionary(n => n, n => (object)null);
 
             // 追加のデータ
             foreach (var x in CreateAdditionalInputTestData())
@@ -94,11 +114,36 @@ namespace Palmtree.Math.Core.Sint.CodeGen.TestPattern
                     .Select(item => string.Format("static unsigned char {0}[] = {1}; // {2}", item.Name, item.BigIntegerValue.Dump(), item.BigIntegerValue.ToImmediateDecimalString())));
         }
 
+        /*
+        private static IEnumerable<OutputTestData> CreateTestOutputDataSource(string id, IEnumerable<InputTestData> source)
+        {
+            return source
+                .SelectMany(item => source, (u, v) => new { u, v })
+                .Select(item =>
+                {
+                    return (new[]
+                    {
+                        new OutputTestData(id, "q", item.u, item.v, (u, v) => v != 0, (u, v) => u / v),
+                        new OutputTestData(id, "r", item.u, item.v, (u, v) => v != 0, (u, v) => u % v),
+                    });
+                })
+                .SelectMany(items => items);
+        }
+        */
+
         string ITestPattern.Id
         {
             get
             {
                 return (Id);
+            }
+        }
+
+        int ITestPattern.GroupNumber
+        {
+            get
+            {
+                return (GroupNumber);
             }
         }
 

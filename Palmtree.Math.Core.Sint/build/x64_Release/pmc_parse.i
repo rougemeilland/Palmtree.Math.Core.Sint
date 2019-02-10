@@ -100693,14 +100693,14 @@ __extension__ typedef unsigned long long uintmax_t;
 
 
 #pragma region マクロの定義
-# 70 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 71 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 #pragma endregion
 
 
 #pragma region 型の定義
-# 83 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 84 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 
-# 83 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
+# 84 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc.h"
 typedef int16_t _INT16_T;
 typedef int32_t _INT32_T;
 typedef int64_t _INT64_T;
@@ -100732,15 +100732,47 @@ typedef struct __tag_PMC_STATISTICS_INFO
     long COUNT_DIV32;
 } PMC_STATISTICS_INFO;
 
-typedef struct __tag_PMC_NUMBER_FORMAT_OPTION
+typedef struct __tag_PMC_CURRENCY_NUMBER_FORMAT_INFO
+{
+    int DecimalDigits;
+    wchar_t DecimalSeparator[3];
+    wchar_t GroupSeparator[3];
+    wchar_t GroupSizes[11];
+    int NegativePattern;
+    int PositivePattern;
+} PMC_CURRENCY_NUMBER_FORMAT_INFO;
+
+typedef struct __tag_PMC_GENERIC_NUMBER_FORMAT_INFO
 {
     int DecimalDigits;
     wchar_t GroupSeparator[3];
     wchar_t DecimalSeparator[3];
-    wchar_t PositiveSign[3];
-    wchar_t NegativeSign[3];
     wchar_t GroupSizes[11];
-} PMC_NUMBER_FORMAT_OPTION;
+    int NegativePattern;
+} PMC_GENERIC_NUMBER_FORMAT_INFO;
+
+typedef struct __tag_PMC_PERCENT_NUMBER_FORMAT_INFO
+{
+    int DecimalDigits;
+    wchar_t GroupSeparator[3];
+    wchar_t DecimalSeparator[3];
+    wchar_t GroupSizes[11];
+    int NegativePattern;
+    int PositivePattern;
+} PMC_PERCENT_NUMBER_FORMAT_INFO;
+
+typedef struct __tag_PMC_NUMBER_FORMAT_INFO
+{
+    PMC_CURRENCY_NUMBER_FORMAT_INFO Currency;
+    PMC_GENERIC_NUMBER_FORMAT_INFO Number;
+    PMC_PERCENT_NUMBER_FORMAT_INFO Percent;
+    wchar_t CurrencySymbol[3];
+    wchar_t NativeDigits[11];
+    wchar_t NegativeSign[3];
+    wchar_t PositiveSign[3];
+    wchar_t PercentSymbol[3];
+    wchar_t PerMilleSymbol[3];
+} PMC_NUMBER_FORMAT_INFO;
 #pragma endregion
 # 31 "../pmc_sint.h" 2
 # 1 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint.h" 1
@@ -100808,10 +100840,9 @@ typedef struct __tag_PMC_NUMBER_FORMAT_OPTION
         PMC_STATUS_CODE ( * To_X_L)(PMC_HANDLE_UINT p, _UINT64_T* o);
 
 
-        PMC_STATUS_CODE ( * ToString)(PMC_HANDLE_UINT x, wchar_t* buffer, size_t buffer_size, char format, int width, PMC_NUMBER_FORMAT_OPTION* format_option);
-
-
-        PMC_STATUS_CODE ( * TryParse)(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_OPTION* format_option, PMC_HANDLE_UINT* o);
+        void ( * InitializeNumberFormatInfo)(PMC_NUMBER_FORMAT_INFO* info);
+         PMC_STATUS_CODE ( * ToString)(PMC_HANDLE_UINT x, wchar_t* buffer, size_t buffer_size, char format, int width, PMC_NUMBER_FORMAT_INFO* format_option);
+        PMC_STATUS_CODE ( * TryParse)(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_INFO* format_option, PMC_HANDLE_UINT* o);
 
 
         PMC_STATUS_CODE ( * Add_I_X)(_UINT32_T u, PMC_HANDLE_UINT v, PMC_HANDLE_UINT* w);
@@ -100898,7 +100929,7 @@ typedef struct __tag_PMC_NUMBER_FORMAT_OPTION
 
         PMC_STATUS_CODE ( * FromByteArrayForSINT)(unsigned char* buffer, size_t count, char* o_sign, PMC_HANDLE_UINT* o_abs);
         PMC_STATUS_CODE ( * ToByteArrayForSINT)(char p_sign, PMC_HANDLE_UINT p, unsigned char* buffer, size_t buffer_size, size_t *count);
-        PMC_STATUS_CODE ( * TryParseForSINT)(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_OPTION* format_option, char* o_sign, PMC_HANDLE_UINT* o_abs);
+        PMC_STATUS_CODE ( * TryParseForSINT)(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_INFO* format_option, char* o_sign, PMC_HANDLE_UINT* o_abs);
     } PMC_UINT_ENTRY_POINTS;
 #pragma endregion
 
@@ -100906,7 +100937,7 @@ typedef struct __tag_PMC_NUMBER_FORMAT_OPTION
 #pragma region 宣言
     PMC_UINT_ENTRY_POINTS* PMC_UINT_Initialize(PMC_CONFIGURATION_INFO*);
 #pragma endregion
-# 197 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint.h"
+# 196 "Z:/Sources/Lunor/Repos/rougemeilland/Palmtree.Math.Core.Uint/Palmtree.Math.Core.Uint/pmc_uint.h"
        
 # 32 "../pmc_sint.h" 2
 
@@ -100975,7 +101006,7 @@ typedef struct __tag_PMC_NUMBER_FORMAT_OPTION
 
 
 
-        PMC_STATUS_CODE ( * TryParse)(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_OPTION* format_option, PMC_HANDLE_SINT* o);
+        PMC_STATUS_CODE ( * TryParse)(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_INFO* format_option, PMC_HANDLE_SINT* o);
 
 
         PMC_STATUS_CODE( * Add_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
@@ -101191,7 +101222,7 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
 
 
 
-    extern PMC_STATUS_CODE PMC_TryParse(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_OPTION* format_option, PMC_HANDLE_SINT* o);
+    extern PMC_STATUS_CODE PMC_TryParse(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_INFO* format_option, PMC_HANDLE_SINT* o);
 
     extern PMC_STATUS_CODE PMC_Add_I_X(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
     extern PMC_STATUS_CODE PMC_Add_L_X(_INT64_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);
@@ -101256,7 +101287,7 @@ typedef __UNIT_TYPE __UNIT_TYPE_DIV;
 # 28 "../pmc_parse.c" 2
 
 
-PMC_STATUS_CODE PMC_TryParse(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_OPTION* format_option, PMC_HANDLE_SINT* o)
+PMC_STATUS_CODE PMC_TryParse(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_INFO* format_option, PMC_HANDLE_SINT* o)
 {
     PMC_STATUS_CODE result;
     if (source == 

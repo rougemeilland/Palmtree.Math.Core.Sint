@@ -187,7 +187,7 @@ $LN3@PMC_ToByte:
 	mov	rdx, QWORD PTR [rax+16]
 	mov	rax, QWORD PTR np$[rbp]
 	movzx	ecx, BYTE PTR [rax+24]
-	call	QWORD PTR ep_uint+544
+	call	QWORD PTR ep_uint+552
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@PMC_ToByte
@@ -288,7 +288,7 @@ $LN4@PMC_FromBy:
 	lea	r8, QWORD PTR o_sign$[rbp]
 	mov	rdx, QWORD PTR count$[rbp]
 	mov	rcx, QWORD PTR buffer$[rbp]
-	call	QWORD PTR ep_uint+536
+	call	QWORD PTR ep_uint+544
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN5@PMC_FromBy

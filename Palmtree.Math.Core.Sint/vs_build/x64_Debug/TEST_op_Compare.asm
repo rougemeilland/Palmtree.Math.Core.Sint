@@ -565,7 +565,7 @@ $LN13:
 	mov	rdx, QWORD PTR u_buf_size$[rbp]
 	mov	rcx, QWORD PTR u_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+600]
+	call	QWORD PTR [rax+608]
 	mov	DWORD PTR u_result$[rbp], eax
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN5@TEST_Compa
@@ -595,7 +595,7 @@ $LN6@TEST_Compa:
 	mov	rdx, QWORD PTR v_buf_size$[rbp]
 	mov	rcx, QWORD PTR v_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+600]
+	call	QWORD PTR [rax+608]
 	mov	DWORD PTR v_result$[rbp], eax
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN7@TEST_Compa
@@ -625,7 +625,7 @@ $LN8@TEST_Compa:
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+928]
+	call	QWORD PTR [rax+936]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN9@TEST_Compa
@@ -678,7 +678,7 @@ $LN12@TEST_Compa:
 
 	mov	rcx, QWORD PTR v$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+584]
+	call	QWORD PTR [rax+592]
 $LN2@TEST_Compa:
 
 ; 134  :     if (u_result == PMC_STATUS_OK)
@@ -690,7 +690,7 @@ $LN2@TEST_Compa:
 
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+584]
+	call	QWORD PTR [rax+592]
 $LN3@TEST_Compa:
 
 ; 136  : }
@@ -769,7 +769,7 @@ $LN13:
 	mov	rdx, QWORD PTR u_buf_size$[rbp]
 	mov	rcx, QWORD PTR u_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+600]
+	call	QWORD PTR [rax+608]
 	mov	DWORD PTR u_result$[rbp], eax
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN5@TEST_Compa
@@ -829,7 +829,7 @@ $LN8@TEST_Compa:
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+920]
+	call	QWORD PTR [rax+928]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN9@TEST_Compa
@@ -894,7 +894,7 @@ $LN2@TEST_Compa:
 
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+584]
+	call	QWORD PTR [rax+592]
 $LN3@TEST_Compa:
 
 ; 118  : }
@@ -966,7 +966,7 @@ $LN10:
 	mov	rdx, QWORD PTR u_buf_size$[rbp]
 	mov	rcx, QWORD PTR u_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+600]
+	call	QWORD PTR [rax+608]
 	mov	DWORD PTR u_result$[rbp], eax
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN4@TEST_Compa
@@ -996,7 +996,7 @@ $LN5@TEST_Compa:
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+912]
+	call	QWORD PTR [rax+920]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN6@TEST_Compa
@@ -1049,7 +1049,7 @@ $LN9@TEST_Compa:
 
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+584]
+	call	QWORD PTR [rax+592]
 $LN2@TEST_Compa:
 
 ; 100  : }
@@ -1121,7 +1121,7 @@ $LN10:
 	mov	rdx, QWORD PTR u_buf_size$[rbp]
 	mov	rcx, QWORD PTR u_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+600]
+	call	QWORD PTR [rax+608]
 	mov	DWORD PTR u_result$[rbp], eax
 	cmp	DWORD PTR u_result$[rbp], 0
 	jne	SHORT $LN4@TEST_Compa
@@ -1151,7 +1151,7 @@ $LN5@TEST_Compa:
 	mov	edx, DWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+904]
+	call	QWORD PTR [rax+912]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN6@TEST_Compa
@@ -1204,7 +1204,7 @@ $LN9@TEST_Compa:
 
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+584]
+	call	QWORD PTR [rax+592]
 $LN2@TEST_Compa:
 
 ; 87   : }
@@ -1313,7 +1313,7 @@ $LN6@TEST_Compa:
 	mov	rdx, QWORD PTR v_buf_size$[rbp]
 	mov	rcx, QWORD PTR v_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+600]
+	call	QWORD PTR [rax+608]
 	mov	DWORD PTR v_result$[rbp], eax
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN7@TEST_Compa
@@ -1343,7 +1343,7 @@ $LN8@TEST_Compa:
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+896]
+	call	QWORD PTR [rax+904]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN9@TEST_Compa
@@ -1396,7 +1396,7 @@ $LN12@TEST_Compa:
 
 	mov	rcx, QWORD PTR v$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+584]
+	call	QWORD PTR [rax+592]
 $LN2@TEST_Compa:
 
 ; 72   :     if (u_result == PMC_STATUS_OK)
@@ -1480,7 +1480,7 @@ $LN10:
 	mov	rdx, QWORD PTR v_buf_size$[rbp]
 	mov	rcx, QWORD PTR v_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+600]
+	call	QWORD PTR [rax+608]
 	mov	DWORD PTR v_result$[rbp], eax
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN4@TEST_Compa
@@ -1510,7 +1510,7 @@ $LN5@TEST_Compa:
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+888]
+	call	QWORD PTR [rax+896]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN6@TEST_Compa
@@ -1563,7 +1563,7 @@ $LN9@TEST_Compa:
 
 	mov	rcx, QWORD PTR v$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+584]
+	call	QWORD PTR [rax+592]
 $LN2@TEST_Compa:
 
 ; 56   : }
@@ -1635,7 +1635,7 @@ $LN10:
 	mov	rdx, QWORD PTR v_buf_size$[rbp]
 	mov	rcx, QWORD PTR v_buf$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+600]
+	call	QWORD PTR [rax+608]
 	mov	DWORD PTR v_result$[rbp], eax
 	cmp	DWORD PTR v_result$[rbp], 0
 	jne	SHORT $LN4@TEST_Compa
@@ -1665,7 +1665,7 @@ $LN5@TEST_Compa:
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	ecx, DWORD PTR u$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+880]
+	call	QWORD PTR [rax+888]
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	jne	SHORT $LN6@TEST_Compa
@@ -1718,7 +1718,7 @@ $LN9@TEST_Compa:
 
 	mov	rcx, QWORD PTR v$[rbp]
 	mov	rax, QWORD PTR ep$[rbp]
-	call	QWORD PTR [rax+584]
+	call	QWORD PTR [rax+592]
 $LN2@TEST_Compa:
 
 ; 43   : }

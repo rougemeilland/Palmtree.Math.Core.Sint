@@ -25,7 +25,7 @@ SubtructU_X_I_Imp:
 	movl	%esi, %edx
 	movq	%rdi, %rcx
 	leaq	48(%rsp), %r8
-	call	*416(%rbx)
+	call	*424(%rbx)
 	testl	%eax, %eax
 	jne	.L1
 	movl	48(%rsp), %edx
@@ -34,7 +34,7 @@ SubtructU_X_I_Imp:
 	leaq	56(%rsp), %r8
 	movl	%esi, %edx
 	movq	%rdi, %rcx
-	call	*160(%rbx)
+	call	*168(%rbx)
 	testl	%eax, %eax
 	je	.L17
 .L1:
@@ -51,7 +51,7 @@ SubtructU_X_I_Imp:
 	leaq	52(%rsp), %r8
 	movq	%rdi, %rdx
 	movl	%esi, %ecx
-	call	*144(%rbx)
+	call	*152(%rbx)
 	testl	%eax, %eax
 	jne	.L1
 	leaq	56(%rsp), %rdx
@@ -104,7 +104,7 @@ AddU_X_I_Imp:
 	movq	%rdx, %rcx
 	movl	%r8d, %edx
 	leaq	56(%rsp), %r8
-	call	*120(%rsi)
+	call	*128(%rsi)
 	testl	%eax, %eax
 	je	.L25
 .L20:
@@ -156,7 +156,7 @@ SubtructU_X_L_Imp:
 	movq	%rsi, %rdx
 	movq	%rdi, %rcx
 	leaq	60(%rsp), %r8
-	call	*424(%rbx)
+	call	*432(%rbx)
 	testl	%eax, %eax
 	jne	.L26
 	movl	60(%rsp), %edx
@@ -165,7 +165,7 @@ SubtructU_X_L_Imp:
 	leaq	72(%rsp), %r8
 	movq	%rsi, %rdx
 	movq	%rdi, %rcx
-	call	*168(%rbx)
+	call	*176(%rbx)
 	testl	%eax, %eax
 	je	.L42
 .L26:
@@ -182,7 +182,7 @@ SubtructU_X_L_Imp:
 	leaq	64(%rsp), %r8
 	movq	%rdi, %rdx
 	movq	%rsi, %rcx
-	call	*152(%rbx)
+	call	*160(%rbx)
 	testl	%eax, %eax
 	jne	.L26
 	leaq	72(%rsp), %rdx
@@ -235,7 +235,7 @@ AddU_X_L_Imp:
 	movq	%rdx, %rcx
 	movq	%r8, %rdx
 	leaq	56(%rsp), %r8
-	call	*128(%rsi)
+	call	*136(%rsi)
 	testl	%eax, %eax
 	je	.L49
 .L44:
@@ -281,7 +281,7 @@ AddU_X_X_Imp:
 	movq	%rdx, %rcx
 	movq	%r8, %rdx
 	leaq	56(%rsp), %r8
-	call	*136(%rsi)
+	call	*144(%rsi)
 	testl	%eax, %eax
 	je	.L55
 .L50:
@@ -333,7 +333,7 @@ SubtructU_X_X_Imp:
 	movq	%rsi, %rdx
 	movq	%rdi, %rcx
 	leaq	52(%rsp), %r8
-	call	*432(%rbx)
+	call	*440(%rbx)
 	testl	%eax, %eax
 	jne	.L56
 	movl	52(%rsp), %edx
@@ -342,7 +342,7 @@ SubtructU_X_X_Imp:
 	leaq	56(%rsp), %r8
 	movq	%rsi, %rdx
 	movq	%rdi, %rcx
-	call	*176(%rbx)
+	call	*184(%rbx)
 	testl	%eax, %eax
 	je	.L72
 .L56:
@@ -359,7 +359,7 @@ SubtructU_X_X_Imp:
 	leaq	56(%rsp), %r8
 	movq	%rdi, %rdx
 	movq	%rsi, %rcx
-	call	*176(%rbx)
+	call	*184(%rbx)
 	testl	%eax, %eax
 	jne	.L56
 	negl	%ebp

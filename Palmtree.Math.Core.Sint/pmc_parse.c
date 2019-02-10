@@ -27,7 +27,7 @@
 #include "pmc_sint_internal.h"
 
 
-PMC_STATUS_CODE __PMC_CALL PMC_TryParse(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_OPTION* format_option, PMC_HANDLE_SINT* o)
+PMC_STATUS_CODE __PMC_CALL PMC_TryParse(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_INFO* format_option, PMC_HANDLE_SINT* o)
 {
     PMC_STATUS_CODE result;
     if (source == NULL)

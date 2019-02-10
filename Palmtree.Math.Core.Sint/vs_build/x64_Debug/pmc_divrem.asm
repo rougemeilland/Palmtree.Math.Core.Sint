@@ -975,7 +975,7 @@ $LN22@PMC_DivRem:
 	mov	rdx, QWORD PTR [rax+16]
 	mov	rax, QWORD PTR nu$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+256
+	call	QWORD PTR ep_uint+264
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN12@PMC_DivRem
@@ -1091,7 +1091,7 @@ $LN10@PMC_DivRem:
 	mov	rdx, QWORD PTR [rax+16]
 	mov	rax, QWORD PTR nu$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+256
+	call	QWORD PTR ep_uint+264
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN15@PMC_DivRem
@@ -1370,7 +1370,7 @@ $LN7@PMC_DivRem:
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rax, QWORD PTR nu$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+256
+	call	QWORD PTR ep_uint+264
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN11@PMC_DivRem
@@ -1485,7 +1485,7 @@ $LN9@PMC_DivRem:
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rax, QWORD PTR nu$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+256
+	call	QWORD PTR ep_uint+264
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN14@PMC_DivRem
@@ -1771,7 +1771,7 @@ $LN18@PMC_DivRem:
 	mov	rdx, QWORD PTR v_abs$[rbp]
 	mov	rax, QWORD PTR nu$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+248
+	call	QWORD PTR ep_uint+256
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN10@PMC_DivRem
@@ -1854,7 +1854,7 @@ $LN8@PMC_DivRem:
 	mov	rdx, QWORD PTR v_abs$[rbp]
 	mov	rax, QWORD PTR nu$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+248
+	call	QWORD PTR ep_uint+256
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN12@PMC_DivRem
@@ -2117,7 +2117,7 @@ $LN18@PMC_DivRem:
 	mov	edx, DWORD PTR v_abs$[rbp]
 	mov	rax, QWORD PTR nu$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+240
+	call	QWORD PTR ep_uint+248
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN10@PMC_DivRem
@@ -2200,7 +2200,7 @@ $LN8@PMC_DivRem:
 	mov	edx, DWORD PTR v_abs$[rbp]
 	mov	rax, QWORD PTR nu$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+240
+	call	QWORD PTR ep_uint+248
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN12@PMC_DivRem
@@ -2442,7 +2442,7 @@ $LN7@PMC_DivRem:
 	mov	rax, QWORD PTR nv$[rbp]
 	mov	rdx, QWORD PTR [rax+16]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+256
+	call	QWORD PTR ep_uint+264
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN11@PMC_DivRem
@@ -2507,7 +2507,7 @@ $LN9@PMC_DivRem:
 	mov	rax, QWORD PTR nv$[rbp]
 	mov	rdx, QWORD PTR [rax+16]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+256
+	call	QWORD PTR ep_uint+264
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN13@PMC_DivRem
@@ -2755,7 +2755,7 @@ $LN20@PMC_DivRem:
 	mov	rax, QWORD PTR nv$[rbp]
 	mov	rdx, QWORD PTR [rax+16]
 	mov	rcx, QWORD PTR u_abs$[rbp]
-	call	QWORD PTR ep_uint+232
+	call	QWORD PTR ep_uint+240
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN10@PMC_DivRem
@@ -2841,7 +2841,7 @@ $LN8@PMC_DivRem:
 	mov	rax, QWORD PTR nv$[rbp]
 	mov	rdx, QWORD PTR [rax+16]
 	mov	rcx, QWORD PTR u_abs$[rbp]
-	call	QWORD PTR ep_uint+232
+	call	QWORD PTR ep_uint+240
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN13@PMC_DivRem
@@ -3119,7 +3119,7 @@ $LN20@PMC_DivRem:
 	mov	rax, QWORD PTR nv$[rbp]
 	mov	rdx, QWORD PTR [rax+16]
 	mov	ecx, DWORD PTR u_abs$[rbp]
-	call	QWORD PTR ep_uint+224
+	call	QWORD PTR ep_uint+232
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN10@PMC_DivRem
@@ -3205,7 +3205,7 @@ $LN8@PMC_DivRem:
 	mov	rax, QWORD PTR nv$[rbp]
 	mov	rdx, QWORD PTR [rax+16]
 	mov	ecx, DWORD PTR u_abs$[rbp]
-	call	QWORD PTR ep_uint+224
+	call	QWORD PTR ep_uint+232
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN13@PMC_DivRem

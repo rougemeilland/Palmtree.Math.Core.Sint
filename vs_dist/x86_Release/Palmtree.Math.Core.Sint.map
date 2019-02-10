@@ -1,6 +1,6 @@
  Palmtree.Math.Core.Sint
 
- Timestamp is 5c5f6f97 (Sun Feb 10 09:25:59 2019)
+ Timestamp is 5c604b3a (Mon Feb 11 01:03:06 2019)
 
  Preferred load address is 10000000
 
@@ -17,7 +17,7 @@
  0002:000003c4 00000020H .idata$4                DATA
  0002:000003e4 00000072H .idata$6                DATA
  0003:00000000 00000020H .data                   DATA
- 0003:00000020 000006c0H .bss                    DATA
+ 0003:00000020 000006c4H .bss                    DATA
  0004:00000000 000000a0H .rsrc$01                DATA
  0004:000000a0 000004a0H .rsrc$02                DATA
 
@@ -125,13 +125,13 @@
  0002:000003b0       __NULL_IMPORT_DESCRIPTOR   100053b0     kernel32:KERNEL32.dll
  0003:00000000       ___security_cookie_complement 10006000     MSVCRT:gs_cookie.obj
  0003:00000004       ___security_cookie         10006004     MSVCRT:gs_cookie.obj
- 0003:00000558       _hLocalHeap                10006558     <common>
+ 0003:0000055c       _hLocalHeap                1000655c     <common>
  0003:00000560       _number_one                10006560     <common>
  0003:00000580       _number_minus_one          10006580     <common>
  0003:000005a0       _number_zero               100065a0     <common>
  0003:000005c0       _ep_uint                   100065c0     <common>
- 0003:000006d8       _uint_number_one           100066d8     <common>
- 0003:000006dc       _uint_number_zero          100066dc     <common>
+ 0003:000006dc       _uint_number_one           100066dc     <common>
+ 0003:000006e0       _uint_number_zero          100066e0     <common>
 
  entry point at        0001:00000010
 
@@ -179,8 +179,8 @@
  0003:00000020       _GS_ExceptionRecord        10006020     MSVCRT:gs_report.obj
  0003:00000070       _GS_ContextRecord          10006070     MSVCRT:gs_report.obj
  0003:00000340       _entry_points              10006340     pmc_initialize.obj
- 0003:0000054c       _initialized               1000654c     pmc_initialize.obj
- 0003:00000550       _hLib_UINT                 10006550     pmc_initialize.obj
- 0003:00000554       _fp_PMC_UINT_Initialize    10006554     pmc_initialize.obj
+ 0003:00000550       _initialized               10006550     pmc_initialize.obj
+ 0003:00000554       _hLib_UINT                 10006554     pmc_initialize.obj
+ 0003:00000558       _fp_PMC_UINT_Initialize    10006558     pmc_initialize.obj
  0004:000000a0       $R000000                   100070a0     Palmtree.Math.Core.Sint.res
  0004:000003c0       $R000320                   100073c0     Palmtree.Math.Core.Sint.res

@@ -31,16 +31,10 @@ __01E814D2_test_op_parsex@c DB 01H
 msvcjmc	ENDS
 PUBLIC	_TEST_ParseX
 PUBLIC	__JustMyCode_Default
-PUBLIC	??_C@_13DEFPDAGF@?$AA?0@			; `string'
-PUBLIC	??_C@_13DMCFHHKM@?$AA3@				; `string'
-PUBLIC	??_C@_13JOFGPIOO@?$AA?4@			; `string'
-PUBLIC	??_C@_13KJIIAINM@?$AA?$CL@			; `string'
-PUBLIC	??_C@_13IMODFHAA@?$AA?9@			; `string'
 PUBLIC	??_C@_1DI@IKFBJCFO@?$AAT?$AAr?$AAy?$AAP?$AAa?$AAr?$AAs?$AAe?$AAn?$PP?$KJ?$AA0?$PP?$LD?$PP?$PM?$PP?I?$AAL@ ; `string'
 PUBLIC	??_C@_1BO@HCNCHDIP@?$AAP?$AAa?$AAr?$AAs?$AAe?$AAX?$AA?5?$AA?$CI?$AA?$CF?$AAd?$AA?4?$AA?$CF?$AAd?$AA?$CJ@ ; `string'
 PUBLIC	??_C@_1EG@MCOLJMDD@?$AAP?$AAM?$AAC?$AA_?$AAT?$AAo?$AAB?$AAy?$AAt?$AAe?$AAA?$AAr?$AAr?$AAa?$AAy@ ; `string'
 PUBLIC	??_C@_1BK@CBDJCOBM@?$PP?G?$PP?$PM?$PP?$LP?$AAn?$PP?$IF?$PP?$LJ?$AAL?$AA?$AA?$PP?t?$AAW?$AAj?$AAD@ ; `string'
-EXTRN	__imp__lstrcpyW@8:PROC
 EXTRN	_TEST_Assert:PROC
 EXTRN	_FormatTestLabel:PROC
 EXTRN	_FormatTestMesssage:PROC
@@ -93,26 +87,6 @@ CONST	SEGMENT
 	DB	'g', 085H, '_', 01aH, 090H, 08aH, '0g0o0j0D0(', 00H, '%', 00H, 'd'
 	DB	00H, ')', 00H, 00H, 00H			; `string'
 CONST	ENDS
-;	COMDAT ??_C@_13IMODFHAA@?$AA?9@
-CONST	SEGMENT
-??_C@_13IMODFHAA@?$AA?9@ DB '-', 00H, 00H, 00H		; `string'
-CONST	ENDS
-;	COMDAT ??_C@_13KJIIAINM@?$AA?$CL@
-CONST	SEGMENT
-??_C@_13KJIIAINM@?$AA?$CL@ DB '+', 00H, 00H, 00H	; `string'
-CONST	ENDS
-;	COMDAT ??_C@_13JOFGPIOO@?$AA?4@
-CONST	SEGMENT
-??_C@_13JOFGPIOO@?$AA?4@ DB '.', 00H, 00H, 00H		; `string'
-CONST	ENDS
-;	COMDAT ??_C@_13DMCFHHKM@?$AA3@
-CONST	SEGMENT
-??_C@_13DMCFHHKM@?$AA3@ DB '3', 00H, 00H, 00H		; `string'
-CONST	ENDS
-;	COMDAT ??_C@_13DEFPDAGF@?$AA?0@
-CONST	SEGMENT
-??_C@_13DEFPDAGF@?$AA?0@ DB ',', 00H, 00H, 00H		; `string'
-CONST	ENDS
 ; Function compile flags: /Odt
 ;	COMDAT __JustMyCode_Default
 _TEXT	SEGMENT
@@ -133,7 +107,7 @@ _buffer2$ = 16						; size = 4
 _count2$ = 20						; size = 4
 __EQUALS_MEMORY PROC					; COMDAT
 
-; 138  : {
+; 140  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -148,25 +122,25 @@ __EQUALS_MEMORY PROC					; COMDAT
 	mov	ecx, OFFSET __059414E1_pmc_sint_debug@h
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 139  :     if (count1 != count2)
+; 141  :     if (count1 != count2)
 
 	mov	eax, DWORD PTR _count1$[ebp]
 	cmp	eax, DWORD PTR _count2$[ebp]
 	je	SHORT $LN2@EQUALS_MEM
 
-; 140  :         return (-1);
+; 142  :         return (-1);
 
 	or	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN2@EQUALS_MEM:
 
-; 141  :     while (count1 > 0)
+; 143  :     while (count1 > 0)
 
 	cmp	DWORD PTR _count1$[ebp], 0
 	jbe	SHORT $LN3@EQUALS_MEM
 
-; 142  :     {
-; 143  :         if (*buffer1 != *buffer2)
+; 144  :     {
+; 145  :         if (*buffer1 != *buffer2)
 
 	mov	eax, DWORD PTR _buffer1$[ebp]
 	movzx	ecx, BYTE PTR [eax]
@@ -175,41 +149,41 @@ $LN2@EQUALS_MEM:
 	cmp	ecx, eax
 	je	SHORT $LN5@EQUALS_MEM
 
-; 144  :             return (-1);
+; 146  :             return (-1);
 
 	or	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN5@EQUALS_MEM:
 
-; 145  :         ++buffer1;
+; 147  :         ++buffer1;
 
 	mov	eax, DWORD PTR _buffer1$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _buffer1$[ebp], eax
 
-; 146  :         ++buffer2;
+; 148  :         ++buffer2;
 
 	mov	eax, DWORD PTR _buffer2$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _buffer2$[ebp], eax
 
-; 147  :         --count1;
+; 149  :         --count1;
 
 	mov	eax, DWORD PTR _count1$[ebp]
 	sub	eax, 1
 	mov	DWORD PTR _count1$[ebp], eax
 
-; 148  :     }
+; 150  :     }
 
 	jmp	SHORT $LN2@EQUALS_MEM
 $LN3@EQUALS_MEM:
 
-; 149  :     return (0);
+; 151  :     return (0);
 
 	xor	eax, eax
 $LN1@EQUALS_MEM:
 
-; 150  : }
+; 152  : }
 
 	pop	edi
 	pop	esi
@@ -226,10 +200,10 @@ _TEXT	ENDS
 ; File z:\sources\lunor\repos\rougemeilland\palmtree.math.core.sint\palmtree.math.core.sint\test_op_parsex.c
 ;	COMDAT _TEST_ParseX
 _TEXT	SEGMENT
-tv152 = -296						; size = 4
-tv137 = -296						; size = 4
-tv85 = -296						; size = 4
-_opt$ = -96						; size = 52
+tv144 = -436						; size = 4
+tv129 = -436						; size = 4
+tv77 = -436						; size = 4
+_opt$ = -236						; size = 192
 _x_result$ = -36					; size = 4
 _result$ = -24						; size = 4
 _x$ = -12						; size = 4
@@ -248,12 +222,12 @@ _TEST_ParseX PROC					; COMDAT
 
 	push	ebp
 	mov	ebp, esp
-	sub	esp, 296				; 00000128H
+	sub	esp, 436				; 000001b4H
 	push	ebx
 	push	esi
 	push	edi
-	lea	edi, DWORD PTR [ebp-296]
-	mov	ecx, 74					; 0000004aH
+	lea	edi, DWORD PTR [ebp-436]
+	mov	ecx, 109				; 0000006dH
 	mov	eax, -858993460				; ccccccccH
 	rep stosd
 	mov	eax, DWORD PTR ___security_cookie
@@ -267,62 +241,19 @@ _TEST_ParseX PROC					; COMDAT
 ; 35   :     static size_t actual_buf_size;
 ; 36   :     PMC_STATUS_CODE result;
 ; 37   :     PMC_STATUS_CODE x_result;
-; 38   :     PMC_NUMBER_FORMAT_OPTION opt;
-; 39   :     lstrcpyW(opt.GroupSeparator, L",");
+; 38   :     PMC_NUMBER_FORMAT_INFO opt;
+; 39   :     ep->UINT_ENTRY_POINTS.InitializeNumberFormatInfo(&opt);
 
 	mov	esi, esp
-	push	OFFSET ??_C@_13DEFPDAGF@?$AA?0@
-	lea	eax, DWORD PTR _opt$[ebp+4]
+	lea	eax, DWORD PTR _opt$[ebp]
 	push	eax
-	call	DWORD PTR __imp__lstrcpyW@8
+	mov	ecx, DWORD PTR _ep$[ebp]
+	mov	edx, DWORD PTR [ecx+44]
+	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 
-; 40   :     lstrcpyW(opt.GroupSizes, L"3");
-
-	mov	esi, esp
-	push	OFFSET ??_C@_13DMCFHHKM@?$AA3@
-	lea	eax, DWORD PTR _opt$[ebp+28]
-	push	eax
-	call	DWORD PTR __imp__lstrcpyW@8
-	cmp	esi, esp
-	call	__RTC_CheckEsp
-
-; 41   :     lstrcpyW(opt.DecimalSeparator, L".");
-
-	mov	esi, esp
-	push	OFFSET ??_C@_13JOFGPIOO@?$AA?4@
-	lea	eax, DWORD PTR _opt$[ebp+10]
-	push	eax
-	call	DWORD PTR __imp__lstrcpyW@8
-	cmp	esi, esp
-	call	__RTC_CheckEsp
-
-; 42   :     opt.DecimalDigits = 2;
-
-	mov	DWORD PTR _opt$[ebp], 2
-
-; 43   :     lstrcpyW(opt.PositiveSign, L"+");
-
-	mov	esi, esp
-	push	OFFSET ??_C@_13KJIIAINM@?$AA?$CL@
-	lea	eax, DWORD PTR _opt$[ebp+16]
-	push	eax
-	call	DWORD PTR __imp__lstrcpyW@8
-	cmp	esi, esp
-	call	__RTC_CheckEsp
-
-; 44   :     lstrcpyW(opt.NegativeSign, L"-");
-
-	mov	esi, esp
-	push	OFFSET ??_C@_13IMODFHAA@?$AA?9@
-	lea	eax, DWORD PTR _opt$[ebp+22]
-	push	eax
-	call	DWORD PTR __imp__lstrcpyW@8
-	cmp	esi, esp
-	call	__RTC_CheckEsp
-
-; 45   :     TEST_Assert(env, FormatTestLabel(L"ParseX (%d.%d)", no, 1), (x_result = ep->TryParse(str, styles, &opt, &x)) == desired_result_code, FormatTestMesssage(L"TryParseの復帰コードが期待通りではない(%d)", x_result));
+; 40   :     TEST_Assert(env, FormatTestLabel(L"ParseX (%d.%d)", no, 1), (x_result = ep->TryParse(str, styles, &opt, &x)) == desired_result_code, FormatTestMesssage(L"TryParseの復帰コードが期待通りではない(%d)", x_result));
 
 	mov	esi, esp
 	lea	eax, DWORD PTR _x$[ebp]
@@ -334,7 +265,7 @@ _TEST_ParseX PROC					; COMDAT
 	mov	eax, DWORD PTR _str$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+324]
+	mov	edx, DWORD PTR [ecx+328]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -342,10 +273,10 @@ _TEST_ParseX PROC					; COMDAT
 	mov	eax, DWORD PTR _x_result$[ebp]
 	cmp	eax, DWORD PTR _desired_result_code$[ebp]
 	jne	SHORT $LN5@TEST_Parse
-	mov	DWORD PTR tv85[ebp], 1
+	mov	DWORD PTR tv77[ebp], 1
 	jmp	SHORT $LN6@TEST_Parse
 $LN5@TEST_Parse:
-	mov	DWORD PTR tv85[ebp], 0
+	mov	DWORD PTR tv77[ebp], 0
 $LN6@TEST_Parse:
 	mov	ecx, DWORD PTR _x_result$[ebp]
 	push	ecx
@@ -353,7 +284,7 @@ $LN6@TEST_Parse:
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
-	mov	edx, DWORD PTR tv85[ebp]
+	mov	edx, DWORD PTR tv77[ebp]
 	push	edx
 	push	1
 	mov	eax, DWORD PTR _no$[ebp]
@@ -367,13 +298,13 @@ $LN6@TEST_Parse:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 46   :     if (desired_result_code == PMC_STATUS_OK)
+; 41   :     if (desired_result_code == PMC_STATUS_OK)
 
 	cmp	DWORD PTR _desired_result_code$[ebp], 0
 	jne	$LN2@TEST_Parse
 
-; 47   :     {
-; 48   :         TEST_Assert(env, FormatTestLabel(L"ParseX (%d.%d)", no, 2), (result = ep->ToByteArray(x, actual_buf, sizeof(actual_buf), &actual_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+; 42   :     {
+; 43   :         TEST_Assert(env, FormatTestLabel(L"ParseX (%d.%d)", no, 2), (result = ep->ToByteArray(x, actual_buf, sizeof(actual_buf), &actual_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
 
 	mov	esi, esp
 	push	OFFSET ?actual_buf_size@?1??TEST_ParseX@@9@9
@@ -382,17 +313,17 @@ $LN6@TEST_Parse:
 	mov	eax, DWORD PTR _x$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+304]
+	mov	edx, DWORD PTR [ecx+308]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
 	cmp	DWORD PTR _result$[ebp], 0
 	jne	SHORT $LN7@TEST_Parse
-	mov	DWORD PTR tv137[ebp], 1
+	mov	DWORD PTR tv129[ebp], 1
 	jmp	SHORT $LN8@TEST_Parse
 $LN7@TEST_Parse:
-	mov	DWORD PTR tv137[ebp], 0
+	mov	DWORD PTR tv129[ebp], 0
 $LN8@TEST_Parse:
 	mov	eax, DWORD PTR _result$[ebp]
 	push	eax
@@ -400,7 +331,7 @@ $LN8@TEST_Parse:
 	call	_FormatTestMesssage
 	add	esp, 8
 	push	eax
-	mov	ecx, DWORD PTR tv137[ebp]
+	mov	ecx, DWORD PTR tv129[ebp]
 	push	ecx
 	push	2
 	mov	edx, DWORD PTR _no$[ebp]
@@ -414,7 +345,7 @@ $LN8@TEST_Parse:
 	call	_TEST_Assert
 	add	esp, 16					; 00000010H
 
-; 49   :         TEST_Assert(env, FormatTestLabel(L"ParseX (%d.%d)", no, 3), _EQUALS_MEMORY(actual_buf, actual_buf_size, desired_buf, desired_buf_size) == 0, L"データの内容が一致しない");
+; 44   :         TEST_Assert(env, FormatTestLabel(L"ParseX (%d.%d)", no, 3), _EQUALS_MEMORY(actual_buf, actual_buf_size, desired_buf, desired_buf_size) == 0, L"データの内容が一致しない");
 
 	mov	eax, DWORD PTR _desired_buf_size$[ebp]
 	push	eax
@@ -427,13 +358,13 @@ $LN8@TEST_Parse:
 	add	esp, 16					; 00000010H
 	test	eax, eax
 	jne	SHORT $LN9@TEST_Parse
-	mov	DWORD PTR tv152[ebp], 1
+	mov	DWORD PTR tv144[ebp], 1
 	jmp	SHORT $LN10@TEST_Parse
 $LN9@TEST_Parse:
-	mov	DWORD PTR tv152[ebp], 0
+	mov	DWORD PTR tv144[ebp], 0
 $LN10@TEST_Parse:
 	push	OFFSET ??_C@_1BK@CBDJCOBM@?$PP?G?$PP?$PM?$PP?$LP?$AAn?$PP?$IF?$PP?$LJ?$AAL?$AA?$AA?$PP?t?$AAW?$AAj?$AAD@
-	mov	eax, DWORD PTR tv152[ebp]
+	mov	eax, DWORD PTR tv144[ebp]
 	push	eax
 	push	3
 	mov	ecx, DWORD PTR _no$[ebp]
@@ -448,25 +379,25 @@ $LN10@TEST_Parse:
 	add	esp, 16					; 00000010H
 $LN2@TEST_Parse:
 
-; 50   :     }
-; 51   :     if (x_result == PMC_STATUS_OK)
+; 45   :     }
+; 46   :     if (x_result == PMC_STATUS_OK)
 
 	cmp	DWORD PTR _x_result$[ebp], 0
 	jne	SHORT $LN1@TEST_Parse
 
-; 52   :         ep->Dispose(x);
+; 47   :         ep->Dispose(x);
 
 	mov	esi, esp
 	mov	eax, DWORD PTR _x$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+296]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 $LN1@TEST_Parse:
 
-; 53   : }
+; 48   : }
 
 	push	edx
 	mov	ecx, ebp
@@ -481,7 +412,7 @@ $LN1@TEST_Parse:
 	mov	ecx, DWORD PTR __$ArrayPad$[ebp]
 	xor	ecx, ebp
 	call	@__security_check_cookie@4
-	add	esp, 296				; 00000128H
+	add	esp, 436				; 000001b4H
 	cmp	ebp, esp
 	call	__RTC_CheckEsp
 	mov	esp, ebp
@@ -495,8 +426,8 @@ $LN13@TEST_Parse:
 	DD	-12					; fffffff4H
 	DD	4
 	DD	$LN11@TEST_Parse
-	DD	-96					; ffffffa0H
-	DD	52					; 00000034H
+	DD	-236					; ffffff14H
+	DD	192					; 000000c0H
 	DD	$LN12@TEST_Parse
 $LN12@TEST_Parse:
 	DB	111					; 0000006fH

@@ -579,7 +579,7 @@ $LN7@PMC_Equals:
 	mov	rdx, QWORD PTR [rax+16]
 	mov	rax, QWORD PTR nu$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+472
+	call	QWORD PTR ep_uint+480
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN9@PMC_Equals
@@ -755,7 +755,7 @@ $LN10@PMC_Equals:
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rax, QWORD PTR nu$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+472
+	call	QWORD PTR ep_uint+480
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN12@PMC_Equals
@@ -905,7 +905,7 @@ $LN5@PMC_Equals:
 	mov	rdx, QWORD PTR v_abs$[rbp]
 	mov	rax, QWORD PTR nu$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+464
+	call	QWORD PTR ep_uint+472
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN7@PMC_Equals
@@ -1061,7 +1061,7 @@ $LN5@PMC_Equals:
 	mov	edx, DWORD PTR v_abs$[rbp]
 	mov	rax, QWORD PTR nu$[rbp]
 	mov	rcx, QWORD PTR [rax+16]
-	call	QWORD PTR ep_uint+456
+	call	QWORD PTR ep_uint+464
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN7@PMC_Equals
@@ -1239,7 +1239,7 @@ $LN8@PMC_Equals:
 	mov	rax, QWORD PTR nv$[rbp]
 	mov	rdx, QWORD PTR [rax+16]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+472
+	call	QWORD PTR ep_uint+480
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN10@PMC_Equals
@@ -1388,7 +1388,7 @@ $LN5@PMC_Equals:
 	mov	rax, QWORD PTR nv$[rbp]
 	mov	rdx, QWORD PTR [rax+16]
 	mov	rcx, QWORD PTR u_abs$[rbp]
-	call	QWORD PTR ep_uint+448
+	call	QWORD PTR ep_uint+456
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN7@PMC_Equals
@@ -1544,7 +1544,7 @@ $LN5@PMC_Equals:
 	mov	rax, QWORD PTR nv$[rbp]
 	mov	rdx, QWORD PTR [rax+16]
 	mov	ecx, DWORD PTR u_abs$[rbp]
-	call	QWORD PTR ep_uint+440
+	call	QWORD PTR ep_uint+448
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN7@PMC_Equals

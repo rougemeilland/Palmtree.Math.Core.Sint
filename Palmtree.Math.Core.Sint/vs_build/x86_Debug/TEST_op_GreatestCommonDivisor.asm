@@ -272,7 +272,7 @@ _buffer2$ = 16						; size = 4
 _count2$ = 20						; size = 4
 __EQUALS_MEMORY PROC					; COMDAT
 
-; 138  : {
+; 140  : {
 
 	push	ebp
 	mov	ebp, esp
@@ -287,25 +287,25 @@ __EQUALS_MEMORY PROC					; COMDAT
 	mov	ecx, OFFSET __059414E1_pmc_sint_debug@h
 	call	@__CheckForDebuggerJustMyCode@4
 
-; 139  :     if (count1 != count2)
+; 141  :     if (count1 != count2)
 
 	mov	eax, DWORD PTR _count1$[ebp]
 	cmp	eax, DWORD PTR _count2$[ebp]
 	je	SHORT $LN2@EQUALS_MEM
 
-; 140  :         return (-1);
+; 142  :         return (-1);
 
 	or	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN2@EQUALS_MEM:
 
-; 141  :     while (count1 > 0)
+; 143  :     while (count1 > 0)
 
 	cmp	DWORD PTR _count1$[ebp], 0
 	jbe	SHORT $LN3@EQUALS_MEM
 
-; 142  :     {
-; 143  :         if (*buffer1 != *buffer2)
+; 144  :     {
+; 145  :         if (*buffer1 != *buffer2)
 
 	mov	eax, DWORD PTR _buffer1$[ebp]
 	movzx	ecx, BYTE PTR [eax]
@@ -314,41 +314,41 @@ $LN2@EQUALS_MEM:
 	cmp	ecx, eax
 	je	SHORT $LN5@EQUALS_MEM
 
-; 144  :             return (-1);
+; 146  :             return (-1);
 
 	or	eax, -1
 	jmp	SHORT $LN1@EQUALS_MEM
 $LN5@EQUALS_MEM:
 
-; 145  :         ++buffer1;
+; 147  :         ++buffer1;
 
 	mov	eax, DWORD PTR _buffer1$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _buffer1$[ebp], eax
 
-; 146  :         ++buffer2;
+; 148  :         ++buffer2;
 
 	mov	eax, DWORD PTR _buffer2$[ebp]
 	add	eax, 1
 	mov	DWORD PTR _buffer2$[ebp], eax
 
-; 147  :         --count1;
+; 149  :         --count1;
 
 	mov	eax, DWORD PTR _count1$[ebp]
 	sub	eax, 1
 	mov	DWORD PTR _count1$[ebp], eax
 
-; 148  :     }
+; 150  :     }
 
 	jmp	SHORT $LN2@EQUALS_MEM
 $LN3@EQUALS_MEM:
 
-; 149  :     return (0);
+; 151  :     return (0);
 
 	xor	eax, eax
 $LN1@EQUALS_MEM:
 
-; 150  : }
+; 152  : }
 
 	pop	edi
 	pop	esi
@@ -429,7 +429,7 @@ _TEST_GreatestCommonDivisor_X_X PROC			; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+300]
+	mov	ecx, DWORD PTR [eax+304]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -471,7 +471,7 @@ $LN8@TEST_Great:
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+300]
+	mov	ecx, DWORD PTR [eax+304]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -513,7 +513,7 @@ $LN10@TEST_Great:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+520]
+	mov	ecx, DWORD PTR [eax+524]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -659,7 +659,7 @@ $LN3@TEST_Great:
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+296]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -676,7 +676,7 @@ $LN4@TEST_Great:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+296]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -835,7 +835,7 @@ _TEST_GreatestCommonDivisor_X_UX PROC			; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+300]
+	mov	ecx, DWORD PTR [eax+304]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -919,7 +919,7 @@ $LN10@TEST_Great:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+516]
+	mov	ecx, DWORD PTR [eax+520]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1082,7 +1082,7 @@ $LN4@TEST_Great:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+296]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1235,7 +1235,7 @@ _TEST_GreatestCommonDivisor_X_L PROC			; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+300]
+	mov	ecx, DWORD PTR [eax+304]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1279,7 +1279,7 @@ $LN7@TEST_Great:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+512]
+	mov	edx, DWORD PTR [ecx+516]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1425,7 +1425,7 @@ $LN3@TEST_Great:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+296]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1572,7 +1572,7 @@ _TEST_GreatestCommonDivisor_X_I PROC			; COMDAT
 	mov	edx, DWORD PTR _u_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+300]
+	mov	ecx, DWORD PTR [eax+304]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1614,7 +1614,7 @@ $LN7@TEST_Great:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+508]
+	mov	ecx, DWORD PTR [eax+512]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1760,7 +1760,7 @@ $LN3@TEST_Great:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+296]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1955,7 +1955,7 @@ $LN8@TEST_Great:
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+300]
+	mov	ecx, DWORD PTR [eax+304]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -1997,7 +1997,7 @@ $LN10@TEST_Great:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+504]
+	mov	ecx, DWORD PTR [eax+508]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2143,7 +2143,7 @@ $LN3@TEST_Great:
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+296]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2313,7 +2313,7 @@ _TEST_GreatestCommonDivisor_L_X PROC			; COMDAT
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+300]
+	mov	ecx, DWORD PTR [eax+304]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2357,7 +2357,7 @@ $LN7@TEST_Great:
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+500]
+	mov	edx, DWORD PTR [ecx+504]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2503,7 +2503,7 @@ $LN3@TEST_Great:
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+296]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2650,7 +2650,7 @@ _TEST_GreatestCommonDivisor_I_X PROC			; COMDAT
 	mov	edx, DWORD PTR _v_buf$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+300]
+	mov	ecx, DWORD PTR [eax+304]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2692,7 +2692,7 @@ $LN7@TEST_Great:
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
 	mov	eax, DWORD PTR _ep$[ebp]
-	mov	ecx, DWORD PTR [eax+496]
+	mov	ecx, DWORD PTR [eax+500]
 	call	ecx
 	cmp	esi, esp
 	call	__RTC_CheckEsp
@@ -2838,7 +2838,7 @@ $LN3@TEST_Great:
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
 	mov	ecx, DWORD PTR _ep$[ebp]
-	mov	edx, DWORD PTR [ecx+292]
+	mov	edx, DWORD PTR [ecx+296]
 	call	edx
 	cmp	esi, esp
 	call	__RTC_CheckEsp

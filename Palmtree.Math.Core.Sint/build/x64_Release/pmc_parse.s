@@ -19,7 +19,7 @@ PMC_TryParse:
 	movq	%rax, 32(%rsp)
 	movq	.refptr.ep_uint(%rip), %rax
 	leaq	63(%rsp), %r9
-	call	*552(%rax)
+	call	*560(%rax)
 	testl	%eax, %eax
 	je	.L5
 .L1:

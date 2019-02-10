@@ -510,7 +510,7 @@ $LN22@PMC_DivRem:
 	mov	ecx, DWORD PTR _nu$[ebp]
 	mov	edx, DWORD PTR [ecx+12]
 	push	edx
-	call	DWORD PTR _ep_uint+128
+	call	DWORD PTR _ep_uint+132
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -656,7 +656,7 @@ $LN10@PMC_DivRem:
 	mov	eax, DWORD PTR _nu$[ebp]
 	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
-	call	DWORD PTR _ep_uint+128
+	call	DWORD PTR _ep_uint+132
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -997,7 +997,7 @@ $LN7@PMC_DivRem:
 	mov	eax, DWORD PTR _nu$[ebp]
 	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
-	call	DWORD PTR _ep_uint+128
+	call	DWORD PTR _ep_uint+132
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -1142,7 +1142,7 @@ $LN9@PMC_DivRem:
 	mov	edx, DWORD PTR _nu$[ebp]
 	mov	eax, DWORD PTR [edx+12]
 	push	eax
-	call	DWORD PTR _ep_uint+128
+	call	DWORD PTR _ep_uint+132
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -1502,7 +1502,7 @@ $LN18@PMC_DivRem:
 	mov	ecx, DWORD PTR _nu$[ebp]
 	mov	edx, DWORD PTR [ecx+12]
 	push	edx
-	call	DWORD PTR _ep_uint+124
+	call	DWORD PTR _ep_uint+128
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -1608,7 +1608,7 @@ $LN8@PMC_DivRem:
 	mov	eax, DWORD PTR _nu$[ebp]
 	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
-	call	DWORD PTR _ep_uint+124
+	call	DWORD PTR _ep_uint+128
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -1945,7 +1945,7 @@ $LN18@PMC_DivRem:
 	mov	eax, DWORD PTR _nu$[ebp]
 	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
-	call	DWORD PTR _ep_uint+120
+	call	DWORD PTR _ep_uint+124
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -2041,7 +2041,7 @@ $LN8@PMC_DivRem:
 	mov	edx, DWORD PTR _nu$[ebp]
 	mov	eax, DWORD PTR [edx+12]
 	push	eax
-	call	DWORD PTR _ep_uint+120
+	call	DWORD PTR _ep_uint+124
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -2344,7 +2344,7 @@ $LN7@PMC_DivRem:
 	push	eax
 	mov	ecx, DWORD PTR _u$[ebp]
 	push	ecx
-	call	DWORD PTR _ep_uint+128
+	call	DWORD PTR _ep_uint+132
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -2426,7 +2426,7 @@ $LN9@PMC_DivRem:
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+128
+	call	DWORD PTR _ep_uint+132
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -2713,7 +2713,7 @@ $LN20@PMC_DivRem:
 	push	ecx
 	mov	edx, DWORD PTR _u_abs$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+116
+	call	DWORD PTR _ep_uint+120
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -2823,7 +2823,7 @@ $LN8@PMC_DivRem:
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
-	call	DWORD PTR _ep_uint+116
+	call	DWORD PTR _ep_uint+120
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -3178,7 +3178,7 @@ $LN20@PMC_DivRem:
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
-	call	DWORD PTR _ep_uint+112
+	call	DWORD PTR _ep_uint+116
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -3280,7 +3280,7 @@ $LN8@PMC_DivRem:
 	push	edx
 	mov	eax, DWORD PTR _u_abs$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+112
+	call	DWORD PTR _ep_uint+116
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax

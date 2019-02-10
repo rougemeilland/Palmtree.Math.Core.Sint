@@ -19,7 +19,7 @@ MultiplyU_X_I_Imp:
 	movq	%rdx, %rcx
 	movl	%r8d, %edx
 	leaq	56(%rsp), %r8
-	call	*200(%rsi)
+	call	*208(%rsi)
 	testl	%eax, %eax
 	je	.L7
 .L1:
@@ -65,7 +65,7 @@ MultiplyU_X_L_Imp:
 	movq	%rdx, %rcx
 	movq	%r8, %rdx
 	leaq	56(%rsp), %r8
-	call	*208(%rsi)
+	call	*216(%rsi)
 	testl	%eax, %eax
 	je	.L13
 .L8:
@@ -111,7 +111,7 @@ MultiplyU_X_X_Imp:
 	movq	%rdx, %rcx
 	movq	%r8, %rdx
 	leaq	56(%rsp), %r8
-	call	*216(%rsi)
+	call	*224(%rsi)
 	testl	%eax, %eax
 	je	.L19
 .L14:

@@ -53,7 +53,7 @@ PMC_Equals_I_X:
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	%rdi, %r8
 	movq	16(%rbx), %rdx
-	call	*440(%rax)
+	call	*448(%rax)
 	movl	%esi, %eax
 	addq	$40, %rsp
 	popq	%rbx
@@ -132,7 +132,7 @@ PMC_Equals_L_X:
 	movq	%rbp, %r8
 	movq	%rsi, %rcx
 	movq	16(%rbx), %rdx
-	call	*448(%rax)
+	call	*456(%rax)
 	movl	%edi, %eax
 	addq	$40, %rsp
 	popq	%rbx
@@ -206,7 +206,7 @@ PMC_Equals_UX_X:
 	movq	%rdi, %r8
 	movq	%rsi, %rcx
 	movq	16(%rbx), %rdx
-	movq	472(%rax), %rax
+	movq	480(%rax), %rax
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi
@@ -272,7 +272,7 @@ PMC_Equals_X_I:
 	movq	.refptr.ep_uint(%rip), %rax
 	movq	%rsi, %r8
 	movq	16(%rbx), %rcx
-	movq	456(%rax), %rax
+	movq	464(%rax), %rax
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi
@@ -344,7 +344,7 @@ PMC_Equals_X_L:
 	movq	%rdi, %r8
 	movq	%rsi, %rdx
 	movq	16(%rbx), %rcx
-	movq	464(%rax), %rax
+	movq	472(%rax), %rax
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi
@@ -410,7 +410,7 @@ PMC_Equals_X_UX:
 	movq	%rsi, %r8
 	movq	%rdi, %rdx
 	movq	16(%rbx), %rcx
-	movq	472(%rax), %rax
+	movq	480(%rax), %rax
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi
@@ -484,7 +484,7 @@ PMC_Equals_X_X:
 	movq	%rdi, %r8
 	movq	16(%rsi), %rdx
 	movq	16(%rbx), %rcx
-	movq	472(%rax), %rax
+	movq	480(%rax), %rax
 	addq	$32, %rsp
 	popq	%rbx
 	popq	%rsi

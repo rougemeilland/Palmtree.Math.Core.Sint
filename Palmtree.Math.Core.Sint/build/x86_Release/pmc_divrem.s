@@ -54,7 +54,7 @@ L18:
 	movl	12(%ebx), %edx
 	movl	%eax, (%esp)
 	movl	%edx, 4(%esp)
-	call	*_ep_uint+112
+	call	*_ep_uint+116
 	.cfi_def_cfa_offset 64
 	subl	$16, %esp
 	.cfi_def_cfa_offset 80
@@ -127,7 +127,7 @@ L17:
 	movl	12(%ebx), %ecx
 	movl	%eax, (%esp)
 	movl	%ecx, 4(%esp)
-	call	*_ep_uint+112
+	call	*_ep_uint+116
 	.cfi_def_cfa_offset 64
 	subl	$16, %esp
 	.cfi_def_cfa_offset 80
@@ -268,7 +268,7 @@ L53:
 	movl	%esi, (%esp)
 	movl	%eax, 8(%esp)
 	movl	%edi, 4(%esp)
-	call	*_ep_uint+116
+	call	*_ep_uint+120
 	.cfi_def_cfa_offset 92
 	subl	$20, %esp
 	.cfi_def_cfa_offset 112
@@ -347,7 +347,7 @@ L52:
 	movl	%esi, (%esp)
 	movl	%eax, 8(%esp)
 	movl	%edi, 4(%esp)
-	call	*_ep_uint+116
+	call	*_ep_uint+120
 	.cfi_def_cfa_offset 92
 	subl	$20, %esp
 	.cfi_def_cfa_offset 112
@@ -511,7 +511,7 @@ L71:
 	movl	88(%esp), %edx
 	movl	12(%ebx), %ebx
 	movb	%cl, 31(%esp)
-	movl	_ep_uint+128, %eax
+	movl	_ep_uint+132, %eax
 	movl	%ebp, 12(%esp)
 	testl	%edx, %edx
 	je	L74
@@ -647,7 +647,7 @@ LFB5484:
 L93:
 	movl	12(%ebx), %ecx
 	movl	88(%esp), %ebx
-	movl	_ep_uint+120, %edx
+	movl	_ep_uint+124, %edx
 	testl	%ebx, %ebx
 	je	L96
 	movl	%edi, %ebx
@@ -876,7 +876,7 @@ LFB5485:
 	je	L140
 	.p2align 4,,10
 L120:
-	movl	_ep_uint+124, %edx
+	movl	_ep_uint+128, %edx
 	movl	12(%esi), %esi
 	movl	%edx, 36(%esp)
 	movl	%edx, %eax
@@ -1150,7 +1150,7 @@ L146:
 	movl	12(%ebx), %ecx
 	movl	88(%esp), %ebx
 	movb	%dl, 28(%esp)
-	movl	_ep_uint+128, %eax
+	movl	_ep_uint+132, %eax
 	testl	%ebx, %ebx
 	leal	44(%esp), %ebx
 	movl	%ebx, 12(%esp)
@@ -1393,7 +1393,7 @@ L175:
 L173:
 	.cfi_restore_state
 	movl	12(%edi), %eax
-	movl	_ep_uint+128, %ebp
+	movl	_ep_uint+132, %ebp
 	movl	12(%esi), %ecx
 	movl	%eax, 24(%esp)
 	movl	88(%esp), %eax

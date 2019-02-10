@@ -35,11 +35,10 @@ void TEST_ParseDN1(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no
     static size_t actual_buf_size;
     PMC_STATUS_CODE result;
     PMC_STATUS_CODE x_result;
-    PMC_NUMBER_FORMAT_OPTION opt;
-    lstrcpyW(opt.GroupSeparator, group_separator);
-    lstrcpyW(opt.GroupSizes, L"3");
-    lstrcpyW(opt.DecimalSeparator, decimal_separator);
-    opt.DecimalDigits = 2;
+    PMC_NUMBER_FORMAT_INFO opt;
+    ep->UINT_ENTRY_POINTS.InitializeNumberFormatInfo(&opt);
+    lstrcpyW(opt.Number.GroupSeparator, group_separator);
+    lstrcpyW(opt.Number.DecimalSeparator, decimal_separator);
     lstrcpyW(opt.PositiveSign, positive_sign);
     lstrcpyW(opt.NegativeSign, negative_sign);
     TEST_Assert(env, FormatTestLabel(L"ParseDN1 (%d.%d)", no, 1), (x_result = ep->TryParse(str, styles, &opt, &x)) == desired_result_code, FormatTestMesssage(L"TryParseの復帰コードが期待通りではない(%d)", x_result));
@@ -59,18 +58,32 @@ void TEST_ParseDN2(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no
     static size_t actual_buf_size;
     PMC_STATUS_CODE result;
     PMC_STATUS_CODE x_result;
-    PMC_NUMBER_FORMAT_OPTION opt;
-    lstrcpyW(opt.GroupSeparator, L",");
-    lstrcpyW(opt.GroupSizes, L"3");
-    lstrcpyW(opt.DecimalSeparator, L".");
-    opt.DecimalDigits = 2;
-    lstrcpyW(opt.PositiveSign, L"+");
-    lstrcpyW(opt.NegativeSign, L"-");
+    PMC_NUMBER_FORMAT_INFO opt;
+    ep->UINT_ENTRY_POINTS.InitializeNumberFormatInfo(&opt);
     TEST_Assert(env, FormatTestLabel(L"ParseDN2 (%d.%d)", no, 1), (x_result = ep->TryParse(str, styles, &opt, &x)) == desired_result_code, FormatTestMesssage(L"TryParseの復帰コードが期待通りではない(%d)", x_result));
     if (desired_result_code == PMC_STATUS_OK)
     {
         TEST_Assert(env, FormatTestLabel(L"ParseDN2 (%d.%d)", no, 2), (result = ep->ToByteArray(x, actual_buf, sizeof(actual_buf), &actual_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
         TEST_Assert(env, FormatTestLabel(L"ParseDN2 (%d.%d)", no, 3), _EQUALS_MEMORY(actual_buf, actual_buf_size, desired_buf, desired_buf_size) == 0, L"データの内容が一致しない");
+    }
+    if (x_result == PMC_STATUS_OK)
+        ep->Dispose(x);
+}
+
+void TEST_ParseDN3(PMC_DEBUG_ENVIRONMENT *env, PMC_SINT_ENTRY_POINTS* ep, int no, wchar_t* str, unsigned int styles, PMC_STATUS_CODE desired_result_code, unsigned char* desired_buf, size_t desired_buf_size)
+{
+    PMC_HANDLE_SINT x;
+    static unsigned char actual_buf[256];
+    static size_t actual_buf_size;
+    PMC_STATUS_CODE result;
+    PMC_STATUS_CODE x_result;
+    PMC_NUMBER_FORMAT_INFO opt;
+    ep->UINT_ENTRY_POINTS.InitializeNumberFormatInfo(&opt);
+    TEST_Assert(env, FormatTestLabel(L"PMC_ParseDN3 (%d.%d)", no, 1), (x_result = ep->TryParse(str, styles, &opt, &x)) == desired_result_code, FormatTestMesssage(L"PMC_TryParseの復帰コードが期待通りではない(%d)", x_result));
+    if (desired_result_code == PMC_STATUS_OK)
+    {
+        TEST_Assert(env, FormatTestLabel(L"PMC_ParseDN3 (%d.%d)", no, 2), (result = ep->ToByteArray(x, actual_buf, sizeof(actual_buf), &actual_buf_size)) == PMC_STATUS_OK, FormatTestMesssage(L"PMC_ToByteArrayの復帰コードが期待通りではない(%d)", result));
+        TEST_Assert(env, FormatTestLabel(L"PMC_ParseDN3 (%d.%d)", no, 3), _EQUALS_MEMORY(actual_buf, actual_buf_size, desired_buf, desired_buf_size) == 0, L"データの内容が一致しない");
     }
     if (x_result == PMC_STATUS_OK)
         ep->Dispose(x);

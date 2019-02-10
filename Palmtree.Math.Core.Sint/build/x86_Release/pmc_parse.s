@@ -26,7 +26,7 @@ LFB83:
 	movl	%edx, 8(%esp)
 	movl	68(%esp), %edx
 	movl	%edx, 4(%esp)
-	call	*_ep_uint+276
+	call	*_ep_uint+280
 	.cfi_def_cfa_offset 44
 	subl	$20, %esp
 	.cfi_def_cfa_offset 64

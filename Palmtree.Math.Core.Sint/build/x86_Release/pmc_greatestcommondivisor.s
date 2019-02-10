@@ -50,7 +50,7 @@ L4:
 	popl	%edi
 	.cfi_restore 7
 	.cfi_def_cfa_offset 4
-	jmp	*_ep_uint+240
+	jmp	*_ep_uint+244
 	.p2align 4,,10
 L5:
 	.cfi_restore_state
@@ -161,7 +161,7 @@ L15:
 	popl	%ebp
 	.cfi_restore 5
 	.cfi_def_cfa_offset 4
-	jmp	*_ep_uint+244
+	jmp	*_ep_uint+248
 	.p2align 4,,10
 L16:
 	.cfi_restore_state
@@ -232,7 +232,7 @@ LFB5483:
 	popl	%edi
 	.cfi_restore 7
 	.cfi_def_cfa_offset 4
-	jmp	*_ep_uint+256
+	jmp	*_ep_uint+260
 	.p2align 4,,10
 L25:
 	.cfi_restore_state
@@ -302,7 +302,7 @@ L30:
 	popl	%edi
 	.cfi_restore 7
 	.cfi_def_cfa_offset 4
-	jmp	*_ep_uint+248
+	jmp	*_ep_uint+252
 	.p2align 4,,10
 L31:
 	.cfi_restore_state
@@ -413,7 +413,7 @@ L40:
 	popl	%ebp
 	.cfi_restore 5
 	.cfi_def_cfa_offset 4
-	jmp	*_ep_uint+252
+	jmp	*_ep_uint+256
 	.p2align 4,,10
 L41:
 	.cfi_restore_state
@@ -484,7 +484,7 @@ LFB5486:
 	popl	%edi
 	.cfi_restore 7
 	.cfi_def_cfa_offset 4
-	jmp	*_ep_uint+256
+	jmp	*_ep_uint+260
 	.p2align 4,,10
 L50:
 	.cfi_restore_state
@@ -574,7 +574,7 @@ L56:
 	popl	%edi
 	.cfi_restore 7
 	.cfi_def_cfa_offset 4
-	jmp	*_ep_uint+256
+	jmp	*_ep_uint+260
 	.p2align 4,,10
 L54:
 	.cfi_restore_state

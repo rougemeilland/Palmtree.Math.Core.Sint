@@ -70,7 +70,7 @@ L5:
 	movl	12(%ebx), %eax
 	movl	%esi, (%esp)
 	movl	%eax, 4(%esp)
-	call	*_ep_uint+220
+	call	*_ep_uint+224
 	.cfi_def_cfa_offset 36
 	movl	%ebp, %eax
 	subl	$12, %esp
@@ -189,7 +189,7 @@ L16:
 	movl	%esi, (%esp)
 	movl	%edi, 4(%esp)
 	movl	%eax, 8(%esp)
-	call	*_ep_uint+224
+	call	*_ep_uint+228
 	.cfi_def_cfa_offset 32
 	movl	%ebx, %eax
 	subl	$16, %esp
@@ -306,7 +306,7 @@ L24:
 	popl	%edi
 	.cfi_restore 7
 	.cfi_def_cfa_offset 4
-	jmp	*_ep_uint+236
+	jmp	*_ep_uint+240
 	.p2align 4,,10
 L28:
 	.cfi_restore_state
@@ -405,7 +405,7 @@ L33:
 	popl	%edi
 	.cfi_restore 7
 	.cfi_def_cfa_offset 4
-	jmp	*_ep_uint+228
+	jmp	*_ep_uint+232
 	.p2align 4,,10
 L35:
 	.cfi_restore_state
@@ -517,7 +517,7 @@ L43:
 	popl	%ebp
 	.cfi_restore 5
 	.cfi_def_cfa_offset 4
-	jmp	*_ep_uint+232
+	jmp	*_ep_uint+236
 	.p2align 4,,10
 L45:
 	.cfi_restore_state
@@ -612,7 +612,7 @@ L51:
 	popl	%edi
 	.cfi_restore 7
 	.cfi_def_cfa_offset 4
-	jmp	*_ep_uint+236
+	jmp	*_ep_uint+240
 	.p2align 4,,10
 L53:
 	.cfi_restore_state
@@ -727,7 +727,7 @@ L58:
 	popl	%edi
 	.cfi_restore 7
 	.cfi_def_cfa_offset 4
-	jmp	*_ep_uint+236
+	jmp	*_ep_uint+240
 	.p2align 4,,10
 L59:
 	.cfi_restore_state

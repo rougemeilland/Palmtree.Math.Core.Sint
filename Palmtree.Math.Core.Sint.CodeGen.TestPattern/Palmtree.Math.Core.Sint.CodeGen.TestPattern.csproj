@@ -61,6 +61,7 @@
     <Compile Include="TEST_GreatestCommonDivisor.cs" />
     <Compile Include="TEST_ParseDN2.cs" />
     <Compile Include="TEST_ParseDN1.cs" />
+    <Compile Include="TEST_ParseDN3.cs" />
     <Compile Include="TEST_Remainder.cs" />
     <Compile Include="TEST_DivRem.cs" />
     <Compile Include="TEST_Multiply.cs" />

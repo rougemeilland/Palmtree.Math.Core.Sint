@@ -91,11 +91,11 @@ extern "C" {
 
         /*
         // 文字列化
-        PMC_STATUS_CODE (__PMC_CALL * ToString)(PMC_HANDLE_SINT x, wchar_t* buffer, size_t buffer_size, char format, int width, PMC_NUMBER_FORMAT_OPTION* format_option);
+        PMC_STATUS_CODE (__PMC_CALL * ToString)(PMC_HANDLE_SINT x, wchar_t* buffer, size_t buffer_size, char format, int width, PMC_NUMBER_FORMAT_INFO* format_option);
         */
 
         // 文字列の解析
-        PMC_STATUS_CODE (__PMC_CALL * TryParse)(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_OPTION* format_option, PMC_HANDLE_SINT* o);
+        PMC_STATUS_CODE (__PMC_CALL * TryParse)(wchar_t* source, PMC_NUMBER_STYLE_CODE number_styles, PMC_NUMBER_FORMAT_INFO* format_option, PMC_HANDLE_SINT* o);
 
         // Add 関数
         PMC_STATUS_CODE(__PMC_CALL * Add_I_X)(_INT32_T u, PMC_HANDLE_SINT v, PMC_HANDLE_SINT* w);

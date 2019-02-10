@@ -89,7 +89,7 @@ PMC_SINT_Initialize:
  # 0 "" 2
 /NO_APP
 	leaq	ep_uint(%rip), %rdi
-	movl	$70, %eax
+	movl	$71, %eax
 	movq	%rdx, %rsi
 	orb	$1, 32(%rsp)
 	movq	%rax, %rcx
@@ -110,128 +110,128 @@ PMC_SINT_Initialize:
 	testl	%eax, %eax
 	jne	.L6
 	movq	.refptr.PMC_GetStatisticsInfo(%rip), %rax
-	movq	%rax, 560+entry_points(%rip)
-	movq	.refptr.PMC_From_I(%rip), %rax
 	movq	%rax, 568+entry_points(%rip)
-	movq	.refptr.PMC_From_L(%rip), %rax
+	movq	.refptr.PMC_From_I(%rip), %rax
 	movq	%rax, 576+entry_points(%rip)
-	movq	.refptr.PMC_FromByteArray(%rip), %rax
-	movq	%rax, 600+entry_points(%rip)
-	movq	.refptr.PMC_Dispose(%rip), %rax
+	movq	.refptr.PMC_From_L(%rip), %rax
 	movq	%rax, 584+entry_points(%rip)
-	movq	.refptr.PMC_To_X_I(%rip), %rax
-	movq	%rax, 624+entry_points(%rip)
-	movq	.refptr.PMC_To_X_L(%rip), %rax
-	movq	%rax, 632+entry_points(%rip)
-	movq	.refptr.PMC_ToByteArray(%rip), %rax
+	movq	.refptr.PMC_FromByteArray(%rip), %rax
 	movq	%rax, 608+entry_points(%rip)
+	movq	.refptr.PMC_Dispose(%rip), %rax
+	movq	%rax, 592+entry_points(%rip)
+	movq	.refptr.PMC_To_X_I(%rip), %rax
+	movq	%rax, 632+entry_points(%rip)
+	movq	.refptr.PMC_To_X_L(%rip), %rax
+	movq	%rax, 640+entry_points(%rip)
+	movq	.refptr.PMC_ToByteArray(%rip), %rax
+	movq	%rax, 616+entry_points(%rip)
 	movq	.refptr.PMC_TryParse(%rip), %rax
-	movq	%rax, 648+entry_points(%rip)
-	movq	.refptr.PMC_Add_I_X(%rip), %rax
 	movq	%rax, 656+entry_points(%rip)
-	movq	.refptr.PMC_Add_L_X(%rip), %rax
+	movq	.refptr.PMC_Add_I_X(%rip), %rax
 	movq	%rax, 664+entry_points(%rip)
-	movq	.refptr.PMC_Add_UX_X(%rip), %rax
+	movq	.refptr.PMC_Add_L_X(%rip), %rax
 	movq	%rax, 672+entry_points(%rip)
-	movq	.refptr.PMC_Add_X_I(%rip), %rax
+	movq	.refptr.PMC_Add_UX_X(%rip), %rax
 	movq	%rax, 680+entry_points(%rip)
-	movq	.refptr.PMC_Add_X_L(%rip), %rax
+	movq	.refptr.PMC_Add_X_I(%rip), %rax
 	movq	%rax, 688+entry_points(%rip)
-	movq	.refptr.PMC_Add_X_UX(%rip), %rax
+	movq	.refptr.PMC_Add_X_L(%rip), %rax
 	movq	%rax, 696+entry_points(%rip)
-	movq	.refptr.PMC_Add_X_X(%rip), %rax
+	movq	.refptr.PMC_Add_X_UX(%rip), %rax
 	movq	%rax, 704+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_I_X(%rip), %rax
+	movq	.refptr.PMC_Add_X_X(%rip), %rax
 	movq	%rax, 712+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_L_X(%rip), %rax
+	movq	.refptr.PMC_Subtruct_I_X(%rip), %rax
 	movq	%rax, 720+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_UX_X(%rip), %rax
+	movq	.refptr.PMC_Subtruct_L_X(%rip), %rax
 	movq	%rax, 728+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_X_I(%rip), %rax
+	movq	.refptr.PMC_Subtruct_UX_X(%rip), %rax
 	movq	%rax, 736+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_X_L(%rip), %rax
+	movq	.refptr.PMC_Subtruct_X_I(%rip), %rax
 	movq	%rax, 744+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_X_UX(%rip), %rax
+	movq	.refptr.PMC_Subtruct_X_L(%rip), %rax
 	movq	%rax, 752+entry_points(%rip)
-	movq	.refptr.PMC_Subtruct_X_X(%rip), %rax
+	movq	.refptr.PMC_Subtruct_X_UX(%rip), %rax
 	movq	%rax, 760+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_I_X(%rip), %rax
+	movq	.refptr.PMC_Subtruct_X_X(%rip), %rax
 	movq	%rax, 768+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_L_X(%rip), %rax
+	movq	.refptr.PMC_Multiply_I_X(%rip), %rax
 	movq	%rax, 776+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_UX_X(%rip), %rax
+	movq	.refptr.PMC_Multiply_L_X(%rip), %rax
 	movq	%rax, 784+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_X_I(%rip), %rax
+	movq	.refptr.PMC_Multiply_UX_X(%rip), %rax
 	movq	%rax, 792+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_X_L(%rip), %rax
+	movq	.refptr.PMC_Multiply_X_I(%rip), %rax
 	movq	%rax, 800+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_X_UX(%rip), %rax
+	movq	.refptr.PMC_Multiply_X_L(%rip), %rax
 	movq	%rax, 808+entry_points(%rip)
-	movq	.refptr.PMC_Multiply_X_X(%rip), %rax
+	movq	.refptr.PMC_Multiply_X_UX(%rip), %rax
 	movq	%rax, 816+entry_points(%rip)
-	movq	.refptr.PMC_DivRem_I_X(%rip), %rax
+	movq	.refptr.PMC_Multiply_X_X(%rip), %rax
 	movq	%rax, 824+entry_points(%rip)
-	movq	.refptr.PMC_DivRem_L_X(%rip), %rax
+	movq	.refptr.PMC_DivRem_I_X(%rip), %rax
 	movq	%rax, 832+entry_points(%rip)
-	movq	.refptr.PMC_DivRem_UX_X(%rip), %rax
+	movq	.refptr.PMC_DivRem_L_X(%rip), %rax
 	movq	%rax, 840+entry_points(%rip)
-	movq	.refptr.PMC_DivRem_X_I(%rip), %rax
+	movq	.refptr.PMC_DivRem_UX_X(%rip), %rax
 	movq	%rax, 848+entry_points(%rip)
-	movq	.refptr.PMC_DivRem_X_L(%rip), %rax
+	movq	.refptr.PMC_DivRem_X_I(%rip), %rax
 	movq	%rax, 856+entry_points(%rip)
-	movq	.refptr.PMC_DivRem_X_UX(%rip), %rax
+	movq	.refptr.PMC_DivRem_X_L(%rip), %rax
 	movq	%rax, 864+entry_points(%rip)
-	movq	.refptr.PMC_DivRem_X_X(%rip), %rax
+	movq	.refptr.PMC_DivRem_X_UX(%rip), %rax
 	movq	%rax, 872+entry_points(%rip)
-	movq	.refptr.PMC_Compare_I_X(%rip), %rax
+	movq	.refptr.PMC_DivRem_X_X(%rip), %rax
 	movq	%rax, 880+entry_points(%rip)
-	movq	.refptr.PMC_Compare_L_X(%rip), %rax
+	movq	.refptr.PMC_Compare_I_X(%rip), %rax
 	movq	%rax, 888+entry_points(%rip)
-	movq	.refptr.PMC_Compare_UX_X(%rip), %rax
+	movq	.refptr.PMC_Compare_L_X(%rip), %rax
 	movq	%rax, 896+entry_points(%rip)
-	movq	.refptr.PMC_Compare_X_I(%rip), %rax
+	movq	.refptr.PMC_Compare_UX_X(%rip), %rax
 	movq	%rax, 904+entry_points(%rip)
-	movq	.refptr.PMC_Compare_X_L(%rip), %rax
+	movq	.refptr.PMC_Compare_X_I(%rip), %rax
 	movq	%rax, 912+entry_points(%rip)
-	movq	.refptr.PMC_Compare_X_UX(%rip), %rax
+	movq	.refptr.PMC_Compare_X_L(%rip), %rax
 	movq	%rax, 920+entry_points(%rip)
-	movq	.refptr.PMC_Compare_X_X(%rip), %rax
+	movq	.refptr.PMC_Compare_X_UX(%rip), %rax
 	movq	%rax, 928+entry_points(%rip)
-	movq	.refptr.PMC_Equals_I_X(%rip), %rax
+	movq	.refptr.PMC_Compare_X_X(%rip), %rax
 	movq	%rax, 936+entry_points(%rip)
-	movq	.refptr.PMC_Equals_L_X(%rip), %rax
+	movq	.refptr.PMC_Equals_I_X(%rip), %rax
 	movq	%rax, 944+entry_points(%rip)
-	movq	.refptr.PMC_Equals_UX_X(%rip), %rax
+	movq	.refptr.PMC_Equals_L_X(%rip), %rax
 	movq	%rax, 952+entry_points(%rip)
-	movq	.refptr.PMC_Equals_X_I(%rip), %rax
+	movq	.refptr.PMC_Equals_UX_X(%rip), %rax
 	movq	%rax, 960+entry_points(%rip)
+	movq	.refptr.PMC_Equals_X_I(%rip), %rax
+	movq	%rax, 968+entry_points(%rip)
 	movq	.refptr.PMC_Equals_X_L(%rip), %rax
 	movl	$1, initialized(%rip)
-	movq	%rax, 968+entry_points(%rip)
-	movq	.refptr.PMC_Equals_X_UX(%rip), %rax
 	movq	%rax, 976+entry_points(%rip)
-	movq	.refptr.PMC_Equals_X_X(%rip), %rax
+	movq	.refptr.PMC_Equals_X_UX(%rip), %rax
 	movq	%rax, 984+entry_points(%rip)
-	movq	.refptr.PMC_GreatestCommonDivisor_I_X(%rip), %rax
+	movq	.refptr.PMC_Equals_X_X(%rip), %rax
 	movq	%rax, 992+entry_points(%rip)
-	movq	.refptr.PMC_GreatestCommonDivisor_L_X(%rip), %rax
+	movq	.refptr.PMC_GreatestCommonDivisor_I_X(%rip), %rax
 	movq	%rax, 1000+entry_points(%rip)
-	movq	.refptr.PMC_GreatestCommonDivisor_UX_X(%rip), %rax
+	movq	.refptr.PMC_GreatestCommonDivisor_L_X(%rip), %rax
 	movq	%rax, 1008+entry_points(%rip)
-	movq	.refptr.PMC_GreatestCommonDivisor_X_I(%rip), %rax
+	movq	.refptr.PMC_GreatestCommonDivisor_UX_X(%rip), %rax
 	movq	%rax, 1016+entry_points(%rip)
-	movq	.refptr.PMC_GreatestCommonDivisor_X_L(%rip), %rax
+	movq	.refptr.PMC_GreatestCommonDivisor_X_I(%rip), %rax
 	movq	%rax, 1024+entry_points(%rip)
-	movq	.refptr.PMC_GreatestCommonDivisor_X_UX(%rip), %rax
+	movq	.refptr.PMC_GreatestCommonDivisor_X_L(%rip), %rax
 	movq	%rax, 1032+entry_points(%rip)
-	movq	.refptr.PMC_GreatestCommonDivisor_X_X(%rip), %rax
+	movq	.refptr.PMC_GreatestCommonDivisor_X_UX(%rip), %rax
 	movq	%rax, 1040+entry_points(%rip)
+	movq	.refptr.PMC_GreatestCommonDivisor_X_X(%rip), %rax
+	movq	%rax, 1048+entry_points(%rip)
 	movq	.refptr.PMC_GetConstantValue_I(%rip), %rax
-	movq	%rax, 592+entry_points(%rip)
+	movq	%rax, 600+entry_points(%rip)
 	movq	.refptr.PMC_Clone_X(%rip), %rax
-	movq	%rax, 616+entry_points(%rip)
+	movq	%rax, 624+entry_points(%rip)
 	movq	.refptr.PMC_Negate_X(%rip), %rax
-	movq	%rax, 640+entry_points(%rip)
+	movq	%rax, 648+entry_points(%rip)
 	movq	%rbx, %rax
 	addq	$64, %rsp
 	popq	%rbx
@@ -273,8 +273,8 @@ PMC_SINT_Initialize:
 .lcomm initialized,4,4
 .lcomm fp_PMC_UINT_Initialize,8,8
 .lcomm hLib_UINT,8,8
-.lcomm entry_points,1048,32
-	.comm	ep_uint, 560, 5
+.lcomm entry_points,1056,32
+	.comm	ep_uint, 568, 5
 	.comm	uint_number_one, 8, 3
 	.comm	uint_number_zero, 8, 3
 	.ident	"GCC: (x86_64-win32-seh-rev0, Built by MinGW-W64 project) 8.1.0"

@@ -149,7 +149,7 @@ $LN3@SubtructU_:
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+216
+	call	DWORD PTR _ep_uint+220
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -181,7 +181,7 @@ $LN4@SubtructU_:
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+88
+	call	DWORD PTR _ep_uint+92
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -264,7 +264,7 @@ $LN9@SubtructU_:
 	push	ecx
 	mov	edx, DWORD PTR _v$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+88
+	call	DWORD PTR _ep_uint+92
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -443,7 +443,7 @@ $LN3@SubtructU_:
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+212
+	call	DWORD PTR _ep_uint+216
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -477,7 +477,7 @@ $LN4@SubtructU_:
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+84
+	call	DWORD PTR _ep_uint+88
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -562,7 +562,7 @@ $LN9@SubtructU_:
 	push	edx
 	mov	eax, DWORD PTR _v$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+76
+	call	DWORD PTR _ep_uint+80
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -767,7 +767,7 @@ $LN3@SubtructU_:
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+208
+	call	DWORD PTR _ep_uint+212
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -799,7 +799,7 @@ $LN4@SubtructU_:
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+80
+	call	DWORD PTR _ep_uint+84
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -882,7 +882,7 @@ $LN9@SubtructU_:
 	push	ecx
 	mov	edx, DWORD PTR _v$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+72
+	call	DWORD PTR _ep_uint+76
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -1084,7 +1084,7 @@ $LN3@AddU_X_X_I:
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+68
+	call	DWORD PTR _ep_uint+72
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -1241,7 +1241,7 @@ $LN3@AddU_X_L_I:
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+64
+	call	DWORD PTR _ep_uint+68
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -1396,7 +1396,7 @@ $LN3@AddU_X_I_I:
 	push	ecx
 	mov	edx, DWORD PTR _u$[ebp]
 	push	edx
-	call	DWORD PTR _ep_uint+60
+	call	DWORD PTR _ep_uint+64
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax

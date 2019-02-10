@@ -411,7 +411,7 @@ $LN7@PMC_Equals:
 	mov	eax, DWORD PTR _nu$[ebp]
 	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
-	call	DWORD PTR _ep_uint+236
+	call	DWORD PTR _ep_uint+240
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -595,7 +595,7 @@ $LN10@PMC_Equals:
 	mov	edx, DWORD PTR _nu$[ebp]
 	mov	eax, DWORD PTR [edx+12]
 	push	eax
-	call	DWORD PTR _ep_uint+236
+	call	DWORD PTR _ep_uint+240
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -760,7 +760,7 @@ $LN5@PMC_Equals:
 	mov	eax, DWORD PTR _nu$[ebp]
 	mov	ecx, DWORD PTR [eax+12]
 	push	ecx
-	call	DWORD PTR _ep_uint+232
+	call	DWORD PTR _ep_uint+236
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -945,7 +945,7 @@ $LN5@PMC_Equals:
 	mov	edx, DWORD PTR _nu$[ebp]
 	mov	eax, DWORD PTR [edx+12]
 	push	eax
-	call	DWORD PTR _ep_uint+228
+	call	DWORD PTR _ep_uint+232
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -1149,7 +1149,7 @@ $LN8@PMC_Equals:
 	push	edx
 	mov	eax, DWORD PTR _u$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+236
+	call	DWORD PTR _ep_uint+240
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -1314,7 +1314,7 @@ $LN5@PMC_Equals:
 	push	eax
 	mov	ecx, DWORD PTR _u_abs$[ebp]
 	push	ecx
-	call	DWORD PTR _ep_uint+224
+	call	DWORD PTR _ep_uint+228
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax
@@ -1500,7 +1500,7 @@ $LN5@PMC_Equals:
 	push	edx
 	mov	eax, DWORD PTR _u_abs$[ebp]
 	push	eax
-	call	DWORD PTR _ep_uint+220
+	call	DWORD PTR _ep_uint+224
 	cmp	esi, esp
 	call	__RTC_CheckEsp
 	mov	DWORD PTR _result$[ebp], eax

@@ -394,7 +394,7 @@ CompareU_X_X_Imp PROC					; COMDAT
 	lea	r8, QWORD PTR temp_w$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+432
+	call	QWORD PTR ep_uint+440
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN2@CompareU_X
@@ -506,7 +506,7 @@ CompareU_X_L_Imp PROC					; COMDAT
 	lea	r8, QWORD PTR temp_w$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+424
+	call	QWORD PTR ep_uint+432
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN2@CompareU_X
@@ -618,7 +618,7 @@ CompareU_X_I_Imp PROC					; COMDAT
 	lea	r8, QWORD PTR temp_w$[rbp]
 	mov	edx, DWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+416
+	call	QWORD PTR ep_uint+424
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN2@CompareU_X

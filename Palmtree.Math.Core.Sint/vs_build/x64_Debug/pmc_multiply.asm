@@ -499,7 +499,7 @@ $LN3@MultiplyU_:
 	lea	r8, QWORD PTR w_abs$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+216
+	call	QWORD PTR ep_uint+224
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@MultiplyU_
@@ -622,7 +622,7 @@ $LN3@MultiplyU_:
 	lea	r8, QWORD PTR w_abs$[rbp]
 	mov	rdx, QWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+208
+	call	QWORD PTR ep_uint+216
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@MultiplyU_
@@ -745,7 +745,7 @@ $LN3@MultiplyU_:
 	lea	r8, QWORD PTR w_abs$[rbp]
 	mov	edx, DWORD PTR v$[rbp]
 	mov	rcx, QWORD PTR u$[rbp]
-	call	QWORD PTR ep_uint+200
+	call	QWORD PTR ep_uint+208
 	mov	DWORD PTR result$[rbp], eax
 	cmp	DWORD PTR result$[rbp], 0
 	je	SHORT $LN4@MultiplyU_
